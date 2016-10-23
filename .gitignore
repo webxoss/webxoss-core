@@ -1,0 +1,4 @@
+node_modules
+trash
+.DS_Store
+*.sublime-*
