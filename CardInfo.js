@@ -108529,7 +108529,7 @@ var CardInfo = {
 					return (card.type === 'SIGNI') && card.hasColor('white');
 				},this);
 				return this.player.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
-					if (!card.canSummon()) return;
+					if (!card || !card.canSummon()) return;
 					return card.summonAsyn().callback(this,function () {
 						card.trashWhenTurnEnd();
 					});
@@ -109001,12 +109001,14 @@ var CardInfo = {
 			"[On-Play]: Put 1 green SIGNI from your trash onto the field. At the end of your turn, put that SIGNI from the field into the trash."
 		],
 		startUpEffects: [{
+			// 复制并修改自<博爱的使者 莎榭·弦月>
 			actionAsyn: function () {
 				var cards = this.player.trashZone.cards.filter(function (card) {
+					// 注意这里不要 card.canSummon() ，因为可以通过选择不满足的SIGNI达成空发。
 					return (card.type === 'SIGNI') && card.hasColor('green');
 				},this);
 				return this.player.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
-					if (!card.canSummon()) return;
+					if (!card || !card.canSummon()) return;
 					return card.summonAsyn();
 				});
 			}
@@ -109404,18 +109406,20 @@ var CardInfo = {
 			"【出現時能力】：あなたのトラッシュから黒のシグニ１枚を場に出す。ターン終了時に、そのシグニを場からトラッシュに置く。"
 		],
 		startUpEffectTexts_zh_CN: [
-			"【出】：从你的废弃区将1张绿色的SIGNI出场。回合结束时，将那只SIGNI放置到废弃区。"
+			"【出】：从你的废弃区将1张黑色的SIGNI出场。回合结束时，将那只SIGNI放置到废弃区。"
 		],
 		startUpEffectTexts_en: [
 			"[On-Play]: Put 1 black SIGNI from your trash onto the field. At the end of your turn, put that SIGNI from the field into the trash."
 		],
 		startUpEffects: [{
+			// 复制并修改自<博爱的使者 莎榭·弦月>
 			actionAsyn: function () {
 				var cards = this.player.trashZone.cards.filter(function (card) {
-					return (card.type === 'SIGNI') && card.hasColor('green');
+					// 注意这里不要 card.canSummon() ，因为可以通过选择不满足的SIGNI达成空发。
+					return (card.type === 'SIGNI') && card.hasColor('black');
 				},this);
 				return this.player.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
-					if (!card.canSummon()) return;
+					if (!card || !card.canSummon()) return;
 					return card.summonAsyn();
 				});
 			}
