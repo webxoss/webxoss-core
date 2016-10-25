@@ -504,7 +504,7 @@ Game.prototype.banishCardsAsyn = function (cards,force,arg) {
 					attackingSigni: attackingSigni,
 					source: banishSource
 				};
-				this.game.setData(signi.player,'flagSigniBanished',true);
+				this.setData(signi.player,'flagSigniBanished',true);
 				signi.onBanish.trigger(event);
 				signi.player.onSigniBanished.trigger(event);
 			},this);
