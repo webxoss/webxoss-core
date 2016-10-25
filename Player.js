@@ -411,6 +411,7 @@ Player.prototype.summonSigniAsyn = function () {
 
 // 玩家召唤共鸣SIGNI
 Player.prototype.summonResonaSigniAsyn = function (arg) {
+	if (!arg) arg = {};
 	var cards = this.getResonas(arg);
 	if (!cards.length) {
 		return Callback.never();

@@ -25,7 +25,10 @@ function Zone (game,player,name,args,pids) {
 	this.cards = [];
 	if (isArr(pids)) {
 		pids.forEach(function (pid) {
-			this.cards.push(new Card(game,player,this,pid));
+			var card = new Card(game,player,this,pid);
+			this.cards.push(card);
+			if (card.sideA) this.cards.push(card.sideA);
+			if (card.sideB) this.cards.push(card.sideB);
 		},this);
 	}
 

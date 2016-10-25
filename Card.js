@@ -1,6 +1,6 @@
 'use strict';
 
-function Card (game,player,zone,pid) {
+function Card (game,player,zone,pid,side) {
 	// 引用
 	this.game   = game;
 	this.player = player;
@@ -85,7 +85,16 @@ function Card (game,player,zone,pid) {
 	this.crossIcon  = !!(info.crossLeft || info.crossRight);
 	this.crossed    = null;
 
+	// 双面
+	if (side) {
+		this.sideA = info.sideA? side : null;
+		this.sideB = info.sideB? side : null;
+	} else {
+		this.sideA = info.sideA? new Card(game,player,zone,info.sideA,this) : null;
+		this.sideB = info.sideB? new Card(game,player,zone,info.sideB,this) : null;
+	}
 
+	// 杂项
 	this.effectFilters     = [];
 	this.registeredEffects = [];
 	this.charm             = null; // 魅饰卡
@@ -728,7 +737,7 @@ Card.prototype.moveTo = function (zone,arg) {
 				zone.player.signis.push(card);
 			}
 		}
-	}else if ((zone.name === 'LrigZone') && !arg.bottom) {
+	} else if ((zone.name === 'LrigZone') && !arg.bottom) {
 		// 进入 LrigZone
 		lrigChangeEvent = {
 			oldLrig: zone.player.lrig,
@@ -834,6 +843,20 @@ Card.prototype.moveTo = function (zone,arg) {
 		card.onEnterField.trigger(enterFieldEvent);
 		if (!(arg.dontTriggerStartUp || card.player.lrigStartUpBanned)) {
 			card.onStartUp.trigger(enterFieldEvent);
+		}
+	}
+	// 双面共鸣
+	var side = card.sideA || card.sideB;
+	if (side && !arg.isSide) {
+		var arg = {
+			isSide: true,
+		};
+		if (enterFieldEvent) {
+			side.moveTo(card.player.excludedZone,arg);
+		} else if (zone === card.player.lrigTrashZone) {
+			side.moveTo(zone,arg);
+		} else if (zone === card.player.lrigDeck) {
+			side.moveTo(zone,arg);
 		}
 	}
 	card.game.frameEnd();

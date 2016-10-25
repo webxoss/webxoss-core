@@ -17607,7 +17607,11 @@ var CardInfo = {
 			}
 		},{
 			condition: function () {
-				return this.player.lrigTrashZone.cards.length >= 7;
+				// 双面共鸣
+				var cards = this.player.lrigTrashZone.cards.filter(function (card) {
+					return !card.sideA;
+				},this);
+				return cards.length >= 7;
 			},
 			action: function (set,add) {
 				set(this,'doubleCrash',true);
@@ -17752,7 +17756,7 @@ var CardInfo = {
 			}
 		},{
 			condition: function () {
-				return this.player.lrigDeck.cards.length === 0;
+				return !this.player.lrigDeck.cards.length;
 			},
 			action: function (set,add) {
 				set(this,'power',18000);
@@ -107117,7 +107121,7 @@ var CardInfo = {
 		],
 		constEffects: [{
 			action: function (set,add) {
-				set(this.player.opponent,'oneArtEachTurn',effect);
+				set(this.player.opponent,'oneArtEachTurn',true);
 			}
 		}],
 		// ======================
@@ -107172,6 +107176,7 @@ var CardInfo = {
 		cid: 1768,
 		"timestamp": 1468055282143,
 		"wxid": "WX13-005B",
+		sideA: 1769,
 		name: "白羅星　ニュームーン",
 		name_zh_CN: "黑幻虫 大王具足虫【HS】",
 		name_en: "New Moon, White Natural Star",
@@ -107344,6 +107349,7 @@ var CardInfo = {
 		cid: 1769,
 		"timestamp": 1468055282847,
 		"wxid": "WX13-005A",
+		sideB: 1768,
 		name: "白羅星　フルムーン",
 		name_zh_CN: "白罗星 满月",
 		name_en: "Full Moon, White Natural Star",
@@ -107391,6 +107397,7 @@ var CardInfo = {
 			};
 			var signis = this.player.signis.filter(filter);
 			var hands = this.player.hands.filter(filter);
+			var cards_trash = [];
 			if (concat(signis,hands).length < 3) return null;
 			if (this.canSummon()) {
 				return function () {
@@ -107462,7 +107469,7 @@ var CardInfo = {
 		],
 		constEffects: [{
 			action: function (set,add) {
-				this.player.signis.forEach(function (signis) {
+				this.player.signis.forEach(function (signi) {
 					if (!signi.resona) return;
 					add(signi,'effectFilters',function (card) {
 						return (card.player === this.player) || (card.type !== 'SIGNI');
@@ -108113,6 +108120,7 @@ var CardInfo = {
 		cid: 1778,
 		"timestamp": 1468055302872,
 		"wxid": "WX13-006A",
+		sideB: 1779,
 		name: "黒幻蟲　オウグソク【ＦＡ】",
 		name_zh_CN: "黑幻虫 大王具足虫【FA】",
 		name_en: "Ougusoku, Black Phantom Insect (FA)",
@@ -108161,6 +108169,7 @@ var CardInfo = {
 			};
 			var signis = this.player.signis.filter(filter);
 			var hands = this.player.hands.filter(filter);
+			var cards_trash = [];
 			if (concat(signis,hands).length < 3) return null;
 			if (this.canSummon()) {
 				return function () {
@@ -108285,6 +108294,7 @@ var CardInfo = {
 		cid: 1779,
 		"timestamp": 1468055304948,
 		"wxid": "WX13-006B",
+		sideA: 1768,
 		name: "黒幻蟲　オウグソク【ＨＳ】",
 		name_zh_CN: "黑幻虫 大王具足虫【HS】",
 		name_en: "Ougusoku, Black Phantom Insect (HS)",
@@ -108515,11 +108525,14 @@ var CardInfo = {
 		startUpEffects: [{
 			actionAsyn: function () {
 				var cards = this.player.trashZone.cards.filter(function (card) {
+					// 注意这里不要 card.canSummon() ，因为可以通过选择不满足的SIGNI达成空发。
 					return (card.type === 'SIGNI') && card.hasColor('white');
 				},this);
 				return this.player.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
 					if (!card.canSummon()) return;
-					return card.summonAsyn();
+					return card.summonAsyn().callback(this,function () {
+						card.trashWhenTurnEnd();
+					});
 				});
 			}
 		}],
@@ -109109,6 +109122,7 @@ var CardInfo = {
 			};
 			var signis = this.player.signis.filter(filter);
 			var hands = this.player.hands.filter(filter);
+			var cards_trash = [];
 			if (concat(signis,hands).length < 3) return null;
 			if (this.canSummon()) {
 				return function () {
@@ -109855,7 +109869,7 @@ var CardInfo = {
 						});
 					}
 				});
-				add(this,'onAttackPhaseStart',effect);
+				add(this.player,'onAttackPhaseStart',effect);
 			}
 		}],
 		// ======================
