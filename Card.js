@@ -787,7 +787,8 @@ Card.prototype.moveTo = function (zone,arg) {
 			zone: zone,
 			up: arg.up,
 			faceup: zone.inhand? true : arg.faceup,
-			bottom: arg.bottom
+			bottom: arg.bottom,
+			isSide: arg.isSide
 		}
 	});
 	card.player.opponent.output({
@@ -798,7 +799,8 @@ Card.prototype.moveTo = function (zone,arg) {
 			zone: zone,
 			up: arg.up,
 			faceup: arg.faceup,
-			bottom: arg.bottom
+			bottom: arg.bottom,
+			isSide: arg.isSide
 		}
 	});
 
