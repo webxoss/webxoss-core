@@ -109009,7 +109009,9 @@ var CardInfo = {
 				},this);
 				return this.player.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
 					if (!card || !card.canSummon()) return;
-					return card.summonAsyn();
+					return card.summonAsyn().callback(this,function () {
+						card.trashWhenTurnEnd();
+					});
 				});
 			}
 		}],
@@ -109420,7 +109422,9 @@ var CardInfo = {
 				},this);
 				return this.player.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
 					if (!card || !card.canSummon()) return;
-					return card.summonAsyn();
+					return card.summonAsyn().callback(this,function () {
+						card.trashWhenTurnEnd();
+					});
 				});
 			}
 		}],
