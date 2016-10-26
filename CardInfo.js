@@ -106841,7 +106841,7 @@ var CardInfo = {
 						});
 					}
 				});
-				add(this.player,'onUseArts',effect);
+				add(this.player.opponent,'onUseArts',effect);
 			}
 		}],
 	},
@@ -107783,7 +107783,7 @@ var CardInfo = {
 		startUpEffects: [{
 			costRed: 1,
 			actionAsyn: function () {
-				var cards = this.player.enerZone.cards;
+				var cards = this.player.opponent.enerZone.cards;
 				return this.player.selectSomeAsyn('TRASH',cards).callback(this,function (cards) {
 					this.game.trashCards(cards);
 				});
@@ -108771,7 +108771,7 @@ var CardInfo = {
 				if (!signis.length) return;
 				return this.player.selectAsyn('BANISH',signis).callback(this,function (card) {
 					if (!card) return;
-					var cards = concat(this,player.signis,this.player.opponent.signis).filter(function (signi) {
+					var cards = concat(this.player.signis,this.player.opponent.signis).filter(function (signi) {
 						return (signi !== card) && (signi.power === card.power);
 					},this)
 					if (cards.length < 2) return;
@@ -110107,7 +110107,7 @@ var CardInfo = {
 			"【※】：あなたのトラッシュから《クロス》を持つシグニを２枚まで手札に加える。"
 		],
 		burstEffectTexts_zh_CN: [
-			"【※】：从你的手牌将至多2张持有【CROSS】的SIGNI加入手牌。"
+			"【※】：从你的废弃区将至多2张持有【CROSS】的SIGNI加入手牌。"
 		],
 		burstEffectTexts_en: [
 			"【※】：Add up to 2 SIGNI with >Cross< from your trash to your hand."
