@@ -14114,17 +14114,14 @@ var CardInfo = {
 			"Add 1 SIGNI from your trash to your hand."
 		],
 		spellEffect : {
-			actionAsyn: function () {
-				var cards = this.player.trashZone.cards.filter(function (card) {
+			getTargets: function () {
+				return this.player.trashZone.cards.filter(function (card) {
 					return (card.type === 'SIGNI');
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-					var cards = card? [card] : [];
-					return this.player.opponent.showCardsAsyn(cards).callback(this,function () {
-						if (!card) return;
-						card.moveTo(this.player.handZone);
-					});
-				});
+			},
+			targetCovered: true,
+			actionAsyn: function (target) {
+				target.moveTo(this.player.handZone);
 			}
 		},
 		// ======================
@@ -19324,17 +19321,14 @@ var CardInfo = {
 			"Add one <Devil> SIGNI from your trash to your hand."
 		],
 		spellEffect : {
-			actionAsyn: function () {
-				var cards = this.player.trashZone.cards.filter(function (card) {
+			targets: function () {
+				return this.player.trashZone.cards.filter(function (card) {
 					return (card.type === 'SIGNI') && card.hasClass('悪魔');
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-					var cards = card? [card] : [];
-					return this.player.opponent.showCardsAsyn(cards).callback(this,function () {
-						if (!card) return;
-						card.moveTo(this.player.handZone);
-					});
-				});
+			},
+			targetCovered: true,
+			actionAsyn: function (target) {
+				target.moveTo(this.player.handZone);
 			}
 		},
 		// ======================
@@ -70531,22 +70525,36 @@ var CardInfo = {
 			return obj;
 		},
 		spellEffect: {
-			actionAsyn: function () {
+			getTargetAdvancedAsyn() {
+				var targets = [];
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return signi.level < this.player.lrig.level;
 				},this);
 				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-					if (!card) return;
-					return card.trashAsyn();
-				}).callback(this,function () {
-					var cards = this.player.trashZone.cards.filter(function (card) {
-						return (card.type === 'SIGNI') && (card.level < this.player.lrig.level) && card.canSummon();
+					targets.push(card);
+					cards = this.player.trashZone.cards.filter(function (card) {
+						return (card.level < this.player.lrig.level) && card.canSummon();
 					},this);
 					return this.player.selectOptionalAsyn('TARGET',cards).callback(this,function (card) {
-						if (!card) return;
-						return card.summonAsyn();
+						targets.push(card);
+						if (card) return this.player.opponent.showCardsAsyn([card]);
 					});
+				}).callback(this,function () {
+					return targets;
 				});
+			},
+			actionAsyn: function (targets) {
+				var target = targets[0];
+				var cards = this.player.opponent.signis.filter(function (signi) {
+					return signi.level < this.player.lrig.level;
+				},this);
+				if (target) {
+					if (!inArr(target,cards)) return;
+					target.trash();
+				}
+				target = targets[1];
+				if (!target) return;
+				return target.summonAsyn();
 			}
 		}
 	},
@@ -79226,16 +79234,14 @@ var CardInfo = {
 			"Add 1 black SIGNI from your trash to your hand."
 		],
 		spellEffect: {
-			actionAsyn: function () {
-				var cards = this.player.trashZone.cards.filter(function (card) {
+			getTargets: function () {
+				return this.player.trashZone.cards.filter(function (card) {
 					return (card.type === 'SIGNI') && (card.hasColor('black'));
 				},this);
-				return this.player.selectOptionalAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
-					if (!card) return;
-					return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
-						card.moveTo(card.player.handZone);
-					});
-				});
+			},
+			targetCovered: true,
+			actionAsyn: function (target) {
+				target.moveTo(card.player.handZone);
 			}
 		},
 		// ======================
@@ -81641,15 +81647,16 @@ var CardInfo = {
 			return obj;
 		},
 		spellEffect: [{
-			actionAsyn: function () {
+			getTargetAdvancedAsyn: function () {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return (card.type === 'SIGNI') && (card.name.indexOf('サーバント') !== -1);
 				},this);
 				return this.player.selectSomeAsyn('ADD_TO_HAND',cards,0,2).callback(this,function (cards) {
-					return this.player.opponent.showCardsAsyn(cards).callback(this,function () {
-						this.game.moveCards(cards,this.player.handZone);
-					});
+					return this.player.opponent.showCardsAsyn(cards);
 				});
+			},
+			actionAsyn: function (targets) {
+				this.game.moveCards(targets,this.player.handZone);
 			}
 		},{
 			actionAsyn: function () {

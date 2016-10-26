@@ -549,6 +549,15 @@ Player.prototype.handleSpellAsyn = function (card,ignoreCost,costObj) {
 		card.activate();
 		if (effect.getTargets) {
 			// 简单的取对象,即从目标卡片中选一张. (也可以不选,空发)
+			if (effect.targetCovered) {
+				// 从废弃区等[卡片可能被覆盖的区域]取对象
+				return this.selectOptionalAsyn('TARGET',effect.getTargets.call(card)).callback(this,function (card) {
+					if (!card) return card;
+					return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
+						return card;
+					});
+				});
+			}
 			return this.selectTargetOptionalAsyn(effect.getTargets.call(card));
 		}
 		if (effect.getTargetAdvancedAsyn) {
@@ -1069,7 +1078,7 @@ Player.prototype.showCardsAsyn = function (cards,label) {
 	return new Callback(function (callback) {
 		player.listen('OK',function (input) {
 			return function () {
-				callback();
+				callback(cards);
 			};
 		});
 	});
