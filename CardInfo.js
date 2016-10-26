@@ -107300,7 +107300,7 @@ var CardInfo = {
 			actionAsyn: function () {
 				var flag = this.player.opponent.checkZone.cards.length;
 				if (!flag) return;
-				var effect = [{
+				var effects = [{
 					source: this,
 					description: '1768-attach-0',
 					actionAsyn: function () {
@@ -107671,6 +107671,7 @@ var CardInfo = {
 							this.game.addConstEffect({
 								source: this,
 								destroyTimming: this.player.onTurnStart,
+								fixed: true,
 								action: function (set,add) {
 									var actionEffect = {
 										source: this.player.lrig,
