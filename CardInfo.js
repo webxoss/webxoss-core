@@ -108758,7 +108758,7 @@ var CardInfo = {
 			actionAsyn: function () {
 				var signis = [];
 				var signisMap = {};
-				concat(this,player.signis,this.player.opponent.signis).forEach(function (signi) {
+				concat(this.player.signis,this.player.opponent.signis).forEach(function (signi) {
 					var power = signi.power;
 					if (!signisMap[power]) signisMap[power] = [];
 					signisMap[power].push(signi);
