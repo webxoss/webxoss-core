@@ -110547,7 +110547,7 @@ var CardInfo = {
 		"timestamp": 1468056353045,
 		"wxid": "WX13-037",
 		name: "幻蟲　スカラベ",
-		name_zh_CN: "幻虫  圣甲虫",
+		name_zh_CN: "幻虫 圣甲虫",
 		name_en: "Scarab, Phantom Insect",
 		"kana": "ゲンチュウスカラベ",
 		"rarity": "SR",

@@ -1923,11 +1923,11 @@ Player.prototype.selectByFilterAsyn = function (filter,cards) {
 };
 
 Player.prototype.selectOpponentSigniAsyn = function (filter) {
-	this.selectByFilterAsyn(filter,this.opponent.signis);
+	return this.selectByFilterAsyn(filter,this.opponent.signis);
 };
 
 Player.prototype.selectSelfSigniAsyn = function (filter) {
-	this.selectByFilterAsyn(filter,this.signis);
+	return this.selectByFilterAsyn(filter,this.signis);
 };
 
 Player.prototype.searchAsyn = function (filter,max,min,dontShow) {
