@@ -107440,6 +107440,8 @@ var CardInfo = {
 								return this.player.selectSomeAsyn('TRASH',hands,count,count).callback(this,function (cards) {
 									cards_trash = cards_trash.concat(cards);
 								});
+							}).callback(this,function () {
+								return this.game.trashCardsAsyn(cards_trash);
 							});
 						})
 					}.bind(this);
@@ -108213,6 +108215,8 @@ var CardInfo = {
 								return this.player.selectSomeAsyn('TRASH',hands,count,count).callback(this,function (cards) {
 									cards_trash = cards_trash.concat(cards);
 								});
+							}).callback(this,function () {
+								return this.game.trashCardsAsyn(cards_trash);
 							});
 						})
 					}.bind(this);
@@ -108254,7 +108258,7 @@ var CardInfo = {
 			action: function (set,add) {
 				this.player.opponent.signis.forEach(function (signi) {
 					if (signi.charm) {
-						add(this,signi,'power',-5000);
+						add(signi,'power',-5000);
 					}
 				},this);
 			}
@@ -108267,7 +108271,7 @@ var CardInfo = {
 						var filter = function (card) {
 							return card.hasClass('凶蟲');
 						};
-						return this.pickCardAsyn(filter,0,2);
+						return this.player.pickCardAsyn(filter,0,2);
 					}
 				});
 				add(this,'onLeaveField',effect);
@@ -108292,7 +108296,7 @@ var CardInfo = {
 					if (signi.charm) {
 						this.game.tillTurnEndAdd(this,signi,'power',-10000);
 					}
-				});
+				},this);
 				this.game.frameEnd();
 			}
 		}],
@@ -108302,7 +108306,7 @@ var CardInfo = {
 		cid: 1779,
 		"timestamp": 1468055304948,
 		"wxid": "WX13-006B",
-		sideA: 1768,
+		sideA: 1778,
 		name: "黒幻蟲　オウグソク【ＨＳ】",
 		name_zh_CN: "黑幻虫 大王具足虫【HS】",
 		name_en: "Ougusoku, Black Phantom Insect (HS)",
@@ -109170,6 +109174,8 @@ var CardInfo = {
 								return this.player.selectSomeAsyn('TRASH',hands,count,count).callback(this,function (cards) {
 									cards_trash = cards_trash.concat(cards);
 								});
+							}).callback(this,function () {
+								return this.game.trashCardsAsyn(cards_trash);
 							});
 						})
 					}.bind(this);
