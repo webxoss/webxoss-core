@@ -109074,6 +109074,10 @@ var CardInfo = {
 			"Encore - [Green] [Colorless] (You may use this card by paying its additional encore cost. If you do, this additionally gets \"Return this card to the LRIG Deck.\")\n" +
 			"Until end of turn, 1 SIGNI gets +4000 power."
 		],
+		encore: {
+			costGreen: 1,
+			costColorless: 1,
+		},
 		artsEffect: {
 			actionAsyn: function () {
 				var cards = concat(this.player.signis,this.player.opponent.signis)
@@ -110252,16 +110256,16 @@ var CardInfo = {
 			}
 		},{
 			action: function (set,add) {
-				var effect = this.game.newEffect({
-					source: this,
-					description: '1805-attached-0',
-					actionAsyn: function () {
-						return this.banishSigniAsyn(this.power);
-					}
-				});
 				this.player.signis.forEach(function (signi) {
+					var effect = this.game.newEffect({
+						source: signi,
+						description: '1805-attached-0',
+						actionAsyn: function (event) {
+							return this.banishSigniAsyn(this.power);
+						}
+					});
 					add(signi,'onAttack',effect);
-				});
+				},this);
 			}
 		}],
 		// ======================
@@ -111575,7 +111579,6 @@ var CardInfo = {
 		"illust": "7010",
 		"classes": [
 			"精生",
-			"精生",
 			"空獣"
 		],
 		"costWhite": 0,
@@ -111599,7 +111602,7 @@ var CardInfo = {
 		],
 		constEffectTexts_zh_CN: [
 			"【常】：你的废弃区中每存在1张＜空兽＞和＜地兽＞SIGNI，这只SIGNI的力量就+1000。这个效果至多适用10张。",
-			"【常】：只要你的废弃区中存在7张以上的＜空獣＞SIGNI，这只SIGNI就不受对战对手的技艺效果影响。",
+			"【常】：只要你的废弃区中存在7张以上的＜空兽＞SIGNI，这只SIGNI就不受对战对手的技艺效果影响。",
 			"【常】：只要你的废弃区中存在7张以上的＜地兽＞SIGNI，这只SIGNI就获得【枪兵】。"
 		],
 		constEffectTexts_en: [
@@ -113579,7 +113582,7 @@ var CardInfo = {
 			"[On-Play] Green: Search your deck for 1 \"Yurikamome, Phantom Beast\", reveal it, and add it to your hand. Then, shuffle your deck."
 		],
 		startUpEffects: [{
-			costWhite: 1,
+			costGreen: 1,
 			actionAsyn: function () {
 				var filter = function (card) {
 					return card.cid === 1845;
@@ -113876,7 +113879,7 @@ var CardInfo = {
 			"[On-Play] [Green]: Search your deck for 1 \"Uguisu, Phantom Beast\", reveal it, and add it to your hand. Then, shuffle your deck."
 		],
 		startUpEffects: [{
-			costWhite: 1,
+			costGreen: 1,
 			actionAsyn: function () {
 				var filter = function (card) {
 					return card.cid === 1847;
@@ -114868,7 +114871,7 @@ var CardInfo = {
 			action: function (set,add) {
 				var effect = this.game.newEffect({
 					source: this,
-					description: '1870-const-0',
+					description: '1870-const-2',
 					once: true,
 					actionAsyn: function () {
 						this.player.enerCharge(1);
