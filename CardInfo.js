@@ -105030,7 +105030,7 @@ var CardInfo = {
 						this.game.tillTurnEndSet(this,this,'power',12000);
 						var effect = this.game.newEffect({
 							source: this,
-							description: '1719-attach-0',
+							description: '1719-attached-0',
 							actionAsyn: function () {
 								this.player.draw(1);
 							}
@@ -107309,7 +107309,7 @@ var CardInfo = {
 				if (!flag) return;
 				var effects = [{
 					source: this,
-					description: '1768-attach-0',
+					description: '1768-attached-0',
 					actionAsyn: function () {
 						var cards = this.player.opponent.trashZone.cards.filter(function (card) {
 							return (card.type === 'SIGNI');
@@ -107323,7 +107323,7 @@ var CardInfo = {
 					}
 				},{
 					source: this,
-					description: '1768-attach-1',
+					description: '1768-attached-1',
 					actionAsyn: function () {
 						this.game.tillTurnEndSet(this.player.opponent,'spellBanned',true);
 					}
@@ -107684,7 +107684,7 @@ var CardInfo = {
 								action: function (set,add) {
 									var actionEffect = {
 										source: this.player.lrig,
-										description: '1773-attach-0',
+										description: '1773-attached-0',
 										attackPhase: true,
 										once: true,
 										actionAsyn: function () {
@@ -108359,7 +108359,7 @@ var CardInfo = {
 				return function () {
 					if (!signis.length) {
 						return this.player.selectSomeAsyn('TRASH',hands,2,2).callback(this,function (cards) {
-							return this.game.trashCardsAsyn();
+							return this.game.trashCardsAsyn(cards);
 						});
 					}
 					var min = Math.max(0,2 - hands.length);
@@ -108417,7 +108417,7 @@ var CardInfo = {
 				if (!this.player.opponent.checkZone.cards.length) return;
 				var effects = [{
 					source: this,
-					description: '1779-attach-0',
+					description: '1779-attached-0',
 					actionAsyn: function () {
 						var cards = this.player.opponent.trashZone.cards.filter(function (card) {
 							return (card.type === 'SPELL');
@@ -108428,7 +108428,7 @@ var CardInfo = {
 					}
 				},{
 					source: this,
-					description: '1779-attach-1',
+					description: '1779-attached-1',
 					actionAsyn: function () {
 						var filter = function (card) {
 							return card.hasClass('凶蟲') && (card.level <= 3);
@@ -109862,25 +109862,25 @@ var CardInfo = {
 					actionAsyn: function () {
 						var effects = [{
 							source: this,
-							description: '1801-attach-0',
+							description: '1801-attached-0',
 							actionAsyn: function () {
 								this.game.tillTurnEndSet(this,this.player,'canNotBeBanished',true);
 							}
 						},{
 							source: this,
-							description: '1801-attach-1',
+							description: '1801-attached-1',
 							actionAsyn: function () {
 								this.game.tillTurnEndSet(this,this.player,'canNotBeBounced',true);
 							}
 						},{
 							source: this,
-							description: '1801-attach-2',
+							description: '1801-attached-2',
 							actionAsyn: function () {
 								this.game.tillTurnEndSet(this,this.player,'canNotGainAbility',true);
 							}
 						},{
 							source: this,
-							description: '1801-attach-3',
+							description: '1801-attached-3',
 							actionAsyn: function () {
 								this.game.tillTurnEndSet(this,this.player,'canNotBeDownedByOpponentEffect',true);
 							}
@@ -110254,7 +110254,7 @@ var CardInfo = {
 			action: function (set,add) {
 				var effect = this.game.newEffect({
 					source: this,
-					description: '1805-attach-0',
+					description: '1805-attached-0',
 					actionAsyn: function () {
 						return this.banishSigniAsyn(this.power);
 					}
@@ -112001,7 +112001,7 @@ var CardInfo = {
 			action: function (set,add) {
 				var effect = {
 					source: this,
-					description: '1826-attach-0',
+					description: '1826-attached-0',
 					costDown: true,
 					actionAsyn: function () {
 						this.game.tillTurnEndAdd(this,this.player,'_DreiDioDaughter',1);
