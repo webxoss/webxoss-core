@@ -110464,14 +110464,15 @@ var CardInfo = {
 					source: this,
 					description: '1807-const-0',
 					triggerCondition: function (event) {
-						return (event.power < event.oldPower);
+						if (event.oldPower <= event.power) return false;
+						var source = this.game.getEffectSource();
+						if (!source) return false;
+						if (source.player !== this.player) return false;
+						return true;
 					},
 					actionAsyn: function (event) {
-						var value = event.power - event.oldPower;
-						return this.player.selectOptionalAsyn('LAUNCH',[this]).callback(this,function (card) {
-							if (!card) return;
-							this.game.tillTurnEndAdd(this,this,'power',value);
-						});
+						var value = event.oldPower - event.power;
+						this.game.tillTurnEndAdd(this,this,'power',value);
 					}
 				});
 				this.player.opponent.signis.forEach(function (signi) {
@@ -110523,9 +110524,9 @@ var CardInfo = {
 			actionAsyn: function () {
 				return this.player.opponent.discardAsyn(1).callback(this,function () {
 					var cards = this.player.opponent.signis;
-					return this.player.opponent.selectAsyn('BANISH',cards).callback(this,function (card) {
+					return this.player.opponent.selectAsyn('TRASH',cards).callback(this,function (card) {
 						if (!card) return;
-						return card.banishAsyn();
+						return card.trashAsyn();
 					});
 				});
 			}
@@ -112053,7 +112054,7 @@ var CardInfo = {
 				if (flag) {
 					this.game.frameStart();
 					cards.forEach(function (card) {
-						this.game.tillTurnEndAdd(card,'power',value);
+						this.game.tillTurnEndAdd(this,card,'power',value);
 					},this);
 					this.game.frameEnd();
 					return;
