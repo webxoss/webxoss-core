@@ -61032,7 +61032,7 @@ var CardInfo = {
 					return this.player.selectOptionalAsyn('TARGET',cards_add).callback(this,function (card) {
 						if (!card) return;
 						removeFromArr(card,cards);
-						var texts = ['ADD_TO_HAND','ADD_TO_ENER_ZONE']
+						var texts = ['ADD_TO_HAND','PUT_TO_ENER_ZONE']
 						return this.player.selectTextAsyn('CHOOSE_EFFECT',texts).callback(this,function (text) {
 							if (text === 'ADD_TO_HAND') {
 								return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
@@ -109253,7 +109253,7 @@ var CardInfo = {
 						if (!card) return;
 						removeFromArr(card,cards);
 						card.moveTo(this.player.handZone);
-						return this.player.selectAsyn('ADD_TO_ENER_ZONE',cards).callback(this,function (card) {
+						return this.player.selectAsyn('PUT_TO_ENER_ZONE',cards).callback(this,function (card) {
 							if (!card) return;
 							removeFromArr(card,cards);
 							card.moveTo(this.player.enerZone);
@@ -110393,7 +110393,7 @@ var CardInfo = {
 				this.player.informCards(cards);
 				return this.player.selectAsyn('TARGET',cards).callback(this,function (card) {
 					if (!card) return;
-					return this.player.selectTextAsyn(['ADD_TO_HAND','ADD_TO_ENER_ZONE']).callback(this,function (text) {
+					return this.player.selectTextAsyn('CHOOSE_EFFECT',['ADD_TO_HAND','PUT_TO_ENER_ZONE']).callback(this,function (text) {
 						if (text === 'ADD_TO_HAND') {
 							card.moveTo(this.player.handZone);
 						} else {
@@ -110401,7 +110401,7 @@ var CardInfo = {
 						}
 						removeFromArr(card,cards);
 						if (!cards.length) return;
-						return this.player.selectTextAsyn(['PUT_TO_TOP','PUT_TO_BOTTOM']).callback(this,function (text) {
+						return this.player.selectTextAsyn('CHOOSE_EFFECT',['PUT_TO_TOP','PUT_TO_BOTTOM']).callback(this,function (text) {
 							if (text === 'PUT_TO_TOP') {
 								return;
 							} else {
@@ -111706,7 +111706,7 @@ var CardInfo = {
 										cards_deck.push(card);
 									}
 								});
-								this.game.moveCards(cards,this.player.enerZone);
+								this.game.moveCards(cards_add,this.player.enerZone);
 								var len = cards_deck.length;
 								if (!len) return;
 								return this.player.selectSomeAsyn('SET_ORDER',cards_deck,len,len,true).callback(this,function (cards_deck) {
@@ -113712,7 +113712,7 @@ var CardInfo = {
 							this.player.mainDeck.moveCardsToTop(cards_deck);
 
 							cards = cards.filter(function (card) {
-								return !inArr(cards_deck);
+								return !inArr(card,cards_deck);
 							},this);
 							len = cards.length;
 							if (!len) return;
@@ -113802,7 +113802,7 @@ var CardInfo = {
 							this.player.mainDeck.moveCardsToTop(cards_deck);
 
 							cards = cards.filter(function (card) {
-								return !inArr(cards_deck);
+								return !inArr(card,cards_deck);
 							},this);
 							len = cards.length;
 							if (!len) return;
