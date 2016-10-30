@@ -712,8 +712,6 @@ Card.prototype.moveTo = function (zone,arg) {
 			charm = card.charm;
 			card.charm = null;
 			removeFromArr(card,card.player.signis);
-			// CROSS
-			card.player.setCrossPair();
 		} else {
 			// 是 SIGNI 下方的卡,比如魅饰卡
 			// 处理魅饰卡
@@ -763,7 +761,7 @@ Card.prototype.moveTo = function (zone,arg) {
 	card.zone = zone;
 
 	// CROSS
-	if (enterFieldEvent) {
+	if (enterFieldEvent || leaveFieldEvent) {
 		card.player.setCrossPair();
 	}
 

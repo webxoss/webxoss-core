@@ -106928,7 +106928,7 @@ var CardInfo = {
 			"【起動能力】あなたのトラッシュにある《千夜の夜王　イフリード》４枚をゲームから除外する：ターン終了時まで、対戦相手のシグニ１体のパワーを－15000する。この能力は使用タイミング【アタックフェイズ】を持ち、このカードがトラッシュにある場合にしか使用できない。"
 		],
 		actionEffectTexts_zh_CN: [
-			"【起】从你的废弃区将4张《千夜の夜王　イフリード》除外：直到回合结束为止，对战对手的1只SIGNI力量-15000。这个能力持有使用时点【攻击阶段】，只有在这张卡在废弃区的场合才能使用。"
+			"【起】从你的废弃区将4张《千夜的夜王 伊夫莉朵》除外：直到回合结束为止，对战对手的1只SIGNI力量-15000。这个能力持有使用时点【攻击阶段】，只有在这张卡在废弃区的场合才能使用。"
 		],
 		actionEffectTexts_en: [
 			"[Action] Exclude 4 \"Ifrid, Night King of a Thousand Nights\" in your trash from the game: Until end of turn, 1 of your opponent's SIGNI gets −15000 power. This ability has Use Timing [Attack Phase], and can only be used while this card is in the trash."
@@ -110071,8 +110071,8 @@ var CardInfo = {
 		cardText: "オーライ！主砲発射！！～グスタフト～",
 		cardText_zh_CN: "",
 		cardText_en: "",
-		crossLeft: 1814,
-		crossRight: 1815,
+		crossLeft: 1815,
+		crossRight: 1814,
 		// ======================
 		//        常时效果       
 		// ======================

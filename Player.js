@@ -2143,16 +2143,16 @@ Player.prototype.setCrossPair = function () {
 	}
 	// 3 CROSS
 	if (card.crossLeft && card.crossRight) {
-		if (!checkMatch(this.signiZones[0],card.crossLeft)) return;
-		if (!checkMatch(this.signiZones[1],card.crossRight)) return;
+		if (!checkMatch(this.signiZones[0],card.crossRight)) return;
+		if (!checkMatch(this.signiZones[2],card.crossLeft)) return;
 		this.crossed = this.signis.slice();
 		this.signis.forEach(function (signi) {
-			signi.corssed = this.signis.slice();
+			signi.crossed = this.signis.slice();
 		},this);
 		return;
 	}
 	// 2 CROSS
-	var zone = card.crossLeft? this.signiZones[0] : this.signiZones[1];
+	var zone = card.crossRight? this.signiZones[0] : this.signiZones[2];
 	var pair = checkMatch(zone,card.crossLeft || card.crossRight);
 	if (!pair) return;
 	this.crossed = [card,pair];
