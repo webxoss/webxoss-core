@@ -108482,7 +108482,8 @@ var CardInfo = {
 		"imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX13/WX13-008.jpg",
 		"illust": "鈴木マナツ",
 		"classes": [
-			"リメンバ／ピルルク"
+			"リメンバ",
+			"ピルルク"
 		],
 		"costWhite": 1,
 		"costBlack": 0,
@@ -110718,9 +110719,6 @@ var CardInfo = {
 			"[Constant]: When this SIGNI attacks, return 1 of your opponent's frozen SIGNI to their hand."
 		],
 		constEffects: [{
-			condition: function () {
-				
-			},
 			action: function (set,add) {
 				var effect = this.game.newEffect({
 					source: this,
@@ -110818,21 +110816,16 @@ var CardInfo = {
 			action: function (set,add) {
 				var effect = this.game.newEffect({
 					source: this,
-					description: '1810-const-1',
+					description: '1810-const-0',
 					costWhite: 1,
 					costAsyn: function () {
 						this.exclude();
-						var cards = this.player.trashZone.cards;
-						return this.player.selectAsyn('TARGET',cards).callback(this,function (card) {
-							if (!card) return;
-							card.exclude();
-						});
 					},
 					triggerCondition: function (event) {
 						return inArr(event.card,this.player.opponent.signis);
 					},
 					actionAsyn: function () {
-						return this.player.opponent.showEffectsAsyn([effect]).callback(this,function () {
+						return this.player.opponent.showCardsAsyn([this]).callback(this,function () {
 							return this.player.selectOpponentSigniAsyn().callback(this,function (card) {
 								if (!card) return;
 								return card.bounceAsyn();
@@ -115021,7 +115014,7 @@ var CardInfo = {
 		costChange: function () {
 			var obj = Object.create(this);
 			obj.costChange = null;
-			var cards = this.player.signis.filter(function (signi) {
+			var cards = this.player.opponent.signis.filter(function (signi) {
 				return !signi.hasAbility();
 			},this);
 			obj.costWhite -= cards.length;
