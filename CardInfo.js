@@ -106909,11 +106909,13 @@ var CardInfo = {
 						       (event.newZone === this.player.trashZone);
 					},
 					actionAsyn: function () {
-						return this.player.opponent.showCardsAsyn([this]).callback(this,function () {
-							var cards = this.player.opponent.signis;
-							return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-								if (!card) return;
-								this.game.tillTurnEndAdd(this,card,'power',-2000);
+						return this.player.showCardsAsyn([this]).callback(this,function () {
+							return this.player.opponent.showCardsAsyn([this]).callback(this,function () {
+								var cards = this.player.opponent.signis;
+								return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+									if (!card) return;
+									this.game.tillTurnEndAdd(this,card,'power',-2000);
+								});
 							});
 						});
 					}
