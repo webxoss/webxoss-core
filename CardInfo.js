@@ -70525,7 +70525,7 @@ var CardInfo = {
 			return obj;
 		},
 		spellEffect: {
-			getTargetAdvancedAsyn() {
+			getTargetAdvancedAsyn: function() {
 				var targets = [];
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return signi.level < this.player.lrig.level;
