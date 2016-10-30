@@ -831,11 +831,16 @@ Card.prototype.moveTo = function (zone,arg) {
 		// card.player.onSignisChange.trigger();
 		card.onLeaveField.trigger(leaveFieldEvent);
 		card.player.onSigniLeaveField.trigger(leaveFieldEvent);
-		// SIGNI 离场时,下面的卡送入废弃区
-		if (leaveFieldEvent.oldZone.cards.length) {
-			if (charm) charm.trash({isCharm: true});
-			this.game.trashCards(leaveFieldEvent.oldZone.cards);
-		}
+		// SIGNI 离场时,下面的卡送入废弃区，
+		// 此处理在块结束时执行。
+		// http://www.takaratomy.co.jp/products/wixoss/rule/rule_rulechange/151211/index.html
+		leaveFieldEvent.oldZone.cards.forEach(function (card) {
+			if (card === charm) {
+				card.game.trashingCharms.push(card);
+			} else {
+				card.game.trashingCards.push(card);
+			}
+		},this);
 	} else if (lrigChangeEvent) {
 		// card.player.onLrigChange.trigger(lrigChangeEvent);
 		var oldLrig = lrigChangeEvent.oldLrig;

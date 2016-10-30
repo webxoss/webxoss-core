@@ -22,6 +22,8 @@ function Game (cfg) {
 	this.hostMsgObjs = [];
 	this.guestMsgObjs = [];
 	this.dataObj = {}; // 储存游戏对象(card,player 等)绑定的数据,回合结束时清空
+	this.trashingCards = [];
+	this.trashingCharms = [];
 
 	// 注册
 	this.register(this);
@@ -905,6 +907,11 @@ Game.prototype.handleBlockEndAsyn = function () {
 		this.frameEnd();
 		return this.banishNonPositiveAsyn();
 	}).callback(this,function () {
+		// 废弃【魅饰】和SIGNI下方的卡
+		this.trashCards(this.trashingCharms,{ isCharm: true });
+		this.trashCards(this.trashingCards);
+		this.trashingCharms.length = 0;
+		this.trashingCards.length = 0;
 		return this.rebuildAsyn();
 	}).callback(this,function () {
 		return this.effectManager.handleEffectsAsyn();
