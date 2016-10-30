@@ -108598,7 +108598,7 @@ var CardInfo = {
 			"从你的卡组中探寻1张白色的SIGNI公开并加入手牌。之后洗切牌组。。"
 		],
 		artsEffectTexts_en: [
-			"Encore - White (You may use this card by paying its additional encore cost. If you do, this additionally gets \"Return this card to the LRIG Deck.\")\n" + 
+			"Encore - [White] (You may use this card by paying its additional encore cost. If you do, this additionally gets \"Return this card to the LRIG Deck.\")\n" + 
 			"Search your deck for 1 white SIGNI, reveal it, and add it to your hand. Shuffle your deck afterwards."
 		],
 		encore: {
@@ -112401,14 +112401,12 @@ var CardInfo = {
 			"[On-Play]: If you have 3 SIGNI with \"Bow\" in their names on the field, return 1 of your opponent's level 2 or less SIGNI to their hand."
 		],
 		startUpEffects: [{
-			condition: function () {
+			actionAsyn: function () {
 				var cards = this.player.signis.filter(function (signi) {
 					return (signi.name.indexOf('弓') !== -1);
 				},this);
-				return (cards.length === 3);
-			},
-			actionAsyn: function () {
-				var cards = this.player.opponent.signis.filter(function (signi) {
+				if (cards.length !== 3) return;
+				cards = this.player.opponent.signis.filter(function (signi) {
 					return signi.level <= 2;
 				},this);
 				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
