@@ -553,7 +553,7 @@ Player.prototype.handleSpellAsyn = function (card,ignoreCost,costObj) {
 				// 从废弃区等[卡片可能被覆盖的区域]取对象
 				return this.selectOptionalAsyn('TARGET',effect.getTargets.call(card)).callback(this,function (card) {
 					if (!card) return card;
-					return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
+					return this.opponent.showCardsAsyn([card]).callback(this,function () {
 						return card;
 					});
 				});

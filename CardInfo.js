@@ -107050,6 +107050,7 @@ var CardInfo = {
 							var card = cards[0];
 							if (!card) return;
 							if (!card.hasBurst()) return;
+							card.moveTo(this.player.checkZone);
 							return Callback.forEach(card.onBurst.effects,function (effect) {
 								return effect.triggerAndHandleAsyn({crossLifeCloth: false});
 							},this).callback(this,function () {
@@ -107994,7 +107995,7 @@ var CardInfo = {
 			"レゾナではない対戦相手のシグニ１体をバニッシュする。その後、あなたは手札を１枚捨てる。",
 		],
 		artsEffectTexts_zh_CN: [
-			"从以下效果中选择至多4项。选择的数量比2多的场合，使用这张技艺卡的使用费用每多一项增加《无×2》。\n" +
+			"从以下效果中选择至多4项。选择的数量比2多的场合，使用这张技艺卡的使用费用每多一项增加【无2】。\n" +
 			"①将对战对手的1只LRIG横置。\n" +
 			"②将对战对手的1只LRIG冻结。\n" +
 			"③将对战对手的1只力量7000以下的SIGNI驱逐。\n" +
@@ -108803,7 +108804,7 @@ var CardInfo = {
 		"timestamp": 1468055336088,
 		"wxid": "WX13-014",
 		name: "エルドラ×マークⅣＰＬＵＳ",
-		name_zh_CN: "艾尔德拉xⅣ式+艾尔德拉xⅣ式+",
+		name_zh_CN: "艾尔德拉xⅣ式+",
 		name_en: "Eldora×Mark IV PLUS",
 		"kana": "エルドラマークフォープラス",
 		"rarity": "LC",
@@ -108954,9 +108955,6 @@ var CardInfo = {
 			"[Constant]: When this SIGNI attacks, if your hand has less than 7 cards, draw a number of cards equal to the difference."
 		],
 		constEffects: [{
-			condition: function () {
-				
-			},
 			action: function (set,add) {
 				var effect = this.game.newEffect({
 					source: this,
@@ -111476,9 +111474,10 @@ var CardInfo = {
 			"Put 1 of your Life Cloth into the trash. If you do, add 1 card from your trash to your Life Cloth."
 		],
 		spellEffect: {
-			getTargetAdvancedAsyn: function () {
-				return this.player.selectAsyn('PUT_TO_LIFE_CLOTH',this.player.trashZone.cards);
+			getTargets: function () {
+				return this.player.trashZone.cards;
 			},
+			targetCovered: true,
 			actionAsyn: function (target) {
 				if (!inArr(target,this.player.trashZone.cards)) return;
 				var card = this.player.lifeClothZone.cards[0];
@@ -113124,10 +113123,10 @@ var CardInfo = {
 						                   this.player.opponent.lifeClothZone.getTopCards(1));
 						return this.player.showCardsAsyn(cards).callback(this,function () {
 							if (cards.length !== 2) return;
-							return this.player.selectOptionalAsyn('SWITCH',this).callback(this,function (card) {
-								if (!card) return;
-								cards[0].moveTo(this.player.lifeClothZone);
-								cards[1].moveTo(this.player.mainDeck);
+							return this.player.confirmAsyn('CONFIRM_SWITCH').callback(this,function (answer) {
+								if (!answer) return;
+								cards[0].moveTo(this.player.opponent.lifeClothZone);
+								cards[1].moveTo(this.player.opponent.mainDeck);
 							});
 						});
 					}
@@ -113265,7 +113264,7 @@ var CardInfo = {
 			"【常時能力】：このシグニがバニッシュされたとき、対戦相手のライフクロスの一番上を見る。あなたはそれをトラッシュに置いてもよい。そうした場合、対戦相手のデッキの一番上のカードをライフクロスに加える。"
 		],
 		constEffectTexts_zh_CN: [
-			"【常】：这只SIGNI被驱逐时，查看对战对手生命护甲和卡组最上方的1张卡。你可以将它放置到废弃区。这样做了的场合，将对战对手卡组顶的1张卡加入生命护甲。"
+			"【常】：这只SIGNI被驱逐时，查看对战对手生命护甲最上方的1张卡。你可以将它放置到废弃区。这样做了的场合，将对战对手卡组顶的1张卡加入生命护甲。"
 		],
 		constEffectTexts_en: [
 			"[Constant]: When this SIGNI is banished, look at the top card of your opponent's Life Cloth. You may put it into the trash. If you do, your opponent adds the top card of their deck to Life Cloth."
