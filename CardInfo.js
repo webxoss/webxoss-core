@@ -112855,7 +112855,7 @@ var CardInfo = {
 		],
 		constEffectTexts_en: [
 			"[Cross Constant]: This SIGNI's power becomes 8000.",
-			"[Constant]: When this SIGNI is banished, you may pay Red. If you do, search your deck for 1 level 3 or less SIGNI with Cross, reveal it, and add it to your hand. Then, shuffle your deck.[Cross Constant]: When this SIGNI is banished, you may pay Red. If you do, search your deck for 1 level 3 or less SIGNI with Cross, reveal it, and add it to your hand. Then, shuffle your deck."
+			"[Constant]: When this SIGNI is banished, you may pay Red. If you do, search your deck for 1 level 3 or less SIGNI with Cross, reveal it, and add it to your hand. Then, shuffle your deck."
 		],
 		constEffects: [{
 			cross: true,
@@ -113224,7 +113224,7 @@ var CardInfo = {
 		"wxid": "WX13-075",
 		name: "幻水　タチウオ",
 		name_zh_CN: "幻水 带鱼",
-		name_en: "Tachiuo, Water PhantomTachiuo, Water Phantom",
+		name_en: "Tachiuo, Water Phantom",
 		"kana": "ゲンスイタチウオ",
 		"rarity": "C",
 		"cardType": "SIGNI",
