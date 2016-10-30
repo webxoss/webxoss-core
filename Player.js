@@ -1986,9 +1986,9 @@ Player.prototype.pickCardAsyn = function (filter,min,max,zone) {
 	var cards = filter? zone.cards.filter(filter) : zone.cards;
 	return this.selectSomeAsyn('ADD_TO_HAND',cards,min,max).callback(this,function (cards) {
 		if (!cards.length) return;
-		return this.opponent.showCardsAsyn(cards);
-	}).callback(this,function () {
-		this.game.moveCards(cards,this.handZone);
+		return this.opponent.showCardsAsyn(cards).callback(this,function () {
+			this.game.moveCards(cards,this.handZone);
+		});
 	});
 };
 
