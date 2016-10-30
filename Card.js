@@ -147,6 +147,7 @@ function Card (game,player,zone,pid,side) {
 	this._SnoropNaturalPlantPrincess = false; // <罗植姬 雪花莲>
 	this._CodeLabyrinthLouvre        = null;  // <卢浮宫>
 	this.powerAddProtected           = false; // <幻兽 苍龙>
+	this._GustaftCenterBallista      = false; // <弩中砲　グスタフト>
 	this.banishProtections           = [];
 	// 注意hasAbility
 }

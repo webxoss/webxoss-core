@@ -106766,7 +106766,7 @@ var CardInfo = {
 						return this.player.enerCharge(1);
 					}
 				});
-				add(this.opponent,'onSigniBanished',effect);
+				add(this.player.opponent,'onSigniBanished',effect);
 			}
 		},{
 			duringGame: true,
@@ -107799,7 +107799,8 @@ var CardInfo = {
 			costRed: 1,
 			actionAsyn: function () {
 				var cards = this.player.opponent.enerZone.cards;
-				return this.player.selectSomeAsyn('TRASH',cards).callback(this,function (cards) {
+				if (!cards.length) return;
+				return this.player.selectSomeAsyn('TRASH',cards,0,2).callback(this,function (cards) {
 					this.game.trashCards(cards);
 				});
 			}
@@ -112175,24 +112176,6 @@ var CardInfo = {
 		"limiting": "ハナレ",
 		"imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX13/WX13-060.jpg",
 		"illust": "パトリシア",
-		faqs: [
-			{
-				"q": "自分のルリグのレベルが4以上の場合、同じモードを2回選べますか？",
-				"a": "できません。複数のモードを選択する場合、別々のモードを選択する必要があります。"
-			},
-			{
-				"q": "《ストレンジ・カインド》を使用したときに①を選んだら、このターンのこれまでに対戦相手のパワー0以下になったシグニの数だけカードを引けるのですか？",
-				"a": "いいえ、《ストレンジ・カインド》を使用する前にパワー0以下になっていたとしてもその分は引くことはできません。《ストレンジ・カインド》を使用後、そのターンに対戦相手のシグニがパワー0以下になったらそこでカードを引けます。"
-			},
-			{
-				"q": "対戦相手のシグニのパワーが0以下になったとき、①でカードを1枚引くのとそのシグニのルール処理のバニッシュはどちらが先ですか？",
-				"a": "パワーが0以下になったことによるルール処理のバニッシュが先となります。その後①の効果でカードを1枚引きます。"
-			},
-			{
-				"q": "対戦相手のシグニが何らかの効果でバニッシュされないパワー０のシグニであるとき、①の効果を使用した後にそのシグニを-1000しました。カードは引けますか？",
-				"a": "いいえ、引くことはできません。「パワーが0以下になるたび」とは、パワーが正の値から0以下になったときにトリガーします。0からさらにマイナス修正しようとしても《ストレンジ・カインド》の①は発動しません。"
-			}
-		],
 		"classes": [],
 		"costWhite": 0,
 		"costBlack": 1,
@@ -112233,7 +112216,7 @@ var CardInfo = {
 			getTargetAdvancedAsyn: function () {
 				var effects = [{
 					source: this,
-					description: '1828-attached-0',
+					description: '1828-spell-1',
 					actionAsyn: function () {
 						this.game.addConstEffect({
 							source: this,
@@ -112241,9 +112224,9 @@ var CardInfo = {
 							action: function (set,add) {
 								var effect = this.game.newEffect({
 									source: this,
-									description: '1828-attached-0',
+									description: '1828-spell-1',
 									triggerCondition: function (event) {
-										return (event.newPower < 0);
+										return (event.newPower <= 0);
 									},
 									actionAsyn: function () {
 										this.player.draw(1);
@@ -112257,7 +112240,7 @@ var CardInfo = {
 					}
 				},{
 					source: this,
-					description: '1828-attached-1',
+					description: '1828-spell-2',
 					actionAsyn: function (target) {
 						if (!target) return;
 						var value = 0;
@@ -112271,12 +112254,12 @@ var CardInfo = {
 				}];
 				return this.player.selectSomeAsyn('SPELL_EFFECT',effects,0,2,true).callback(this,function (effects) {
 					var flag = effects.some(function (effect) {
-						return (effect.description === '1828-attached-1')
+						return (effect.description === '1828-spell-2')
 					},this);
 					if (!flag) return {
 						effects: effects,
 					};
-					return this.player.selectTargetOptionalAsyn().callback(this,function (target) {
+					return this.player.selectOpponentSigniAsyn().callback(this,function (target) {
 						return {
 							effects: effects,
 							target: target,
@@ -112800,7 +112783,7 @@ var CardInfo = {
 						},this);
 						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
 							if (!card) return;
-							this.game.tillTurnEndSet(this,'assassin',true);
+							this.game.tillTurnEndSet(this,card,'assassin',true);
 						});
 					}
 				});
