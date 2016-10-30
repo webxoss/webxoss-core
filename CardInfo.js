@@ -94972,7 +94972,9 @@ var CardInfo = {
 		},{
 			action: function (set,add) {
 				this.player.hands.forEach(function (card) {
-					if (card.hasClass('天使')) set(card,'guardFlag',true);
+					if (card.hasClass('天使')) {
+						set(card,'guardFlag',true);
+					}
 				},this);
 			}
 		}],
@@ -108052,7 +108054,7 @@ var CardInfo = {
 					if (!card) return;
 					return card.banishAsyn();
 				}).callback(this,function () {
-					return this.player.discardAsyn();
+					return this.player.discardAsyn(1);
 				});
 			}
 		}]
@@ -111370,7 +111372,7 @@ var CardInfo = {
 		],
 		constEffectTexts_zh_CN: [
 			"【常】：只要你的废弃区中存在3张以上的魔法卡，这只SIGNI就不会因对战对手的效果被驱逐。",
-			"【常】：这只SIGNI攻击时，你的废弃区中存在1张以上名字各不相同的＜原子＞SIGNI的场合，从废弃区将1张魔法卡加入手牌。"
+			"【常】：这只SIGNI攻击时，你的废弃区中存在7张以上名字各不相同的＜原子＞SIGNI的场合，从废弃区将1张魔法卡加入手牌。"
 		],
 		constEffectTexts_en: [
 			"[Constant]: As long as there are 3 or more spells in your trash, this SIGNI is not banished by your opponent's effects.",
@@ -111394,9 +111396,9 @@ var CardInfo = {
 					condition: function () {
 						var cids = [];
 						this.player.trashZone.cards.forEach(function (card) {
-							if (!signi.hasClass('原子')) return;
-							if (inArr(signi.cid,cids)) return;
-							cids.push(signi.cid);
+							if (!card.hasClass('原子')) return;
+							if (inArr(card.cid,cids)) return;
+							cids.push(card.cid);
 						},this);
 						return (cids.length >= 7);
 					},
