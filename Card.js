@@ -964,10 +964,12 @@ Card.prototype.attackAsyn = function () {
 			throw 'Not enough attack cost!'
 		}
 	}
-	// <バインド・ウェポンズ>
+	// <バインド・ウェポンズ>, <白羅星　フルムーン>
 	if (this.type === 'SIGNI') {
 		var attackCount = this.game.getData(this,'attackCount') || 0;
 		this.game.setData(this,'attackCount',++attackCount);
+		var signiAttackCount = this.game.getData(this.player,'signiAttackCount') || 0;
+		this.game.setData(this.player,'signiAttackCount',++signiAttackCount);
 	} else {
 		var lrigAttackCount = this.game.getData(this.player,'lrigAttackCount') || 0;
 		this.game.setData(this.player,'lrigAttackCount',++lrigAttackCount);

@@ -107479,6 +107479,7 @@ var CardInfo = {
 		constEffects: [{
 			action: function (set,add) {
 				this.player.signis.forEach(function (signi) {
+					if (signi === this) return;
 					if (!signi.resona) return;
 					add(signi,'effectFilters',function (card) {
 						return (card.player === this.player) || (card.type !== 'SIGNI');
