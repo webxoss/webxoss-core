@@ -103263,7 +103263,7 @@ var CardInfo = {
 				return Callback.immediately().callback(this,function () {
 					if (!inArr('white',colors)) return;
 					var cards = this.player.opponent.signis;
-					return this.player.selectTargetOptionalAsyn(cards,function (card) {
+					return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
 						if (!card) return;
 						return card.bounceAsyn();
 					});
