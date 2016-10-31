@@ -79241,7 +79241,7 @@ var CardInfo = {
 			},
 			targetCovered: true,
 			actionAsyn: function (target) {
-				target.moveTo(card.player.handZone);
+				target.moveTo(this.player.handZone);
 			}
 		},
 		// ======================
