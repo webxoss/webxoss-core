@@ -107190,7 +107190,7 @@ var CardInfo = {
 		"wxid": "WX13-005B",
 		sideA: 1769,
 		name: "白羅星　ニュームーン",
-		name_zh_CN: "黑幻虫 大王具足虫【HS】",
+		name_zh_CN: "白罗星 新月",
 		name_en: "New Moon, White Natural Star",
 		"kana": "ハクラセイニュームーン",
 		"rarity": "LR",
@@ -107489,7 +107489,7 @@ var CardInfo = {
 					add(signi,'effectFilters',function (card) {
 						return (card.player === this.player) || (card.type !== 'SIGNI');
 					});
-				});
+				},this);
 			}
 		}],
 		// ======================
@@ -108691,9 +108691,9 @@ var CardInfo = {
 		],
 		artsEffectTexts_zh_CN: [
 			"从以下2项选择1项\n" +
-			"①あなたのデッキから、あなたのシグニ１体のクロス条件に含まれるすべてのシグニを１枚ずつ探して場に出す。その後、デッキをシャッフルする。\n" +
+			"①从你的卡组中找1张被你的场上的一只精灵的【CROSS】条件包含的精灵出场。之后洗切牌组。\n" +
 			"②你的场上存在CROSS状态的SIGNI的场合，将对战对手的1只SIGNI驱逐。",
-			"あなたのデッキから、あなたのシグニ１体のクロス条件に含まれるすべてのシグニを１枚ずつ探して場に出す。その後、デッキをシャッフルする。",
+			"从你的卡组中找1张被你的场上的一只精灵的【CROSS】条件包含的精灵出场。之后洗切牌组。",
 			"你的场上存在CROSS状态的SIGNI的场合，将对战对手的1只SIGNI驱逐。"
 		],
 		artsEffectTexts_en: [
@@ -114797,7 +114797,7 @@ var CardInfo = {
 		"color": "green",
 		"level": 1,
 		"limit": 0,
-		"power": 2000,
+		"power": 1000,
 		"limiting": "",
 		"imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/PR/PR-294.jpg",
 		"illust": "ときち",
@@ -114821,12 +114821,12 @@ var CardInfo = {
 		// ======================
 		constEffectTexts: [
 			"【常時能力】：このシグニは場にあるかぎり、＜地獣＞でもある。",
-			"【常時能力】：あなたのエナゾーンにカードが７枚以上あるかぎり、このシグニのパワーは8000になる。",
+			"【常時能力】：あなたのエナゾーンにカードが７枚以上あるかぎり、このシグニのパワーは7000になる。",
 			"【常時能力】：あなたのライフクロス１枚がクラッシュされるたび、あなたのデッキの一番上のカードをエナゾーンに置く。この効果は１ターンに一度しか発動しない。"
 		],
 		constEffectTexts_zh_CN: [
 			"【常】：只要这只SIGNI在场上，她也是＜地兽＞。",
-			"【常】：只要你的能量区中存在7张以上的卡，这只SIGNI的力量就变为8000。",
+			"【常】：只要你的能量区中存在7张以上的卡，这只SIGNI的力量就变为7000。",
 			"【常】：你的1张生命护甲被击溃时，将你卡组顶的1张卡放置到能量区。这个效果1回合只能发动1次。"
 		],
 		constEffectTexts_en: [
@@ -114843,7 +114843,7 @@ var CardInfo = {
 				return this.player.enerZone.cards.length >= 7;
 			},
 			action: function (set,add) {
-				set(this,'power',8000);
+				set(this,'power',7000);
 			}
 		},{
 			fixed: true,

@@ -45,9 +45,8 @@ Mask.prototype.set = function (reset) {
 			effect.disabled = true;
 		},this);
 	} else {
-		if (inArr(this.prop,Card.abilityProps)) {
+		if (!reset && inArr(this.prop,Card.abilityProps)) {
 			// 不能获得新能力
-			if (reset) return;
 			if (target.canNotGainAbility) return;
 			if (target.player && target.player.canNotGainAbility) return;
 		}
