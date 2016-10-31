@@ -19321,7 +19321,7 @@ var CardInfo = {
 			"Add one <Devil> SIGNI from your trash to your hand."
 		],
 		spellEffect : {
-			targets: function () {
+			getTargets: function () {
 				return this.player.trashZone.cards.filter(function (card) {
 					return (card.type === 'SIGNI') && card.hasClass('悪魔');
 				},this);
