@@ -95094,7 +95094,7 @@ var CardInfo = {
 			},this);
 			var obj = Object.create(this);
 			obj.costChange = null;
-			if (!(cards_A.length || cards_B.length)) {
+			if (!(cards_A.length && cards_B.length)) {
 				return obj;
 			}
 			obj.costWhite -= 1;
@@ -107330,7 +107330,7 @@ var CardInfo = {
 					source: this,
 					description: '1768-attached-1',
 					actionAsyn: function () {
-						this.game.tillTurnEndSet(this.player.opponent,'spellBanned',true);
+						this.game.tillTurnEndSet(this,this.player.opponent,'spellBanned',true);
 					}
 				}]
 				return this.player.selectAsyn('CHOOSE_EFFECT',effects).callback(this,function (effect) {
