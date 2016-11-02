@@ -48,6 +48,15 @@ Zone.prototype.getTopCards = function (n) {
 	return this.cards.slice(0,n);
 };
 
+// SIGNI 区中,魅饰卡及其它下方的卡在块结束时送至废弃区,
+// 该函数返回区域中除了这些卡的卡.
+Zone.prototype.getActualCards = function () {
+	return this.cards.filter(function (card) {
+		return !inArr(card,this.game.trashingCharms) &&
+		       !inArr(card,this.game.trashingCards);
+	});
+};
+
 Zone.prototype.moveCardsToTop = function (cards) {
 	cards.forEach(function (card) {
 		removeFromArr(card,this.cards);

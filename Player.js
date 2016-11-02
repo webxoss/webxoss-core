@@ -393,7 +393,7 @@ Player.prototype.summonSigniAsyn = function () {
 		return card.canSummon() && (!this.summonPowerLimit || (card.power < this.summonPowerLimit));
 	},this);
 	var zones = this.signiZones.filter(function (zone) {
-		return (zone.cards.length === 0);
+		return (zone.getActualCards().length === 0);
 	},this);
 	if (!cards.length || !zones.length) {
 		return Callback.never();
@@ -469,9 +469,9 @@ Player.prototype.getSummonZones = function (signis) {
 	var forcedZones = [];
 	var zones = this.signiZones.filter(function (zone,idx) {
 		if (zone.disabled) return false;
-		var signi = zone.cards[0];
+		var signi = zone.getActualCards()[0];
 		if (signi && inArr(signi,signis)) return false;
-		var opposingSigni = this.opponent.signiZones[2-idx].cards[0];
+		var opposingSigni = this.opponent.signiZones[2-idx].getActualCards()[0];
 		if (opposingSigni && opposingSigni.forceSummonZone) {
 			forcedZones.push(zone);
 		}
@@ -2133,7 +2133,7 @@ Player.prototype.setCrossPair = function () {
 	if (!card.crossLeft && !card.crossRight) return;
 	function checkMatch (zone,cross) {
 		if (!zone) return null;
-		var card = zone.cards[0];
+		var card = zone.getActualCards()[0];
 		if (!card) return null;
 		var cids = concat(cross);
 		var matched = cids.some(function (cid) {

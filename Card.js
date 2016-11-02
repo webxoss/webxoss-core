@@ -716,7 +716,7 @@ Card.prototype.moveTo = function (zone,arg) {
 		} else {
 			// 是 SIGNI 下方的卡,比如魅饰卡
 			// 处理魅饰卡
-			var signi = card.zone.cards[0];
+			var signi = card.zone.getActualCards()[0];
 			if (card === signi.charm) {
 				moveEvent.isCharm = true;
 				signi.charm = null;
@@ -728,7 +728,7 @@ Card.prototype.moveTo = function (zone,arg) {
 		zone.player.hands.push(card);
 	} else if (zone.name === 'SigniZone') {
 		if (card.zone.name !== 'SigniZone' || zone.player !== card.player) {
-			if (zone.cards.length) {
+			if (zone.getActualCards().length) {
 				// 放置到 SIGNI 下面的卡
 			} else {
 				// 进入 SigniZone
@@ -1224,7 +1224,7 @@ Card.prototype.banishAsyn = function (arg) {
 
 Card.prototype.summonAsyn = function (optional,dontTriggerStartUp,down) {
 	var zones = this.player.signiZones.filter(function (zone) {
-		return (zone.cards.length === 0);
+		return (zone.getActualCards().length === 0);
 	},this);
 	if (!this.canSummon() || !zones.length) return Callback.immediately();
 	return Callback.immediately().callback(this,function () {
@@ -1346,7 +1346,7 @@ Card.prototype.getTotalEnerCost = function (original) {
 Card.prototype.getOpposingSigni = function () {
 	if (!inArr(this,this.player.signis)) return null;
 	var idx = 2 - this.player.signiZones.indexOf(this.zone);
-	return this.player.opponent.signiZones[idx].cards[0] || null;
+	return this.player.opponent.signiZones[idx].getActualCards()[0] || null;
 };
 
 Card.prototype.charmTo = function (signi) {

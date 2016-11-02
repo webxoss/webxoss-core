@@ -24427,16 +24427,12 @@ var CardInfo = {
 					triggerCondition: function (event) {
 						var card = event.card;
 						if (card.type !== 'SIGNI') return false;
-						var idx = 2 - card.player.signiZones.indexOf(card.zone);
-						var opposingSigni = card.player.opponent.signiZones[idx].cards[0];
-						return !opposingSigni;
+						return !card.getOpposingSigni();
 					},
 					condition: function (event) {
 						var card = event.card;
 						if (!inArr(card,card.player.signis)) return false;
-						var idx = 2 - card.player.signiZones.indexOf(card.zone);
-						var opposingSigni = card.player.opponent.signiZones[idx].cards[0];
-						return !opposingSigni;
+						return !card.getOpposingSigni();
 					},
 					costGreen: 1,
 					costColorless: 1,
@@ -25887,7 +25883,8 @@ var CardInfo = {
 						if (!inArr(card,card.player.signis)) return;
 						var idx = 2 - card.player.signiZones.indexOf(card.zone);
 						var zone = this.player.signiZones[idx];
-						var opposingSigni = zone.cards[0];
+						var opposingSigni = zone.getActualCards()[0];
+						var opposingSigni = card.getOpposingSigni();
 						if (opposingSigni) return;
 						if (zone.disabled) return;
 
@@ -27226,7 +27223,8 @@ var CardInfo = {
 				},this);
 				var zones = this.player.opponent.signiZones.filter(function (zone) {
 					if (zone.disabled) return false;
-					return (!zone.cards.length) || (!zone.cards[0].isEffectFiltered());
+					var cards = zone.getActualCards();
+					return (!cards.length) || (!cards[0].isEffectFiltered());
 				},this);
 				return Callback.loop(this,2,function () {
 					if (done) return;
@@ -28306,7 +28304,8 @@ var CardInfo = {
 				},this);
 				var zones = this.player.signiZones.filter(function (zone) {
 					if (zone.disabled) return false;
-					return (!zone.cards.length) || (!zone.cards[0].isEffectFiltered());
+					var cards = zone.getActualCards();
+					return (!cards.length) || (!cards[0].isEffectFiltered());
 				},this);
 				return Callback.loop(this,2,function () {
 					if (done) return;
@@ -29770,8 +29769,7 @@ var CardInfo = {
 		],
 		constEffects: [{
 			action: function (set,add) {
-				var idx = 2 - this.player.signiZones.indexOf(this.zone);
-				var opposingSigni = this.player.opponent.signiZones[idx].cards[0];
+				var opposingSigni = this.getOpposingSigni();
 				if (!opposingSigni) return;
 				var effect = this.game.newEffect({
 					source: this,
@@ -30837,8 +30835,7 @@ var CardInfo = {
 						var card = event.card;
 						if (card.type !== 'SIGNI') return false;
 						if (card.level > 2) return false;
-						var idx = 2 - card.player.signiZones.indexOf(card.zone);
-						var opposingSigni = card.player.opponent.signiZones[idx].cards[0];
+						var opposingSigni = card.getOpposingSigni();
 						return (opposingSigni === this);
 					},
 					// condition: function () {
@@ -34144,8 +34141,7 @@ var CardInfo = {
 					destroyTimming: this.game.phase.onTurnEnd,
 					action: function (set,add) {
 						this.player.signis.forEach(function (signi) {
-							var idx = 2 - signi.player.signiZones.indexOf(signi.zone);
-							var opposingSigni = signi.player.opponent.signiZones[idx].cards[0];
+							var opposingSigni = signi.getOpposingSigni();
 							if (opposingSigni && (opposingSigni.power >= 12000)) {
 								set(signi,'assassin',true);
 							}
@@ -36228,8 +36224,7 @@ var CardInfo = {
 		],
 		constEffects: [{
 			action: function (set,add) {
-				var idx = 2 - this.player.signiZones.indexOf(this.zone);
-				var opposingSigni = this.player.opponent.signiZones[idx].cards[0];
+				var opposingSigni = this.getOpposingSigni();
 				if (!opposingSigni) return;
 				var effect = this.game.newEffect({
 					source: this,
@@ -38884,7 +38879,7 @@ var CardInfo = {
 					source: this,
 					destroyTimming: this.game.phase.onTurnEnd,
 					action: function (set,add) {
-						var card = this.player.signiZones[1].cards[0];
+						var card = this.player.signiZones[1].getActualCards()[0];
 						if (card) {
 							set(card,'doubleCrash',true);
 						}
@@ -38896,7 +38891,7 @@ var CardInfo = {
 					once: true,
 					destroyTimming: this.game.phase.onTurnEnd,
 					action: function (set,add) {
-						var card = this.player.signiZones[1].cards[0];
+						var card = this.player.signiZones[1].getActualCards()[0];
 						if (card) {
 							set(card,'doubleCrash',true);
 						}
@@ -64103,7 +64098,7 @@ var CardInfo = {
 						destroyTimming: [this.game.phase.onTurnEnd],
 						action: function (set,add) {
 							set(zone,'powerDown',true);
-							var card = zone.cards[0];
+							var card = zone.getActualCards()[0];
 							if (!card) return;
 							add(card,'power',-7000);
 						}
@@ -64116,7 +64111,7 @@ var CardInfo = {
 						destroyTimming: [this.game.phase.onTurnEnd],
 						action: function (set,add) {
 							set(zone,'powerDown',true);
-							var card = zone.cards[0];
+							var card = zone.getActualCards()[0];
 							if (!card) return;
 							add(card,'power',-7000);
 						}
@@ -82816,7 +82811,7 @@ var CardInfo = {
 					destroyTimming: this.game.phase.onTurnEnd,
 					action: function (set,add) {
 						var zone = this.player.signiZones[1];
-						var card = zone.cards[0];
+						var card = zone.getActualCards()[0];
 						if (!inArr(card,this.player.signis)) return;
 						var opposingSigni = card.getOpposingSigni();
 						if (!opposingSigni || !opposingSigni.charm) return;
@@ -87980,7 +87975,7 @@ var CardInfo = {
 					destroyTimming: this.game.phase.onTurnEnd,
 					action: function (set,add) {
 						var zone = this.player.signiZones[1];
-						var card = zone.cards[0];
+						var card = zone.getActualCards()[0];
 						if (!inArr(card,this.player.signis)) return;
 						add(card,'power',5000);
 						set(card,'lancer',true);
@@ -104734,7 +104729,7 @@ var CardInfo = {
 					destroyTimming: this.game.phase.onTurnEnd,
 					action: function (set,add) {
 						var zone = this.player.signiZones[1];
-						var card = zone.cards[0];
+						var card = zone.getActualCards()[0];
 						if (!inArr(card,this.player.signis)) return;
 						if (!card.hasClass('龍獣')) return;
 						set(card,'doubleCrash',true);
@@ -109896,7 +109891,9 @@ var CardInfo = {
 						}];
 						return this.player.selectAsyn('LAUNCH',effects).callback(this,function (effect) {
 							if (!effect) return;
-							return effect.actionAsyn.call(this);
+							return this.player.opponent.showEffectsAsyn([effect]).callback(this,function () {
+								return effect.actionAsyn.call(this);
+							});
 						});
 					}
 				});
