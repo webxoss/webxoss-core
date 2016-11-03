@@ -107149,6 +107149,7 @@ var CardInfo = {
 		actionEffects: [{
 			mainPhase: true,
 			attackPhase: true,
+			once: true,
 			costExceed: 1,
 			actionAsyn: function () {
 				var cards = this.player.signis;
