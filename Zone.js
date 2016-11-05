@@ -54,7 +54,7 @@ Zone.prototype.getActualCards = function () {
 	return this.cards.filter(function (card) {
 		return !inArr(card,this.game.trashingCharms) &&
 		       !inArr(card,this.game.trashingCards);
-	});
+	},this);
 };
 
 Zone.prototype.moveCardsToTop = function (cards) {

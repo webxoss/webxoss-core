@@ -717,7 +717,7 @@ Card.prototype.moveTo = function (zone,arg) {
 			// 是 SIGNI 下方的卡,比如魅饰卡
 			// 处理魅饰卡
 			var signi = card.zone.getActualCards()[0];
-			if (card === signi.charm) {
+			if (signi && card === signi.charm) {
 				moveEvent.isCharm = true;
 				signi.charm = null;
 			}
