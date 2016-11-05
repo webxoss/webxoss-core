@@ -89946,7 +89946,7 @@ var CardInfo = {
 			"[On-Play] [Colorless] [Colorless] [Colorless]: Search your deck for 1 \"Servant X\" and 1 \"Servant Y\" and put them onto the field. Then, shuffle your deck."
 		],
 		startUpEffects: [{
-			costWhite: 3,
+			costColorless: 3,
 			actionAsyn: function () {
 				var filter = function (card) {
 					return card.cid === 464; // <サーバント　Ｘ>
