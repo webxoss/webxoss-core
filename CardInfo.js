@@ -77037,11 +77037,10 @@ var CardInfo = {
 			actionAsyn: function (targets) {
 				var targetA = targets[0];
 				var targetB = targets[1];
+				if (targetA && !inArr(targetA,this.player.opponent.signis)) return;
 				return Callback.immediately().callback(this,function () {
-					if (!inArr(targetA,this.player.opponent.signis)) return;
-					return targetA.bounceAsyn();
+					if (targetA) return targetA.bounceAsyn();
 				}).callback(this,function () {
-					if (targetA && !inArr(targetA,this.player.opponent.signis)) return;
 					if (!inArr(targetB,this.player.opponent.signis)) return;
 					return targetB.banishAsyn();
 				});
