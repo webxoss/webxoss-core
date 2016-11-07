@@ -108171,7 +108171,7 @@ var CardInfo = {
 			"[出现条件] 【主要阶段】从你的手牌和场上将合计3张非共鸣＜凶虫＞SIGNI放置到废弃区"
 		],
 		extraTexts_en: [
-			"(Play Condition) [Main Phase] Put a total of 2 non-Resona <Misfortune Insect> SIGNI from your hand and field into the trash"
+			"(Play Condition) [Main Phase] Put a total of 3 non-Resona <Misfortune Insect> SIGNI from your hand and field into the trash"
 		],
 		resonaPhase: 'mainPhase',
 		resonaCondition: function () {
