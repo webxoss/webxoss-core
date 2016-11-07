@@ -62,7 +62,7 @@ function handleCardInfo () {
 	// document.body.appendChild(textarea);
 	// textarea.select();
 }
-function handleCardInfo_ru () {
+function handleCardInfo_ko (min, max) {
 	var props = [
 		"name",
 		"actionEffectTexts",
@@ -81,7 +81,8 @@ function handleCardInfo_ru () {
 	]
 	var arr = [];
 	for (var x in CardInfo) {
-		if (x <= 1762) continue;
+		// if (x <= 1762) continue;
+		if (x < min || x > max) continue;
 		var info = CardInfo[x];
 		var obj = {
 			pid: info.pid,
@@ -93,11 +94,11 @@ function handleCardInfo_ru () {
 			// 	if (!info[prop]) return;
 			// 	obj[prop] = info[prop];
 			// });
-			obj[rawprop+"_ru"] = info[rawprop+"_en"];
+			obj[rawprop+"_ko"] = info[rawprop+"_en"];
 		});
 		arr.push(obj);
 	}
-	window.arr = arr;
+	down(arr, `${min}-${max}.json`)
 }
 function fetchAndHandleRuJson (url) {
 	let CardInfo_ru = {};
@@ -155,6 +156,17 @@ function getNewCardNames () {
 		names.push(card.name_zh_CN);
 	}
 	return names;
+}
+function down (content, filename = 'down.txt') {
+	if (typeof content === 'object') {
+		content = JSON.stringify(content, null, '  ')
+	}
+	let blob = new Blob([content], { type: 'application/octet-stream' })
+  let url = URL.createObjectURL(blob)
+	let link = document.createElement('a')
+	link.href = url
+	link.download = filename
+	link.click()
 }
 </script>
 <script src="util.js"></script>
