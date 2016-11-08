@@ -52710,15 +52710,13 @@ var CardInfo = {
 		],
 		burstEffect: {
 			actionAsyn: function () {
-				return this.banishSigniAsyn(10000);
-				// @banishSigniAsyn
-				// var cards = concat(this.player.signis,this.player.opponent.signis).filter(function (signi) {
-				// 	return signi.power <= 10000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
+				var cards = concat(this.player.signis,this.player.opponent.signis).filter(function (signi) {
+					return signi.power <= 10000;
+				},this);
+				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+					if (!card) return;
+					return card.banishAsyn();
+				});
 			}
 		}
 	},
