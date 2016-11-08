@@ -107225,7 +107225,7 @@ var CardInfo = {
 		resonaPhase: 'spellCutIn',
 		resonaCondition: function () {
 			var filter = function (card) {
-				return card.hasClass('宇宙') && !card.resona;
+				return card.hasClass('宇宙') && !card.resona && card.canTrashAsCost();
 			};
 			var cards_A = this.player.signis.filter(filter);
 			var cards_B = this.player.hands.filter(filter);
@@ -107398,7 +107398,7 @@ var CardInfo = {
 		resonaPhase: 'mainPhase',
 		resonaCondition: function () {
 			var filter = function (card) {
-				return card.hasClass('宇宙') && !card.resona;
+				return card.hasClass('宇宙') && !card.resona && card.canTrashAsCost();
 			};
 			var signis = this.player.signis.filter(filter);
 			var hands = this.player.hands.filter(filter);
@@ -108175,7 +108175,7 @@ var CardInfo = {
 		resonaCondition: function () {
 			// 复制并修改自<白罗星 满月>
 			var filter = function (card) {
-				return card.hasClass('凶蟲') && !card.resona;
+				return card.hasClass('凶蟲') && !card.resona && card.canTrashAsCost();
 			};
 			var signis = this.player.signis.filter(filter);
 			var hands = this.player.hands.filter(filter);
@@ -108350,7 +108350,7 @@ var CardInfo = {
 		resonaPhase: 'spellCutIn',
 		resonaCondition: function () {
 			var filter = function (card) {
-				return card.hasClass('凶蟲') && !card.resona;
+				return card.hasClass('凶蟲') && !card.resona && card.canTrashAsCost();
 			};
 			var signis = this.player.signis.filter(filter);
 			var hands = this.player.hands.filter(filter);
@@ -109136,7 +109136,7 @@ var CardInfo = {
 		resonaCondition: function () {
 			// 复制并修改自<白罗星 满月>
 			var filter = function (card) {
-				return card.hasClass('遊具') && !card.resona;
+				return card.hasClass('遊具') && !card.resona && card.canTrashAsCost();
 			};
 			var signis = this.player.signis.filter(filter);
 			var hands = this.player.hands.filter(filter);
