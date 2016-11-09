@@ -30,6 +30,7 @@ Mask.prototype.set = function (reset) {
 			// 不能获得新能力
 			return;
 		}
+		effect.disabled = false;
 		timming.effects.push(effect);
 		effect.source.registeredEffects.push(effect);
 		return;
