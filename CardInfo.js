@@ -75067,7 +75067,8 @@ var CardInfo = {
 			var cards = this.player.hands.filter(function (card) {
 				return card.hasClass('遊具');
 			},this);
-			return this.player.selectOptionalAsyn('TRASH',cards).callback(this,function (card) {
+			var optional = this.player.enoughEner(obj);
+			return this.player.selectAsyn('TRASH',cards,optional).callback(this,function (card) {
 				if (!card) return obj;
 				card.trash();
 				obj.costGreen -= 2;
