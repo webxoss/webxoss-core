@@ -2162,48 +2162,43 @@ Player.prototype.setCrossPair = function () {
 
 
 // For test:
-Player.prototype.getCard = function (cid) {
-	if (isStr(cid)) {
-		for (var i = 0; i < this.game.cards.length; i++) {
-			var card = this.game.cards[i];
-			if (CardInfo[card.cid].name_zh_CN === cid) {
-				cid = card.cid;
-				break;
-			}
+Player.prototype.matchCard = function (arg) {
+	var cid = 0;
+	for (var i = 0; i < this.game.cards.length; i++) {
+		var card = this.game.cards[i];
+		var info = CardInfo[card.cid];
+		var matched = info.name === arg ||
+		              info.name_zh_CN === arg ||
+		              info.cid === arg ||
+		              info.wxid === arg;
+		if (matched) {
+			cid = card.cid;
+			break;
 		}
-		if (isStr(cid)) return null;
 	}
+	if (!cid) return null;
 	var cards = concat(this.mainDeck.cards,this.trashZone.cards,this.enerZone.cards,this.lifeClothZone.cards);
 	for (var i = 0; i < cards.length; i++) {
 		var card = cards[i];
 		if (card.cid === cid) {
-			card.moveTo(this.handZone);
 			return card;
 		}
 	}
 	return null;
 };
 
+Player.prototype.getCard = function (arg) {
+	var card = this.matchCard(arg);
+	if (!card) return null;
+	card.moveTo(this.handZone);
+	return card;
+};
+
 Player.prototype.putCardToLifeCloth = function (cid) {
-	if (isStr(cid)) {
-		for (var i = 0; i < this.game.cards.length; i++) {
-			var card = this.game.cards[i];
-			if (CardInfo[card.cid].name_zh_CN === cid) {
-				cid = card.cid;
-				break;
-			}
-		}
-		if (isStr(cid)) return null;
-	}
-	var cards = concat(this.mainDeck.cards,this.trashZone.cards,this.enerZone.cards,this.hands,this.signis);
-	for (var i = 0; i < cards.length; i++) {
-		var card = cards[i];
-		if (card.cid === cid) {
-			card.moveTo(this.lifeClothZone);
-			return card;
-		}
-	}
-	return null;
+	var card = this.matchCard(arg);
+	if (!card) return null;
+	card.moveTo(this.lifeClothZone);
+	return card;
 };
 
 global.Player = Player;
