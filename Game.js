@@ -218,7 +218,7 @@ Game.prototype.outputInitMsg = function (player) {
 				lrigDeckCardInfos: player.lrigDeck.cards.map(function (card) {
 					return {
 						pid: card.pid,
-						isSide: card.sideA
+						isSide: !!card.sideA
 					}
 				},this)
 			},
@@ -236,10 +236,10 @@ Game.prototype.outputInitMsg = function (player) {
 				excludedZone: opponent.excludedZone,
 				mainDeckCards: opponent.mainDeck.cards,
 				lrigDeckCards: opponent.lrigDeck.cards,
-				lrigDeckCardInfos: player.lrigDeck.cards.map(function (card) {
+				lrigDeckCardInfos: opponent.lrigDeck.cards.map(function (card) {
 					return {
 						pid: 0,
-						isSide: card.sideA
+						isSide: !!card.sideA
 					}
 				},this)
 			}
