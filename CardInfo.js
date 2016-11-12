@@ -36872,7 +36872,7 @@ var CardInfo = {
 						return this.player.seekAsyn(filter,1);
 					}
 				}];
-				return this.player.selectSomeAsyn('SPELL_EFFECT',effects,0,2,true);
+				return this.player.selectSomeAsyn('SPELL_EFFECT',effects,0,2);
 			},
 			actionAsyn: function (effects) {
 				return Callback.forEach(effects,function (effect) {
@@ -36965,7 +36965,7 @@ var CardInfo = {
 					}
 				}];
 				var targetObjs = [];
-				return this.player.selectSomeAsyn('SPELL_EFFECT',effects,0,2,true).callback(this,function (effs) {
+				return this.player.selectSomeAsyn('SPELL_EFFECT',effects,0,2).callback(this,function (effs) {
 					if (effs.length !== 2) {
 						effects = effs; // 先选3000以下的,避免选错.
 					}
@@ -40430,7 +40430,7 @@ var CardInfo = {
 						return this.player.discardAsyn(1);
 					}
 				}];
-				return this.player.selectSomeAsyn('SPELL_EFFECT',effects,0,2,true);
+				return this.player.selectSomeAsyn('SPELL_EFFECT',effects,0,2);
 			},
 			actionAsyn: function (effects) {
 				return Callback.forEach(effects,function (effect) {
@@ -40635,7 +40635,7 @@ var CardInfo = {
 						},this);
 					}
 				}];
-				return this.player.selectSomeAsyn('SPELL_EFFECT',effects,0,2,true);
+				return this.player.selectSomeAsyn('SPELL_EFFECT',effects,0,2);
 			},
 			actionAsyn: function (effects) {
 				this.game.frameStart();
@@ -41044,7 +41044,7 @@ var CardInfo = {
 						});
 					}
 				}];
-				return this.player.selectSomeAsyn('SPELL_EFFECT',effects,0,2,true);
+				return this.player.selectSomeAsyn('SPELL_EFFECT',effects,0,2);
 			},
 			actionAsyn: function (effects) {
 				return Callback.forEach(effects,function (effect) {
@@ -112248,7 +112248,7 @@ var CardInfo = {
 						this.game.tillTurnEndAdd(this,target,'power',value);
 					}
 				}];
-				return this.player.selectSomeAsyn('SPELL_EFFECT',effects,0,2,true).callback(this,function (effects) {
+				return this.player.selectSomeAsyn('SPELL_EFFECT',effects,0,2).callback(this,function (effects) {
 					var flag = effects.some(function (effect) {
 						return (effect.description === '1828-spell-2')
 					},this);
