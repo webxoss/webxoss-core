@@ -64635,7 +64635,9 @@ var CardInfo = {
 							if (!signi) return;
 							return this.player.selectAsyn('TARGET',cards).callback(this,function (card) {
 								if (!card) return;
-								card.charmTo(signi);
+								return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
+									card.charmTo(signi);
+								});
 							});
 						});
 					}
@@ -64761,7 +64763,9 @@ var CardInfo = {
 							if (!signi) return;
 							return this.player.selectAsyn('TARGET',cards).callback(this,function (card) {
 								if (!card) return;
-								card.charmTo(signi);
+								return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
+									card.charmTo(signi);
+								});
 							});
 						});
 					}
