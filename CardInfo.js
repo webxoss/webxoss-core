@@ -115256,7 +115256,5708 @@ var CardInfo = {
 	// 	cardText: "許さない…絶対にッ!! ～†上柚木綾瀬†～",
 	// 	cardText_zh_CN: "",
 	// 	cardText_en: ""
-	// }
+	// },  "1878": {
+    "pid": 1878,
+    cid: 1878,
+    "timestamp": 1479020780281,
+    "wxid": "WX14-011",
+    name: "炎得火失",
+    name_zh_CN: "炎得火失",
+    name_en: "炎得火失",
+    "kana": "エントクカシツ",
+    "rarity": "LC",
+    "cardType": "ARTS",
+    "color": "red",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-011.jpg",
+    "illust": "アカバネ",
+    faqs: [
+      {
+        "q": "「ゲームから除外する」とはどういうことですか？",
+        "a": "ゲームから除外されたカードは、どの領域にも属さず、そのゲームにおいては、以降使用できず、参照されません。"
+      },
+      {
+        "q": "ゲームから除外されたカードは、リフレッシュの際にデッキに戻りますか？",
+        "a": "いいえ、ゲームから除外されたカードはトラッシュに置かれておらず、リフレッシュを行う際デッキに戻ることはありません。"
+      },
+      {
+        "q": "自分の手札が０枚、デッキが１枚のときに①を選んで使用した場合はどうなりますか？",
+        "a": "その場合は１枚のみ引き、その１枚の手札はゲームから除外されて効果は終了します。その後、リフレッシュを行います。"
+      },
+      {
+        "q": "対戦相手のデッキが１枚のときに②を選んで使用した場合はどうなりますか？",
+        "a": "その場合は、対戦相手のシグニ１体をバニッシュした後、対戦相手はカードを１枚引いて効果は終了します。デッキが無いのでカードをエナゾーンに置くことはできません。その後、リフレッシュを行います。"
+      }
+    ],
+    "classes": [],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 1,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "使用タイミング",
+      "【メインフェイズ】【アタックフェイズ】",
+      "以下の２つから１つを選ぶ。",
+      "①あなたはカードを４枚引く。その後、対戦相手はあなたの手札を２枚見ないで選び、あなたはそれらをゲームから除外する。",
+      "②対戦相手のシグニ１体をバニッシュする。対戦相手はカードを１枚引き、対戦相手はデッキの一番上のカードをエナゾーンに置く。"
+    ],
+    "multiEner": false,
+    cardText: "炎を見て火を見ず。",
+    cardText_zh_CN: "",
+    cardText_en: "",
+    "lifeBurst": "-"
+  },
+  "1879": {
+    "pid": 1879,
+    cid: 1879,
+    "timestamp": 1479020780288,
+    "wxid": "WX14-026",
+    name: "羅石　スイカリン",
+    name_zh_CN: "羅石　スイカリン",
+    name_en: "羅石　スイカリン",
+    "kana": "ラセキスイカリン",
+    "rarity": "SR",
+    "cardType": "SIGNI",
+    "color": "red",
+    "level": 2,
+    "limit": 0,
+    "power": 10000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-026.jpg",
+    "illust": "かにかま",
+    faqs: [
+      {
+        "q": "ライフクロスが０枚の場合、常時能力でバニッシュを防げますか？",
+        "a": "いいえ、バニッシュの代わりに１枚をクラッシュすることができませんので、置き換えられません。その場合《羅石　スイカリン》はバニッシュされます。"
+      },
+      {
+        "q": "《羅石　スイカリン》のパワーが０以下になった場合の、ルール処理でのバニッシュも常時能力で置き換えられますか？",
+        "a": "ルール処理のバニッシュの代わりにクラッシュすることはできますが、パワーは０以下のままですので、再度ルール処理によりバニッシュされます。ライフクロスが０枚になるまで何度も置き換えてクラッシュし続けることもでき、その場合はライフクロスが０枚になり、《羅石　スイカリン》がバニッシュされた後に、クラッシュされたライフクロスのライフバーストを好きな順番で発動します。"
+      },
+      {
+        "q": "《羅石　スイカリン》が「バニッシュされない」を得ている場合、バニッシュされる代わりにライフクロスをクラッシュできますか？",
+        "a": "いいえ、「バニッシュされない」場合はバニッシュ自体が起こりませんので、置き換えてクラッシュすることもできません。"
+      },
+      {
+        "q": "出現時能力の発動は強制ですか？",
+        "a": "はい、発動は強制であり、手札が１枚以上あるなら必ず１枚捨てます。"
+      },
+      {
+        "q": "《羅石　スイカリン》のライフバーストで、ライフクロスをクラッシュするかどうかを決めるのはいつですか？",
+        "a": "カードを１枚引いた後に、ライフクロスをクラッシュするかどうかを決めます。"
+      },
+      {
+        "q": "《羅石　スイカリン》のライフバーストで、クラッシュしたカードにライフバーストがあった場合、それの発動と追加でカードを１枚引くのはどちらが先ですか？",
+        "a": "追加で１枚引くのが先となります。ライフバーストなどのトリガー能力は、効果の処理中には発動しません。クラッシュされたことでライフバーストがトリガーしますが、発動するのは《羅石　スイカリン》のライフバーストを最後まで処理した後となります。"
+      }
+    ],
+    "classes": [
+      "精羅",
+      "鉱石"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：対戦相手のターンの間、このシグニがバニッシュされる場合、代わりにあなたのライフクロス１枚をクラッシュしてもよい。",
+      "【【出】】：あなたは手札を１枚捨てる。この方法で捨てたカードが＜鉱石＞または＜宝石＞のシグニで、あなたのルリグが赤の場合、ターン終了時まで、このシグニは【アサシン】を得る。"
+    ],
+    "multiEner": false,
+    cardText: "スイカ飴じゃないってば。～スイカリン～",
+    cardText_zh_CN: "",
+    cardText_en: "",
+    "lifeBurst": "カードを１枚引く。その後、あなたのライフクロス１枚をクラッシュしてもよい。そうした場合、追加でカードを１枚引く。"
+  },
+  "1880": {
+    "pid": 1880,
+    cid: 1880,
+    "timestamp": 1479020780260,
+    "wxid": "WX14-036",
+    name: "羅石　ルオライト",
+    name_zh_CN: "羅石　ルオライト",
+    name_en: "羅石　ルオライト",
+    "kana": "ラセキルオライト",
+    "rarity": "R",
+    "cardType": "SIGNI",
+    "color": "red",
+    "level": 1,
+    "limit": 0,
+    "power": 2000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-036.jpg",
+    "illust": "ぶんたん",
+    faqs: [
+      {
+        "q": "対戦相手のルリグのレベルが５の場合、《羅石　ルオライト》のパワーはいくつですか？",
+        "a": "その場合は上の常時能力の条件も満たしていますので、パワーは12000となります。"
+      },
+      {
+        "q": "対戦相手の場に白と黒のシグニがあるときに、相手が《フル／メイデン　イオナ》にグロウしたら《羅石　ルオライト》はどうなりますか？",
+        "a": "その場合、《羅石　ルオライト》自身の常時能力と《フル／メイデン　イオナ》の常時能力が両方適用され、パワー10000で場に残ります。"
+      }
+    ],
+    "classes": [
+      "精羅",
+      "鉱石"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：対戦相手のルリグがレベル４以上であるかぎり、このシグニのパワーは12000になる。",
+      "【【常】】：対戦相手のルリグがレベル５であるかぎり、このシグニは【アサシン】を得る。（【アサシン】を持つシグニがアタックする場合、正面にシグニがないかのように対戦相手にダメージを与える）"
+    ],
+    "multiEner": false,
+    cardText: "成長するのはあなただけではない。～ルオライト～",
+    cardText_zh_CN: "",
+    cardText_en: "",
+    "lifeBurst": "-"
+  },
+  "1881": {
+    "pid": 1881,
+    cid: 1881,
+    "timestamp": 1479020780215,
+    "wxid": "SP17-001",
+    name: "シャボン・ウェーブ",
+    name_zh_CN: "シャボン・ウェーブ",
+    name_en: "シャボン・ウェーブ",
+    "kana": "ｼｬﾎﾞﾝｳｪｰﾌﾞ",
+    "rarity": "SP",
+    "cardType": "ARTS",
+    "color": "white",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "タウィル",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/SP17/SP17-001.jpg",
+    "illust": "柚希きひろ",
+    faqs: [
+      {
+        "q": "①の効果で、＜天使＞1枚のみを探してトラッシュに置けますか？",
+        "a": "はい、できます。"
+      },
+      {
+        "q": "私のターンに《シャボン・ウェーブ》を使用して、②を選びました。相手のターンになったら私の＜天使＞のシグニは「バニッシュされない。」を得ますか？",
+        "a": "いいえ、②を選んだ場合、このアーツを使用して効果が処理されたターンが対戦相手のターンでなければ能力を得ず、そして次のターンに持ち越すということもありません。"
+      }
+    ],
+    "classes": [],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "使用タイミング",
+      "【メインフェイズ】【アタックフェイズ】",
+      "以下の２つから１つを選ぶ。",
+      "①あなたのデッキからそれぞれ名前の異なる＜天使＞のシグニを１０枚まで探してトラッシュに置く。その後、デッキをシャッフルする。",
+      "②対戦相手のターンであるかぎり、ターン終了時まで、あなたのすべての＜天使＞のシグニは「バニッシュされない。」を得る。"
+    ],
+    "multiEner": false,
+    cardText: "すこしずつ　おもいだしてきた　～タウィル～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1882": {
+    "pid": 1882,
+    cid: 1882,
+    "timestamp": 1479020780322,
+    "wxid": "SP17-002",
+    name: "アンシエント・ウェーブ",
+    name_zh_CN: "アンシエント・ウェーブ",
+    name_en: "アンシエント・ウェーブ",
+    "kana": "ｱﾝｼｴﾝﾄｳｪｰﾌﾞ",
+    "rarity": "SP",
+    "cardType": "ARTS",
+    "color": "black",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "ウムル",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/SP17/SP17-002.jpg",
+    "illust": "マツモトミツアキ",
+    faqs: [
+      {
+        "q": "トラッシュに置いたシグニのレベルの合計が12以上の場合はすべての効果を得られますか？",
+        "a": "はい、その場合は3以上の効果、6以上の効果、9以上の効果、12以上の効果がすべて上から順番に処理されます。"
+      },
+      {
+        "q": "12以上の場合の効果で、最初に場からトラッシュに置いたシグニも場に出すシグニとして選べますか？",
+        "a": "はい、できます。《アンシエント・ウェーブ》では、最初にシグニをトラッシュに置いた後、シグニのレベルの合計を確認し、それに応じた効果で選ぶ公開領域のカードを選びます。"
+      },
+      {
+        "q": "9以上の場合の効果でクラッシュしたカードのライフバーストと、12以上の場合で場に出したシグニの出現時能力はどちらが先に発動しますか？",
+        "a": "ライフバーストや出現時能力などのトリガー能力は、効果の処理中には発動しませんので、まずは《アンシエント・ウェーブ》の効果を最後まで処理します。その後、トリガーしているトリガー能力はターンプレイヤー側から好きな順番で発動できます。"
+      }
+    ],
+    "classes": [],
+    "costWhite": 0,
+    "costBlack": 1,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "使用タイミング",
+      "【メインフェイズ】【アタックフェイズ】【スペルカットイン】",
+      "あなたの黒のシグニを好きな枚数場からトラッシュに置く。その後、この方法でトラッシュに置いたシグニのレベルの合計が３以上の場合、対戦相手のシグニ１体をバニッシュする。６以上の場合、あなたはカードを２枚引く。９以上の場合、対戦相手のライフクロス１枚をクラッシュする。１２以上の場合、あなたのトラッシュからシグニを３枚まで場に出す。"
+    ],
+    "multiEner": false,
+    cardText: "何故じゃ！ヌシがなぜ、その槍の記憶を！！～ウムル～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1883": {
+    "pid": 1883,
+    cid: 1883,
+    "timestamp": 1479020780273,
+    "wxid": "SP17-003",
+    name: "真夏の陽杖　トビエル",
+    name_zh_CN: "真夏の陽杖　トビエル",
+    name_en: "真夏の陽杖　トビエル",
+    "kana": "ﾏﾅﾂﾉﾖｳｼﾞｮｳﾄﾋﾞｴﾙ",
+    "rarity": "SP",
+    "cardType": "SIGNI",
+    "color": "white",
+    "level": 4,
+    "limit": 0,
+    "power": 10000,
+    "limiting": "タウィル",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/SP17/SP17-003.jpg",
+    "illust": "聡間まこと",
+    "classes": [
+      "精像",
+      "天使"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【起】】【《ダウン》】あなたのアップ状態の＜天使＞のシグニ１体をダウンする：対戦相手のシグニ１体を手札に戻す。"
+    ],
+    "multiEner": false,
+    cardText: "なついあつの季節がやって来たわ！～トビエル～\nそれを言うなら、あついなつでしょ。～シュブニグラ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1884": {
+    "pid": 1884,
+    cid: 1884,
+    "timestamp": 1479020781281,
+    "wxid": "SP17-004",
+    name: "コードアンチ　ニャルクト",
+    name_zh_CN: "コードアンチ　ニャルクト",
+    name_en: "コードアンチ　ニャルクト",
+    "kana": "ｺｰﾄﾞｱﾝﾁﾆｬﾙｸﾄ",
+    "rarity": "SP",
+    "cardType": "SIGNI",
+    "color": "black",
+    "level": 4,
+    "limit": 0,
+    "power": 12000,
+    "limiting": "ウムル",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/SP17/SP17-004.jpg",
+    "illust": "クロサワテツ",
+    faqs: [
+      {
+        "q": "デッキが残り1枚で《コードアンチ　ニャルクト》を場に出し、出現時能力を発動したらその1枚が＜古代兵器＞でした、場に出せますか？",
+        "a": "はい、出せます。リフレッシュなどのルール処理は、効果の処理中には発生しません。先に出現時能力を最後まで処理しますので、トラッシュから場に出した後にリフレッシュとなります。"
+      },
+      {
+        "q": "デッキが残り3枚で《コードアンチ　ニャルクト》でアタックしました。トラッシュに置かれた黒のシグニは3枚でした。対戦相手のシグニを-9000できますか？",
+        "a": "はい、できます。-9000した後、デッキが0枚ならリフレッシュを行います。"
+      }
+    ],
+    "classes": [
+      "精械",
+      "古代兵器"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：このシグニがアタックしたとき、あなたのデッキの上からカードを３枚トラッシュに置く。その後、ターン終了時まで、対戦相手のシグニ１体のパワーをこの方法でトラッシュに置かれた黒のシグニ１枚につき、－3000する。",
+      "【【出】】：あなたのデッキの一番上のカードをトラッシュに置く。それが＜古代兵器＞のシグニの場合、それをトラッシュから場に出してもよい。"
+    ],
+    "multiEner": false,
+    cardText: "あなたの頭上に飛び寄る龍騎士、ニャルクトです！\n～ニャルラトライダー＆クトガドラゴン～",
+    cardText_zh_CN: "",
+    cardText_en: "",
+    "lifeBurst": "ターン終了時まで、対戦相手のシグニ１体のパワーをあなたのトラッシュにあるカード１枚につき、-1000する。"
+  },
+  "1885": {
+    "pid": 1885,
+    cid: 1885,
+    "timestamp": 1479020781244,
+    "wxid": "SP17-005",
+    name: "コードアンチ　ハスター",
+    name_zh_CN: "コードアンチ　ハスター",
+    name_en: "コードアンチ　ハスター",
+    "kana": "ｺｰﾄﾞｱﾝﾁﾊｽﾀｰ",
+    "rarity": "SP",
+    "cardType": "SIGNI",
+    "color": "black",
+    "level": 3,
+    "limit": 0,
+    "power": 7000,
+    "limiting": "ウムル",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/SP17/SP17-005.jpg",
+    "illust": "芥川　明",
+    faqs: [
+      {
+        "q": "《開かれし極門　ウトゥルス》などの効果で、トラッシュから《コードアンチ　ハスター》を含む3体を同時に場に出した場合は、何回発動しますか？",
+        "a": "その場合は能力が3回トリガーしますが、この効果は１ターンに一度しか発動しない効果ですので、１つ発動したら残りの２つは不発となります。"
+      }
+    ],
+    "classes": [
+      "精械",
+      "古代兵器"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：あなたのトラッシュからシグニ１体が場に出たとき、あなたのデッキの一番上のカードをエナゾーンに置く。この効果は１ターンに一度しか発動しない。（このシグニがトラッシュから場に出たときも発動する）"
+    ],
+    "multiEner": false,
+    cardText: "いあ♪いあ♪はすたぁ♪～ビヤーキー～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1886": {
+    "pid": 1886,
+    cid: 1886,
+    "timestamp": 1479020781260,
+    "wxid": "SP17-006",
+    name: "忘得ぬ幻葬　†ヴァルキリー†",
+    name_zh_CN: "忘得ぬ幻葬　†ヴァルキリー†",
+    name_en: "忘得ぬ幻葬　†ヴァルキリー†",
+    "kana": "ﾜｽﾚｴﾇｹﾞﾝｿｳﾌｫｰﾙﾝｳﾞｧﾙｷﾘｰ",
+    "rarity": "SP",
+    "cardType": "SIGNI",
+    "color": "black",
+    "level": 3,
+    "limit": 0,
+    "power": 7000,
+    "limiting": "タウィル/ウムル",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/SP17/SP17-006.jpg",
+    "illust": "笹森トモエ",
+    faqs: [
+      {
+        "q": "《開かれし極門　ウトゥルス》などの効果で、トラッシュから《忘得ぬ幻葬　†ヴァルキリー†》を含む＜天使＞3体を同時に場に出した場合は、何回発動しますか？",
+        "a": "その場合は能力が3回トリガーしますが、この効果は１ターンに一度しか発動しない効果ですので、１つ発動したら残りの２つは不発となります。"
+      },
+      {
+        "q": "《忘得ぬ幻葬　†ヴァルキリー†》のライフバーストは、前半の効果でトラッシュに置かれた3枚の中からも選んで手札に加えられますか？",
+        "a": "はい、できます。"
+      }
+    ],
+    "classes": [
+      "精像",
+      "天使"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：あなたの＜天使＞のシグニ１体が効果によって場に出たとき、ターン終了時まで、対戦相手のシグニ１体のパワーを－7000する。この効果は１ターンに一度しか発動しない。（このシグニが効果によって場に出たときも発動する）",
+      "【【出】】：あなたのデッキの上からカードを３枚トラッシュに置く。"
+    ],
+    "multiEner": false,
+    cardText: "もう、きみといたことは忘れた。\n～†ヴァルキリー†～",
+    cardText_zh_CN: "",
+    cardText_en: "",
+    "lifeBurst": "あなたのデッキの上からカードを３枚トラッシュに置く。その後、あなたのトラッシュから無色ではないシグニ１枚を手札に加える。"
+  },
+  "1887": {
+    "pid": 1887,
+    cid: 1887,
+    "timestamp": 1479020781324,
+    "wxid": "WX14-016",
+    name: "彫心鏤骨",
+    name_zh_CN: "彫心鏤骨",
+    name_en: "彫心鏤骨",
+    "kana": "ビューティフルチゼル",
+    "rarity": "LC",
+    "cardType": "ARTS",
+    "color": "green",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "アン",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-016.jpg",
+    "illust": "夜ノみつき",
+    faqs: [
+      {
+        "q": "アンコールのコストはいつ支払えばいいですか？",
+        "a": "アンコールのコストは、アーツのコストを支払う際に同時に支払います。"
+      },
+      {
+        "q": "《彫心鏤骨》がルリグトラッシュにあるときに、アンコールのコストを支払ってルリグデッキに戻すことはできますか？",
+        "a": "いいえ、できません。アンコールのコストは、そのアーツを使用するときにのみ支払えます。"
+      }
+    ],
+    "classes": [],
+    "costWhite": 1,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 1,
+    "costColorless": 1,
+    "guardFlag": false,
+    cardSkills: [
+      "使用タイミング",
+      "【メインフェイズ】【アタックフェイズ】",
+      "アンコール―手札から＜美巧＞のシグニを１枚捨てる （アンコールコストを追加で支払って使用してもよい。そうした場合、これは追加で「このカードをルリグデッキに戻す。」を得る）",
+      "対戦相手のシグニ１体を手札に戻す。"
+    ],
+    "multiEner": false,
+    cardText: "木を見ればわかるわ。何になりたいかが。～アン～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1888": {
+    "pid": 1888,
+    cid: 1888,
+    "timestamp": 1479020781328,
+    "wxid": "WX14-024",
+    name: "真実の聖盾　*マウス*",
+    name_zh_CN: "真実の聖盾　*マウス*",
+    name_en: "真実の聖盾　*マウス*",
+    "kana": "シンジツノセイジュンホーリーマウス",
+    "rarity": "SR",
+    "cardType": "SIGNI",
+    "color": "white",
+    "level": 3,
+    "limit": 0,
+    "power": 7000,
+    "limiting": "アン",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-024.jpg",
+    "illust": "茶ちえ",
+    faqs: [
+      {
+        "q": "《再誕》で《真実の聖盾　?マウス?》を含む＜美巧＞のシグニを3体場に出しました。《真実の聖盾　?マウス?》の常時能力は何回発動しますか？",
+        "a": "その場合、同時に出た＜美巧＞すべてに対して常時能力がトリガーし、3回発動します。"
+      },
+      {
+        "q": "このシグニが手札以外から場に出ました。《白》を3回支払うことで対戦相手のシグニ3体を手札に戻すことができますか？",
+        "a": "いいえ、できません。場に出たというトリガー1回につき《白》を1回支払いシグニ1体を戻すことができます。"
+      }
+    ],
+    "classes": [
+      "精像",
+      "美巧"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：あなたの場に緑の＜美巧＞のシグニが２体以上あるかぎり、このシグニのパワーは12000になる。",
+      "【【常】】：あなたの＜美巧＞のシグニ１体が手札以外から場に出るたび、あなたは【《白》】を支払ってもよい。そうした場合、対戦相手のシグニ１体を手札に戻す。（このシグニが場に出たときも発動する）"
+    ],
+    "multiEner": false,
+    cardText: "真実はくちのなか。",
+    cardText_zh_CN: "",
+    cardText_en: "",
+    "lifeBurst": "あなたのデッキから＜美巧＞のシグニ１枚を探して公開し、手札に加えるかエナゾーンに置くか場に出す。その後、デッキをシャッフルする。"
+  },
+  "1889": {
+    "pid": 1889,
+    cid: 1889,
+    "timestamp": 1479020781233,
+    "wxid": "WX14-034",
+    name: "水流の打落　*マーライ*",
+    name_zh_CN: "水流の打落　*マーライ*",
+    name_en: "水流の打落　*マーライ*",
+    "kana": "スイリュウノウチオトシホーリーマーライ",
+    "rarity": "R",
+    "cardType": "SIGNI",
+    "color": "white",
+    "level": 1,
+    "limit": 0,
+    "power": 1000,
+    "limiting": "アン",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-034.jpg",
+    "illust": "pepo",
+    faqs: [
+      {
+        "q": "「対戦相手の効果を受けない」とはどういうことですか？",
+        "a": "あなたの＜美巧＞のシグニは、条件を満たしているかぎり対戦相手の効果によって「シグニを移動させる効果」及び「シグニの状態を変化させる効果」、「パワーやテキストなどのカードの情報を変更する効果」を受けません。"
+      }
+    ],
+    "classes": [
+      "精像",
+      "美巧"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：あなたのルリグがレベル２以下であるかぎり、あなたのすべての＜美巧＞のシグニは対戦相手の効果を受けない。"
+    ],
+    "multiEner": false,
+    cardText: "どんなものでも水に流すよー。～?マーライ?～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1890": {
+    "pid": 1890,
+    cid: 1890,
+    "timestamp": 1479020782054,
+    "wxid": "WX14-064",
+    name: "省略の徹底　ミニマリ",
+    name_zh_CN: "省略の徹底　ミニマリ",
+    name_en: "省略の徹底　ミニマリ",
+    "kana": "ショウリャクノテッテイミニマリ",
+    "rarity": "C",
+    "cardType": "SIGNI",
+    "color": "green",
+    "level": 3,
+    "limit": 0,
+    "power": 7000,
+    "limiting": "アン",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-064.jpg",
+    "illust": "くれいお",
+    faqs: [
+      {
+        "q": "対戦相手のシグニの攻撃を無効にしたとき、《省略の徹底　ミニマリ》がトラッシュに3枚ありました。これらを全て除外して3枚引けますか？",
+        "a": "はい、シグニの攻撃を無効にしたとき、トラッシュにある《省略の徹底　ミニマリ》の常時能力がそれぞれトリガーしますので、すべて発動してそれぞれ除外すれば合計3枚引けます。"
+      },
+      {
+        "q": "対戦相手のシグニがアタックしたとき、《戦慄の旋律　アン＝フォース》の常時能力でその攻撃を無効にしました。このときの手札から捨てた＜美巧＞や、エナとして支払ったカードが《省略の徹底　ミニマリ》だった場合、この常時能力は発動できますか？",
+        "a": "はい、できます。《戦慄の旋律　アン＝フォース》の能力はエナを支払って手札を捨ててからそのシグニの攻撃を無効にしますので、そのときにはすでにトラッシュに《省略の徹底　ミニマリ》があり能力がトリガーします。"
+      }
+    ],
+    "classes": [
+      "精像",
+      "美巧"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：あなたが対戦相手のルリグの攻撃を【ガード】するか、対戦相手のシグニの攻撃を効果によって無効にしたとき、あなたのルリグが＜アン＞の場合、トラッシュにあるこのカードをゲームから除外してもよい。そうした場合、カードを１枚引く。"
+    ],
+    "multiEner": false,
+    cardText: "。～ミニマリ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1891": {
+    "pid": 1891,
+    cid: 1891,
+    "timestamp": 1479020788570,
+    "wxid": "PR-295",
+    name: "コードアート　Ｔ・A・Ｐ(WIXOSS PARTY 2016年6-7月度congraturationカード)",
+    name_zh_CN: "コードアート　Ｔ・A・Ｐ(WIXOSS PARTY 2016年6-7月度congraturationカード)",
+    name_en: "コードアート　Ｔ・A・Ｐ(WIXOSS PARTY 2016年6-7月度congraturationカード)",
+    "kana": "コードアートタパサキ",
+    "rarity": "PR",
+    "cardType": "SIGNI",
+    "color": "blue",
+    "level": 1,
+    "limit": 0,
+    "power": 2000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/PR/PR-295.jpg",
+    "illust": "安藤周記",
+    faqs: [
+      {
+        "q": "ライフバーストにある「対戦相手の手札を見て１枚選び、捨てさせる」とはどういうことですか？",
+        "a": "ライフバーストが発動した場合、対戦相手は手札を公開します。あなたはその中からカードを１枚選択します。対戦相手は、その選択されたカード１枚を、トラッシュに置きます。"
+      },
+      {
+        "q": "出現時能力やライフバーストによって見た対戦相手の手札を、メモし、以降の対戦中に参照することは可能ですか？",
+        "a": "はい、公開された対戦相手のカードのメモを取ることはルール上は特に問題なく、そのゲーム中のメモをそのゲーム中にかぎり参照することも可能となっております。ただし、メモを取る時間はゲームの制限時間に大きな影響の無い範囲で行う必要があります。"
+      }
+    ],
+    "classes": [
+      "精械",
+      "電機"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：対戦相手の手札が0枚であるかぎり、このシグニのパワーは10000になる。",
+      "【【出】】：対戦相手の手札を見る。"
+    ],
+    "multiEner": false,
+    cardText: "私がいれば、海でもプールでもできるねっ！～T・A・P～",
+    cardText_zh_CN: "",
+    cardText_en: "",
+    "lifeBurst": "対戦相手の手札を見て１枚選び、捨てさせる。"
+  },
+  "1892": {
+    "pid": 1892,
+    cid: 1892,
+    "timestamp": 1479020782212,
+    "wxid": "WX14-005",
+    name: "水天一碧",
+    name_zh_CN: "水天一碧",
+    name_en: "水天一碧",
+    "kana": "イージートゥダンス",
+    "rarity": "LR",
+    "cardType": "ARTS",
+    "color": "green",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-005.jpg",
+    "illust": "はるのいぶき",
+    faqs: [
+      {
+        "q": "②と③を選んだ場合、先に③でカードを２枚エナゾーンに置いてから、②でそれらを手札に加えられますか？",
+        "a": "いいえ、できません。効果は上から順番に処理されますので、②と③を選んだら先に②が処理されます。"
+      },
+      {
+        "q": "チェインとはどういう効果ですか？",
+        "a": "チェインを持つカードを使用すると、このターン、あなたが次にアーツを使用する為のコストがチェインの横に書かれている分だけ減ります。これは強制であり、例えば次に使うアーツが無色×０であってもそれのコストが減ったこととなり、さらにその次のアーツのコストは減少しません。"
+      }
+    ],
+    "classes": [],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 1,
+    "costGreen": 1,
+    "costColorless": 2,
+    "guardFlag": false,
+    cardSkills: [
+      "使用タイミング【メインフェイズ】【アタックフェイズ】",
+      "チェイン【《緑》】【《青》】",
+      "以下の４つから２つまで選ぶ。",
+      "①対戦相手のシグニを２体までダウンする。",
+      "②あなたのエナゾーンからカードを２枚まで手札に加える。",
+      "③あなたのデッキの上からカードを２枚エナゾーンに置く。",
+      "④あなたはカードを２枚引く。"
+    ],
+    "multiEner": false,
+    cardText: "選ぶ先、心から願いを叶えてあげたくて。",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1893": {
+    "pid": 1893,
+    cid: 1893,
+    "timestamp": 1479020788588,
+    "wxid": "WX14-008",
+    name: "染刻の巫女　タマヨリヒメ",
+    name_zh_CN: "染刻の巫女　タマヨリヒメ",
+    name_en: "染刻の巫女　タマヨリヒメ",
+    "kana": "センコクノミコタマヨリヒメ",
+    "rarity": "LC",
+    "cardType": "LRIG",
+    "color": "white",
+    "level": 4,
+    "limit": 10,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-008.jpg",
+    "illust": "ときち",
+    faqs: [
+      {
+        "q": "【出】能力は必ず発動しなければなりませんか？",
+        "a": "いいえ、コスト（この場合は手札を1枚捨てるという部分）を伴う出現時能力は発動させるかどうかを選ぶことができます。\n逆にコストのない【出】能力は必ず発動しなければなりません。"
+      }
+    ],
+    "classes": [
+      "タマ"
+    ],
+    "costWhite": 1,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【出】】手札を１枚捨てる：あなたのデッキからシグニ１枚を探して公開し手札に加える。その後、デッキをシャッフルする。"
+    ],
+    "multiEner": false,
+    cardText: "生み出された白は、本当は黒だったのかもしれない。",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1894": {
+    "pid": 1894,
+    cid: 1894,
+    "timestamp": 1479020788556,
+    "wxid": "WX14-015",
+    name: "三型藹々娘　緑姫",
+    name_zh_CN: "三型藹々娘　緑姫",
+    name_en: "三型藹々娘　緑姫",
+    "kana": "サンガタアイアイキミドリコ",
+    "rarity": "LC",
+    "cardType": "LRIG",
+    "color": "green",
+    "level": 3,
+    "limit": 7,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-015.jpg",
+    "illust": "斎創",
+    "classes": [
+      "緑子"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 2,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【出】】：あなたの場にある＜植物＞のシグニ１体につき、あなたのデッキの一番上のカードをエナゾーンに置く。"
+    ],
+    "multiEner": false,
+    cardText: "や、また会ったね…！～緑姫～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1895": {
+    "pid": 1895,
+    cid: 1895,
+    "timestamp": 1479020788536,
+    "wxid": "WX14-017",
+    name: "緑羅植　ユグドラ",
+    name_zh_CN: "緑羅植　ユグドラ",
+    name_en: "緑羅植　ユグドラ",
+    "kana": "リョクラショクユグドラ",
+    "rarity": "LC",
+    "cardType": "RESONA",
+    "color": "green",
+    "level": 3,
+    "limit": 0,
+    "power": 10000,
+    "limiting": "緑子",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-017.jpg",
+    "illust": "アリオ",
+    faqs: [
+      {
+        "q": "「すべての色を持つ」とはどういうことですか？",
+        "a": "あなたのエナゾーンにある無色ではないすべてのカードは、色を参照する際に、白、赤、青、緑、黒のどの色としても参照されるようになります。例えば《羅植姫　スノロップ》はそれぞれの色を持ち+20000されます。また、《ファイブ・レインボー》の効果を処理する際にも、エナゾーンにすべての色を持っているカードがあれば5色の効果を選ぶことができます。"
+      },
+      {
+        "q": "《緑羅植　ユグドラ》が場にあるとき、無色のシグニや無色のスペルのライフバーストは発動できますか？",
+        "a": "はい、できます。"
+      }
+    ],
+    "classes": [
+      "精羅",
+      "植物"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【出現条件】【メインフェイズ】レゾナではない＜植物＞のシグニ２体をあなたの場からトラッシュに置く",
+      "【【常】】：あなたのエナゾーンにある無色ではないすべてのカードはすべての色を持つ。（エナを支払う際にはどの色として支払うか選ぶ）",
+      "【【常】】：あなたは無色のシグニを場に出せず、無色のスペルを使用できない。（すでに場に出ている無色のシグニはトラッシュに置かれる）"
+    ],
+    "multiEner": false,
+    cardText: "そして精霊までもが私の友達なの。～ユグドラ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1896": {
+    "pid": 1896,
+    cid: 1896,
+    "timestamp": 1479020788581,
+    "wxid": "WX14-028",
+    name: "羅植華姫　バオバブーン",
+    name_zh_CN: "羅植華姫　バオバブーン",
+    name_en: "羅植華姫　バオバブーン",
+    "kana": "ラショクハナヒメバオバブーン",
+    "rarity": "SR",
+    "cardType": "SIGNI",
+    "color": "green",
+    "level": 5,
+    "limit": 0,
+    "power": 15000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-028.jpg",
+    "illust": "keypot",
+    faqs: [
+      {
+        "q": "起動能力は《羅植華姫　バオバブーン》が場に出ていなくても使えますか？",
+        "a": "はい、《羅植華姫　バオバブーン》の起動能力は、《羅植華姫　バオバブーン》が手札にあるときに使用できます。"
+      },
+      {
+        "q": "ライフバーストによって緑のカードと無色のカードを手札に加えられますか？",
+        "a": "いいえ、無色は色ではありませんので異なる色を持つに該当せずエナゾーンに置くことはできません。また、緑と無色のカードしか探せない場合、その緑のカードもエナゾーンに置くことはできません。"
+      }
+    ],
+    "classes": [
+      "精羅",
+      "植物"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【出】】：あなたのデッキから緑ではないレベル５のシグニ１枚を探して公開し手札に加える。その後、デッキをシャッフルする。",
+      "【【起】】手札にあるこのカードをゲームから除外する：あなたのデッキの一番上のカードをエナゾーンに置く。この能力は使用タイミング【メインフェイズ】【アタックフェイズ】を持つ。"
+    ],
+    "multiEner": false,
+    cardText: "あったかい…バブーンみをかんじる…～ハイビス～",
+    cardText_zh_CN: "",
+    cardText_en: "",
+    "lifeBurst": "あなたのデッキから異なる色を持つカード２枚を探してエナゾーンに置く。その後、デッキをシャッフルする。"
+  },
+  "1897": {
+    "pid": 1897,
+    cid: 1897,
+    "timestamp": 1479020788644,
+    "wxid": "WX14-031",
+    name: "千苦の大天使　†アークゲイン†",
+    name_zh_CN: "千苦の大天使　†アークゲイン†",
+    name_en: "千苦の大天使　†アークゲイン†",
+    "kana": "センクノダイテンシフォールアークゲイン",
+    "rarity": "SR",
+    "cardType": "SIGNI",
+    "color": "black",
+    "level": 4,
+    "limit": 0,
+    "power": 12000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-031.jpg",
+    "illust": "村上ゆいち",
+    faqs: [
+      {
+        "q": "対戦相手の効果などで、こちらの場の《千苦の大天使　†アークゲイン†》を含む＜天使＞3体が同時にバニッシュされました。常時能力は発動しますか？",
+        "a": "はい、その場合は同時にバニッシュされた＜天使＞の数だけ発動しますので、3回発動します。\nそこで《千苦の大天使　†アークゲイン†》が2体であった場合は合計6回発動します。"
+      },
+      {
+        "q": "このシグニが2体あり《ファイブ・レインボー》で1体がバニッシュされて、もう1体が-12000されました。【常】は何回発動しますか？",
+        "a": "合計2回です。\n1体目については2体目がバニッシュされた時点ですでに場になく、自身の分だけトリガーします。\n2体目については自身の分でまず1回です。そして1体目がバニッシュされた時にもトリガーしていますが、能力発動時にはトリガーした場所と違う場所にありますので、そちらは不発となります。"
+      },
+      {
+        "q": "起動能力を使用した場合、常時能力も発動しますか？",
+        "a": "はい、あなたの＜天使＞のシグニがバニッシュされましたので、常時能力が発動します。"
+      }
+    ],
+    "classes": [
+      "精像",
+      "天使"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：あなたの＜精像：天使＞のシグニ１体がバニッシュされるたび、ターン終了時まで、対戦相手のシグニ１体のパワーを3000する。",
+      "【【出】】【《黒》】【《黒》】：あなたのトラッシュから＜精像：天使＞のシグニ１枚を場に出す。",
+      "【【起】】【《黒》】：あなたの他の＜精像：天使＞のシグニ１体をバニッシュする。そうした場合、ターン終了時まで、対戦相手のシグニ１体のパワーを3000する。この能力は使用タイミング【メインフェイズ】【アタックフェイズ】を持ち、１ターンに一度しか使用できない。"
+    ],
+    "multiEner": false,
+    cardText: "ここに書いてある……その通りだったわ。～†アークゲイン†～",
+    cardText_zh_CN: "",
+    cardText_en: "",
+    "lifeBurst": "あなたのトラッシュから白のカード１枚と黒のカード１枚を手札に加える。"
+  },
+  "1898": {
+    "pid": 1898,
+    cid: 1898,
+    "timestamp": 1479020788593,
+    "wxid": "WX14-040",
+    name: "羅植　ヤシ",
+    name_zh_CN: "羅植　ヤシ",
+    name_en: "羅植　ヤシ",
+    "kana": "ラショクヤシ",
+    "rarity": "R",
+    "cardType": "SIGNI",
+    "color": "green",
+    "level": 4,
+    "limit": 0,
+    "power": 10000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-040.jpg",
+    "illust": "柚希きひろ",
+    faqs: [
+      {
+        "q": "出現時能力は、コスト支払いから処理まで好きな順番で行えますか？",
+        "a": "はい、複数の出現時能力は好きな順番で発動でき、発動する際にコストを支払います。\nまた、4つ目の出現時能力によって場に出たシグニの出現時能力を先に発動して、そのあとで残りの１～３つ目の出現時能力を発動することもできます。"
+      }
+    ],
+    "classes": [
+      "精羅",
+      "植物"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【出】】【《白》】：対戦相手のレベル３以下のシグニ１体を手札に戻す。",
+      "【【出】】【《赤》】：対戦相手のパワー10000以下のシグニ１体をバニッシュする。",
+      "【【出】】【《青》】：対戦相手は手札を１枚捨てる。",
+      "【【出】】【《黒》】：あなたのトラッシュから緑のシグニ１枚を場に出す。"
+    ],
+    "multiEner": false,
+    cardText: "さぁ一緒に！カオ・カホロ・ヘラ♪～ヤシ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1899": {
+    "pid": 1899,
+    cid: 1899,
+    "timestamp": 1479020788547,
+    "wxid": "WX14-047",
+    name: "未来の噴陰　†アークホールド†",
+    name_zh_CN: "未来の噴陰　†アークホールド†",
+    name_en: "未来の噴陰　†アークホールド†",
+    "kana": "ミライノフクインフォールンアークホールド",
+    "rarity": "R",
+    "cardType": "SIGNI",
+    "color": "black",
+    "level": 3,
+    "limit": 0,
+    "power": 7000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-047.jpg",
+    "illust": "アカバネ",
+    "classes": [
+      "精像",
+      "天使"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【起】】【《ダウン》】あなたの他の＜精像：天使＞のシグニ１体を場からトラッシュに置く：あなたのデッキからこの方法でトラッシュに置いたシグニと同じ色を持つ、《未来の噴陰　†アークホールド†》以外のレベル４以下のシグニ１枚を探して公開し手札に加える。その後、デッキをシャッフルする。"
+    ],
+    "multiEner": false,
+    cardText: "お姉ちゃん堕ちたってマジ！？～†アークホールド†～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1900": {
+    "pid": 1900,
+    cid: 1900,
+    "timestamp": 1479020788610,
+    "wxid": "WX14-063",
+    name: "羅植　ソテツ",
+    name_zh_CN: "羅植　ソテツ",
+    name_en: "羅植　ソテツ",
+    "kana": "ラショクテツ",
+    "rarity": "C",
+    "cardType": "SIGNI",
+    "color": "green",
+    "level": 3,
+    "limit": 0,
+    "power": 8000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-063.jpg",
+    "illust": "イチノセ奏",
+    faqs: [
+      {
+        "q": "《サーバント　Ｏ》などの【マルチエナ】を持つサーバントがエナゾーンにある場合、このシグニはプラスされますか？",
+        "a": "いいえ、そのシグニ自体は無色であり、無色は色を持たないため、色の種類には数えられずプラス修正されません。"
+      }
+    ],
+    "classes": [
+      "精羅",
+      "植物"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：このシグニのパワーはあなたのエナゾーンにあるカードの色の種類１つにつき＋1000される。"
+    ],
+    "multiEner": false,
+    cardText: "アミ！そしてウエヘ♪～ソテツ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },  "1901": {
+    "pid": 1901,
+    cid: 1901,
+    "timestamp": 1479021151175,
+    "wxid": "WX14-065",
+    name: "羅植　サトウキビ",
+    name_zh_CN: "羅植　サトウキビ",
+    name_en: "羅植　サトウキビ",
+    "kana": "ラショクサトウキビ",
+    "rarity": "C",
+    "cardType": "SIGNI",
+    "color": "green",
+    "level": 2,
+    "limit": 0,
+    "power": 5000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-065.jpg",
+    "illust": "松本エイト",
+    faqs: [
+      {
+        "q": "《サーバント　Ｏ》などの【マルチエナ】を持つサーバントがエナゾーンにある場合、このシグニはプラスされますか？",
+        "a": "いいえ、そのシグニ自体は無色であり、無色は色を持たないため、色の種類には数えられずプラス修正されません。"
+      }
+    ],
+    "classes": [
+      "精羅",
+      "植物"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：このシグニのパワーはあなたのエナゾーンにあるカードの色の種類１つにつき＋1000される。"
+    ],
+    "multiEner": false,
+    cardText: "レレウエヘ・キィイ♪～サトウキビ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1902": {
+    "pid": 1902,
+    cid: 1902,
+    "timestamp": 1479021151228,
+    "wxid": "WX14-068",
+    name: "羅植　ハイビス",
+    name_zh_CN: "羅植　ハイビス",
+    name_en: "羅植　ハイビス",
+    "kana": "ラショクハイビス",
+    "rarity": "C",
+    "cardType": "SIGNI",
+    "color": "green",
+    "level": 1,
+    "limit": 0,
+    "power": 2000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-068.jpg",
+    "illust": "かにかま",
+    faqs: [
+      {
+        "q": "《サーバント　Ｏ》などの【マルチエナ】を持つサーバントがエナゾーンにある場合、このシグニはプラスされますか？",
+        "a": "いいえ、そのシグニ自体は無色であり、無色は色を持たないため、色の種類には数えられずプラス修正されません。"
+      }
+    ],
+    "classes": [
+      "精羅",
+      "植物"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：このシグニのパワーはあなたのエナゾーンにあるカードの色の種類１つにつき＋1000される。"
+    ],
+    "multiEner": false,
+    cardText: "くい。かぶぇる♪～ハイビス～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1903": {
+    "pid": 1903,
+    cid: 1903,
+    "timestamp": 1479021151096,
+    "wxid": "WX14-069",
+    name: "華歌",
+    name_zh_CN: "華歌",
+    name_en: "華歌",
+    "kana": "ハナウタ",
+    "rarity": "C",
+    "cardType": "SPELL",
+    "color": "green",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "緑子",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-069.jpg",
+    "illust": "イチノセ奏",
+    faqs: [
+      {
+        "q": "デッキが残り2枚で《華歌》を使用し、＜植物＞のシグニが2枚エナゾーンに置かれました。リフレッシュ後に追加の一枚をエナゾーンに置けますか？",
+        "a": "いいえ、できません。リフレッシュなどのルール処理は、効果の処理中には処理されません。まず《華歌》の効果を最後まで処理してからリフレッシュを行います。"
+      }
+    ],
+    "classes": [],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 1,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "あなたのデッキの上からカードを２枚エナゾーンに置く。この方法で＜植物＞のシグニが２枚エナゾーンに置かれた場合、追加であなたのデッキの一番上のカードをエナゾーンに置く。"
+    ],
+    "multiEner": false,
+    cardText: "咲いた～♪咲いた～♪キレイな花が～♪　～ラフレレ＆緑姫～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1904": {
+    "pid": 1904,
+    cid: 1904,
+    "timestamp": 1479021151506,
+    "wxid": "WX14-072",
+    name: "やり直しの廃和　†ミカエル†",
+    name_zh_CN: "やり直しの廃和　†ミカエル†",
+    name_en: "やり直しの廃和　†ミカエル†",
+    "kana": "ヤリナオシノハイワフォールンミカエル",
+    "rarity": "C",
+    "cardType": "SIGNI",
+    "color": "black",
+    "level": 2,
+    "limit": 0,
+    "power": 8000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-072.jpg",
+    "illust": "はるのいぶき",
+    faqs: [
+      {
+        "q": "出現時能力は強制ですか？",
+        "a": "はい、コストの無い出現時能力ですので、強制的にトリガーし、発動します。"
+      }
+    ],
+    "classes": [
+      "精像",
+      "天使"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【出】】：あなたの手札から＜精像：天使＞のシグニ1枚を公開するか、このシグニをトラッシュに置く。この方法で＜精像：天使＞のシグニを公開した場合、あなたのデッキから＜精像：天使＞のシグニ１枚を探してトラッシュに置く。その後、デッキをシャッフルする。"
+    ],
+    "multiEner": false,
+    cardText: "堕天しても、ハニエルとミカエルの関係は変わらなかった。",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1905": {
+    "pid": 1905,
+    cid: 1905,
+    "timestamp": 1479021151502,
+    "wxid": "WX14-075",
+    name: "探究の死相　†ハニエル†",
+    name_zh_CN: "探究の死相　†ハニエル†",
+    name_en: "探究の死相　†ハニエル†",
+    "kana": "タンキュウノシソウフォールンハニエル",
+    "rarity": "C",
+    "cardType": "SIGNI",
+    "color": "black",
+    "level": 1,
+    "limit": 0,
+    "power": 5000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-075.jpg",
+    "illust": "クロサワテツ",
+    faqs: [
+      {
+        "q": "出現時能力は強制ですか？",
+        "a": "はい、コストの無い出現時能力ですので、強制的にトリガーし、発動します。"
+      }
+    ],
+    "classes": [
+      "精像",
+      "天使"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【出】】：あなたの手札から＜精像：天使＞のシグニ1枚を公開するか、このシグニをトラッシュに置く。"
+    ],
+    "multiEner": false,
+    cardText: "あ…堕天したら生えてきちゃった。～†ハニエル†～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1906": {
+    "pid": 1906,
+    cid: 1906,
+    "timestamp": 1479021151897,
+    "wxid": "PR-316",
+    name: "サチュレイト・ガット",
+    name_zh_CN: "サチュレイト・ガット",
+    name_en: "サチュレイト・ガット",
+    "kana": "サチュレイトガット",
+    "rarity": "PR",
+    "cardType": "ARTS",
+    "color": "black",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "ハナレ",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/PR/PR-316.jpg",
+    "illust": "アカバネ",
+    faqs: [
+      {
+        "q": "手札が0枚の状態で《サチュレイト・ガット》の使用を宣言し、②の効果でトラッシュにある＜毒牙＞のシグニ2体を場に出すことはできますか？",
+        "a": "はい、できます。使用時のあなたの手札の枚数に関わらず、②の効果で"
+      },
+      {
+        "q": "《サチュレイト・ガット》を使用するときのコストとして支払った《黒》×２が＜毒牙＞のシグニだった場合、それも①や②の効果で選べますか？",
+        "a": "はい、できます。コストを支払ってからトラッシュのカードを選びますので、その時点でトラッシュにある＜毒牙＞のシグニを選ぶことができます。"
+      },
+      {
+        "q": "②の効果で手札を捨てた後、捨てた手札に含まれていた＜毒牙＞も選んで場に出すことができますか？",
+        "a": "はい、できます。②の効果では、手札を捨てた後にトラッシュの＜毒牙＞を選びます。"
+      },
+      {
+        "q": "トラッシュに＜毒牙＞が1枚しかない場合でも、①や②の効果で使用できますか？",
+        "a": "はい、どちらも「2枚まで」を選ぶ効果ですので、1枚だけを選んで手札に加えたり場に出すこともできます。"
+      },
+      {
+        "q": "②の効果で2体場に出した＜毒牙＞が両方出現時能力を持っています。どちらから先に発動しますか？",
+        "a": "出現時能力はトリガー能力であり、複数のトリガーしている能力がある場合は好きな順番で発動させることができます。"
+      }
+    ],
+    "classes": [],
+    "costWhite": 0,
+    "costBlack": 2,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "使用タイミング",
+      "【メインフェイズ】【アタックフェイズ】",
+      "以下の２つから１つを選ぶ。",
+      "①あなたのトラッシュから＜毒牙＞のシグニを２枚まで手札に加える。",
+      "②手札をすべて捨てる。その後、あなたのトラッシュから＜毒牙＞のシグニを２枚まで場に出す。"
+    ],
+    "multiEner": false,
+    cardText: "一人には、させない。～ハナレ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1907": {
+    "pid": 1907,
+    cid: 1907,
+    "timestamp": 1479021151955,
+    "wxid": "PR-317",
+    name: "サクシード・ディストラクト",
+    name_zh_CN: "サクシード・ディストラクト",
+    name_en: "サクシード・ディストラクト",
+    "kana": "サクシードディストラクト",
+    "rarity": "PR",
+    "cardType": "ARTS",
+    "color": "colorless",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/PR/PR-317.jpg",
+    "illust": "mado*pen",
+    faqs: [
+      {
+        "q": "《サクシード・ディストラクト》を2枚続けて使用した場合、エクシード４でシグニ2体をバニッシュしたり、カードを4枚引けますか？",
+        "a": "いいえ、できません。《サクシード・ディストラクト》を2枚使用したとしても、別々のエクシード4能力を複数得るだけであり、実質意味はありません。起動能力の使用時に起動能力の使用時にどの能力を使用するか宣言する必要があり、一番上のエクシード4能力では対戦相手のシグニ1体をバニッシュするのみということは変わりません。"
+      }
+    ],
+    "classes": [],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "使用タイミング【メインフェイズ】【アタックフェイズ】",
+      "ターン終了時まで、あなたのルリグは",
+      "「【【起】】エクシード４：対戦相手のシグニ１体をバニッシュする。」",
+      "「【【起】】エクシード４：あなたはカードを２枚引く。」",
+      "「【【起】】エクシード４：あなたのデッキの上からカードを２枚エナゾーンに置く。」",
+      "を得る。このアーツによってあなたのルリグが得た能力は、使用タイミング【メインフェイズ】【アタックフェイズ】を得る。"
+    ],
+    "multiEner": false,
+    cardText: "色を識った剣先と、新章への道標。",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1908": {
+    "pid": 1908,
+    cid: 1908,
+    "timestamp": 1479021152773,
+    "wxid": "WX14-004",
+    name: "炎竜毒蛇",
+    name_zh_CN: "炎竜毒蛇",
+    name_en: "炎竜毒蛇",
+    "kana": "エンリュウドクダ",
+    "rarity": "LR",
+    "cardType": "ARTS",
+    "color": "red",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-004.jpg",
+    "illust": "クロサワテツ",
+    faqs: [
+      {
+        "q": "①と②を選び、①でパワー15000のシグニ２体を-8000した場合、②でそれらをバニッシュできますか？",
+        "a": "はい、できます。効果は上から順番に処理されますので、まずそれらが-8000された後、対戦相手のパワー7000以下のすべてのシグニがバニッシュされますので、それらもバニッシュされます。"
+      },
+      {
+        "q": "③の「いずれか」というのは能力を1つだけ持っているという意味で、能力を2つを持っているとバニッシュはされませんか？",
+        "a": "いいえ、１つ「だけ」という意味ではなく、いずれかを持っているシグニであればバニッシュされます。能力を複数個持っていても変わりありません。"
+      },
+      {
+        "q": "③は自分のシグニもバニッシュされますか？",
+        "a": "はい、③を選んだ場合、自分のシグニが【アサシン】【ランサー】【ダブルクラッシュ】のいずれかを持っていたらそれもバニッシュされます。"
+      }
+    ],
+    "classes": [],
+    "costWhite": 0,
+    "costBlack": 1,
+    "costRed": 2,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 2,
+    "guardFlag": false,
+    cardSkills: [
+      "使用タイミング【メインフェイズ】【アタックフェイズ】",
+      "以下の４つから２つまで選ぶ。",
+      "①ターン終了時まで、対戦相手のシグニ２体までのパワーをそれぞれ－8000する。",
+      "②対戦相手のパワー7000以下のすべてのシグニをバニッシュする。",
+      "③【アサシン】【ランサー】【ダブルクラッシュ】のいずれかを持つすべてのシグニをバニッシュする。",
+      "④あなたのトラッシュからシグニを２枚まで手札に加える。"
+    ],
+    "multiEner": false,
+    cardText: "選ぶ先、誰かを思う気持ちが救いに変わる。",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1909": {
+    "pid": 1909,
+    cid: 1909,
+    "timestamp": 1479021152878,
+    "wxid": "WX14-009",
+    name: "炎・花代・伍",
+    name_zh_CN: "炎・花代・伍",
+    name_en: "炎・花代・伍",
+    "kana": "エンハナヨゴ",
+    "rarity": "LC",
+    "cardType": "LRIG",
+    "color": "red",
+    "level": 5,
+    "limit": 12,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-009.jpg",
+    "illust": "安藤周記",
+    faqs: [
+      {
+        "q": "グロウコストとして支払った《赤》が《フレイスロ》を含むシグニだった場合、そのカードもコストを減らす枚数に含めることができますか？",
+        "a": "いいえ、そのカードは含めません。先にエナゾーンにある《フレイスロ》を含むカードを数えてグロウするためのコストを決定してから、エナゾーンからグロウコストを支払います。"
+      },
+      {
+        "q": "カード名に《フレイスロ》を含むカードがトラッシュに13枚だけあった場合にグロウするためのコストはいくつ減りますか？",
+        "a": "《赤》コストが１だけ減ります。7枚につき、ですので7枚に満たない枚数は切り捨てで計算されます。"
+      },
+      {
+        "q": "《弱者の必滅　ディアボロス》によりこちらの《爆炎　フレイスロ軍曹》のレベルが1にされ、そしてバニッシュされました。ルリグの能力でレベル1である《小炎　フレイスロ兵長》を手札から出すことはできますか？",
+        "a": "いいえ、場を離れたシグニのレベルは1であり、手札から出すことのできるのはレベルが１より低いシグニとなります。\n《小炎　フレイスロ兵長》を手札から出すことはできません。"
+      }
+    ],
+    "classes": [
+      "花代"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 3,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：このカードにグロウするためのコストは、あなたのトラッシュにあるカード名に《フレイスロ》を含むカード７枚につき、【《赤》】コストが１減る。",
+      "【【常】】：あなたのカード名に《フレイスロ》を含むシグニ１体が場を離れるたび、あなたの手札からそのシグニよりレベルの低い、カード名に《フレイスロ》を含むシグニ１枚をダウン状態で場に出してもよい。",
+      "【【起】】エクシード１：あなたのトラッシュからカード名に《フレイスロ》を含むシグニ１枚を手札に加える。この能力は１ターンに二度までしか使用できない。"
+    ],
+    "multiEner": false,
+    cardText: "この熱さが、私を前に進ませる。～花代～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1910": {
+    "pid": 1910,
+    cid: 1910,
+    "timestamp": 1479021152933,
+    "wxid": "WX14-012",
+    name: "炎軍奮闘",
+    name_zh_CN: "炎軍奮闘",
+    name_en: "炎軍奮闘",
+    "kana": "エングンフントウ",
+    "rarity": "LC",
+    "cardType": "ARTS",
+    "color": "red",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "花代",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-012.jpg",
+    "illust": "安藤周記",
+    faqs: [
+      {
+        "q": "手札が0枚や1枚のときに使用できますか？",
+        "a": "使用すること自体は可能ですが、手札を2枚捨てることができませんので、「そうした場合」以降の効果は発生しません。また、1枚のみの手札を捨てることもできません。"
+      },
+      {
+        "q": "シグニゾーンが１つしか空いていない場合は使用できますか？",
+        "a": "はい、その場合は手札は2枚捨てた上で、探して場に出せるのは1枚のみとなります。\nまたその場合に2枚を探して、残り1枚を手札に加えるといったことはできません。"
+      }
+    ],
+    "classes": [],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "使用タイミング",
+      "【メインフェイズ】【アタックフェイズ】",
+      "手札を２枚捨てる。そうした場合、あなたのデッキからカード名に《フレイスロ》を含むシグニを２枚まで探して場に出す。その後、デッキをシャッフルする。"
+    ],
+    "multiEner": false,
+    cardText: "燃え上がれ、夢見た平和へ。",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1911": {
+    "pid": 1911,
+    cid: 1911,
+    "timestamp": 1479021152958,
+    "wxid": "WX14-020",
+    name: "禍因の冥者　ハナレ",
+    name_zh_CN: "禍因の冥者　ハナレ",
+    name_en: "禍因の冥者　ハナレ",
+    "kana": "カインノメイジャハナレ",
+    "rarity": "LC",
+    "cardType": "LRIG",
+    "color": "black",
+    "level": 3,
+    "limit": 7,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-020.jpg",
+    "illust": "猫囃子",
+    faqs: [
+      {
+        "q": "このカードの常時能力とエクシード能力は、どちらが先に発動しますか？",
+        "a": "エクシード能力が先となります。エクシード能力の起動を宣言し、コストを支払い、エクシード能力が発動してその処理が終わってから《禍因の冥者　ハナレ》の常時能力が発動します。"
+      },
+      {
+        "q": "《アーク・ディストラクト》でルリグトラッシュに置いた場合、常時能力は発動しますか？",
+        "a": "いいえ、発動しません。どちらもルリグの下からルリグトラッシュに置いていますが、《アーク・ディストラクト》はエクシード能力のコストではないため、発動条件を満たしません。"
+      }
+    ],
+    "classes": [
+      "ハナレ"
+    ],
+    "costWhite": 0,
+    "costBlack": 2,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：このカードがエクシードのコストとしてルリグトラッシュに置かれたとき、あなたのトラッシュからレベル３以下の＜毒牙＞のシグニ１枚を場に出す。"
+    ],
+    "multiEner": false,
+    cardText: "戻れない魂は、それぞれの救いを空に置いてきた。",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1912": {
+    "pid": 1912,
+    cid: 1912,
+    "timestamp": 1479021153037,
+    "wxid": "WX14-025",
+    name: "撃弩炎　フレイスロ大将",
+    name_zh_CN: "撃弩炎　フレイスロ大将",
+    name_en: "撃弩炎　フレイスロ大将",
+    "kana": "ゲキドエンフレイスロタイショウ",
+    "rarity": "SR",
+    "cardType": "SIGNI",
+    "color": "red",
+    "level": 5,
+    "limit": 0,
+    "power": 15000,
+    "limiting": "花代",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-025.jpg",
+    "illust": "出水ぽすか",
+    faqs: [
+      {
+        "q": "自分のターンの間、対戦相手のパワー8000以下のシグニが場に出ました。そのシグニの出現時能力の発動と、《撃弩炎　フレイスロ大将》の常時能力でのバニッシュはどちらが先ですか？",
+        "a": "それらのトリガー能力はターンプレイヤー側から先に発動しますので、《撃弩炎　フレイスロ大将》のバニッシュが先となります。また、そのシグニの出現時能力は、トリガーしてから領域を移動してしまった為、不発となります。"
+      },
+      {
+        "q": "こちらの場にカード名に《フレイスロ》を含むシグニが３体ありませんが、場に出したら出現時能力は発動できますか？",
+        "a": "はい、コストを支払って発動することはできますが、その効果によって対戦相手のシグニをバニッシュすることはできません。"
+      }
+    ],
+    "classes": [
+      "精武",
+      "ウェポン"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：あなたのターンの間、対戦相手のシグニ１体が場に出るたび、そのシグニのパワーが8000以下の場合、それをバニッシュする。",
+      "【【出】】【《赤》】【《赤》】【《赤》】：あなたの場にカード名に《フレイスロ》を含むシグニが３体ある場合、対戦相手のすべてのシグニをバニッシュする。"
+    ],
+    "multiEner": false,
+    cardText: "ああぁっははははは燃えろ！！～フレイスロ大将～",
+    cardText_zh_CN: "",
+    cardText_en: "",
+    "lifeBurst": "対戦相手のシグニ１体をバニッシュする。あなたのトラッシュにカード名に《フレイスロ》を含むシグニが１０枚以上ある場合、対戦相手のライフクロス１枚をクラッシュする。"
+  },
+  "1913": {
+    "pid": 1913,
+    cid: 1913,
+    "timestamp": 1479021153005,
+    "wxid": "WX14-035",
+    name: "轟炎　フレイスロ中尉",
+    name_zh_CN: "轟炎　フレイスロ中尉",
+    name_en: "轟炎　フレイスロ中尉",
+    "kana": "ゴウエンフレイスロチュウイ",
+    "rarity": "R",
+    "cardType": "SIGNI",
+    "color": "red",
+    "level": 3,
+    "limit": 0,
+    "power": 8000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-035.jpg",
+    "illust": "笹森トモエ",
+    "classes": [
+      "精武",
+      "ウェポン"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【出】】【《赤》】：あなたのデッキからカード名に《フレイスロ》を含むシグニ１枚を探して公開し手札に加える。その後、デッキをシャッフルする。"
+    ],
+    "multiEner": false,
+    cardText: "懐かしい写真だな。～フレイスロ大将～",
+    cardText_zh_CN: "",
+    cardText_en: "",
+    "lifeBurst": "あなたのデッキからカード名に《フレイスロ》を含むシグニ１枚を探して公開し手札に加える。その後、デッキをシャッフルする。"
+  },
+  "1914": {
+    "pid": 1914,
+    cid: 1914,
+    "timestamp": 1479021153476,
+    "wxid": "WX14-037",
+    name: "進撃の炎軍",
+    name_zh_CN: "進撃の炎軍",
+    name_en: "進撃の炎軍",
+    "kana": "シンゲキノエングン",
+    "rarity": "R",
+    "cardType": "SPELL",
+    "color": "red",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "花代",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-037.jpg",
+    "illust": "アリオ",
+    faqs: [
+      {
+        "q": "【スペルカットイン】によって、選択した自身のシグニがバニッシュされました。 この場合効果は処理されますか？",
+        "a": "いいえ、「○○する。そうした場合？？する」と書かれた効果は、○○を行えなかった場合、？？の効果も処理されません。"
+      },
+      {
+        "q": "シグニがバニッシュされたときにトリガーする能力を持ったシグニ（例：《コードアンチ　ドロンジョ》）を《進撃の炎軍》でバニッシュしました。このような場合、《進撃の炎軍》の効果と、トリガーした能力はどちらが先に解決されますか？",
+        "a": "ある１つの効果（A）によって、別のトリガー能力（B）がトリガーした場合であっても、その効果（A）の処理がすべて終了するまで、能力（B）は発動しません。よって、この場合、《進撃の炎軍》の解決がすべて終了した後に、《コードアンチ　ドロンジョ》の常時能力が発動します。"
+      }
+    ],
+    "classes": [],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "以下の２つから１つを選ぶ。",
+      "①あなたのカード名に《フレイスロ》を含むシグニ１体をバニッシュする。そうした場合、対戦相手のパワー7000以下のシグニ１体をバニッシュする。",
+      "②あなたのカード名に《フレイスロ》を含むシグニ１体をバニッシュする。そうした場合、あなたのデッキの上からカードを３枚公開する。その中からカード名に《フレイスロ》を含むシグニ１枚を手札に加え、残りを好きな順番でデッキの一番下に置く。"
+    ],
+    "multiEner": false,
+    cardText: "心臓を炎に捧げよ！～フレイスロ中将～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1915": {
+    "pid": 1915,
+    cid: 1915,
+    "timestamp": 1479021153865,
+    "wxid": "WX14-046",
+    name: "ドライ＝ロドボル",
+    name_zh_CN: "ドライ＝ロドボル",
+    name_en: "ドライ＝ロドボル",
+    "kana": "ドライロドボル",
+    "rarity": "R",
+    "cardType": "SIGNI",
+    "color": "black",
+    "level": 3,
+    "limit": 0,
+    "power": 7000,
+    "limiting": "ハナレ",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-046.jpg",
+    "illust": "出水ぽすか",
+    faqs: [
+      {
+        "q": "＜毒牙＞のシグニがこの効果で１枚でも公開された場合、それを場に出すのは強制ですか？",
+        "a": "はい、場に出せる数やリミット・レベル超過や限定条件などの場に出すことの制限がなければ、その中から＜毒牙＞を１枚出すのは強制となります。"
+      }
+    ],
+    "classes": [
+      "精武",
+      "毒牙"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【起】】【《ダウン》】：あなたのデッキの上からカードを３枚公開する。その中から＜毒牙＞のシグニ１枚を場に出し、残りを好きな順番でデッキの一番下に置く。"
+    ],
+    "multiEner": false,
+    cardText: "ルクボル、チェボル、お小遣いをあげよう。～ロドボル～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1916": {
+    "pid": 1916,
+    cid: 1916,
+    "timestamp": 1479021154261,
+    "wxid": "WX14-048",
+    name: "トキシック・スパイクス",
+    name_zh_CN: "トキシック・スパイクス",
+    name_en: "トキシック・スパイクス",
+    "kana": "トキシックスパイクス",
+    "rarity": "R",
+    "cardType": "SPELL",
+    "color": "black",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "ハナレ",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-048.jpg",
+    "illust": "ふーみ",
+    faqs: [
+      {
+        "q": "【スペルカットイン】によって、選択した自身のシグニがバニッシュされました。 この場合効果は処理されますか？",
+        "a": "いいえ、「○○する。そうした場合？？する」と書かれた効果は、○○を行えなかった場合、？？の効果も処理されません。"
+      },
+      {
+        "q": "シグニがバニッシュされたときにトリガーする能力を持ったシグニ（例：《コードアンチ　ドロンジョ》）を《トキシック・スパイクス》でバニッシュしました。このような場合、《トキシック・スパイクス》の効果と、トリガーした能力はどちらが先に解決されますか？",
+        "a": "ある１つの効果（A）によって、別のトリガー能力（B）がトリガーした場合であっても、その効果（A）の処理がすべて終了するまで、能力（B）は発動しません。よって、この場合、《トキシック・スパイクス》の解決がすべて終了した後に、《コードアンチ　ドロンジョ》の常時能力が発動します。"
+      }
+    ],
+    "classes": [],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "以下の２つから１つを選ぶ。",
+      "①あなたの＜毒牙＞のシグニ１体をバニッシュする。そうした場合、あなたのトラッシュからレベル１の＜毒牙＞のシグニを２枚まで場に出す。",
+      "②あなたの＜毒牙＞のシグニ１体をバニッシュする。そうした場合、ターン終了時まで、対戦相手のシグニ１体のパワーをあなたのトラッシュにあるそれぞれレベルの異なる＜毒牙＞のシグニ１枚につき、－3000する。"
+    ],
+    "multiEner": false,
+    cardText: "踏んでも毒、蹴っても毒。",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1917": {
+    "pid": 1917,
+    cid: 1917,
+    "timestamp": 1479021153956,
+    "wxid": "WX14-057",
+    name: "爆炎　フレイスロ伍長",
+    name_zh_CN: "爆炎　フレイスロ伍長",
+    name_en: "爆炎　フレイスロ伍長",
+    "kana": "バクエンフレイスロゴチョウ",
+    "rarity": "C",
+    "cardType": "SIGNI",
+    "color": "red",
+    "level": 2,
+    "limit": 0,
+    "power": 3000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-057.jpg",
+    "illust": "アカバネ",
+    faqs: [
+      {
+        "q": "《炎軍奮闘》で、《爆炎　フレイスロ伍長》と《小炎　フレイスロ一等兵》を同時に出しました。先に《小炎　フレイスロ一等兵》の能力で手札を捨ててトラッシュの《フレイスロ》を5枚にすることで、《爆炎　フレイスロ伍長》の能力を発動できますか？",
+        "a": "はい、できます。出現時能力を実際に発動する際に、あなたのトラッシュに《フレイスロ》が5枚以上あるかを確認します。"
+      }
+    ],
+    "classes": [
+      "精武",
+      "ウェポン"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【出】】：あなたのトラッシュにカード名に《フレイスロ》を含むシグニが５枚以上ある場合、対戦相手のパワー3000以下のシグニ１体をバニッシュする。"
+    ],
+    "multiEner": false,
+    cardText: "ンッン～♪名言よ！「炎拳は銃よりも強し！」～フレイスロ伍長～",
+    cardText_zh_CN: "",
+    cardText_en: "",
+    "lifeBurst": "カードを１枚引く。"
+  },
+  "1918": {
+    "pid": 1918,
+    cid: 1918,
+    "timestamp": 1479021154027,
+    "wxid": "WX14-058",
+    name: "小炎　フレイスロ二等兵",
+    name_zh_CN: "小炎　フレイスロ二等兵",
+    name_en: "小炎　フレイスロ二等兵",
+    "kana": "ショウエンフレイスロニトウヘイ",
+    "rarity": "C",
+    "cardType": "SIGNI",
+    "color": "red",
+    "level": 1,
+    "limit": 0,
+    "power": 2000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-058.jpg",
+    "illust": "かにかま",
+    faqs: [
+      {
+        "q": "対戦相手の《フル／メイデン　イオナ》が条件を満たし-2000されている状態で、《炎軍奮闘》でレベル3以上の《フレイスロ》と《小炎　フレイスロ二等兵》を出しました。《小炎　フレイスロ二等兵》はバニッシュされますか？",
+        "a": "いいえ、その場合は両方の常時能力により、パワー8000で場に残ります。"
+      }
+    ],
+    "classes": [
+      "精武",
+      "ウェポン"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：あなたの場にレベル３以上のカード名に《フレイスロ》を含むシグニがあるかぎり、このシグニのパワーは10000になる。"
+    ],
+    "multiEner": false,
+    cardText: "軍の縁の下の力持ちッ！～フレイスロ二等兵～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1919": {
+    "pid": 1919,
+    cid: 1919,
+    "timestamp": 1479021153994,
+    "wxid": "WX14-059",
+    name: "小炎　フレイスロ一等兵",
+    name_zh_CN: "小炎　フレイスロ一等兵",
+    name_en: "小炎　フレイスロ一等兵",
+    "kana": "ショウエンフレイスロイットウトウヘイ",
+    "rarity": "C",
+    "cardType": "SIGNI",
+    "color": "red",
+    "level": 1,
+    "limit": 0,
+    "power": 1000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-059.jpg",
+    "illust": "パトリシア",
+    faqs: [
+      {
+        "q": "《炎軍奮闘》で、《爆炎　フレイスロ伍長》と《小炎　フレイスロ一等兵》を同時に出しました。先に《小炎　フレイスロ一等兵》の能力で手札を捨ててトラッシュの《フレイスロ》を5枚にすることで、《爆炎　フレイスロ伍長》の能力を発動できますか？",
+        "a": "はい、できます。出現時能力を実際に発動する際に、あなたのトラッシュに《フレイスロ》が5枚以上あるかを確認します。"
+      }
+    ],
+    "classes": [
+      "精武",
+      "ウェポン"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【出】】手札を１枚捨てる：あなたのデッキからレベル２以下のカード名に《フレイスロ》を含むシグニ１枚を探して公開し手札に加える。その後、デッキをシャッフルする。"
+    ],
+    "multiEner": false,
+    cardText: "炎の回し蹴りならナンバーワン！～フレイスロ一等兵～",
+    cardText_zh_CN: "",
+    cardText_en: "",
+    "lifeBurst": "カードを１枚引く。"
+  },
+  "1920": {
+    "pid": 1920,
+    cid: 1920,
+    "timestamp": 1479021154064,
+    "wxid": "WX14-070",
+    name: "フィア＝ヴィリエ",
+    name_zh_CN: "フィア＝ヴィリエ",
+    name_en: "フィア＝ヴィリエ",
+    "kana": "フィアヴィリエ",
+    "rarity": "C",
+    "cardType": "SIGNI",
+    "color": "black",
+    "level": 4,
+    "limit": 0,
+    "power": 10000,
+    "limiting": "ハナレ",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-070.jpg",
+    "illust": "アリオ",
+    "classes": [
+      "精武",
+      "毒牙"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【起】】【《ダウン》】：ターン終了時まで、対戦相手のシグニ１体のパワーを－5000する。このターン、このシグニが効果によってダウン状態からアップしていた場合、代わりにターン終了時まで、対戦相手のシグニ１体のパワーを－7000する。",
+      "【【起】】あなたの＜毒牙＞のシグニ１体を場からトラッシュに置く：このシグニをアップする。"
+    ],
+    "multiEner": false,
+    cardText: "お・か・わ・り・どうですか？～ヴィリエ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1921": {
+    "pid": 1921,
+    cid: 1921,
+    "timestamp": 1479021154588,
+    "wxid": "WX14-001",
+    name: "最幸の巫女　ユキ",
+    name_zh_CN: "最幸の巫女　ユキ",
+    name_en: "最幸の巫女　ユキ",
+    "kana": "サイコウノミコユキ",
+    "rarity": "LR",
+    "cardType": "LRIG",
+    "color": "white",
+    "level": 5,
+    "limit": 12,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-001.jpg",
+    "illust": "Hitoto*",
+    faqs: [
+      {
+        "q": "「能力を失う」とはどういうことですか？",
+        "a": "能力を失ったシグニはテキストに記載された、また他のカードによって付与された能力を失います。"
+      },
+      {
+        "q": "能力を新たに得られない、という効果は、パワーを増減する効果も受けませんか？",
+        "a": "パワーを増減させる効果は、そのシグニが能力を得ているわけではありません。パワーを増減する効果では通常通りパワーが増減されます。"
+      },
+      {
+        "q": "「能力を失い、新たに得られない」という効果は、《不可解な誇超　コンテンポラ》などの「効果を受けない」シグニには有効ですか？",
+        "a": "「能力を失う」という効果は「テキストを消す」という効果であり、テキストを変更する効果は「効果を受けない」によって無効化できます。後半の「能力を新たに得られない」効果は、そのシグニのテキストを変更しているわけではないため、効果を受けないシグニであっても、この効果の適用中は新たに能力は得られません。"
+      }
+    ],
+    "classes": [
+      "イオナ"
+    ],
+    "costWhite": 2,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【出】】：あなたのルリグトラッシュからすべてのルリグをこのカードの下に置く。",
+      "【【起】】エクシード１：対戦相手のシグニ１体をデッキの一番下に置く。この能力は１ターンに一度しか使用できない。",
+      "【【起】】エクシード１：ターン終了時まで、対戦相手のシグニ１体は能力を失い、新たに得られない。この能力は使用タイミング【メインフェイズ】【アタックフェイズ】を持つ。"
+    ],
+    "multiEner": false,
+    cardText: "最高だね……るう！～ユキ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1922": {
+    "pid": 1922,
+    cid: 1922,
+    "timestamp": 1479021154716,
+    "wxid": "WX14-007",
+    name: "天空の巫女　ユキ",
+    name_zh_CN: "天空の巫女　ユキ",
+    name_en: "天空の巫女　ユキ",
+    "kana": "テンクウノミコユキ",
+    "rarity": "LC",
+    "cardType": "LRIG",
+    "color": "white",
+    "level": 4,
+    "limit": 12,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-007.jpg",
+    "illust": "よん",
+    "classes": [
+      "イオナ"
+    ],
+    "costWhite": 2,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    "multiEner": false,
+    cardText: "あなたは観ることが出来るかしら。～ユキ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1923": {
+    "pid": 1923,
+    cid: 1923,
+    "timestamp": 1479021154696,
+    "wxid": "WX14-018",
+    name: "アンシエント/メイデン　イオナ",
+    name_zh_CN: "アンシエント/メイデン　イオナ",
+    name_en: "アンシエント/メイデン　イオナ",
+    "kana": "アンシエントメイデンイオナ",
+    "rarity": "LC",
+    "cardType": "LRIG",
+    "color": "black",
+    "level": 4,
+    "limit": 11,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-018.jpg",
+    "illust": "ヒロヲノリ",
+    faqs: [
+      {
+        "q": "《ビザント・ディフェンス》などで、対戦相手のシグニにエナを支払わなければアタックできない能力を与え、《アンシエント/メイデン　イオナ》がある場合は、エナゾーンに充分なカードがあるなら相手は支払ってアタックしなければならないですか？",
+        "a": "いいえ、《アンシエント/メイデン　イオナ》の上段常時能力は、エナの支払いまでは強制しません。その場合対戦相手は、エナを支払ってアタックするか、それともアタックしないかを選べます。"
+      },
+      {
+        "q": "デッキの残り枚数が４枚以下のときに、エクシード１能力を使用した場合はどうなりますか？",
+        "a": "その場合は残りのデッキすべてをトラッシュに置き、効果は終了します。その後、リフレッシュを行います。"
+      },
+      {
+        "q": "エクシード２能力でシグニがバニッシュされる「アタック終了時」とはいつですか？",
+        "a": "そのシグニがアタックし、正面のシグニとバトルしてバニッシュしたり、アタックによるダメージでライフクロスをクラッシュした後となります。なお、そのクラッシュでライフバーストが発動したり、バニッシュされたシグニが場を離れたときの能力が発動した場合は、それら処理がすべて終わってからこの能力が発動します。"
+      },
+      {
+        "q": "《アンシエント/メイデン　イオナ》のエクシード2能力を使用した後、次のターン、対戦相手はシグニ3体でそれぞれアタックしました。どれがバニッシュされますか？",
+        "a": "この能力は、対戦相手のシグニ1体がアタックするたびに発動し、そのシグニのアタック終了時にバニッシュしますので、3体が順番にアタックしたらそれぞれのアタック終了時にそれぞれバニッシュされます。"
+      }
+    ],
+    "classes": [
+      "イオナ"
+    ],
+    "costWhite": 0,
+    "costBlack": 3,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：対戦相手のシグニは可能ならばアタックしなければならない。",
+      "【【常】】：あなたのトラッシュからシグニ１体が場に出るたび、ターン終了時まで、対戦相手のシグニ１体のパワーを－5000する。",
+      "【【起】】エクシード１：あなたのデッキの上からカードを５枚トラッシュに置く。この能力は使用タイミング【メインフェイズ】【アタックフェイズ】を持つ。",
+      "【【起】】エクシード２：次のターンの間、対戦相手のシグニ１体がアタックしたとき、そのアタック終了時にそのシグニをバニッシュする。"
+    ],
+    "multiEner": false,
+    cardText: "おいで、導いてあげるわ。～イオナ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1924": {
+    "pid": 1924,
+    cid: 1924,
+    "timestamp": 1479021154752,
+    "wxid": "WX14-019",
+    name: "オーバー/メイデン　イオナ",
+    name_zh_CN: "オーバー/メイデン　イオナ",
+    name_en: "オーバー/メイデン　イオナ",
+    "kana": "オーバーメイデンイオナ",
+    "rarity": "LC",
+    "cardType": "LRIG",
+    "color": "black",
+    "level": 4,
+    "limit": 12,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-019.jpg",
+    "illust": "紅緒",
+    "classes": [
+      "イオナ"
+    ],
+    "costWhite": 0,
+    "costBlack": 2,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    "multiEner": false,
+    cardText: "白黒、はっきりしましょう。～イオナ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1925": {
+    "pid": 1925,
+    cid: 1925,
+    "timestamp": 1479021154774,
+    "wxid": "WX14-023",
+    name: "コードキャッスル　ヴェルサ",
+    name_zh_CN: "コードキャッスル　ヴェルサ",
+    name_en: "コードキャッスル　ヴェルサ",
+    "kana": "コードキャッスルヴェルサ",
+    "rarity": "SR",
+    "cardType": "SIGNI",
+    "color": "white",
+    "level": 5,
+    "limit": 0,
+    "power": 15000,
+    "limiting": "イオナ",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-023.jpg",
+    "illust": "蟹丹",
+    faqs: [
+      {
+        "q": "対戦相手の《小刃　バットカ》など、シグニが場に出たときの常時能力は発動しますか？",
+        "a": "はい、発動します。《コードキャッスル　ヴェルサ》は常時能力の発動は防ぎません。"
+      },
+      {
+        "q": "能力を新たに得られない、という効果は、パワーを増減する効果も受けませんか？",
+        "a": "パワーを増減させる効果は、そのシグニが能力を得ているわけではありません。パワーを増減する効果では通常通りパワーが増減されます。"
+      },
+      {
+        "q": "《コードキャッスル　ヴェルサ》が対戦相手の場にあるときに、《打突》のようにパワーをプラスして【ランサー】を付与するスペルを使用した場合はどうなりますか？",
+        "a": "その場合、パワーはプラスされますが、【ランサー】を得ることはできません。"
+      },
+      {
+        "q": "「新たに能力を得られない」という効果は、《先駆の大天使　アークゲイン》などの「効果を受けない」シグニには有効ですか？",
+        "a": "「新たに能力を得られない」効果は、そのシグニのテキストを変更しているわけではないため、「効果を受けない」シグニであっても、《コードキャッスル　ヴェルサ》が対戦相手の場にあるかぎりは新たに能力は得られません。"
+      },
+      {
+        "q": "「能力を持たないシグニ」とは具体的にどういうことですか？",
+        "a": "テキスト欄に記載された情報がなく、また他のカードの効果によって何らかの能力を得ていない状態のシグニ、また他のカードの効果によって能力を失っているシグニを「能力を持たないシグニ」として扱います。例えば《小剣　ククリ》はテキスト欄に記載された能力が無いため、「能力を持たないシグニ」として扱われます。"
+      }
+    ],
+    "classes": [
+      "精械",
+      "迷宮"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：対戦相手のシグニの【【出】】の能力は発動しない。",
+      "【【常】】：対戦相手のシグニは、対戦相手の効果によっては新たに能力を得られない。",
+      "【【起】】【《白》】：能力を持たない対戦相手のシグニ１体を手札に戻す。この能力は使用タイミング【メインフェイズ】【アタックフェイズ】を持つ。"
+    ],
+    "multiEner": false,
+    cardText: "ケーキがなければ、ホールケーキを食べればいいじゃない！～ヴェルサ～",
+    cardText_zh_CN: "",
+    cardText_en: "",
+    "lifeBurst": "対戦相手のシグニ１体をデッキの一番下に置く。"
+  },
+  "1926": {
+    "pid": 1926,
+    cid: 1926,
+    "timestamp": 1479021154835,
+    "wxid": "WX14-044",
+    name: "コードアンチ　ゼコフン",
+    name_zh_CN: "コードアンチ　ゼコフン",
+    name_en: "コードアンチ　ゼコフン",
+    "kana": "コードアンチゼコフン",
+    "rarity": "R",
+    "cardType": "SIGNI",
+    "color": "black",
+    "level": 4,
+    "limit": 0,
+    "power": 10000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-044.jpg",
+    "illust": "あるちぇ",
+    faqs: [
+      {
+        "q": "このシグニがデッキからトラッシュに置かれる効果を処理したら、同時にデッキが０枚になりました。リフレッシュよりも先に上段能力で《コードアンチ　ゼコフン》を場に出せますか？",
+        "a": "いいえ、できません。トリガー能力よりも、ルール処理のリフレッシュが先となります。それにより《コードアンチ　ゼコフン》がトラッシュからデッキに移動します。トリガー能力はトリガーしてから発動前にそのカードが移動すると不発となりますので、《コードアンチ　ゼコフン》の能力は不発となり場に出せません。"
+      },
+      {
+        "q": "トラッシュが0枚です。このシグニのライフバーストで《コードアンチ　ゼコフン》1枚と無色のシグニ2枚がトラッシュに置かれました。この《コードアンチ　ゼコフン》を手札に加えつつ常時能力で場に出すことはできますか？または、手札に加えないことで場に出すことはできますか？",
+        "a": "手札に加えてしまうとトラッシュから移動した《コードアンチ　ゼコフン》の常時能力は不発となり場に出すことができません。ただし、効果によって公開領域にある特定のカードを選択する際に、選ばないことを選択することができます。これにより手札に加えないことでトラッシュから場に出すということは可能です。"
+      },
+      {
+        "q": "バニッシュされたこのシグニ自身で《黒》を支払い、下段能力を発動できますか？",
+        "a": "はい、できます。下段能力は発動してからエナを払うかどうかを決めます。その時点でエナゾーンには《コードアンチ　ゼコフン》がありますので、支払うことができます。"
+      },
+      {
+        "q": "《コードアンチ　ゼコフン》がバニッシュされたとき、《黒》を何度も支払うことで複数のシグニを-12000できますか？",
+        "a": "いいえ、できません。１回の《コードアンチ　ゼコフン》のバニッシュにつき発動するのは１回のみで、《黒》を支払って1体を-12000することしかできません。"
+      }
+    ],
+    "classes": [
+      "精械",
+      "古代兵器"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：このシグニがデッキからトラッシュに置かれたとき、このシグニをトラッシュから場に出してもよい。",
+      "【【常】】：対戦相手のターンの間、このシグニがバニッシュされたとき、あなたのルリグが黒の場合、あなたは【《黒》】を支払ってもよい。そうした場合、ターン終了時まで、対戦相手のシグニ１体のパワーを－12000する。"
+    ],
+    "multiEner": false,
+    cardText: "妾の前にひれ伏せ。～ゼコフン～",
+    cardText_zh_CN: "",
+    cardText_en: "",
+    "lifeBurst": "あなたのデッキの上からカードを３枚トラッシュに置く。その後、あなたのトラッシュから無色ではないシグニ１枚を手札に加える。"
+  },
+  "1927": {
+    "pid": 1927,
+    cid: 1927,
+    "timestamp": 1479021155119,
+    "wxid": "WX14-050",
+    name: "コードメイズ　レイハイ",
+    name_zh_CN: "コードメイズ　レイハイ",
+    name_en: "コードメイズ　レイハイ",
+    "kana": "コードメイズレイハイ",
+    "rarity": "C",
+    "cardType": "SIGNI",
+    "color": "white",
+    "level": 3,
+    "limit": 0,
+    "power": 8000,
+    "limiting": "イオナ",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-050.jpg",
+    "illust": "安藤周記",
+    faqs: [
+      {
+        "q": "《コードメイズ　レイハイ》を２体出している場合、対戦相手のアタックによって２体の《コードメイズ　レイハイ》を発動し、それぞれ移動できますか？",
+        "a": "はい、できます。１回のアタックで２体ともトリガーし、１体ずつ順番に発動し移動させることができます。ただし、空いているシグニゾーンにしか移動できないため、お互いに場所を入れ替えるようなことはできません。"
+      },
+      {
+        "q": "《幻獣　セイリュ》などのように、「アタックしたとき」にトリガーする常時能力と、このシグニの常時能力はどちらが先に発動しますか？",
+        "a": "それらは両方同時にトリガーしますが、複数のトリガー能力はターンプレイヤー側から先に発動しますので、ご質問の場合では《幻獣　セイリュ》からとなります。"
+      }
+    ],
+    "classes": [
+      "精械",
+      "迷宮"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：対戦相手のシグニ１体がアタックしたとき、このシグニを他のシグニゾーンに配置してもよい。（すでにシグニのあるシグニゾーンには配置できない）",
+      "【【常】】：場にあるこのシグニが効果によって他のシグニゾーンに移動したとき、ターン終了時まで、このシグニのパワーを＋3000する。"
+    ],
+    "multiEner": false,
+    cardText: "ヴェルサ様を狙う輩からお守りします。～レイハイ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1928": {
+    "pid": 1928,
+    cid: 1928,
+    "timestamp": 1479021155815,
+    "wxid": "WX14-052",
+    name: "コードメイズ　シンギョ",
+    name_zh_CN: "コードメイズ　シンギョ",
+    name_en: "コードメイズ　シンギョ",
+    "kana": "コードメイズシンギョ",
+    "rarity": "C",
+    "cardType": "SIGNI",
+    "color": "white",
+    "level": 2,
+    "limit": 0,
+    "power": 5000,
+    "limiting": "イオナ",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-052.jpg",
+    "illust": "くれいお",
+    faqs: [
+      {
+        "q": "《コードメイズ　シンギョ》を２体出している場合、対戦相手のアタックによって２体の《コードメイズ　シンギョ》を発動し、それぞれ移動できますか？",
+        "a": "はい、できます。１回のアタックで２体ともトリガーし、１体ずつ順番に発動し移動させることができます。ただし、空いているシグニゾーンにしか移動できないため、お互いに場所を入れ替えるようなことはできません。"
+      },
+      {
+        "q": "《幻獣　セイリュ》などのように、「アタックしたとき」にトリガーする常時能力と、このシグニの常時能力はどちらが先に発動しますか？",
+        "a": "それらは両方同時にトリガーしますが、複数のトリガー能力はターンプレイヤー側から先に発動しますので、ご質問の場合では《幻獣　セイリュ》からとなります。"
+      }
+    ],
+    "classes": [
+      "精械",
+      "迷宮"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：対戦相手のシグニ１体がアタックしたとき、このシグニを他のシグニゾーンに配置してもよい。（すでにシグニのあるシグニゾーンには配置できない）",
+      "【【常】】：場にあるこのシグニが効果によって他のシグニゾーンに移動したとき、ターン終了時まで、このシグニのパワーを＋3000する。"
+    ],
+    "multiEner": false,
+    cardText: "ヴェルサ様のお休みをお守りします。～シンギョ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1929": {
+    "pid": 1929,
+    cid: 1929,
+    "timestamp": 1479021155723,
+    "wxid": "WX14-053",
+    name: "コードメイズ　テッサク",
+    name_zh_CN: "コードメイズ　テッサク",
+    name_en: "コードメイズ　テッサク",
+    "kana": "コードメイズテッサク",
+    "rarity": "C",
+    "cardType": "SIGNI",
+    "color": "white",
+    "level": 1,
+    "limit": 0,
+    "power": 2000,
+    "limiting": "イオナ",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-053.jpg",
+    "illust": "甲冑",
+    faqs: [
+      {
+        "q": "《コードメイズ　テッサク》を２体出している場合、対戦相手のアタックによって２体の《コードメイズ　テッサク》を発動し、それぞれ移動できますか？",
+        "a": "はい、できます。１回のアタックで２体ともトリガーし、１体ずつ順番に発動し移動させることができます。ただし、空いているシグニゾーンにしか移動できないため、お互いに場所を入れ替えるようなことはできません。"
+      },
+      {
+        "q": "《幻獣　セイリュ》などのように、「アタックしたとき」にトリガーする常時能力と、このシグニの常時能力はどちらが先に発動しますか？",
+        "a": "それらは両方同時にトリガーしますが、複数のトリガー能力はターンプレイヤー側から先に発動しますので、ご質問の場合では《幻獣　セイリュ》からとなります。"
+      }
+    ],
+    "classes": [
+      "精械",
+      "迷宮"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：対戦相手のシグニ１体がアタックしたとき、このシグニを他のシグニゾーンに配置してもよい。（すでにシグニのあるシグニゾーンには配置できない）",
+      "【【常】】：場にあるこのシグニが効果によって他のシグニゾーンに移動したとき、ターン終了時まで、このシグニのパワーを＋3000する。"
+    ],
+    "multiEner": false,
+    cardText: "ヴェルサ様をノンアポ来客からお守りします。～テッサク～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1930": {
+    "pid": 1930,
+    cid: 1930,
+    "timestamp": 1479021155295,
+    "wxid": "WX14-071",
+    name: "コードアンチ　マイギリ",
+    name_zh_CN: "コードアンチ　マイギリ",
+    name_en: "コードアンチ　マイギリ",
+    "kana": "コードアンチマイギリ",
+    "rarity": "C",
+    "cardType": "SIGNI",
+    "color": "black",
+    "level": 3,
+    "limit": 0,
+    "power": 5000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-071.jpg",
+    "illust": "茶ちえ",
+    faqs: [
+      {
+        "q": "このシグニがデッキからトラッシュに置かれる効果を処理したら、同時にデッキが０枚になりました。リフレッシュよりも先に上段能力で《コードアンチ　マイギリ》を場に出せますか？",
+        "a": "いいえ、できません。トリガー能力よりも、ルール処理のリフレッシュが先となります。それにより《《コードアンチ　マイギリ》がトラッシュからデッキに移動します。トリガー能力はトリガーしてから発動前にそのカードが移動すると不発となりますので、《コードアンチ　マイギリ》の能力は不発となり場に出せません。"
+      },
+      {
+        "q": "バニッシュされたこのシグニ自身で《黒》を支払い、下段能力を発動できますか？",
+        "a": "はい、できます。下段能力は発動してからエナを払うかどうかを決めます。その時点でエナゾーンには《コードアンチ　マイギリ》がありますので、支払うことができます。"
+      },
+      {
+        "q": "《コードアンチ　マイギリ》がバニッシュされたとき、《黒》を何度も支払うことで複数のシグニを-7000できますか？",
+        "a": "いいえ、できません。１回の《コードアンチ　マイギリ》のバニッシュにつき発動するのは１回のみで、《黒》を支払って1体を-7000することしかできません。"
+      }
+    ],
+    "classes": [
+      "精械",
+      "古代兵器"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：このシグニがデッキからトラッシュに置かれたとき、このシグニをトラッシュから場に出してもよい。",
+      "【【常】】：対戦相手のターンの間、このシグニがバニッシュされたとき、あなたのルリグが黒の場合、あなたは【《黒》】を支払ってもよい。そうした場合、ターン終了時まで、対戦相手のシグニ１体のパワーを－7000する。"
+    ],
+    "multiEner": false,
+    cardText: "キリギリ舞い舞ーい！～マイギリ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1931": {
+    "pid": 1931,
+    cid: 1931,
+    "timestamp": 1479021155812,
+    "wxid": "WX14-074",
+    name: "コードアンチ　タユソウ",
+    name_zh_CN: "コードアンチ　タユソウ",
+    name_en: "コードアンチ　タユソウ",
+    "kana": "コードアンチタユソウ",
+    "rarity": "C",
+    "cardType": "SIGNI",
+    "color": "black",
+    "level": 2,
+    "limit": 0,
+    "power": 2000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-074.jpg",
+    "illust": "猫囃子",
+    "classes": [
+      "精械",
+      "古代兵器"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：対戦相手のターンの間、このシグニがバニッシュされたとき、あなたのルリグが黒の場合、ターン終了時まで、対戦相手のシグニ１体のパワーを－3000する。"
+    ],
+    "multiEner": false,
+    cardText: "かえしが邪魔でチュー。～盗賊ネズミ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1932": {
+    "pid": 1932,
+    cid: 1932,
+    "timestamp": 1479021155927,
+    "wxid": "WX14-078",
+    name: "コードアンチ　ジョモドキ",
+    name_zh_CN: "コードアンチ　ジョモドキ",
+    name_en: "コードアンチ　ジョモドキ",
+    "kana": "コードアンチジョモドキ",
+    "rarity": "C",
+    "cardType": "SIGNI",
+    "color": "black",
+    "level": 1,
+    "limit": 0,
+    "power": 1000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-078.jpg",
+    "illust": "水玉子",
+    "classes": [
+      "精械",
+      "古代兵器"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：対戦相手のターンの間、このシグニがバニッシュされたとき、あなたのルリグが黒の場合、ターン終了時まで、対戦相手のシグニ１体のパワーを－2000する。"
+    ],
+    "multiEner": false,
+    cardText: "わだすの模様、キレイ…?～ジョモドキ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1933": {
+    "pid": 1933,
+    cid: 1933,
+    "timestamp": 1479021155676,
+    "wxid": "WX14-006A",
+    name: "緑肆ノ遊　アスレ【ＨＡＲＤ】",
+    name_zh_CN: "緑肆ノ遊　アスレ【ＨＡＲＤ】",
+    name_en: "緑肆ノ遊　アスレ【ＨＡＲＤ】",
+    "kana": "リョクヨンノユウアスレハード",
+    "rarity": "LR",
+    "cardType": "RESONA",
+    "color": "green",
+    "level": 4,
+    "limit": 0,
+    "power": 15000,
+    "limiting": "アイヤイ",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-006A.jpg",
+    "illust": "芥川　明",
+    faqs: [
+      {
+        "q": "両方の面があるレゾナはどのように使うのですか？",
+        "a": "他のレゾナと同様にルリグデッキに入れ、A面の出現条件を満たしてＡ面で出すことも、B面の出現条件を満たしてＢ面で出すことも可能です。場に出したら、表になっている面のみを参照し、そこから裏返すことはできません。ルリグデッキに戻った場合はまたどちらの面でも出すことができます。"
+      },
+      {
+        "q": "スリーブに入れてA面だけが見える状態です。B面として出す場合には、スリーブから出す必要がありますか？",
+        "a": "はい、使用するカードのテキストが対戦相手に見えるようご使用下さい。詳しい使い方は【コラム：両面レゾナ登場！】や【両面レゾナ確認用カード　ダウンロード】をご確認ください。"
+      },
+      {
+        "q": "出現条件は、手札、場、エナゾーンのどれか１つの領域から3枚トラッシュに置くことでも満たせますか？",
+        "a": "はい、できます。手札から3枚、場やエナゾーンからは0枚トラッシュという置き方でも、その逆でも出現条件を満たせます。"
+      },
+      {
+        "q": "このレゾナを出して出現時能力が発動したあとに出した他のシグニは「　」内の能力を得ますか？",
+        "a": "いいえ、効果はそれが発動した時に場にあるシグニまでにしか影響しません。「このターン（の間）、」と書かれている効果はその例外です。"
+      }
+    ],
+    "classes": [
+      "精武",
+      "遊具"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "［出現条件］ 【メインフェイズ】合計３枚のレゾナではない＜遊具＞のシグニをあなたの手札とエナゾーンと場からトラッシュに置く",
+      "【【常】】：あなたのシグニ１体がアタックするたび、あなたのデッキの一番上のカードをエナゾーンに置く。",
+      "【【出】】：ターン終了時まで、あなたのすべての＜遊具＞のシグニは「このシグニが対戦相手のシグニ１体をバニッシュしたとき、このシグニをアップする。」を得る。"
+    ],
+    "multiEner": false,
+    cardText: "ＡＳＵＲＥの歴史に新たなる伝説を刻むのは誰だ！？",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1934": {
+    "pid": 1934,
+    cid: 1934,
+    "timestamp": 1479021156233,
+    "wxid": "WX14-006B",
+    name: "緑弐ノ遊　アスレ【ＮＯＲＭＡＬ】",
+    name_zh_CN: "緑弐ノ遊　アスレ【ＮＯＲＭＡＬ】",
+    name_en: "緑弐ノ遊　アスレ【ＮＯＲＭＡＬ】",
+    "kana": "リョクニノユウアスレノーマル",
+    "rarity": "LR",
+    "cardType": "RESONA",
+    "color": "green",
+    "level": 2,
+    "limit": 0,
+    "power": 5000,
+    "limiting": "アイヤイ",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-006B.jpg",
+    "illust": "芥川　明",
+    faqs: [
+      {
+        "q": "両方の面があるレゾナはどのように使うのですか？",
+        "a": "他のレゾナと同様にルリグデッキに入れ、A面の出現条件を満たしてＡ面で出すことも、B面の出現条件を満たしてＢ面で出すことも可能です。場に出したら、表になっている面のみを参照し、そこから裏返すことはできません。ルリグデッキに戻った場合はまたどちらの面でも出すことができます。"
+      },
+      {
+        "q": "スリーブに入れてA面だけが見える状態です。B面として出す場合には、スリーブから出すよう必要がありますか？",
+        "a": "はい、使用するカードのテキストが対戦相手に見えるようご使用下さい。詳しい使い方は【コラム：両面レゾナ登場！】や【両面レゾナ確認用カード　ダウンロード】をご確認ください。"
+      },
+      {
+        "q": "出現時能力の「この出現時能力はそのスペルの効果より先に発動する」とはどういうことですか？",
+        "a": "この出現時能力は、【スペルカットイン】で出した場合、対戦相手のチェックゾーンにあるそのスペルの効果を処理するよりも先に効果が発動します。例えば、対戦相手が《想起する祝福》を使用した場合、【スペルカットイン】でこのレゾナを出し、②の効果で《想起する祝福》で選ばれていたシグニを先にゲームから除外することができます。"
+      },
+      {
+        "q": "《レゾナンス》などで、出現条件を無視して場に出した場合、出現時能力はどうなりますか？",
+        "a": "その場合、対戦相手のチェックゾーンにスペルがなければ効果は何も起こりません。"
+      }
+    ],
+    "classes": [
+      "精武",
+      "遊具"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "［出現条件］ 【スペルカットイン】合計２枚のレゾナではない＜遊具＞のシグニをあなたの手札とエナゾーンと場からトラッシュに置く",
+      "【【出】】：対戦相手のチェックゾーンにスペルがある場合、以下の２つから１つを選ぶ。この出現時能力はそのスペルの効果より先に発動する。",
+      "①あなたのデッキの上からカードを３枚エナゾーンに置く。",
+      "②対戦相手のトラッシュにあるシグニ１枚までとスペル１枚までをゲームから除外する。"
+    ],
+    "multiEner": false,
+    cardText: "数々のドラマ・伝説を生み出したＡＳＵＲＥ！",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1935": {
+    "pid": 1935,
+    cid: 1935,
+    "timestamp": 1479021156351,
+    "wxid": "WX14-029",
+    name: "参ノ遊　ウォスラ",
+    name_zh_CN: "参ノ遊　ウォスラ",
+    name_en: "参ノ遊　ウォスラ",
+    "kana": "サンノユウウォスラ",
+    "rarity": "SR",
+    "cardType": "SIGNI",
+    "color": "green",
+    "level": 3,
+    "limit": 0,
+    "power": 8000,
+    "limiting": "アイヤイ",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-029.jpg",
+    "illust": "コウサク",
+    faqs: [
+      {
+        "q": "上段能力はこのカードが手札にあっても発動しますか？",
+        "a": "いいえ、発動しません。その能力が機能する場所が特別に指定されていないかぎり、基本的に能力は場にある間しか機能しません。また、バニッシュすることができるのは場にあるシグニのみです。"
+      },
+      {
+        "q": "上段能力でバニッシュした《参ノ遊　ウォスラ》自身を、エナゾーンからダウン状態で場に出せますか？",
+        "a": "はい、できます。"
+      },
+      {
+        "q": "《贈呈》などで《参ノ遊　クルミド》をエナゾーンから手札に加え、その効果で《参ノ遊　ウォスラ》を場に出しました。エナゾーンから《参ノ遊　クルミド》が移動していたので、今場に出た《参ノ遊　ウォスラ》を上段能力でバニッシュできますか？",
+        "a": "いいえ、できません。《参ノ遊　ウォスラ》の上段能力は、《参ノ遊　ウォスラ》が場にあるときにエナゾーンから手札にカードが移動しなければトリガーしません。この《参ノ遊　ウォスラ》は《参ノ遊　クルミド》が移動した後に場に出ましたので、上段能力は発動しません。"
+      },
+      {
+        "q": "《緑肆ノ遊　アスレ【ＨＡＲＤ】》の出現条件などで、《参ノ遊　ウォスラ》が手札からトラッシュに置かれた場合、《参ノ遊　ウォスラ》はエナゾーンに置けますか？",
+        "a": "はい、その《参ノ遊　ウォスラ》は下段能力が発動し、トラッシュからエナゾーンに置かれます。"
+      }
+    ],
+    "classes": [
+      "精武",
+      "遊具"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：カード１枚があなたのエナゾーンから手札に移動したとき、このシグニをバニッシュしてもよい。その後、この効果でこのシグニをバニッシュしていた場合、あなたのエナゾーンからシグニ１枚をダウン状態で場に出す。",
+      "【【常】】：このシグニが手札またはデッキからトラッシュに置かれたとき、あなたのルリグが＜アイヤイ＞の場合、このシグニをトラッシュからエナゾーンに置く。"
+    ],
+    "multiEner": false,
+    cardText: "水竜　ｏｎ　ｔｈｅ　水流！～ウォスラ～",
+    cardText_zh_CN: "",
+    cardText_en: "",
+    "lifeBurst": "あなたのデッキの一番上のカードをエナゾーンに置く。それが＜遊具＞のシグニの場合、追加でカードを１枚引く。"
+  },
+  "1936": {
+    "pid": 1936,
+    cid: 1936,
+    "timestamp": 1479021156689,
+    "wxid": "WX14-042",
+    name: "参ノ遊　フラフープ",
+    name_zh_CN: "参ノ遊　フラフープ",
+    name_en: "参ノ遊　フラフープ",
+    "kana": "サンノユウフラフープ",
+    "rarity": "R",
+    "cardType": "SIGNI",
+    "color": "green",
+    "level": 3,
+    "limit": 0,
+    "power": 7000,
+    "limiting": "アイヤイ",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-042.jpg",
+    "illust": "",
+    faqs: [
+      {
+        "q": "自分のターン終了時、《参ノ遊　フラフープ》を2体トラッシュに置きました。ルリグはこの能力を複数得ることができますか？",
+        "a": "はい、できます。2体の《参ノ遊　フラフープ》をトラッシュに置いたのなら、それによる能力を２つ得ます。それぞれアタックフェイズに1回ずつ使用できます。"
+      }
+    ],
+    "classes": [
+      "精武",
+      "遊具"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：あなたの場にレゾナがあるかぎり、このシグニのパワーは12000になる。",
+      "【【常】】：あなたのターン終了時、このシグニを場からトラッシュに置いてもよい。そうした場合、次の対戦相手のターン終了時まで、あなたのルリグは「【【起】】【《緑×0》】：対戦相手のパワー12000以上のシグニ１体をバニッシュする。 この能力は使用タイミング【アタックフェイズ】を持ち、１ターンに一度しか使用できない。」を得る。"
+    ],
+    "multiEner": false,
+    cardText: "アタシについてこれる？～フラフープ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1937": {
+    "pid": 1937,
+    cid: 1937,
+    "timestamp": 1479021156871,
+    "wxid": "WX14-066",
+    name: "弐ノ遊　ゴムボート",
+    name_zh_CN: "弐ノ遊　ゴムボート",
+    name_en: "弐ノ遊　ゴムボート",
+    "kana": "ニノユウゴムボート",
+    "rarity": "C",
+    "cardType": "SIGNI",
+    "color": "green",
+    "level": 2,
+    "limit": 0,
+    "power": 3000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-066.jpg",
+    "illust": "エムド",
+    faqs: [
+      {
+        "q": "《弐ノ遊　ゴムボート》自身の常時能力によって、デッキの一番上のカードをエナゾーンに置きました。そのカードがまた《弐ノ遊　ゴムボート》だった場合、その常時能力を発動してさらにデッキの上のカードをエナゾーンに置けますか？",
+        "a": "はい、できます。"
+      }
+    ],
+    "classes": [
+      "精武",
+      "遊具"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：このシグニがアタックフェイズの間にルリグまたはシグニの効果によって手札またはデッキからエナゾーンに置かれたとき、あなたのデッキの一番上のカードをエナゾーンに置く。"
+    ],
+    "multiEner": false,
+    cardText: "濡れる準備はＯＫ？～ゴムボート～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1938": {
+    "pid": 1938,
+    cid: 1938,
+    "timestamp": 1479021156744,
+    "wxid": "WX14-067",
+    name: "一ノ遊　ウキワ",
+    name_zh_CN: "一ノ遊　ウキワ",
+    name_en: "一ノ遊　ウキワ",
+    "kana": "イチノユウウキワ",
+    "rarity": "C",
+    "cardType": "SIGNI",
+    "color": "green",
+    "level": 1,
+    "limit": 0,
+    "power": 2000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-067.jpg",
+    "illust": "単ル",
+    "classes": [
+      "精武",
+      "遊具"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：このシグニがアタックしたとき、あなたの手札からカード１枚をエナゾーンに置いてもよい。"
+    ],
+    "multiEner": false,
+    cardText: "ぷかぷか。",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1939": {
+    "pid": 1939,
+    cid: 1939,
+    "timestamp": 1479021156649,
+    "wxid": "WX14-002",
+    name: "コード・ピルルク　ＡＰＥＸ",
+    name_zh_CN: "コード・ピルルク　ＡＰＥＸ",
+    name_en: "コード・ピルルク　ＡＰＥＸ",
+    "kana": "コードピルルクアペクス",
+    "rarity": "LR",
+    "cardType": "LRIG",
+    "color": "green/black",
+    "level": 5,
+    "limit": 12,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-002.jpg",
+    "illust": "しおぼい",
+    faqs: [
+      {
+        "q": "常時能力は、具体的にいつ発動しますか？",
+        "a": "常時能力はあなたがスペルを使用宣言したことでトリガーし、そのスペルへの【スペルカットイン】やスペル自体の効果の処理が終わった後で発動します。発動したときに、対戦相手のシグニ１体を選び、バニッシュします。"
+      },
+      {
+        "q": "エクシード能力を使用した際、相手の場には《コードアンシエンツ　ヘルボロス》がありました。自分のトラッシュのスペルを使用できますか？",
+        "a": "はい、使用できます。《コードアンシエンツ　ヘルボロス》によってトラッシュからカードを移動させることは無視されますが、出現時能力によってカードがトラッシュからチェックゾーンに移動することはスペルを使用する際のルール上の処理であり、効果ではありません。"
+      },
+      {
+        "q": "エクシード２能力を使用してトラッシュにあるスペルを選び、それを使用せずにもう一度エクシード2能力で同じスペルを選びました。コストを《青》×２、《黒》×２減らして使用できますか？",
+        "a": "このエクシード能力は、エクシード能力の処理の一部としてスペルを使用し、その使用するためのコストを軽減します。そこでスペルが使用されなかった場合はそれに対するコストの軽減も無くなります。結果的に、2回のエクシード能力の使用でのコスト軽減は重複せず、2回目で軽減される使用するためのコストも《青》×１、《黒》×１となります。"
+      }
+    ],
+    "classes": [
+      "ピルルク"
+    ],
+    "costWhite": 0,
+    "costBlack": 1,
+    "costRed": 0,
+    "costBlue": 1,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：あなたがスペル１枚を使用したとき、対戦相手のシグニ１体をバニッシュする。この効果は１ターンに一度しか発動しない。",
+      "【【起】】エクシード２：あなたのトラッシュから青または黒のスペル１枚を、手札にあるかのように使用する。それを使用するためのコストは【《青》】コストが１、【《黒》】コストが１減る。このターン、それがチェックゾーンから別の領域に移動される場合、代わりにゲームから除外される。この能力は使用タイミング【メインフェイズ】【アタックフェイズ】を持つ。"
+    ],
+    "multiEner": false,
+    cardText: "少しの希望は、思ったよりも大きかった。",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1940": {
+    "pid": 1940,
+    cid: 1940,
+    "timestamp": 1479021157238,
+    "wxid": "WX14-013",
+    name: "コード・ピルルク　Π", // !growCost [black]1 or [blue]1
+    name_zh_CN: "コード・ピルルク　Π",
+    name_en: "コード・ピルルク　Π",
+    "kana": "コードピルルクパイ",
+    "rarity": "LC",
+    "cardType": "LRIG",
+    "color": "green/black",
+    "level": 2,
+    "limit": 4,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-013.jpg",
+    "illust": "柚希きひろ",
+    faqs: [
+      {
+        "q": "アタックしたときに青と黒のシグニがあった場合、常時能力の発動は強制ですか？",
+        "a": "はい、発動条件を満たした常時能力の発動は強制です。その場合、1枚引いて1枚捨てる行動は必ず行います。"
+      },
+      {
+        "q": "デッキが残り１枚のときに常時能力が発動し、1枚引きました。リフレッシュは1枚捨てる前に行いますか？",
+        "a": "リフレッシュなどのルール処理は効果の処理中には発生しませんので、まずこの効果を1枚捨てるところまで処理します。その後に、そのカードも含めてリフレッシュされます。"
+      }
+    ],
+    "classes": [
+      "ピルルク"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：このルリグがアタックしたとき、あなたの場に青と黒のシグニがある場合、カードを１枚引き、その後、手札を１枚捨てる。"
+    ],
+    "multiEner": false,
+    cardText: "清衣は本を開く。\n月日が教えてくれた現実は\nどうせ叶わぬ願いと、消え入りそうな希望。",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1941": {
+    "pid": 1941,
+    cid: 1941,
+    "timestamp": 1479021157314,
+    "wxid": "WX14-021",
+    name: "カース・オブ・スペル",
+    name_zh_CN: "カース・オブ・スペル",
+    name_en: "カース・オブ・スペル",
+    "kana": "カースオブスペル",
+    "rarity": "LC",
+    "cardType": "ARTS",
+    "color": "black",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-021.jpg",
+    "illust": "よん",
+    faqs: [
+      {
+        "q": "対戦相手がスペルを使用したときに【スペルカットイン】で《カース・オブ・スペル》を使用しました。使用中の対戦相手のスペルも除外できますか？",
+        "a": "いいえ、使用中のそのスペルはチェックゾーンに置かれてますので除外できません。"
+      },
+      {
+        "q": "スペルを6枚除外したら、対戦相手のシグニを2体バニッシュできますか？",
+        "a": "いいえ、できません。何枚除外したとしても、3枚以上で1体のみとなります。"
+      }
+    ],
+    "classes": [],
+    "costWhite": 0,
+    "costBlack": 1,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "使用タイミング",
+      "【メインフェイズ】【スペルカットイン】",
+      "対戦相手のトラッシュにあるすべてのスペルをゲームから除外する。その後、この方法でスペルを３枚以上ゲームから除外した場合、対戦相手のシグニ１体をバニッシュする。"
+    ],
+    "multiEner": false,
+    cardText: "もっとモミモミしたかったよー…。～Ａ・Ｍ・Ｓ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1942": {
+    "pid": 1942,
+    cid: 1942,
+    "timestamp": 1479021157602,
+    "wxid": "WX14-022",
+    name: "クライシス・チャンス",
+    name_zh_CN: "クライシス・チャンス",
+    name_en: "クライシス・チャンス",
+    "kana": "クライシスチャンス",
+    "rarity": "LC",
+    "cardType": "ARTS",
+    "color": "colorless",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-022.jpg",
+    "illust": "希",
+    "classes": [],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "使用タイミング",
+      "【アタックフェイズ】",
+      "あなたの手札が０枚の場合、あなたのトラッシュからシグニ１枚を手札に加える。",
+      "あなたのエナゾーンにカードがない場合、あなたのデッキの上からカードを２枚エナゾーンに置く。",
+      "あなたの場にシグニがない場合、あなたの手札からシグニ１枚を場に出す。"
+    ],
+    "multiEner": false,
+    cardText: "すべてを奪われたものが残したものというものは？",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1943": {
+    "pid": 1943,
+    cid: 1943,
+    "timestamp": 1479021157725,
+    "wxid": "WX14-030",
+    name: "コードラブハート　†Ｍ・Ｃ・Ｍ・Ｒ†",
+    name_zh_CN: "コードラブハート　†Ｍ・Ｃ・Ｍ・Ｒ†",
+    name_en: "コードラブハート　†Ｍ・Ｃ・Ｍ・Ｒ†",
+    "kana": "コードラブハートフォールンモニタリングカメラ",
+    "rarity": "SR",
+    "cardType": "SIGNI",
+    "color": "black",
+    "level": 5,
+    "limit": 0,
+    "power": 15000,
+    "limiting": "ピルルク",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-030.jpg",
+    "illust": "オーミー",
+    faqs: [
+      {
+        "q": "トラッシュにレベルの異なる無色ではないシグニが3枚しかなかった場合、それらをデッキに戻すことはできますか？",
+        "a": "いいえ、「レベルの異なる無色ではないシグニ」が4枚無い場合、1枚も戻すことはできません。"
+      }
+    ],
+    "classes": [
+      "精械",
+      "電機"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【起】】【《黒×0》】：あなたのトラッシュからそれぞれレベルの異なる無色ではないシグニ４枚をデッキに加えてシャッフルする。そうした場合、以下の３つから１つを選ぶ。この能力は使用タイミング【アタックフェイズ】【スペルカットイン】を持つ。",
+      "①対戦相手のシグニ１体をバニッシュする。②スペル１つの効果を打ち消す。③あなたのトラッシュからレベル４以下の＜電機＞のシグニ１枚を場に出す。"
+    ],
+    "multiEner": false,
+    cardText: "＄※▲●×＄丸見えだぜ！～†Ｍ・Ｃ・Ｍ・Ｒ†～",
+    cardText_zh_CN: "",
+    cardText_en: "",
+    "lifeBurst": "対戦相手のルリグ１体をダウンし、それを凍結する。"
+  },
+  "1944": {
+    "pid": 1944,
+    cid: 1944,
+    "timestamp": 1479021157763,
+    "wxid": "WX14-073",
+    name: "コードアート　†Ｈ・Ｍ・Ｆ†",
+    name_zh_CN: "コードアート　†Ｈ・Ｍ・Ｆ†",
+    name_en: "コードアート　†Ｈ・Ｍ・Ｆ†",
+    "kana": "コードアートフォールンヒュミディフィア",
+    "rarity": "C",
+    "cardType": "SIGNI",
+    "color": "black",
+    "level": 2,
+    "limit": 0,
+    "power": 5000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-073.jpg",
+    "illust": "夜ノみつき",
+    faqs: [
+      {
+        "q": "トラッシュにスペルが3枚以上ある場合、出現時能力は必ず発動しますか？",
+        "a": "はい、発動します。コストのない出現時能力は必ず発動し、また影響を与えるカードも選ぶ必要があります。"
+      }
+    ],
+    "classes": [
+      "精械",
+      "電機"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：あなたのトラッシュにスペルがあるかぎり、このシグニのパワーは8000になる。",
+      "【【出】】：あなたのトラッシュにスペルが３枚以上ある場合、ターン終了時まで、対戦相手のシグニ１体のパワーを－3000する。"
+    ],
+    "multiEner": false,
+    cardText: "調子狂うわ！戯言聞いてっと。～†Ｈ・Ｍ・Ｆ†～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1945": {
+    "pid": 1945,
+    cid: 1945,
+    "timestamp": 1479021157372,
+    "wxid": "WX14-077",
+    name: "コードアート　†Ｄ・Ｍ・Ｆ†",
+    name_zh_CN: "コードアート　†Ｄ・Ｍ・Ｆ†",
+    name_en: "コードアート　†Ｄ・Ｍ・Ｆ†",
+    "kana": "コードアートフォールンデヒュミディフィア",
+    "rarity": "C",
+    "cardType": "SIGNI",
+    "color": "black",
+    "level": 1,
+    "limit": 0,
+    "power": 2000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-077.jpg",
+    "illust": "パトリシア",
+    "classes": [
+      "精械",
+      "電機"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：あなたのトラッシュにスペルがあるかぎり、このシグニのパワーは5000になる。"
+    ],
+    "multiEner": false,
+    cardText: "う～ん、私も却下ね。～†Ｄ・Ｍ・Ｆ†～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1946": {
+    "pid": 1946,
+    cid: 1946,
+    "timestamp": 1479021158038,
+    "wxid": "WX14-079",
+    name: "アイス・フィンガー",
+    name_zh_CN: "アイス・フィンガー",
+    name_en: "アイス・フィンガー",
+    "kana": "アイスフィンガー",
+    "rarity": "C",
+    "cardType": "SPELL",
+    "color": "black",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-079.jpg",
+    "illust": "単ル",
+    faqs: [
+      {
+        "q": "能力の条件を満たした《大幻蟲　ナナホシ》などの「バニッシュされない」シグニに《アイス・フィンガー》を使用した場合、カードを2枚引けますか？",
+        "a": "いいえ、その場合は「バニッシュされない」により「バニッシュする」が防がれ、「そうした場合」以降の効果は発生しません。"
+      },
+      {
+        "q": "対戦相手の、【チャーム】がついている《堕落の虚無　パイモン》に《アイス・フィンガー》を使用し、対戦相手はバニッシュの代わりに【チャーム】をトラッシュに置きました。カードを2枚引けますか？",
+        "a": "はい、2枚引けます。いいえ、「○○する。そうした場合××する」と書かれた効果は、○○が別のことに置き換わった場合でも、××の効果は発生します。この場合、「バニッシュ」が「【チャーム】をトラッシュに置く」ことに置き換わっていますが、その場合でもカードを2枚引けます。"
+      }
+    ],
+    "classes": [],
+    "costWhite": 0,
+    "costBlack": 1,
+    "costRed": 0,
+    "costBlue": 1,
+    "costGreen": 0,
+    "costColorless": 1,
+    "guardFlag": false,
+    cardSkills: [
+      "対戦相手のシグニ１体をバニッシュする。そうした場合、あなたはカードを２枚引く。"
+    ],
+    "multiEner": false,
+    cardText: "ボカン！",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1947": {
+    "pid": 1947,
+    cid: 1947,
+    "timestamp": 1479021158269,
+    "wxid": "PR-315",
+    name: "月欠けの戦場(カードゲーマーvol.29 付録)",
+    name_zh_CN: "月欠けの戦場(カードゲーマーvol.29 付録)",
+    name_en: "月欠けの戦場(カードゲーマーvol.29 付録)",
+    "kana": "ツキカケノセンジョウ",
+    "rarity": "PR",
+    "cardType": "ARTS",
+    "color": "black",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/PR/PR-315.jpg",
+    "illust": "安藤周記",
+    faqs: [
+      {
+        "q": "①と①のように、同じモードを2回選べますか？",
+        "a": "いいえ、モードを選ぶ効果では、特に記載がないかぎり同じモードを選ぶことはできません。①と②、②と③、①と③のように違うモードを選んでください。"
+      },
+      {
+        "q": "②の効果は相手の《先駆の大天使　アークゲイン》などの「効果を受けない」シグニにはどうなりますか？",
+        "a": "「効果を受けない」という能力は、「カードの情報を変更する効果」「状態を変更する効果」「移動させる効果」を防ぎ、この②の効果はシグニに能力を得させていますので、「カードの情報を変更する効果」に該当し、これを防ぐことができます。アタックするときに《無》を支払う必要はありません。また、①の効果でマイナス修正されることもありません。"
+      },
+      {
+        "q": "アタックフェイズに②を選んでこのアーツを使用した後に、対戦相手の場に出たシグニはアタック時に《無》を支払う必要はありますか？",
+        "a": "いいえ、そのシグニはアタック時に《無》を支払う必要はありません。この②の効果は、使用したときに対戦相手の場にあるシグニのみに、この能力を与えます。その後から場に出たシグニには影響しません。"
+      }
+    ],
+    "classes": [],
+    "costWhite": 1,
+    "costBlack": 1,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 1,
+    "guardFlag": false,
+    cardSkills: [
+      "使用タイミング【メインフェイズ】【アタックフェイズ】",
+      "以下の３つから２つまで選ぶ。",
+      "①ターン終了時まで、対戦相手のシグニ１体のパワーをあなたのルリグのレベル１につき、－2000する。",
+      "②ターン終了時まで、対戦相手のすべてのシグニは「あなたが【《無》】を支払わないかぎりアタックできない。」を得る。",
+      "③あなたのルリグトラッシュからレベル２以下のルリグを２枚まであなたのルリグの下に置く。"
+    ],
+    "multiEner": false,
+    cardText: "月光は狂気の引き金、耐えられる？～ツクヨミ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1948": {
+    "pid": 1948,
+    cid: 1948,
+    "timestamp": 1479021158265,
+    "wxid": "PR-318",
+    name: "紡績する知識(WIXOSSカード大全IV 付録)",
+    name_zh_CN: "紡績する知識(WIXOSSカード大全IV 付録)",
+    name_en: "紡績する知識(WIXOSSカード大全IV 付録)",
+    "kana": "ボウセキスルチシキ",
+    "rarity": "PR",
+    "cardType": "SPELL",
+    "color": "colorless",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/PR/PR-318.jpg",
+    "illust": "久野モトキ",
+    faqs: [
+      {
+        "q": "青と黒のルリグである《コード・ピルルク　VERMILION》の場合、どの色のカードを探すことができますか？",
+        "a": "その場合、青か黒のどちらかのカードを探すことができます。"
+      },
+      {
+        "q": "無色のルリグである《虚無の閻魔　ウリス》の場合、どの色のカードを探すことができますか？",
+        "a": "いいえ、無色は色を持たないため、ルリグと同じ色を持つカードは存在せず、カードを探すことはできません。無色の《サーバント　Ｏ》なども探すことはできません。"
+      }
+    ],
+    "classes": [],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 1,
+    "guardFlag": false,
+    cardSkills: [
+      "あなたのデッキからあなたのルリグと同じ色を持つカード１枚を探して公開し手札に加える。その後、デッキをシャッフルする。"
+    ],
+    "multiEner": false,
+    cardText: "戦いの中、言葉が紡がれる。",
+    cardText_zh_CN: "",
+    cardText_en: "",
+    "lifeBurst": "カードを１枚引く。"
+  },
+  "1949": {
+    "pid": 1949,
+    cid: 1949,
+    "timestamp": 1479021158506,
+    "wxid": "PR-321",
+    name: "クライシス・チャンス(ウィクロスアートマテリアルIV付録)",
+    name_zh_CN: "クライシス・チャンス(ウィクロスアートマテリアルIV付録)",
+    name_en: "クライシス・チャンス(ウィクロスアートマテリアルIV付録)",
+    "kana": "クライシスチャンス",
+    "rarity": "PR",
+    "cardType": "ARTS",
+    "color": "colorless",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/PR/PR-321.jpg",
+    "illust": "一ノ瀬ランド",
+    "classes": [],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "使用タイミング",
+      "【アタックフェイズ】",
+      "あなたの手札が０枚の場合、あなたのトラッシュからシグニ１枚を手札に加える。",
+      "あなたのエナゾーンにカードがない場合、あなたのデッキの上からカードを２枚エナゾーンに置く。",
+      "あなたの場にシグニがない場合、あなたの手札からシグニ１枚を場に出す。"
+    ],
+    "multiEner": false,
+    cardText: "たくさんの色がいっぱいの。外の世界に。～マユ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1950": {
+    "pid": 1950,
+    cid: 1950,
+    "timestamp": 1479021158376,
+    "wxid": "WX14-CB01",
+    name: "燦",
+    name_zh_CN: "燦",
+    name_en: "燦",
+    "kana": "サン",
+    "rarity": "CB",
+    "cardType": "SIGNI",
+    "color": "white",
+    "level": 3,
+    "limit": 0,
+    "power": 8000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-CB01.jpg",
+    "illust": "bomi",
+    faqs: [
+      {
+        "q": "「対戦相手のシグニの効果を受けない」とはどういうことですか？",
+        "a": "対戦相手のシグニからの「パワーやテキストを変更する効果」「カードを移動する効果」「カードの状態を変更する効果」を受けません。"
+      },
+      {
+        "q": "効果によってのダウンと、効果以外によってのダウンの違いを教えてください。",
+        "a": "アタックすることによるダウンは効果によるものではありません。また、シグニやルリグの能力で、コロン（　：　）によって区切られた左側はコスト、右側が効果です。なお、コストの支払いを増減させるテキストはコストの一部として扱われます。それ以外のスペルやアーツに書かれている処理はすべて効果です。よって、コストではないスペルやアーツに書かれている「ダウンする（させる）」という処理、およびシグニやルリグの能力でコロン（　：　）より右側に書かれている「ダウンする（させる）」といった処理によって、《燦》は発動条件を満たします。"
+      }
+    ],
+    "classes": [
+      "精武",
+      "アーム"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：あなたの＜ウェポン＞のシグニは対戦相手のシグニの効果を受けない。",
+      "【【常】】：アップ状態のこのシグニが効果によってダウンしたとき、あなたのデッキの一番上のカードをエナゾーンに置く。",
+      "【【出】】【《白》】：あなたのデッキから《暁月》１枚を探して公開し手札に加える。その後、デッキをシャッフルする。"
+    ],
+    "multiEner": false,
+    cardText: "はぁ～～い！燦だよぉ～～　～燦～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1951": {
+    "pid": 1951,
+    cid: 1951,
+    "timestamp": 1479021158644,
+    "wxid": "WX14-CB02",
+    name: "暁月",
+    name_zh_CN: "暁月",
+    name_en: "暁月",
+    "kana": "アカツキ",
+    "rarity": "CB",
+    "cardType": "SIGNI",
+    "color": "red",
+    "level": 4,
+    "limit": 0,
+    "power": 12000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-CB02.jpg",
+    "illust": "bomi",
+    "classes": [
+      "精武",
+      "ウェポン"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：あなたの《燦》はバニッシュされない。",
+      "【【常】】：このシグニがアタックしたとき、あなたのアップ状態の＜アーム＞のシグニ１体をダウンしてもよい。そうした場合、対戦相手のシグニ１体を手札に戻す。"
+    ],
+    "multiEner": false,
+    cardText: "これは使命・・・戦うしか、ないのよ～暁月～",
+    cardText_zh_CN: "",
+    cardText_en: "",
+    "lifeBurst": "あなたのデッキから《暁月》１枚と《燦》１枚を探して公開し手札に加える。その後、デッキをシャッフルする。"
+  },
+  "1952": {
+    "pid": 1952,
+    cid: 1952,
+    "timestamp": 1479021158672,
+    "wxid": "WX14-CB03",
+    name: "幻獣　サーバル",
+    name_zh_CN: "幻獣　サーバル",
+    name_en: "幻獣　サーバル",
+    "kana": "ゲンジュウサーバル",
+    "rarity": "CB",
+    "cardType": "SIGNI",
+    "color": "green",
+    "level": 3,
+    "limit": 0,
+    "power": 8000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-CB03.jpg",
+    "illust": "吉崎観音",
+    faqs: [
+      {
+        "q": "対戦相手のルリグのレベルが５の場合、両方の効果を得ますか？",
+        "a": "はい、その場合はレベル４以上の常時能力により【ランサー】を得て、アタックしたときの常時能力も発動します。"
+      }
+    ],
+    "classes": [
+      "精生",
+      "地獣"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：対戦相手のルリグがレベル４以上であるかぎり、このシグニは【ランサー】を得る。",
+      "【【常】】：このシグニがアタックしたとき、対戦相手のルリグがレベル５の場合、あなたの手札から＜空獣＞または＜地獣＞のシグニを１枚捨ててもよい。そうした場合、このシグニをアップする。この効果は１ターンに一度しか発動しない。"
+    ],
+    "multiEner": false,
+    cardText: "楽しいこと、皆を笑顔にすることが大好き！～サーバル～",
+    cardText_zh_CN: "",
+    cardText_en: "",
+    "lifeBurst": "カードを１枚引く。"
+  },
+  "1953": {
+    "pid": 1953,
+    cid: 1953,
+    "timestamp": 1479021159082,
+    "wxid": "WX14-CB04",
+    name: "幻獣　キタキツネ",
+    name_zh_CN: "幻獣　キタキツネ",
+    name_en: "幻獣　キタキツネ",
+    "kana": "ゲンジュウキタキツネ",
+    "rarity": "CB",
+    "cardType": "SIGNI",
+    "color": "green",
+    "level": 2,
+    "limit": 0,
+    "power": 3000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-CB04.jpg",
+    "illust": "吉崎観音",
+    faqs: [
+      {
+        "q": "「アタックしたとき」の常時能力が２つありますが、どちらから発動しますか？",
+        "a": "これらはどちらも《幻獣　キタキツネ》がアタックしたときにトリガーし、複数のトリガー能力は好きな順番で発動できます。先に上の常時能力を発動し、それによってあなたの場のシグニがパワー10000以上になれば、その後に下の常時能力を発動してカードを引くことができます。"
+      }
+    ],
+    "classes": [
+      "精生",
+      "地獣"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：このシグニがアタックしたとき、ターン終了時まで、あなたのすべての＜空獣＞と＜地獣＞のシグニのパワーを＋3000する。",
+      "【【常】】：このシグニがアタックしたとき、あなたの場にパワー10000以上のシグニがある場合、カードを１枚引く。"
+    ],
+    "multiEner": false,
+    cardText: "ボク…遠くから見てるよ、キミのこと。～キタキツネ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1954": {
+    "pid": 1954,
+    cid: 1954,
+    "timestamp": 1479021159221,
+    "wxid": "WX14-CB05",
+    name: "幻獣　オカピ",
+    name_zh_CN: "幻獣　オカピ",
+    name_en: "幻獣　オカピ",
+    "kana": "ゲンジュウオカピ",
+    "rarity": "CB",
+    "cardType": "SIGNI",
+    "color": "green",
+    "level": 2,
+    "limit": 0,
+    "power": 2000,
+    "limiting": "緑子",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-CB05.jpg",
+    "illust": "エムド",
+    "classes": [
+      "精生",
+      "空獣"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：このシグニのパワーはあなたのルリグのレベル１につき＋3000される。",
+      "【【常】】：このシグニのパワーが15000以上であるかぎり、このシグニは【ランサー】を得る。",
+      "【【常】】：あなたのライフクロス1枚がクラッシュされたとき、このシグニをバニッシュする。"
+    ],
+    "multiEner": false,
+    cardText: "お風呂あがり　タカラトミー本社で　オカピが エレキギターを　食べた。",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1955": {
+    "pid": 1955,
+    cid: 1955,
+    "timestamp": 1479021159123,
+    "wxid": "PR-307",
+    name: "リヴァイバル・エクシード(WIXOSS PARTY参加賞selectors pack vol11)",
+    name_zh_CN: "リヴァイバル・エクシード(WIXOSS PARTY参加賞selectors pack vol11)",
+    name_en: "リヴァイバル・エクシード(WIXOSS PARTY参加賞selectors pack vol11)",
+    "kana": "リヴァイバルエクシード",
+    "rarity": "PR",
+    "cardType": "ARTS",
+    "color": "colorless",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/PR/PR-307.jpg",
+    "illust": "希",
+    faqs: [
+      {
+        "q": "「エクシードの値が3以下の能力」とはどういうことですか？",
+        "a": "例えば《永遠の巫女　タマヨリヒメ》のエクシード能力のように、エクシードのコストの数値が3以下の能力を使用できます。《黒点の巫女　タマヨリヒメ》のようなエクシード４以上の能力は使用できません。"
+      },
+      {
+        "q": "このアーツによって《永遠の巫女　タマヨリヒメ》のエクシード能力を使用して、対戦相手の《先駆の大天使　アークゲイン》を手札に戻すことはできますか？",
+        "a": "はい、可能です。このアーツによってコストを支払わずに使用されたエクシード能力であっても、使用しているのはルリグですので、アーツの効果を受けない《先駆の大天使　アークゲイン》を手札に戻すことができます。"
+      },
+      {
+        "q": "《永遠の巫女　タマヨリヒメ》の上のエクシード能力のように、「1ターンに一度しか使用できない」という制限のある能力について、通常の手順で一度使用し、同じターンに《リヴァイバル・エクシード》で再度使用できますか？",
+        "a": "いいえ、できません。《リヴァイバル・エクシード》でエクシード能力を使用する際、「1ターンに一度しか使用できない」という制限は無視できません。そのターンは一度使用してしまっている為、《リヴァイバル・エクシード》を使用してもそのエクシード能力は使用できません。"
+      },
+      {
+        "q": "《紆余曲折》などで、そのルリグが元々持っている能力ではなく後から付与されたエクシード能力でも《リヴァイバル・エクシード》で使用できますか？",
+        "a": "はい、できます。"
+      },
+      {
+        "q": "対戦相手の場に《星占の巫女　リメンバ・ナイト》がある場合、《リヴァイバル・エクシード》でエクシード能力を使用する際に《無》×１を支払う必要はありますか？",
+        "a": "《リヴァイバル・エクシード》は、エクシード能力の本来のコストは支払いませんが、《星占の巫女　リメンバ・ナイト》の常時能力によって増えた「使用するためのコスト」は別途支払う必要があります。この場合、追加で《無》×１を支払わなければ使用できません。"
+      }
+    ],
+    "classes": [],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 1,
+    "guardFlag": false,
+    cardSkills: [
+      "使用タイミング",
+      "【メインフェイズ】【アタックフェイズ】",
+      "対戦相手のターンの間、このカードを使用するためのコストは【《無》】【《無》】【《無》】になる。",
+      "あなたのルリグのエクシードの値が３以下の能力１つをコストを支払わずに使用する。（使用タイミングを無視する）"
+    ],
+    "multiEner": false,
+    cardText: "過去は何度でも未来へ。",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1956": {
+    "pid": 1956,
+    cid: 1956,
+    "timestamp": 1479021159533,
+    "wxid": "PR-308",
+    name: "無二の征服　アレクサンド(WIXOSS PARTY参加賞selectors pack vol11)",
+    name_zh_CN: "無二の征服　アレクサンド(WIXOSS PARTY参加賞selectors pack vol11)",
+    name_en: "無二の征服　アレクサンド(WIXOSS PARTY参加賞selectors pack vol11)",
+    "kana": "ムニノセイフクアレクサンド",
+    "rarity": "PR",
+    "cardType": "SIGNI",
+    "color": "red",
+    "level": 2,
+    "limit": 0,
+    "power": 8000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/PR/PR-308.jpg",
+    "illust": "村上ゆいち",
+    faqs: [
+      {
+        "q": "【ライズ】とは何ですか？",
+        "a": "【ライズ】アイコンを持つシグニは、場に出す際にライズ条件を満たして場に出す必要があります。ライズ条件は「コスト」ではなく、常時能力や出現時能力といった「効果」でもありません。このシグニが場を離れた場合、下にあるカードはすべてトラッシュに置かれます。"
+      },
+      {
+        "q": "ダウンしているシグニの上にライズした場合、ライズしたシグニもダウン状態ですか？",
+        "a": "いいえ、ライズするにあたってその下にあるシグニの状態を引き継ぐことはありません。場に新たに出るシグニは、他の効果などによって指定されていなければアップ状態です。"
+      },
+      {
+        "q": "使用タイミング【アタックフェイズ】のアーツを使用するのと、《無二の征服　アレクサンド》の常時能力が発動するのはどちらが先ですか？",
+        "a": "アタックフェイズには、まず《無二の征服　アレクサンド》のような「アタックフェイズ開始時」にトリガーする能力が発動します。その処理が終わってから、ターンプレイヤー側から使用タイミング【アタックフェイズ】のアーツや能力を使用できます。"
+      }
+    ],
+    "classes": [
+      "精像",
+      "武勇"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "ライズ－レベル１の赤のシグニの上に置く",
+      "【【常】】：各ターンのアタックフェイズ開始時、ターン終了時まで、あなたの他の赤のシグニ１体は「バニッシュされない。」を得る。"
+    ],
+    "multiEner": false,
+    cardText: "諸君のために戦おうではないか。～アレクサンド～",
+    cardText_zh_CN: "",
+    cardText_en: "",
+    "lifeBurst": "カードを１枚引く。"
+  },
+  "1957": {
+    "pid": 1957,
+    cid: 1957,
+    "timestamp": 1479021159577,
+    "wxid": "PR-309",
+    name: "コードアンチ　カイヅカ(WIXOSS PARTY参加賞selectors pack vol11)",
+    name_zh_CN: "コードアンチ　カイヅカ(WIXOSS PARTY参加賞selectors pack vol11)",
+    name_en: "コードアンチ　カイヅカ(WIXOSS PARTY参加賞selectors pack vol11)",
+    "kana": "コードアンチカイヅカ",
+    "rarity": "PR",
+    "cardType": "SIGNI",
+    "color": "black",
+    "level": 3,
+    "limit": 0,
+    "power": 7000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/PR/PR-309.jpg",
+    "illust": "ふーみ",
+    faqs: [
+      {
+        "q": "常時能力の「そうした場合～」は具体的にどういう意味ですか？",
+        "a": "ターン終了時にこのシグニが場にある場合ゲームから除外されます。また、そのターン終了時より前に効果やコスト、ルールによってこのシグニが場から離れる場合にも本来の移動先（手札やエナゾーンなど）には移動せず、ゲームから除外されます。"
+      },
+      {
+        "q": "出現時能力は強制ですか？",
+        "a": "はい、コストの無い出現時能力ですので、強制的にトリガーし、発動します。対戦相手の場にシグニがある場合、その中の1体を選んで-5000しなければなりません。"
+      }
+    ],
+    "classes": [
+      "精械",
+      "古代兵器"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：あなたのトラッシュからシグニ１体が場に出たとき、このシグニをトラッシュから場に出してもよい。そうした場合、ターン終了時に、またはこのシグニが場から離れる場合に、このシグニをゲームから除外する。",
+      "【【出】】：このシグニがトラッシュから場に出たとき、ターン終了時まで、対戦相手のシグニ１体のパワーを－5000する。（パワーが０以下のシグニはバニッシュされる）"
+    ],
+    "multiEner": false,
+    cardText: "ズカズカこないでよっ！～カイヅカ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1958": {
+    "pid": 1958,
+    cid: 1958,
+    "timestamp": 1479021159611,
+    "wxid": "PR-310",
+    name: "リヴァイバル・エクシード(WIXOSSお楽しみパック 2016年8-9月 Ver.)",
+    name_zh_CN: "リヴァイバル・エクシード(WIXOSSお楽しみパック 2016年8-9月 Ver.)",
+    name_en: "リヴァイバル・エクシード(WIXOSSお楽しみパック 2016年8-9月 Ver.)",
+    "kana": "リヴァイバルエクシード",
+    "rarity": "PR",
+    "cardType": "ARTS",
+    "color": "colorless",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/PR/PR-310.jpg",
+    "illust": "希",
+    faqs: [
+      {
+        "q": "「エクシードの値が3以下の能力」とはどういうことですか？",
+        "a": "例えば《永遠の巫女　タマヨリヒメ》のエクシード能力のように、エクシードのコストの数値が3以下の能力を使用できます。《黒点の巫女　タマヨリヒメ》のようなエクシード４以上の能力は使用できません。"
+      },
+      {
+        "q": "このアーツによって《永遠の巫女　タマヨリヒメ》のエクシード能力を使用して、対戦相手の《先駆の大天使　アークゲイン》を手札に戻すことはできますか？",
+        "a": "はい、可能です。このアーツによってコストを支払わずに使用されたエクシード能力であっても、使用しているのはルリグですので、アーツの効果を受けない《先駆の大天使　アークゲイン》を手札に戻すことができます。"
+      },
+      {
+        "q": "《永遠の巫女　タマヨリヒメ》の上のエクシード能力のように、「1ターンに一度しか使用できない」という制限のある能力について、通常の手順で一度使用し、同じターンに《リヴァイバル・エクシード》で再度使用できますか？",
+        "a": "いいえ、できません。《リヴァイバル・エクシード》でエクシード能力を使用する際、「1ターンに一度しか使用できない」という制限は無視できません。そのターンは一度使用してしまっている為、《リヴァイバル・エクシード》を使用してもそのエクシード能力は使用できません。"
+      },
+      {
+        "q": "《紆余曲折》などで、そのルリグが元々持っている能力ではなく後から付与されたエクシード能力でも《リヴァイバル・エクシード》で使用できますか？",
+        "a": "はい、できます。"
+      },
+      {
+        "q": "対戦相手の場に《星占の巫女　リメンバ・ナイト》がある場合、《リヴァイバル・エクシード》でエクシード能力を使用する際に《無》×１を支払う必要はありますか？",
+        "a": "《リヴァイバル・エクシード》は、エクシード能力の本来のコストは支払いませんが、《星占の巫女　リメンバ・ナイト》の常時能力によって増えた「使用するためのコスト」は別途支払う必要があります。この場合、追加で《無》×１を支払わなければ使用できません。"
+      }
+    ],
+    "classes": [],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 1,
+    "guardFlag": false,
+    cardSkills: [
+      "使用タイミング",
+      "【メインフェイズ】【アタックフェイズ】",
+      "対戦相手のターンの間、このカードを使用するためのコストは【《無》】【《無》】【《無》】になる。",
+      "あなたのルリグのエクシードの値が３以下の能力１つをコストを支払わずに使用する。（使用タイミングを無視する）"
+    ],
+    "multiEner": false,
+    cardText: "続いていく、だから、そこにいる。",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1959": {
+    "pid": 1959,
+    cid: 1959,
+    "timestamp": 1479021159712,
+    "wxid": "PR-311",
+    name: "無二の征服　アレクサンド(WIXOSSお楽しみパック 2016年8-9月 Ver.)",
+    name_zh_CN: "無二の征服　アレクサンド(WIXOSSお楽しみパック 2016年8-9月 Ver.)",
+    name_en: "無二の征服　アレクサンド(WIXOSSお楽しみパック 2016年8-9月 Ver.)",
+    "kana": "ムニノセイフクアレクサンド",
+    "rarity": "PR",
+    "cardType": "SIGNI",
+    "color": "red",
+    "level": 2,
+    "limit": 0,
+    "power": 8000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/PR/PR-311.jpg",
+    "illust": "村上ゆいち",
+    faqs: [
+      {
+        "q": "【ライズ】とは何ですか？",
+        "a": "【ライズ】アイコンを持つシグニは、場に出す際にライズ条件を満たして場に出す必要があります。ライズ条件は「コスト」ではなく、常時能力や出現時能力といった「効果」でもありません。このシグニが場を離れた場合、下にあるカードはすべてトラッシュに置かれます。"
+      },
+      {
+        "q": "ダウンしているシグニの上にライズした場合、ライズしたシグニもダウン状態ですか？",
+        "a": "いいえ、ライズするにあたってその下にあるシグニの状態を引き継ぐことはありません。場に新たに出るシグニは、他の効果などによって指定されていなければアップ状態です。"
+      },
+      {
+        "q": "使用タイミング【アタックフェイズ】のアーツを使用するのと、《無二の征服　アレクサンド》の常時能力が発動するのはどちらが先ですか？",
+        "a": "アタックフェイズには、まず《無二の征服　アレクサンド》のような「アタックフェイズ開始時」にトリガーする能力が発動します。その処理が終わってから、ターンプレイヤー側から使用タイミング【アタックフェイズ】のアーツや能力を使用できます。"
+      }
+    ],
+    "classes": [
+      "精像",
+      "武勇"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "ライズ－レベル１の赤のシグニの上に置く",
+      "【【常】】：各ターンのアタックフェイズ開始時、ターン終了時まで、あなたの他の赤のシグニ１体は「バニッシュされない。」を得る。"
+    ],
+    "multiEner": false,
+    cardText: "新たな力が戦いの狼煙をあげる。",
+    cardText_zh_CN: "",
+    cardText_en: "",
+    "lifeBurst": "カードを１枚引く。"
+  },
+  "1960": {
+    "pid": 1960,
+    cid: 1960,
+    "timestamp": 1479021160121,
+    "wxid": "PR-312",
+    name: "コードアンチ　カイヅカ(WIXOSSお楽しみパック 2016年8-9月 Ver.)",
+    name_zh_CN: "コードアンチ　カイヅカ(WIXOSSお楽しみパック 2016年8-9月 Ver.)",
+    name_en: "コードアンチ　カイヅカ(WIXOSSお楽しみパック 2016年8-9月 Ver.)",
+    "kana": "コードアンチカイヅカ",
+    "rarity": "PR",
+    "cardType": "SIGNI",
+    "color": "black",
+    "level": 3,
+    "limit": 0,
+    "power": 7000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/PR/PR-312.jpg",
+    "illust": "ふーみ",
+    faqs: [
+      {
+        "q": "常時能力の「そうした場合～」は具体的にどういう意味ですか？",
+        "a": "ターン終了時にこのシグニが場にある場合ゲームから除外されます。また、そのターン終了時より前に効果やコスト、ルールによってこのシグニが場から離れる場合にも本来の移動先（手札やエナゾーンなど）には移動せず、ゲームから除外されます。"
+      },
+      {
+        "q": "出現時能力は強制ですか？",
+        "a": "はい、コストの無い出現時能力ですので、強制的にトリガーし、発動します。対戦相手の場にシグニがある場合、その中の1体を選んで-5000しなければなりません。"
+      }
+    ],
+    "classes": [
+      "精械",
+      "古代兵器"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：あなたのトラッシュからシグニ１体が場に出たとき、このシグニをトラッシュから場に出してもよい。そうした場合、ターン終了時に、またはこのシグニが場から離れる場合に、このシグニをゲームから除外する。",
+      "【【出】】：このシグニがトラッシュから場に出たとき、ターン終了時まで、対戦相手のシグニ１体のパワーを－5000する。（パワーが０以下のシグニはバニッシュされる）"
+    ],
+    "multiEner": false,
+    cardText: "ズカズカくるとケガするぞっ！～カイヅカ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1961": {
+    "pid": 1961,
+    cid: 1961,
+    "timestamp": 1479021160335,
+    "wxid": "SP18-001",
+    name: "新月の巫女　タマヨリヒメ(サマールリグパックvol.1)",
+    name_zh_CN: "新月の巫女　タマヨリヒメ(サマールリグパックvol.1)",
+    name_en: "新月の巫女　タマヨリヒメ(サマールリグパックvol.1)",
+    "kana": "シンゲツノミコタマヨリヒメ",
+    "rarity": "SP",
+    "cardType": "LRIG",
+    "color": "white",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/SP18/SP18-001.jpg",
+    "illust": "mado*pen",
+    faqs: [
+      {
+        "q": "「レベル」とはなんですか？",
+        "a": "このルリグのレベルを表しています。あなたはグロウフェイズに、グロウコストを支払うことで自分のルリグデッキからルリグ1枚を、あなたの場にあるルリグに重ねることができます（この行為をグロウと呼びます。）このとき、ルリグのレベルを上げる場合は1レベルずつしか上げることが出来ません。（＊同じレベルまたは小さいレベルのルリグを重ねることは出来ます。＊ルリグタイプが違うルリグは重ねることが出来ません）また、メインフェイズにシグニを配置するとき、あなたが配置できるシグニはあなたのルリグのレベル以下のシグニしか配置できません。"
+      },
+      {
+        "q": "「リミット」とはなんですか？",
+        "a": "このルリグのリミットを表しています。あなたがメインフェイズにシグニを配置するにあたり、配置後のシグニのレベルの合計がルリグのリミットを超えてしまう場合は、このシグニを配置することは出来ません。"
+      },
+      {
+        "q": "「グロウコスト」とはなんですか？",
+        "a": "ルリグカードの左下に記載された、グロウフェイズにルリグのレベルをアップさせる（これをグロウと呼びます）ために必要なエナ数のことです。"
+      }
+    ],
+    "classes": [
+      "タマ"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    "multiEner": false,
+    cardText: "お水でバトル、たのしー！ ～タマ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1962": {
+    "pid": 1962,
+    cid: 1962,
+    "timestamp": 1479021160411,
+    "wxid": "SP18-002",
+    name: "恋慕の巫女　ユキ(サマールリグパックvol.1)",
+    name_zh_CN: "恋慕の巫女　ユキ(サマールリグパックvol.1)",
+    name_en: "恋慕の巫女　ユキ(サマールリグパックvol.1)",
+    "kana": "レンボノミコユキ",
+    "rarity": "SP",
+    "cardType": "LRIG",
+    "color": "white",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/SP18/SP18-002.jpg",
+    "illust": "bomi",
+    "classes": [
+      "イオナ"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    "multiEner": false,
+    cardText: "暑いわ、とろけそう。誰か私を涼ませてくれないかしら？　～ユキ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1963": {
+    "pid": 1963,
+    cid: 1963,
+    "timestamp": 1479021160439,
+    "wxid": "SP18-003",
+    name: "花代・零(サマールリグパックvol.1)",
+    name_zh_CN: "花代・零(サマールリグパックvol.1)",
+    name_en: "花代・零(サマールリグパックvol.1)",
+    "kana": "ハナヨゼロ",
+    "rarity": "SP",
+    "cardType": "LRIG",
+    "color": "red",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/SP18/SP18-003.jpg",
+    "illust": "pepo",
+    faqs: [
+      {
+        "q": "「レベル」とはなんですか？",
+        "a": "このルリグのレベルを表しています。あなたはグロウフェイズに、グロウコストを支払うことで自分のルリグデッキからルリグ1枚を、あなたの場にあるルリグに重ねることができます（この行為をグロウと呼びます。）このとき、ルリグのレベルを上げる場合は1レベルずつしか上げることが出来ません。（＊同じレベルまたは小さいレベルのルリグを重ねることは出来ます。＊ルリグタイプが違うルリグは重ねることが出来ません）また、メインフェイズにシグニを配置するとき、あなたが配置できるシグニはあなたのルリグのレベル以下のシグニしか配置できません。"
+      },
+      {
+        "q": "「リミット」とはなんですか？",
+        "a": "このルリグのリミットを表しています。あなたがメインフェイズにシグニを配置するにあたり、配置後のシグニのレベルの合計がルリグのリミットを超えてしまう場合は、このシグニを配置することは出来ません。"
+      },
+      {
+        "q": "「グロウコスト」とはなんですか？",
+        "a": "ルリグカードの左下に記載された、グロウフェイズにルリグのレベルをアップさせる（これをグロウと呼びます）ために必要なエナ数のことです。"
+      }
+    ],
+    "classes": [
+      "花代"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    "multiEner": false,
+    cardText: "似合う？似合わない？まぁ、どちらでもいいよ。　～花代～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1964": {
+    "pid": 1964,
+    cid: 1964,
+    "timestamp": 1479021160569,
+    "wxid": "SP18-004",
+    name: "コード・ピルルク(サマールリグパックvol.1)",
+    name_zh_CN: "コード・ピルルク(サマールリグパックvol.1)",
+    name_en: "コード・ピルルク(サマールリグパックvol.1)",
+    "kana": "コードピルルク",
+    "rarity": "SP",
+    "cardType": "LRIG",
+    "color": "blue",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/SP18/SP18-004.jpg",
+    "illust": "安藤周記",
+    faqs: [
+      {
+        "q": "「レベル」とはなんですか？",
+        "a": "このルリグのレベルを表しています。あなたはグロウフェイズに、グロウコストを支払うことで自分のルリグデッキからルリグ1枚を、あなたの場にあるルリグに重ねることができます（この行為をグロウと呼びます。）このとき、ルリグのレベルを上げる場合は1レベルずつしか上げることが出来ません。（＊同じレベルまたは小さいレベルのルリグを重ねることは出来ます。＊ルリグタイプが違うルリグは重ねることが出来ません）また、メインフェイズにシグニを配置するとき、あなたが配置できるシグニはあなたのルリグのレベル以下のシグニしか配置できません。"
+      },
+      {
+        "q": "「リミット」とはなんですか？",
+        "a": "このルリグのリミットを表しています。あなたがメインフェイズにシグニを配置するにあたり、配置後のシグニのレベルの合計がルリグのリミットを超えてしまう場合は、このシグニを配置することは出来ません。"
+      },
+      {
+        "q": "「グロウコスト」とはなんですか？",
+        "a": "ルリグカードの左下に記載された、グロウフェイズにルリグのレベルをアップさせる（これをグロウと呼びます）ために必要なエナ数のことです。"
+      }
+    ],
+    "classes": [
+      "ピルルク"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    "multiEner": false,
+    cardText: "ピーピングアナライズ。私と、泳ぎたい……？～ピルルク～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1965": {
+    "pid": 1965,
+    cid: 1965,
+    "timestamp": 1479021160587,
+    "wxid": "SP18-005",
+    name: "奇跡の軌跡　アン(サマールリグパックvol.1)",
+    name_zh_CN: "奇跡の軌跡　アン(サマールリグパックvol.1)",
+    name_en: "奇跡の軌跡　アン(サマールリグパックvol.1)",
+    "kana": "キセキノキセキアン",
+    "rarity": "SP",
+    "cardType": "LRIG",
+    "color": "green",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/SP18/SP18-005.jpg",
+    "illust": "DQN",
+    "classes": [
+      "アン"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    "multiEner": false,
+    cardText: "本日は晴天なり、大漁だわ。 ～アン～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1966": {
+    "pid": 1966,
+    cid: 1966,
+    "timestamp": 1479021161030,
+    "wxid": "SP18-006",
+    name: "創造の鍵主　ウムル＝ノル(サマールリグパックvol.1)",
+    name_zh_CN: "創造の鍵主　ウムル＝ノル(サマールリグパックvol.1)",
+    name_en: "創造の鍵主　ウムル＝ノル(サマールリグパックvol.1)",
+    "kana": "ソウゾウノカギヌシウムルノル",
+    "rarity": "SP",
+    "cardType": "LRIG",
+    "color": "black",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/SP18/SP18-006.jpg",
+    "illust": "アリオ",
+    "classes": [
+      "ウムル"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    "multiEner": false,
+    cardText: "なんじゃ、その目は。今日はオフなのじゃ、グロウせんぞ。～ウムル～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1967": {
+    "pid": 1967,
+    cid: 1967,
+    "timestamp": 1479021161303,
+    "wxid": "WX14-014",
+    name: "スティール・スペル・ラン",
+    name_zh_CN: "スティール・スペル・ラン",
+    name_en: "スティール・スペル・ラン",
+    "kana": "スティールスペルラン",
+    "rarity": "LC",
+    "cardType": "ARTS",
+    "color": "blue",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "ミルルン",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-014.jpg",
+    "illust": "松本エイト",
+    faqs: [
+      {
+        "q": "アンコールのコストはいつ支払えばいいですか？",
+        "a": "アンコールのコストは、アーツのコストを支払う際に同時に支払います。"
+      },
+      {
+        "q": "《スティール・スペル・ラン》がルリグトラッシュにあるときに、アンコールのコストを支払ってルリグデッキに戻すことはできますか？",
+        "a": "いいえ、できません。アンコールのコストは、そのアーツを使用するときにのみ支払えます。"
+      },
+      {
+        "q": "この効果で使用したスペルに、対戦相手は【スペルカットイン】することができますか？その【スペルカットイン】が《白羅星　ニュームーン》だった場合、出現時能力は発動しますか？",
+        "a": "はい、使用することができます。\nまた、そのスペルは《スティール・スペル・ラン》を使用した側のチェックゾーンにありますので、《白羅星　ニュームーン》の出現時能力は発動します。"
+      },
+      {
+        "q": "《スティール・スペル・ラン》で、《修復》のようなエナゾーンにあるカードの枚数を参照するスペルを使用した場合、参照するのは自分のエナゾーンですか？それとも対戦相手のエナゾーンですか？",
+        "a": "その場合、《スティール・スペル・ラン》を使用した側のプレイヤーのエナゾーンを参照します。"
+      },
+      {
+        "q": "《スティール・スペル・ラン》を使用した側に《コードアンシエンツ　ヘルボロス》があります。相手のトラッシュのスペルを使用できますか？",
+        "a": "はい、使用できます。《コードアンシエンツ　ヘルボロス》によってトラッシュからカードを移動させることは無視されますが、《スティール・スペル・ラン》によってカードがトラッシュからチェックゾーンに移動することはスペルを使用する際のルール上の処理であり効果ではありません。"
+      }
+    ],
+    "classes": [],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 1,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "使用タイミング",
+      "【メインフェイズ】",
+      "アンコール―【《青》】【《無》】",
+      "対戦相手のトラッシュからスペル１枚を、あなたの手札にあるかのようにコストを支払わずに限定条件を無視して使用する。このターン、そのスペルがチェックゾーンから別の領域に移動される場合、代わりにゲームから除外される。"
+    ],
+    "multiEner": false,
+    cardText: "ニャホホホ。楽勝だったニャー♪～ミルルンネコ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1968": {
+    "pid": 1968,
+    cid: 1968,
+    "timestamp": 1479021161425,
+    "wxid": "WX14-027",
+    name: "羅原姫　Ｂｅ",
+    name_zh_CN: "羅原姫　Ｂｅ",
+    name_en: "羅原姫　Ｂｅ",
+    "kana": "ラゲンヒメベリリウム",
+    "rarity": "SR",
+    "cardType": "SIGNI",
+    "color": "blue",
+    "level": 4,
+    "limit": 0,
+    "power": 12000,
+    "limiting": "ミルルン",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-027.jpg",
+    "illust": "イチゼン",
+    faqs: [
+      {
+        "q": "1つ目の常時能力について、バトルによってこちらの＜原子＞のシグニがバニッシュされた場合も発動しますか？",
+        "a": "いいえ、発動しません。対戦相手のシグニがアタックをして、その正面にあるシグニがバトルによってバニッシュされるのはルール上の処理であり効果ではありません。"
+      },
+      {
+        "q": "「対戦相手のスペル１枚を使用したとき」の常時能力は、具体的にいつ発動しますか？",
+        "a": "この能力は、あなたが《羅原姫　Ｂｅ》の出現時能力などで、対戦相手のスペルを使用宣言したことでトリガーし、そのスペルへの【スペルカットイン】やスペル自体の効果の処理が終わった後で発動します。発動したときに、対戦相手のシグニ１体をバニッシュするか、手札を１枚捨てさせるか選びます。"
+      },
+      {
+        "q": "常時能力でシグニ1体をバニッシュするか、手札1枚を捨てさせるかはどちらのプレイヤーが選びますか？また、捨てる手札1枚はどちらのプレイヤーが選びますか？",
+        "a": "1体をバニッシュするか、手札1枚を捨てさせるかは《羅原姫　Ｂｅ》側が選びます。捨てる手札の1枚は、捨てさせられるプレイヤーが選びます。"
+      },
+      {
+        "q": "出現時能力で使用したスペルは、使用後はどこに置かれますか？",
+        "a": "そのスペルは効果を処理後、あなたのチェックゾーンから対戦相手のトラッシュへ置かれます。"
+      },
+      {
+        "q": "出現時能力を使用した際、こちらには《コードアンシエンツ　ヘルボロス》がありました。相手のトラッシュのスペルを使用できますか？",
+        "a": "はい、使用できます。《コードアンシエンツ　ヘルボロス》によってトラッシュからカードを移動させることは無視されますが、出現時能力によってカードがトラッシュからチェックゾーンに移動することはスペルを使用する際のルール上の処理であり効果ではありません。"
+      },
+      {
+        "q": "この効果で使用したスペルに、対戦相手は【スペルカットイン】することができますか？その【スペルカットイン】が《白羅星　ニュームーン》だった場合、出現時能力は発動しますか？",
+        "a": "はい、使用することができます。\nまた、そのスペルは《スティール・スペル・ラン》を使用した側のチェックゾーンにありますので、《白羅星　ニュームーン》の出現時能力は発動します。"
+      }
+    ],
+    "classes": [
+      "精羅",
+      "原子"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：あなたの＜原子＞のシグニ１体が対戦相手の効果によって場を離れるたび、対戦相手の手札を１枚見ないで選び、捨てさせる。",
+      "【【常】】：あなたが対戦相手のスペル１枚を使用したとき、対戦相手のシグニ１体をバニッシュするか、対戦相手の手札を１枚捨てさせる。",
+      "【【出】】【《青》】：対戦相手のトラッシュからスペル１枚をあなたの手札にあるかのように使用する。（コストは支払い、限定条件は無視しない）"
+    ],
+    "multiEner": false,
+    cardText: "危険度ナンバーワン！～Ｂｅ～",
+    cardText_zh_CN: "",
+    cardText_en: "",
+    "lifeBurst": "対戦相手の手札を見て１枚選び、捨てさせる。"
+  },
+  "1969": {
+    "pid": 1969,
+    cid: 1969,
+    "timestamp": 1479021161539,
+    "wxid": "WX14-038",
+    name: "羅原　Ｎａ",
+    name_zh_CN: "羅原　Ｎａ",
+    name_en: "羅原　Ｎａ",
+    "kana": "ラゲンナトリウム",
+    "rarity": "R",
+    "cardType": "SIGNI",
+    "color": "blue",
+    "level": 2,
+    "limit": 0,
+    "power": 5000,
+    "limiting": "ミルルン",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-038.jpg",
+    "illust": "Toshi_Punk",
+    faqs: [
+      {
+        "q": "＜電機＞のシグニ3体、凍結状態のシグニが3体ある場合《RECKLESS》は使用するためのコストが青×１まで減りますが、手札にある《RECKLESS》をこの出現時能力で捨てさせられますか？",
+        "a": "コストの合計とはカード左上に記載のコストのみを指し、「使用するためのコスト」が減っていたとしてもそれは参照しません。《RECKLESS》のコストの合計は７のままであり、捨てさせることはできません。"
+      }
+    ],
+    "classes": [
+      "精羅",
+      "原子"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【出】】：対戦相手の手札を見て、その中からコストの合計が１以下のスペル１枚を選び、捨てさせる。"
+    ],
+    "multiEner": false,
+    cardText: "熱伝導ならナンバーワン！～Ｎａ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1970": {
+    "pid": 1970,
+    cid: 1970,
+    "timestamp": 1479021161584,
+    "wxid": "WX14-039",
+    name: "羅原　Ｓｉ",
+    name_zh_CN: "羅原　Ｓｉ",
+    name_en: "羅原　Ｓｉ",
+    "kana": "ラゲンケイソ",
+    "rarity": "R",
+    "cardType": "SIGNI",
+    "color": "blue",
+    "level": 1,
+    "limit": 0,
+    "power": 2000,
+    "limiting": "ミルルン",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-039.jpg",
+    "illust": "れいあきら",
+    "classes": [
+      "精羅",
+      "原子"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【出】】：対戦相手のトラッシュにスペルがある場合、カードを１枚引く。"
+    ],
+    "multiEner": false,
+    cardText: "美容ならナンバーワン！～Ｓｉ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1971": {
+    "pid": 1971,
+    cid: 1971,
+    "timestamp": 1479021161575,
+    "wxid": "WX14-062",
+    name: "ＳＴＡＲ　ＡＲＲＯＷ",
+    name_zh_CN: "ＳＴＡＲ　ＡＲＲＯＷ",
+    name_en: "ＳＴＡＲ　ＡＲＲＯＷ",
+    "kana": "スターアロー",
+    "rarity": "C",
+    "cardType": "SPELL",
+    "color": "blue",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "ミルルン",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-062.jpg",
+    "illust": "mado*pen",
+    faqs: [
+      {
+        "q": "デッキが残り1枚の状態で《ＳＴＡＲ　ＡＲＲＯＷ》を使用したとき、カードを1枚引いた後は残りの効果とリフレッシュとどちらが先ですか？",
+        "a": "リフレッシュなどのルール処理は効果の処理中には発生しませんので、まず《ＳＴＡＲ　ＡＲＲＯＷ》の効果を最後まで処理します（デッキが無いのでシグニやスペルを探すことはできません）。その後、リフレッシュを行います。"
+      }
+    ],
+    "classes": [],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 2,
+    "costGreen": 0,
+    "costColorless": 1,
+    "guardFlag": false,
+    cardSkills: [
+      "対戦相手の手札を１枚見ないで選び、捨てさせる。あなたはカードを１枚引き、あなたのデッキからシグニ１枚とスペル１枚を探して公開し手札に加える。その後、デッキをシャッフルする。"
+    ],
+    "multiEner": false,
+    cardText: "だんだん何か簡単になってきたル～ン♪～ミルルン～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1972": {
+    "pid": 1972,
+    cid: 1972,
+    "timestamp": 1479021162090,
+    "wxid": "SP19-004",
+    name: "一ノ娘　緑子",
+    name_zh_CN: "一ノ娘　緑子",
+    name_en: "一ノ娘　緑子",
+    "kana": "イチノムスメミドリコ",
+    "rarity": "SP",
+    "cardType": "LRIG",
+    "color": "green",
+    "level": 1,
+    "limit": 2,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/SP19/SP19-004.jpg",
+    "illust": "作画：冨岡　寛　仕上げ：J.C.STAFF",
+    "classes": [
+      "緑子"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    "multiEner": false,
+    cardText: "僕なんかでよかったのかい？　～緑子～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1973": {
+    "pid": 1973,
+    cid: 1973,
+    "timestamp": 1479021162337,
+    "wxid": "SP19-001",
+    name: "三日月の巫女 タマ",
+    name_zh_CN: "三日月の巫女 タマ",
+    name_en: "三日月の巫女 タマ",
+    "kana": "ミカヅキノミコタマ",
+    "rarity": "SP",
+    "cardType": "LRIG",
+    "color": "white",
+    "level": 1,
+    "limit": 2,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/SP19/SP19-001.jpg",
+    "illust": "作画：冨岡　寛　仕上げ：J.C.STAFF",
+    faqs: [
+      {
+        "q": "「レベル」とはなんですか？",
+        "a": "このルリグのレベルを表しています。あなたはグロウフェイズに、グロウコストを支払うことで自分のルリグデッキからルリグ1枚を、あなたの場にあるルリグに重ねることができます（この行為をグロウと呼びます。）このとき、ルリグのレベルを上げる場合は1レベルずつしか上げることが出来ません。（＊同じレベルまたは小さいレベルのルリグを重ねることは出来ます。＊ルリグタイプが違うルリグは重ねることが出来ません）また、メインフェイズにシグニを配置するとき、あなたが配置できるシグニはあなたのルリグのレベル以下のシグニしか配置できません。"
+      },
+      {
+        "q": "「リミット」とはなんですか？",
+        "a": "このルリグのリミットを表しています。あなたがメインフェイズにシグニを配置するにあたり、配置後のシグニのレベルの合計がルリグのリミットを超えてしまう場合は、このシグニを配置することは出来ません。"
+      },
+      {
+        "q": "「グロウコスト」とはなんですか？",
+        "a": "ルリグカードの左下に記載された、グロウフェイズにルリグのレベルをアップさせる（これをグロウと呼びます）ために必要なエナ数のことです。"
+      }
+    ],
+    "classes": [
+      "タマ"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    "multiEner": false,
+    cardText: "タマを選んでくれて、ありがとう！　～タマ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1974": {
+    "pid": 1974,
+    cid: 1974,
+    "timestamp": 1479021162380,
+    "wxid": "SP19-002",
+    name: "花代・壱",
+    name_zh_CN: "花代・壱",
+    name_en: "花代・壱",
+    "kana": "ハナヨイチ",
+    "rarity": "SP",
+    "cardType": "LRIG",
+    "color": "red",
+    "level": 1,
+    "limit": 2,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/SP19/SP19-002.jpg",
+    "illust": "作画：冨岡　寛　仕上げ：J.C.STAFF",
+    faqs: [
+      {
+        "q": "「レベル」とはなんですか？",
+        "a": "このルリグのレベルを表しています。あなたはグロウフェイズに、グロウコストを支払うことで自分のルリグデッキからルリグ1枚を、あなたの場にあるルリグに重ねることができます（この行為をグロウと呼びます。）このとき、ルリグのレベルを上げる場合は1レベルずつしか上げることが出来ません。（＊同じレベルまたは小さいレベルのルリグを重ねることは出来ます。＊ルリグタイプが違うルリグは重ねることが出来ません）また、メインフェイズにシグニを配置するとき、あなたが配置できるシグニはあなたのルリグのレベル以下のシグニしか配置できません。"
+      },
+      {
+        "q": "「リミット」とはなんですか？",
+        "a": "このルリグのリミットを表しています。あなたがメインフェイズにシグニを配置するにあたり、配置後のシグニのレベルの合計がルリグのリミットを超えてしまう場合は、このシグニを配置することは出来ません。"
+      },
+      {
+        "q": "「グロウコスト」とはなんですか？",
+        "a": "ルリグカードの左下に記載された、グロウフェイズにルリグのレベルをアップさせる（これをグロウと呼びます）ために必要なエナ数のことです。"
+      },
+      {
+        "q": "出現時能力は必ず使用しなければなりませんか？また、何度でも使用できますか？",
+        "a": "出現時能力は、その能力の使用にコストが必要な場合は使用しないことを選べます。コストが必要ない場合は、必ず使用しなければなりません。能力が使用できるのは場に出た時に一度だけです。"
+      },
+      {
+        "q": "《焔　花代・壱》の出現時能力は手札を捨てないことを選べますか？",
+        "a": "選べます。出現時能力は使用時にコストが必要な場合は使用しないことを選べます。この場合手札を1枚捨てるがコストに該当します。"
+      }
+    ],
+    "classes": [
+      "花代"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    "multiEner": false,
+    cardText: "きっと、あなたとなら、ずっと幸せなのかもね。～花代～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1975": {
+    "pid": 1975,
+    cid: 1975,
+    "timestamp": 1479021162640,
+    "wxid": "SP19-003",
+    name: "コード・ピルルク・Ｋ",
+    name_zh_CN: "コード・ピルルク・Ｋ",
+    name_en: "コード・ピルルク・Ｋ",
+    "kana": "コードピルルクキロ",
+    "rarity": "SP",
+    "cardType": "LRIG",
+    "color": "blue",
+    "level": 1,
+    "limit": 2,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/SP19/SP19-003.jpg",
+    "illust": "作画：冨岡　寛　仕上げ：J.C.STAFF",
+    faqs: [
+      {
+        "q": "「レベル」とはなんですか？",
+        "a": "このルリグのレベルを表しています。あなたはグロウフェイズに、グロウコストを支払うことで自分のルリグデッキからルリグ1枚を、あなたの場にあるルリグに重ねることができます（この行為をグロウと呼びます。）このとき、ルリグのレベルを上げる場合は1レベルずつしか上げることが出来ません。（＊同じレベルまたは小さいレベルのルリグを重ねることは出来ます。＊ルリグタイプが違うルリグは重ねることが出来ません）また、メインフェイズにシグニを配置するとき、あなたが配置できるシグニはあなたのルリグのレベル以下のシグニしか配置できません。"
+      },
+      {
+        "q": "「リミット」とはなんですか？",
+        "a": "このルリグのリミットを表しています。あなたがメインフェイズにシグニを配置するにあたり、配置後のシグニのレベルの合計がルリグのリミットを超えてしまう場合は、このシグニを配置することは出来ません。"
+      },
+      {
+        "q": "「グロウコスト」とはなんですか？",
+        "a": "ルリグカードの左下に記載された、グロウフェイズにルリグのレベルをアップさせる（これをグロウと呼びます）ために必要なエナ数のことです。"
+      }
+    ],
+    "classes": [
+      "ピルルク"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    "multiEner": false,
+    cardText: "……いいの？私は、不幸を連れてきてしまうわ。　～ピルルク～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1976": {
+    "pid": 1976,
+    cid: 1976,
+    "timestamp": 1479021162699,
+    "wxid": "SP19-005",
+    name: "灼熱の閻魔 ウリス",
+    name_zh_CN: "灼熱の閻魔 ウリス",
+    name_en: "灼熱の閻魔 ウリス",
+    "kana": "シャクネツノエンマウリス",
+    "rarity": "SP",
+    "cardType": "LRIG",
+    "color": "black",
+    "level": 1,
+    "limit": 2,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/SP19/SP19-005.jpg",
+    "illust": "作画：冨岡　寛　仕上げ：J.C.STAFF",
+    "classes": [
+      "ウリス"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    "multiEner": false,
+    cardText: "一緒に、次は誰を潰す？　～ウリス～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1977": {
+    "pid": 1977,
+    cid: 1977,
+    "timestamp": 1479021162733,
+    "wxid": "PR-276",
+    name: "黒点の巫女　タマヨリヒメ(「黒点の巫女 タマヨリヒメ」フィギュア特典)",
+    name_zh_CN: "黒点の巫女　タマヨリヒメ(「黒点の巫女 タマヨリヒメ」フィギュア特典)",
+    name_en: "黒点の巫女　タマヨリヒメ(「黒点の巫女 タマヨリヒメ」フィギュア特典)",
+    "kana": "コクテンノミコタマヨリヒメ",
+    "rarity": "PR",
+    "cardType": "LRIG",
+    "color": "black",
+    "level": 5,
+    "limit": 12,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/PR/PR-276.jpg",
+    "illust": "AKIRA",
+    faqs: [
+      {
+        "q": "【グロウ】あなたのトラッシュに黒のカードが10枚以上ある、とはどういうことですか？",
+        "a": "《黒点の巫女　タマヨリヒメ》にグロウするための条件を表しています。《黒点の巫女　タマヨリヒメ》にグロウするためには、グロウフェイズ中、《黒点の巫女　タマヨリヒメ》にグロウさせることを宣言した時点であなたのトラッシュに置かれた黒のカードが10枚以上ある必要があり、そうでない場合は《黒点の巫女　タマヨリヒメ》にグロウすることは出来ません。"
+      },
+      {
+        "q": "「エナゾーン以外のすべてのシグニは黒になる」とはどういうことですか？",
+        "a": "シグニゾーン・手札・メインデッキ・ライフクロス・チェックゾーン・トラッシュに置かれたシグニの色は黒色として上書きされます。これは色を参照した様々な効果に影響を与え、色を参照する特定の効果（例：《サルベージ》《ゲット・インデックス》《コード・ピルルク・Ω》等）は結果として実行不可能となります。また一方で《デッド・スプラッシュ》や《コードメイズ　凱旋》の起動能力等は本来は黒ではなかったシグニを選択出来るようになります。"
+      },
+      {
+        "q": "《黒点の巫女　タマヨリヒメ》常時能力によって黒になったシグニが持っていた本来の色はどうなりますか？",
+        "a": "《黒点の巫女　タマヨリヒメ》常時能力はシグニの色を「黒」に上書きします。本来持っていた色は、結果として失われます。"
+      },
+      {
+        "q": "《三式豊潤娘　緑姫》常時能力が場にあるシグニに対してのみ＋2000修正を与えるのに対し、《黒点の巫女　タマヨリヒメ》がエナゾーン以外全ての領域のカードの色を黒に上書きするのは何故ですか？",
+        "a": "《三式豊潤娘　緑姫》のように、特に影響範囲に指定が無く、シグニに対する効果を持つ常時能力は、シグニゾーンにあるシグニに対してのみ影響します。これに対して《黒点の巫女　タマヨリヒメ》は「エナゾーン以外のすべての」と影響範囲が指定されており、これには効果領域・非公開領域を含むエナゾーン以外の全ての領域が指定されているものとして扱われます。"
+      },
+      {
+        "q": "《黒点の巫女　タマヨリヒメ》常時能力を《不可解な誇超　コンテンポラ》常時能力で防ぐことは出来ますか？",
+        "a": "はい、《黒点の巫女　タマヨリヒメ》常時能力は「シグニの状態を変更する」効果として扱われます。場にある＜美巧＞のシグニに対する《黒点の巫女　タマヨリヒメ》の常時能力効果を《不可解な誇超　コンテンポラ》常時能力で防ぐことは可能です。"
+      },
+      {
+        "q": "起動能力のコストはどういう意味ですか？",
+        "a": "《黒点の巫女　タマヨリヒメ》起動能力を使用するためには、黒エナ1つに加え、エナゾーンに置かれている黒のカード1枚の合計2枚をコストとしてトラッシュに置く必要があります。"
+      },
+      {
+        "q": "エクシード能力の「この能力は使用タイミング【アタックフェイズ】を持つ」とはどういうことですか？",
+        "a": "この能力はアーツの【アタックフェイズ】と同じタイミングで、アーツの【アタックフェイズ】と同じように使用を宣言し、解決させることが出来ます。この能力はルリグの能力として扱われます。なお、使用タイミング【アタックフェイズ】を持っているため、自身のメインフェイズに使用することはできません。"
+      }
+    ],
+    "classes": [
+      "タマ"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【グロウ】】あなたのトラッシュに黒のカードが10枚以上ある",
+      "【【常】】：エナゾーン以外のすべてのシグニは黒になる。",
+      "【【起】】【《黒》】あなたのエナゾーンから黒のカード1枚をトラッシュに置く：対戦相手のシグニ1体をトラッシュに置く。",
+      "【【起】】エクシード5：対戦相手の、ルリグとすべてのシグニをダウンする。この能力は使用タイミング【アタックフェイズ】を持つ。"
+    ],
+    "multiEner": false,
+    cardText: "あの願いが、叶うなら。タマ…どんなことでもする。　～タマ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1978": {
+    "pid": 1978,
+    cid: 1978,
+    "timestamp": 1479021162880,
+    "wxid": "PR-279",
+    name: "冥者　ハナレ",
+    name_zh_CN: "冥者　ハナレ",
+    name_en: "冥者　ハナレ",
+    "kana": "メイジャハナレ",
+    "rarity": "PR",
+    "cardType": "LRIG",
+    "color": "black",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/PR/PR-279.jpg",
+    "illust": "CHAN×CO",
+    "classes": [
+      "ハナレ"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    "multiEner": false,
+    cardText: "…オープン ～ハナレ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1979": {
+    "pid": 1979,
+    cid: 1979,
+    "timestamp": 1479021163197,
+    "wxid": "PR-280",
+    name: "黒衣の花嫁 アルフォウ",
+    name_zh_CN: "黒衣の花嫁 アルフォウ",
+    name_en: "黒衣の花嫁 アルフォウ",
+    "kana": "コクイノハナヨメアルフォウ",
+    "rarity": "PR",
+    "cardType": "LRIG",
+    "color": "black",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/PR/PR-280.jpg",
+    "illust": "CHAN×CO",
+    "classes": [
+      "アルフォウ"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    "multiEner": false,
+    cardText: "オープン！　～アルフォウ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1980": {
+    "pid": 1980,
+    cid: 1980,
+    "timestamp": 1479021163285,
+    "wxid": "WX14-003",
+    name: "紡ぐ者",
+    name_zh_CN: "紡ぐ者",
+    name_en: "紡ぐ者",
+    "kana": "ツムグモノ",
+    "rarity": "LR",
+    "cardType": "LRIG",
+    "color": "colorless",
+    "level": 5,
+    "limit": 15,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-003.jpg",
+    "illust": "希",
+    faqs: [
+      {
+        "q": "このルリグから別のルリグにグロウできますか？",
+        "a": "＜タマ＞など他のルリグから《紡ぐ者》へグロウする場合はルリグタイプを無視してグロウできますが、《紡ぐ者》から別のルリグへグロウする際のルリグタイプは無視できませんので、＜タマ＞などにグロウすることはできません。"
+      },
+      {
+        "q": "限定条件を無視して場に出したレベル５のシグニが、対戦相手の《弱者の必滅　ディアボロス》の能力などでレベルが１つ下がりました。この場合はどうなりますか？",
+        "a": "その場合、限定条件に合わないレベル４のシグニとなりましたので、常時能力で限定条件を無視することはできず、そのシグニはルール処理でトラッシュに置かれます。"
+      },
+      {
+        "q": "下段常時能力で、【マルチエナ】を持つ《サーバント　Ｏ》などを捨てた場合、どの色のシグニのアタックでも防げますか？また、無色のシグニのアタックも防げますか？",
+        "a": "いいえ、できません。【マルチエナ】はエナのコストの支払いの際に、好きな色として支払えるという能力です。これはエナの支払いではなく、《サーバント　Ｏ》の本来の色は無色となります。無色は色を持たず、同じ色を持つシグニは存在しませんので、《サーバント　Ｏ》を捨ててシグニのアタックのダメージを防ぐことはできません。"
+      },
+      {
+        "q": "下段常時能力は、正面にシグニがある場合でも使えますか？",
+        "a": "対戦相手のシグニがアタックしたとき、その正面にシグニがあってもそのシグニと同じ色を持つシグニを捨てることはできますが、これによる効果は「あなたにダメージを与えない」のみですので、正面のシグニとのバトルは通常通り行われます。"
+      },
+      {
+        "q": "下段常時能力で【ランサー】によるクラッシュは防げますか？",
+        "a": "いいえ、正面のシグニをバトルでバニッシュした後の【ランサー】によるクラッシュはダメージではないため、この能力で防ぐことはできません。"
+      },
+      {
+        "q": "下段常時能力で《不可解な誇超　コンテンポラ》などの「効果を受けない」シグニのアタックは防げますか？",
+        "a": "「効果を受けない」能力は、「カードの情報を変更する効果」「状態を変更する効果」「移動させる効果」を受けませんが、《紡ぐ者》の常時能力は上記に該当しませんので、「効果を受けない」シグニのアタックであってもダメージを防ぐことができます。"
+      }
+    ],
+    "classes": [
+      "？"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 5,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：このルリグにグロウするためのルリグタイプは無視される。",
+      "【【常】】：あなたはレベル５のシグニの限定条件を無視して場に出すことができる。",
+      "【【常】】：対戦相手のシグニ１体がアタックしたとき、あなたの手札からそのシグニと同じ色を持つシグニを１枚捨ててもよい。そうした場合、そのアタックしているシグニはこのアタックであなたにダメージを与えない。",
+      "【【起】】【《無》】：次のターンの間、対戦相手のルリグはあなたにダメージを与えない。"
+    ],
+    "multiEner": false,
+    cardText: "撚りかけ、一本の糸となる。物語は続いてく。",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1981": {
+    "pid": 1981,
+    cid: 1981,
+    "timestamp": 1479021163656,
+    "wxid": "WX14-010",
+    name: "断罪　遊月・弐", // !growCost 《赤/緑》×１
+    name_zh_CN: "断罪　遊月・弐",
+    name_en: "断罪　遊月・弐",
+    "kana": "ダンザイユヅキニ",
+    "rarity": "LC",
+    "cardType": "LRIG",
+    "color": "red/green",
+    "level": 2,
+    "limit": 4,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-010.jpg",
+    "illust": "イチノセ奏",
+    "classes": [
+      "ユヅキ"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：このルリグがアタックしたとき、あなたの場に赤と緑のシグニがある場合、カードを１枚引き、その後、手札を１枚捨てる。"
+    ],
+    "multiEner": false,
+    cardText: "思ったよりここも居心地がいいじゃん。～遊月～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1982": {
+    "pid": 1982,
+    cid: 1982,
+    "timestamp": 1479021163712,
+    "wxid": "WX14-032",
+    name: "サーバント　∞",
+    name_zh_CN: "サーバント　∞",
+    name_en: "サーバント　∞",
+    "kana": "サーバントインフィニティ",
+    "rarity": "SR",
+    "cardType": "SIGNI",
+    "color": "colorless",
+    "level": 5,
+    "limit": 0,
+    "power": 15000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-032.jpg",
+    "illust": "しおぼい",
+    faqs: [
+      {
+        "q": "シグニゾーンと指定した場合、対戦相手の場にある「効果を受けない」シグニのクラスや色は変更できますか？",
+        "a": "「効果を受けない」能力は、カードの情報を変更する効果を防ぎますので、シグニゾーンにある「効果を受けない」シグニの色やクラスはそのままとなります。"
+      },
+      {
+        "q": "メインデッキと指定した場合、対戦相手のメインデッキの中の「効果を受けない」シグニのクラスや色は変更できますか？",
+        "a": "常時能力は、特に記載が無ければ場に出ているときのみ有効です。「効果を受けない」能力を持つ《不可解な誇超　コンテンポラ》のようなシグニでも、デッキの中にある間は能力は有効ではないため、クラスと色を失い＜精元＞となります。"
+      },
+      {
+        "q": "《サーバント　∞》を出してトラッシュを指定した後、《コードアンシエンツ　ヘルボロス》を出しました。対戦相手のトラッシュのカードはどうなりますか？",
+        "a": "その場合、対戦相手のトラッシュのカードは効果を受けなくなりますので、《サーバント　∞》による効果を受けなくなり、元のクラスや色に戻ります。"
+      },
+      {
+        "q": "《サーバント　∞》を出してシグニゾーンを指定した後、《レス・ホープ》で《サーバント　∞》が能力を失いました。《レス・ホープ》の効果が無くなった後、対戦相手のシグニゾーンのシグニはどうなりますか？",
+        "a": "その場合、《サーバント　∞》が能力を失っている間だけ、対戦相手のシグニゾーンにあるシグニはクラスと色が戻ります。出現時能力はすでに発動し指定されており、「能力を失う」効果ではどこを指定したかまでは失いませんので、能力が戻ったら通常通り指定された領域に効果があります。"
+      },
+      {
+        "q": "《サーバント　∞》を出してシグニゾーンを指定した後、何らかの効果で《サーバント　∞》を手札に戻して出し直し、今度は手札を指定しました。対戦相手の手札とシグニゾーンのシグニはどうなりますか？",
+        "a": "手札に戻り、場に出し直した《サーバント　∞》は、元々のシグニとは別のシグニとして扱われます。出し直した《サーバント　∞》の常時能力の「このシグニ」とは、2回目に出したこの《サーバント　∞》のみを指しますので、常時能力では2回目に指定した手札のみ影響を与えます。"
+      },
+      {
+        "q": "《サーバント　∞》を《コードラビリンス　ルーブル》の正面に出しました。出現時能力でゾーンを指定できますか？また、そのあとで《コードラビリンス　ルーブル》がシグニゾーンを離れたらどうなりますか？",
+        "a": "《コードラビリンス　ルーブル》の正面に出た時点で能力を失いますので、出現時能力は発動しません。よってゾーンを指定することはできず、そのあとで《コードラビリンス　ルーブル》がシグニゾーンを離れたとしても《サーバント　∞》の下の常時能力は何もしません。"
+      }
+    ],
+    "classes": [
+      "精元"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：【マルチエナ】",
+      "【【出】】：メインデッキ、手札、シグニゾーン、トラッシュのいずれか１つを指定する。",
+      "【【常】】：このシグニの【【出】】の能力で指定された領域にある対戦相手のすべてのシグニはすべてのクラスと色を失い、＜精元＞を得る。"
+    ],
+    "multiEner": false,
+    cardText: "ウトゥルスは、最後に一つになることを拒んだ。\nなぜならタウィルは思い出したから、始めの少女の記憶を。",
+    cardText_zh_CN: "",
+    cardText_en: "",
+    "lifeBurst": "あなたのトラッシュから【《ガードアイコン》】を持つシグニを２枚まで手札に加える。"
+  },
+  "1983": {
+    "pid": 1983,
+    cid: 1983,
+    "timestamp": 1479021164808,
+    "wxid": "WX14-033",
+    name: "大拳　カクシ",
+    name_zh_CN: "大拳　カクシ",
+    name_en: "大拳　カクシ",
+    "kana": "タイケンカクシ",
+    "rarity": "R",
+    "cardType": "SIGNI",
+    "color": "white",
+    "level": 3,
+    "limit": 0,
+    "power": 12000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-033.jpg",
+    "illust": "モレシャン",
+    faqs: [
+      {
+        "q": "場に＜アーム＞が1体ある状態で、《カンフー・キック》で《大拳　カクシ》と他の＜アーム＞1枚を探して場に出せますか？",
+        "a": "いいえ、できません。《カンフー・キック》で出すシグニは同時に場に出ますが、場に出す直前にあなたの場に＜アーム＞が2体ありませんので、《大拳　カクシ》は出せません。"
+      },
+      {
+        "q": "《大拳　カクシ》以外の＜アーム＞のシグニを《大拳　カクシ》の能力でバニッシュしました。《大拳　カクシ》はどうなりますか？",
+        "a": "そのまま残り、効果を処理してアップします。他の＜アーム＞のシグニが2体以上なければならないのは場に出るにあたっての条件で、場に出たあとは関係ありません。"
+      }
+    ],
+    "classes": [
+      "精武",
+      "アーム"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：このシグニはあなたの場に＜アーム＞のシグニが２体以上ないかぎり、新たに場に出すことができない。",
+      "【【常】】：このシグニが対戦相手のシグニ１体をバニッシュしたとき、あなたの他のシグニ１体をバニッシュしてもよい。そうした場合、このシグニをアップする。"
+    ],
+    "multiEner": false,
+    cardText: "ニャローブ忍隊、第一陣参る！～カクシ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1984": {
+    "pid": 1984,
+    cid: 1984,
+    "timestamp": 1479021164308,
+    "wxid": "WX14-041",
+    name: "幻竜　＃コブラ＃",
+    name_zh_CN: "幻竜　＃コブラ＃",
+    name_en: "幻竜　＃コブラ＃",
+    "kana": "ゲンリュウワイルドコブラ",
+    "rarity": "R",
+    "cardType": "SIGNI",
+    "color": "green",
+    "level": 3,
+    "limit": 0,
+    "power": 7000,
+    "limiting": "ユヅキ",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-041.jpg",
+    "illust": "甲冑",
+    faqs: [
+      {
+        "q": "出現時能力は発動する順番を選べますか？",
+        "a": "はい、コストの支払いも含めて、どちらの出現時能力からでも発動できます。"
+      }
+    ],
+    "classes": [
+      "精生",
+      "龍獣"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【出】】手札から赤の＜龍獣＞のシグニを１枚捨てる：対戦相手のエナゾーンにカードが３枚以上ある場合、対戦相手は自分のエナゾーンからカード１枚をトラッシュに置く。",
+      "【【出】】手札から緑の＜龍獣＞のシグニを１枚捨てる：あなたのデッキの上からカードを２枚公開する。その中からすべての＜龍獣＞のシグニをエナゾーンに置き、残りを好きな順番でデッキの一番上に置く。"
+    ],
+    "multiEner": false,
+    cardText: "紛れもなく私よ。～＃コブラ＃～",
+    cardText_zh_CN: "",
+    cardText_en: "",
+    "lifeBurst": "【エナチャージ１】"
+  },
+  "1985": {
+    "pid": 1985,
+    cid: 1985,
+    "timestamp": 1479021164370,
+    "wxid": "WX14-043",
+    name: "幻獣　トンビ",
+    name_zh_CN: "幻獣　トンビ",
+    name_en: "幻獣　トンビ",
+    "kana": "ゲンジュウトンビ",
+    "rarity": "R",
+    "cardType": "SIGNI",
+    "color": "green",
+    "level": 2,
+    "limit": 0,
+    "power": 5000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-043.jpg",
+    "illust": "くれいお",
+    faqs: [
+      {
+        "q": "デッキの一番上が＜空獣＞ではなかった場合はそのカードはどうなりますか？",
+        "a": "その場合、それはデッキの一番上に裏向きで戻します。"
+      }
+    ],
+    "classes": [
+      "精生",
+      "空獣"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【出】】：あなたのデッキの一番上を公開する。それが＜空獣＞のシグニの場合、それを手札に加える。"
+    ],
+    "multiEner": false,
+    cardText: "とびとびとんび！～トンビ～",
+    cardText_zh_CN: "",
+    cardText_en: "",
+    "lifeBurst": "カードを１枚引く。"
+  },
+  "1986": {
+    "pid": 1986,
+    cid: 1986,
+    "timestamp": 1479021163782,
+    "wxid": "WX14-045",
+    name: "千夜の五夜　シャフリ",
+    name_zh_CN: "千夜の五夜　シャフリ",
+    name_en: "千夜の五夜　シャフリ",
+    "kana": "センヤノゴヤシャフリ",
+    "rarity": "R",
+    "cardType": "SIGNI",
+    "color": "black",
+    "level": 3,
+    "limit": 0,
+    "power": 7000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-045.jpg",
+    "illust": "水玉子",
+    faqs: [
+      {
+        "q": "《千夜の五夜　シャフリ》を場に出した時、他にレベル１とレベル２のシグニが場にありました。《千夜の五夜　シャフリ》の出現時能力は必ず発動しなければなりませんか？",
+        "a": "いいえ、コストの伴う出現時能力はコストを支払うかどうかを含め使用するかどうかを選べます。"
+      }
+    ],
+    "classes": [
+      "精像",
+      "悪魔"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【出】】あなたのレベル１のシグニ１体とレベル２のシグニ１体を場からトラッシュに置く：対戦相手のシグニ１体をトラッシュに置く。"
+    ],
+    "multiEner": false,
+    cardText: "王様は聞くだけに飽き足らず、コスプレにはまった。",
+    cardText_zh_CN: "",
+    cardText_en: "",
+    "lifeBurst": "あなたのトラッシュからレベル２以下の黒のシグニ１枚を手札に加えるか場に出す。"
+  },
+  "1987": {
+    "pid": 1987,
+    cid: 1987,
+    "timestamp": 1479021164629,
+    "wxid": "WX14-049",
+    name: "羅星　ルクパト",
+    name_zh_CN: "羅星　ルクパト",
+    name_en: "羅星　ルクパト",
+    "kana": "ラセイルクパト",
+    "rarity": "C",
+    "cardType": "SIGNI",
+    "color": "white",
+    "level": 4,
+    "limit": 0,
+    "power": 10000,
+    "limiting": "サシェ",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-049.jpg",
+    "illust": "arihato",
+    faqs: [
+      {
+        "q": "あなたの次のターンまで、とは具体的にどの期間を指しますか？",
+        "a": "この能力が発動して処理されてから、次に自分のターンが始まるまでです。次の自分のターンが始まった時点でこの効果は終了します。"
+      }
+    ],
+    "classes": [
+      "精羅",
+      "宇宙"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：このシグニが＜宇宙＞のレゾナの出現条件によって場からトラッシュに置かれたとき、あなたの次のターンまで、そのレゾナは対戦相手のシグニの効果を受けない。"
+    ],
+    "multiEner": false,
+    cardText: "この矢で能力を！！～ルクパト～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1988": {
+    "pid": 1988,
+    cid: 1988,
+    "timestamp": 1479021164758,
+    "wxid": "WX14-051",
+    name: "大拳　ニンテケ",
+    name_zh_CN: "大拳　ニンテケ",
+    name_en: "大拳　ニンテケ",
+    "kana": "タイケンニンテケ",
+    "rarity": "C",
+    "cardType": "SIGNI",
+    "color": "white",
+    "level": 3,
+    "limit": 0,
+    "power": 8000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-051.jpg",
+    "illust": "イシバシヨウスケ",
+    "classes": [
+      "精武",
+      "アーム"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：このシグニがバニッシュされたとき、あなたの＜アーム＞のシグニ１体をアップする。"
+    ],
+    "multiEner": false,
+    cardText: "ニャローブ忍隊、第二陣行こうかね。～ニンテケ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1989": {
+    "pid": 1989,
+    cid: 1989,
+    "timestamp": 1479021164803,
+    "wxid": "WX14-054",
+    name: "幻竜　ザッハーク",
+    name_zh_CN: "幻竜　ザッハーク",
+    name_en: "幻竜　ザッハーク",
+    "kana": "ゲンリュウザッハーク",
+    "rarity": "C",
+    "cardType": "SIGNI",
+    "color": "red",
+    "level": 4,
+    "limit": 0,
+    "power": 10000,
+    "limiting": "ユヅキ",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-054.jpg",
+    "illust": "7010",
+    "classes": [
+      "精生",
+      "龍獣"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【起】】【《ダウン》】：対戦相手は自分のエナゾーンのカードが７枚になるように、エナゾーンからカードをトラッシュに置く。（エナゾーンのカードが７枚以下の場合、この効果の影響を受けない）"
+    ],
+    "multiEner": false,
+    cardText: "おやまぁ、イイ感じに溜めこんでますわねぇ。～ザッハーク～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1990": {
+    "pid": 1990,
+    cid: 1990,
+    "timestamp": 1479021165326,
+    "wxid": "WX14-055",
+    name: "羅石　モルガ",
+    name_zh_CN: "羅石　モルガ",
+    name_en: "羅石　モルガ",
+    "kana": "ラセキモルガ",
+    "rarity": "C",
+    "cardType": "SIGNI",
+    "color": "red",
+    "level": 4,
+    "limit": 0,
+    "power": 10000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-055.jpg",
+    "illust": "かざあな",
+    "classes": [
+      "精羅",
+      "鉱石"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【起】】【《ダウン》】あなたのアップ状態の＜鉱石＞または＜宝石＞のシグニ１体をダウンする：対戦相手のパワー12000以下のシグニ１体をバニッシュする。"
+    ],
+    "multiEner": false,
+    cardText: "そこ、助けろ。これ、重い。～モルガ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1991": {
+    "pid": 1991,
+    cid: 1991,
+    "timestamp": 1479021165359,
+    "wxid": "WX14-056",
+    name: "幻竜　ダハーカ",
+    name_zh_CN: "幻竜　ダハーカ",
+    name_en: "幻竜　ダハーカ",
+    "kana": "ゲンリュウダハーカ",
+    "rarity": "C",
+    "cardType": "SIGNI",
+    "color": "red",
+    "level": 2,
+    "limit": 0,
+    "power": 10000,
+    "limiting": "ユヅキ",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-056.jpg",
+    "illust": "mado*pen",
+    faqs: [
+      {
+        "q": "ライフクロスが無い状態で出現時能力が発動したら負けますか？",
+        "a": "はい、ライフクロスが無いときにダメージを受けたので、敗北します。"
+      },
+      {
+        "q": "出現時能力でダメージを与えられた結果、クラッシュされたライフクロスのライフバーストは発動できますか？",
+        "a": "はい、発動できます。"
+      }
+    ],
+    "classes": [
+      "精生",
+      "龍獣"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【出】】：あなたにダメージを与える。（コストのない出現時能力は発動しないことを選べない）"
+    ],
+    "multiEner": false,
+    cardText: "アジダハ、私を解放しなイデ…。～ダハーカ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1992": {
+    "pid": 1992,
+    cid: 1992,
+    "timestamp": 1479021165474,
+    "wxid": "WX14-060",
+    name: "幻水　ナヨハギ",
+    name_zh_CN: "幻水　ナヨハギ",
+    name_en: "幻水　ナヨハギ",
+    "kana": "ゲンスイナヨハギ",
+    "rarity": "C",
+    "cardType": "SIGNI",
+    "color": "blue",
+    "level": 4,
+    "limit": 0,
+    "power": 10000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-060.jpg",
+    "illust": "bomi",
+    faqs: [
+      {
+        "q": "「効果を受けない」とは具体的にどういう能力ですか？",
+        "a": "「移動させる効果」「数値やテキストを変更修正する効果」「凍結やアップダウンといった状態を変化させる効果」を受けません。"
+      }
+    ],
+    "classes": [
+      "精生",
+      "水獣"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：対戦相手のターンの間、あなたの手札が６枚以上あるかぎり、このシグニのパワーは15000になり、対戦相手の効果を受けない。"
+    ],
+    "multiEner": false,
+    cardText: "えっと…なんの話でしたかしら？～ナヨハギ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1993": {
+    "pid": 1993,
+    cid: 1993,
+    "timestamp": 1479021165766,
+    "wxid": "WX14-061",
+    name: "幻水　ツノダシ",
+    name_zh_CN: "幻水　ツノダシ",
+    name_en: "幻水　ツノダシ",
+    "kana": "ゲンスイツノダシ",
+    "rarity": "C",
+    "cardType": "SIGNI",
+    "color": "blue",
+    "level": 3,
+    "limit": 0,
+    "power": 8000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-061.jpg",
+    "illust": "ときち",
+    faqs: [
+      {
+        "q": "「効果を受けない」とは具体的にどういう能力ですか？",
+        "a": "「移動させる効果」「数値やテキストを変更修正する効果」「凍結やアップダウンといった状態を変化させる効果」を受けません。"
+      }
+    ],
+    "classes": [
+      "精生",
+      "水獣"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：対戦相手のターンの間、あなたの手札が６枚以上あるかぎり、このシグニのパワーは12000になり、対戦相手の効果を受けない。"
+    ],
+    "multiEner": false,
+    cardText: "育った海へ帰りたいんだが…。どこだ？～ツノダシ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1994": {
+    "pid": 1994,
+    cid: 1994,
+    "timestamp": 1479021165677,
+    "wxid": "WX14-076",
+    name: "幻蟲　モスキート",
+    name_zh_CN: "幻蟲　モスキート",
+    name_en: "幻蟲　モスキート",
+    "kana": "ゲンチュウモスキート",
+    "rarity": "C",
+    "cardType": "SIGNI",
+    "color": "black",
+    "level": 1,
+    "limit": 0,
+    "power": 2000,
+    "limiting": "ミュウ",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-076.jpg",
+    "illust": "しおぼい",
+    "classes": [
+      "精生",
+      "凶蟲"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【起】】【《ダウン》】：対戦相手のトラッシュのカード１枚を対戦相手のシグニ１体の【チャーム】にする。"
+    ],
+    "multiEner": false,
+    cardText: "おいしそうね。～モスキート～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1995": {
+    "pid": 1995,
+    cid: 1995,
+    "timestamp": 1479021165682,
+    "wxid": "PR-314",
+    name: "ネクスト・レディ(WIXOSS WORLD CHAMPIONSHIP 2016参加賞)",
+    name_zh_CN: "ネクスト・レディ(WIXOSS WORLD CHAMPIONSHIP 2016参加賞)",
+    name_en: "ネクスト・レディ(WIXOSS WORLD CHAMPIONSHIP 2016参加賞)",
+    "kana": "ネクストレディ",
+    "rarity": "PR",
+    "cardType": "SPELL",
+    "color": "colorless",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/PR/PR-314.jpg",
+    "illust": "Hitoto*",
+    faqs: [
+      {
+        "q": "「あなたのルリグの下からカードを好きな枚数ルリグトラッシュに置く。」とはどういうことですか？",
+        "a": "《ネクスト・レディ》は、ルリグのエクシード能力のように、ルリグの下に置かれたカードをルリグトラッシュに置くことで、その置いた枚数に応じて使用出来る効果の数が変化します。《ネクスト・レディ》の使用を宣言した後、解決時に、ルリグの下に置かれたカードを好きな枚数ルリグトラッシュに置きます。"
+      },
+      {
+        "q": "「以下の４つからルリグトラッシュに置いたカード１枚につき、１つまで選ぶ。」とはどういうことですか？",
+        "a": "《ネクスト・レディ》の解決時に、ルリグの下に置かれたカードを好きな枚数ルリグトラッシュに置くことが出来ますが、この際に置いた１枚につき、下に記載された４つの効果から１つを選ぶ事が出来ます。（この際、１つの効果を重複して選択することは出来ません。）"
+      },
+      {
+        "q": "「ターン終了時まで、対戦相手のシグニ１体は能力を失う。」効果によって、「対戦相手のスペルの効果を受けない」常時能力を持ったシグニの能力を失わせることは出来ますか？",
+        "a": "いいえ、この効果は「シグニのテキストに記載された情報を失わせる効果」であり、この効果は「スペルの効果を受けない」常時能力によって無効化されます。"
+      },
+      {
+        "q": "選んだ効果を好きな順番に解決させることは可能ですか？",
+        "a": "いいえ、テキストに記載された効果は上から順に解決されます。解決順を選ぶことは出来ません。"
+      },
+      {
+        "q": "同じ効果を複数回選択し、使用することは出来ますか？",
+        "a": "いいえ、１つの効果を重複して選択することは出来ません。"
+      },
+      {
+        "q": "「すべてのプレイヤーは自分のデッキの上からカードを４枚トラッシュに置く」効果は、どのようにして処理されますか？",
+        "a": "全てのプレイヤーが同一の行動を行う場合、特に指示が無い場合は同時に処理を行います。この場合、２人のプレイヤーが、同時に１枚づつトラッシュに置きます。"
+      },
+      {
+        "q": "「能力を失う」と「カードを1枚引く」を選びました。対戦相手の《コードラブハート　Ｃ・Ｍ・Ｒ》に対して「能力を失う」という効果を使用すると、カードを引くことはできますか？",
+        "a": "はい、効果は上から順番に解決します。「能力を失う」という効果を解決したあとで、「カードを1枚引く」という効果を解決しますので、「カードを1枚引く」という効果を解決する時点で、対戦相手の《コードラブハート　Ｃ・Ｍ・Ｒ》は能力を失っており、カードを引くことができます。"
+      },
+      {
+        "q": "デッキ枚数が１枚の状態で《ネクスト・レディ》を使用し、ルリグの下にあるカード４枚をルリグトラッシュに置いた場合、カードを１枚引いた後にリフレッシュを行い、残りの効果を行うことは出来ますか？",
+        "a": "いいえ、この場合カードを１枚引いた時点で、残りの効果はデッキが無いため行う事が出来ません。すべての効果の解決を終了させた後、リフレッシュを行います。"
+      },
+      {
+        "q": "ルリグの下にあるカードを５枚以上ルリグトラッシュに置いた場合、５つを選ぶことは出来るのですか？",
+        "a": "いいえ、４種類ある効果を重複して選択することは出来ないため、５枚以上をルリグトラッシュに置いても最大４つまでしか効果を選ぶことができません。"
+      }
+    ],
+    "classes": [],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "あなたのルリグの下からカードを好きな枚数ルリグトラッシュに置く。",
+      "その後、以下の４つからルリグトラッシュに置いたカード１枚につき、１つまで選ぶ。",
+      "①ターン終了時まで、対戦相手のシグニ１体は能力を失う。",
+      "②カードを１枚引く。",
+      "③あなたのデッキの一番上のカードをエナゾーンに置く。",
+      "④すべてのプレイヤーは自分のデッキの上からカードを４枚トラッシュに置く。"
+    ],
+    "multiEner": false,
+    cardText: "…ようこそ、セレクター。",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1996": {
+    "pid": 1996,
+    cid: 1996,
+    "timestamp": 1479021166241,
+    "wxid": "PR-313",
+    name: "アーク・ディストラクト(WIXOSS PARTY 2016年9-10月度congraturationカード)",
+    name_zh_CN: "アーク・ディストラクト(WIXOSS PARTY 2016年9-10月度congraturationカード)",
+    name_en: "アーク・ディストラクト(WIXOSS PARTY 2016年9-10月度congraturationカード)",
+    "kana": "アークディストラクト",
+    "rarity": "PR",
+    "cardType": "ARTS",
+    "color": "white",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/PR/PR-313.jpg",
+    "illust": "ときち",
+    faqs: [
+      {
+        "q": "ルリグの下に置かれたカード２枚をルリグトラッシュに置いた上でルリグがアタックを行った際、ライフクロスから《コードラブハート　Ｃ・Ｍ・Ｒ》や《アーク・オーラ》が捲れ、ルリグがダウン状態となりました。この場合、ダウン状態となったルリグは追加のアタックを行うことはできますか？",
+        "a": "いいえ、ライフバーストによってダウン状態となったルリグは、ダウン状態であるため、アタック宣言を行うこと自体ができません。結果として、それ以上の追加の攻撃を行う事はできません。"
+      },
+      {
+        "q": "自分が《アーク・ディストラクト》を使ったターンのアタックフェイズに、相手がアーツを使ったら追加のアタックはできなくなりますか？",
+        "a": "いいえ、《アーク・ディストラクト》を使用したプレイヤーが他にアーツを使用したかどうかのみを確認します。対戦相手が使用したアーツは数えません。そのため、対戦相手がアーツを使用したとしても、《アーク・ディストラクト》の効果は不発になりません。"
+      },
+      {
+        "q": "構築済みデッキのルールシートのターン進行の説明では、ルリグアタックステップ→ガードステップとなっていて、ガードステップからルリグアタックステップに矢印が伸びていないので《アーク・ディストラクト》でルリグをアップしてもアタックできないのではないですか？",
+        "a": "構築済みデッキのルールシートのターン進行例では、起こりにくい例であり誤解を生む可能性があるために省略されていますが、ルリグもシグニと同じように、ガードステップ後にアップ状態のアタックできるルリグが残っている場合はルリグアタックステップに戻りアタックを行うことができます。"
+      }
+    ],
+    "classes": [],
+    "costWhite": 1,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 2,
+    "guardFlag": false,
+    cardSkills: [
+      "使用タイミング【メインフェイズ】",
+      "このカードはあなたのルリグがレベル４以下の場合にしか使用できない。",
+      "ターン終了時まで、あなたのルリグは「このルリグがアタックしたとき、このターンに《アーク・ディストラクト》以外のアーツを使用していない場合、このルリグの下からカードを２枚ルリグトラッシュに置いてもよい。そうした場合、このルリグをアップする。」を得る。"
+    ],
+    "multiEner": false,
+    cardText: "全力で……攻撃するんだ！～リル～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1997": {
+    "pid": 1997,
+    cid: 1997,
+    "timestamp": 1479021166099,
+    "wxid": "PR-322", // !Coin
+    name: "白亜の鍵主　ウルトゥム(セレクターズパックウムル&タウィル　4パック購入特典)",
+    name_zh_CN: "白亜の鍵主　ウルトゥム(セレクターズパックウムル&タウィル　4パック購入特典)",
+    name_en: "白亜の鍵主　ウルトゥム(セレクターズパックウムル&タウィル　4パック購入特典)",
+    "kana": "ﾊｸｱﾉｶｷﾞﾇｼｳﾙﾄｩﾑ",
+    "rarity": "PR",
+    "cardType": "LRIG",
+    "color": "white/black",
+    "level": 4,
+    "limit": 11,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/PR/PR-322.jpg",
+    "illust": "羽音たらく",
+    faqs: [
+      {
+        "q": "《ターン１回》アイコンはどういう意味ですか？",
+        "a": "【起】に《ターン１回》アイコンがついている場合、この能力は1ターンに1度しか使用できません。"
+      },
+      {
+        "q": "対戦相手のシグニが1体もない場合でも、上の起動能力は使用できますか？",
+        "a": "はい、できます。その場合でも起動能力を使用しましたので、このターンはもう使用できません。"
+      },
+      {
+        "q": "自分のトラッシュに黒の＜天使＞、黒の＜古代兵器＞がなくても、上の起動能力は使用できますか？",
+        "a": "はい、できます。その場合は、それらのシグニをデッキの一番下に置くことはできませんので、対戦相手のシグニをトラッシュに置くこともできません。また、起動能力は使用しましたので、このターンはもう使用できません。"
+      },
+      {
+        "q": "【アタックフェイズ】アイコンはどういう意味ですか？",
+        "a": "【アタックフェイズ】アイコンがついている能力は、使用タイミング【アタックフェイズ】を持ちます。この能力は各ターンのアタックフェイズにしか使用できず、メインフェイズには使用できません。"
+      },
+      {
+        "q": "右下のコインアイコンはどういう意味ですか？",
+        "a": "右下にコインアイコンがある場合、そのルリグが場に出たときに出現時能力として、そこに書かれている枚数のコインを得ます。"
+      }
+    ],
+    "classes": [
+      "ウムル"
+    ],
+    "costWhite": 0,
+    "costBlack": 3,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【起】】【《ターン１回》】【《黒×0》】：あなたのトラッシュから黒の＜天使＞のシグニ1枚と黒の＜古代兵器＞のシグニ1枚を好きな順番でデッキの一番下に置く。そうした場合、対戦相手のシグニ1体をトラッシュに置く。",
+      "【【起】】【アタックフェイズ】エクシード２：あなたの手札またはトラッシュから黒のシグニ1枚を場に出す。そのシグニの【【出】】の能力は発動しない。"
+    ],
+    "multiEner": false,
+    cardText: "タウィルよ、今は少し眠るがよい。きっとこの輝きが、新たな道標となろう。～ウルトゥム～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1998": {
+    "pid": 1998,
+    cid: 1998,
+    "timestamp": 1479021166207,
+    "wxid": "PR-319",
+    name: "幻蟲　オオムラサキ(ウィクロスマガジンvol.5 付録)",
+    name_zh_CN: "幻蟲　オオムラサキ(ウィクロスマガジンvol.5 付録)",
+    name_en: "幻蟲　オオムラサキ(ウィクロスマガジンvol.5 付録)",
+    "kana": "ゲンチュウオオムラサキ",
+    "rarity": "PR",
+    "cardType": "SIGNI",
+    "color": "black",
+    "level": 3,
+    "limit": 0,
+    "power": 7000,
+    "limiting": "ミュウ",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/PR/PR-319.jpg",
+    "illust": "原案：渡辺琴音　Illust:武藤此史",
+    faqs: [
+      {
+        "q": "自分のターン終了時、《幻蟲　オオムラサキ》を2体トラッシュに置きました。ルリグはこの能力を複数得ることができますか？",
+        "a": "はい、できます。2体の《幻蟲　オオムラサキ》をトラッシュに置いたのなら、それによる能力を２つ得ます。それぞれアタックフェイズに1回ずつ使用できます。"
+      }
+    ],
+    "classes": [
+      "精生",
+      "凶蟲"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【常】】：あなたの場にレゾナがあるかぎり、このシグニのパワーは12000になる。",
+      "【【常】】：あなたのターン終了時、このシグニをトラッシュにおいてもよい。そうした場合、次の対戦相手のターン終了時まで、あなたのルリグは「【【起】】【《黒×0》】：ターン終了時まで、対戦相手のシグニ１体のパワーを－7000する。この能力は使用タイミング【アタックフェイズ】を持ち、１ターンに一度しか使用できない。」を得る。"
+    ],
+    "multiEner": false,
+    cardText: "またお会いしましょう。～オオムラサキ～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "1999": {
+    "pid": 1999,
+    cid: 1999,
+    "timestamp": 1479021166703,
+    "wxid": "PR-320",
+    name: "紆余曲折(ウィクロスマガジンvol.5 付録)",
+    name_zh_CN: "紆余曲折(ウィクロスマガジンvol.5 付録)",
+    name_en: "紆余曲折(ウィクロスマガジンvol.5 付録)",
+    "kana": "ハートディストラクト",
+    "rarity": "PR",
+    "cardType": "ARTS",
+    "color": "green",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/PR/PR-320.jpg",
+    "illust": "松本エイト",
+    faqs: [
+      {
+        "q": "同じエクシード能力を複数回使用できますか？",
+        "a": "はい、できます。その都度コストを支払い、複数回使用できます。"
+      },
+      {
+        "q": "2枚の《紆余曲折》を使用した場合、エクシード1能力で対戦相手のパワー12000以上のシグニを2体バニッシュできますか？",
+        "a": "いいえ、できません。2枚の《紆余曲折》を使用したとしても、別々のエクシード1能力を重複して持つだけとなり、実質意味はありません。起動能力の使用時にどの能力を起動するか宣言する必要があり、一番上のエクシード1能力では対戦相手のパワー12000以上のシグニ1体をバニッシュするのみということは変わりません。"
+      }
+    ],
+    "classes": [],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 1,
+    "costColorless": 1,
+    "guardFlag": false,
+    cardSkills: [
+      "使用タイミング　【メインフェイズ】",
+      "ターン終了時まで、あなたのルリグは",
+      "「【【起】】エクシード１：対戦相手のパワー12000以上のシグニ1体をバニッシュする。」",
+      "「【【起】】エクシード１：あなたのエナゾーンからカード1枚を手札に加える」",
+      "「【【起】】エクシード１：あなたのデッキの一番上のカードをエナゾーンに置く。」",
+      "を得る。"
+    ],
+    "multiEner": false,
+    cardText: "剣は尚も、光を放つ。",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  },
+  "2000": {
+    "pid": 2000,
+    cid: 2000,
+    "timestamp": 1479021166658,
+    "wxid": "WD17-001",
+    name: "決死の記憶　リル",
+    name_zh_CN: "決死の記憶　リル",
+    name_en: "決死の記憶　リル",
+    "kana": "ケッシノキオクリル",
+    "rarity": "ST",
+    "cardType": "LRIG",
+    "color": "red",
+    "level": 4,
+    "limit": 11,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WD17/WD17-001.jpg",
+    "illust": "ときち",
+    faqs: [
+      {
+        "q": "《コイン》のコストはどのように支払いますか？",
+        "a": "得たコインを１枚を除外することで《コイン》を支払うことができます。コインを１枚も得ていない場合は、《コイン》を支払うことはできません。"
+      }
+    ],
+    "classes": [
+      "リル"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 3,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "【【出】】【《コインアイコン》】：対戦相手のパワー12000以下のシグニ１体をバニッシュする。",
+      "【【起】】【《ターン１回》】【《赤》】【《赤》】【《赤》】：ターン終了時まで、あなたの【《ライズアイコン》】を持つシグニ１体は「このシグニが正面にあるシグニ１体をバニッシュしたとき、このシグニをアップする。」を得る。"
+    ],
+    "multiEner": false,
+    cardText: "賭けて。あなたのすべてを。～リル～",
+    cardText_zh_CN: "",
+    cardText_en: ""
+  }
 };
 
 global.CardInfo = CardInfo;
