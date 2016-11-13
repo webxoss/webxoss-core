@@ -102315,7 +102315,7 @@ var CardInfo = {
 			costColorless: 1,
 			actionAsyn: function () {
 				var cards = this.game.cards.filter(function (card) {
-					return (card.player === this.player) && (card.type === 'SIGNI') || (card.type === 'SPELL');
+					return (card.player === this.player) && ((card.type === 'SIGNI') || (card.type === 'SPELL'));
 				},this);
 				this.game.addConstEffect({
 					source: this,
