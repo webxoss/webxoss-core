@@ -4,6 +4,7 @@ function Card (game,player,zone,pid,side) {
 	// 引用
 	this.game   = game;
 	this.player = player;
+	this.owner  = player;
 	this.zone   = zone;
 
 	// 状态
@@ -98,6 +99,8 @@ function Card (game,player,zone,pid,side) {
 	this.effectFilters     = [];
 	this.registeredEffects = [];
 	this.charm             = null; // 魅饰卡
+	this._data             = null; // 私有的数据储存,约定: 只能在 CardInfo.js 自身的代码里访问
+	this.fieldData         = {};   // 离场即清空的数据
 
 	// 时点
 	this.onMove            = new Timming(game);
@@ -123,7 +126,6 @@ function Card (game,player,zone,pid,side) {
 	this.doubleCrash                 = false;
 	this.tripleCrash                 = false;
 	this.frozen                      = false;
-	this._trashWhenTurnEnd           = false;
 	this.forceSummonZone             = false;
 	this.trashCharmInsteadOfBanish   = false;
 	this.attachedCostColorless       = 0;     // <星占之巫女 忆·夜>
@@ -144,10 +146,12 @@ function Card (game,player,zone,pid,side) {
 	this.discardSpellInsteadOfBanish = false; // <核心代号 Ｓ・Ｗ・Ｔ>
 	this.attackCostColorless         = 0;     // <黑幻虫 水熊虫>
 	this.canNotGainAbility           = false; // <迷宫代号 金阁>
+	this.canNotGainAbilityBySelfPlayer = false; // <城堡代号 凡尔赛宫>
 	this._SnoropNaturalPlantPrincess = false; // <罗植姬 雪花莲>
 	this._CodeLabyrinthLouvre        = null;  // <卢浮宫>
 	this.powerAddProtected           = false; // <幻兽 苍龙>
 	this._GustaftCenterBallista      = false; // <弩中砲　グスタフト>
+	this.colorLost                   = false; // <侍从 ∞>
 	this.banishProtections           = [];
 	// 注意hasAbility
 }
@@ -255,8 +259,9 @@ Card.prototype.canGrow = function (ignoreCost) {
 		}
 	}
 	if (!ignoreCost && !this.player.enoughCost(this.getGrowCostObj())) return false;
+	// LRIG type
 	if (this.classes.every(function (cls) {
-		return !this.player.lrig.hasClass(cls);
+		return !this.player.lrig.hasClass(cls) && (cls !== '?'); // <紡ぐ者>
 	},this)) {
 		return false;
 	}
@@ -305,13 +310,20 @@ Card.prototype.canSummon = function () {
 Card.prototype.canSummonWith = function (signis) {
 	// 类型
 	if (this.type !== 'SIGNI') return false;
+	// <绿罗植 世界树>
+	if (this.player.canNotUseColorlessSigni) {
+		if (this.hasColor('colorless')) {
+			return false;
+		}
+	}
 	// summonConditions
 	var flag = this.summonConditions.some(function (condition) {
 		return !condition.call(this);
 	},this);
 	if (flag) return false;
 	// 限定
-	if (!this.checkLimiting()) return false;
+	flag = ths.player.ignoreLimitingOfLevel5Signi && (this.level === 5);
+	if (!flag && !this.checkLimiting()) return false;
 	// 等级限制
 	if (this.level > this.player.lrig.level) return false;
 	// SIGNI 数量限制
@@ -466,6 +478,12 @@ Card.prototype.canUse = function (timming,ignoreCost) {
 	if (!this.checkLimiting()) return false;
 	if (this.useCondition && !this.useCondition()) return false;
 	if (this.type === 'SPELL') {
+		// <绿罗植 世界树>
+		if (this.player.canNotUseColorlessSpell) {
+			if (this.hasColor('colorless')) {
+				return false;
+			}
+		}
 		if (this.player.spellBanned) return false;
 		if (ignoreCost) return true;
 		return this.enoughCost();
@@ -503,8 +521,12 @@ Card.prototype.hasClass = function (cls) {
 	},this);
 };
 
+// 注意：不保证唯一性
 Card.prototype.getColors = function (ignoreColorless) {
 	var colors = this.otherColors.concat(this.color);
+	if (this.colorLost) {
+		colors = ['colorless'];
+	}
 	if (ignoreColorless) {
 		removeFromArr('colorless',colors);
 	}
@@ -709,7 +731,7 @@ Card.prototype.moveTo = function (zone,arg) {
 			// 是 SIGNI
 			leaveFieldEvent = moveEvent;
 			card.frozen = false;
-			card._trashWhenTurnEnd = false;
+			card.fieldData = {};
 			charm = card.charm;
 			card.charm = null;
 			removeFromArr(card,card.player.signis);
@@ -996,6 +1018,7 @@ Card.prototype.attackAsyn = function () {
 		// onAttack 的事件对象
 		var event = {
 			prevented: prevented,
+			preventedByGuard: false,
 			card: card,
 			banishAttackingSigniSource: null,
 			wontBeDamaged: false,
@@ -1117,9 +1140,11 @@ Card.prototype.attackAsyn = function () {
 				}).callback(this,function (succ) {
 					if (succ) {
 						event.prevented = true;
+						event.preventedByGuard = true;
 						return;
 					};
 					if (event.wontBeDamaged || opponent.wontBeDamaged) return;
+					if (player.wontBeDamagedByOpponentLrig) return;
 					crashArg.damage = true;
 					if (opponent.lifeClothZone.cards.length) {
 						var count = 1;
@@ -1300,7 +1325,7 @@ Card.prototype.banishSigniAsyn = function (power,min,max,above) {
 	});
 };
 
-Card.prototype.decreasePowerAsyn = function(power,filter) {
+Card.prototype.decreasePowerAsyn = function (power,filter) {
 	return this.player.selectOpponentSigniAsyn(filter).callback(this,function (card) {
 		if (!card) return;
 		this.game.tillTurnEndAdd(this,card,'power',-power);
@@ -1308,7 +1333,7 @@ Card.prototype.decreasePowerAsyn = function(power,filter) {
 };
 
 Card.prototype.trashWhenTurnEnd = function () {
-	this._trashWhenTurnEnd = true;
+	this.fieldData.trashWhenTurnEnd = true;
 };
 
 // 获得所谓的类别,在wx中,类别组成为"大类:小类"

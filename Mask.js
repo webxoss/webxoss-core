@@ -1,6 +1,7 @@
 'use strict';
 
-function Mask (target,prop,value,forced) {
+function Mask (source,target,prop,value,forced) {
+	this.source = source;
 	this.target = target;
 	this.prop = prop;
 	this.value = value;
@@ -26,9 +27,14 @@ Mask.prototype.set = function (reset) {
 		var timming = item;
 		var effect = this.value;
 		var source = effect.source;
+		// 不能获得新能力
 		if (source.canNotGainAbility || source.player.canNotGainAbility) {
-			// 不能获得新能力
 			return;
+		}
+		if (source.canNotGainAbilityBySelfPlayer) {
+			if (this.source.player === source.player) {
+				return;
+			}
 		}
 		effect.disabled = false;
 		timming.effects.push(effect);
@@ -46,10 +52,16 @@ Mask.prototype.set = function (reset) {
 			effect.disabled = true;
 		},this);
 	} else {
-		if (!reset && inArr(this.prop,Card.abilityProps)) {
+		if (!reset && target.player && inArr(this.prop,Card.abilityProps)) {
 			// 不能获得新能力
-			if (target.canNotGainAbility) return;
-			if (target.player && target.player.canNotGainAbility) return;
+			if (target.canNotGainAbility && target.player.canNotGainAbility) {
+				return;
+			}
+			if (target.canNotGainAbilityBySelfPlayer) {
+				if (this.source === target.player) {
+					return;
+				}
+			}
 		}
 		target[this.prop] = this.value;
 	}

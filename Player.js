@@ -102,11 +102,13 @@ function Player (game,io,mainDeck,lrigDeck) {
 	this.spellBanned = false;
 	this.skipEnerPhase = false;
 	this.ignoreLimitingOfArtsAndSpell = false;
+	this.ignoreLimitingOfLevel5Signi = false; // <紡ぐ者>
 	this.summonPowerLimit = 0;
 	this.additionalRevealCount = 0; // <反复的独立性 网格>
 	this.useBikouAsWhiteCost = false; // <不思議な童話　メルへ>
 	this.burstTwice = false; // <Burst Rush>
 	this.wontBeDamaged = false; // <音阶的右律 G>
+	this.wontBeDamagedByOpponentLrig = false; // <紡ぐ者>
 	this.charmedActionEffectBanned = false; // <黒幻蟲　アラクネ・パイダ>
 	this.canNotGrow = false; // <ドント・グロウ>
 	this._HammerChance = false; // <ハンマー・チャンス>
@@ -133,10 +135,12 @@ function Player (game,io,mainDeck,lrigDeck) {
 	this.canNotBeBounced = false;
 	this.canNotGainAbility = false;
 	this.canNotBeDownedByOpponentEffect = false;
+	this.canNotUseColorlessSigni = false; // <绿罗植 世界树>
+	this.canNotUseColorlessSpell = false; // <绿罗植 世界树>
 
 	this.usedActionEffects = [];
 	this.chain = null;
-	this.inResonaAction = false; // 是否正在执行共鸣单位的出现条件
+	this.inResonaAction = null; // 是否正在执行共鸣单位的出现条件. (同时也是正在执行出现条件的那只共鸣单位)
 	this.inActionEffectCost = false; // 是否正在支付起动能力的COST
 	this.bannedCards = []; // <漆黑之棺>
 	this.oneArtEachTurn = false; // <博愛の使者　サシェ・リュンヌ>
@@ -441,9 +445,9 @@ Player.prototype.getResonas = function (arg) {
 };
 
 Player.prototype.summonResonaAsyn = function (card) {
-	this.inResonaAction = true;
+	this.inResonaAction = card;
 	return card.resonaAsyn().callback(this,function (resonaArg) {
-		this.inResonaAction = false;
+		this.inResonaAction = null;
 		return this.selectSummonZoneAsyn(false).callback(this,function (zone) {
 			if (!zone) return;
 			return this.game.blockAsyn(this,function () {
@@ -507,10 +511,10 @@ Player.prototype.useSpellAsyn = function () {
 	return this.selectAsyn('USE_SPELL',cards).callback(this,this.handleSpellAsyn);
 };
 
-Player.prototype.handleSpellAsyn = function (card,ignoreCost,costObj) {
+Player.prototype.handleSpellAsyn = function (card,ignoreCost,costObj,arg) {
 	if (!costObj) costObj = card;
+	if (!arg) arg = {};
 	var effect,target,costArg;
-	var owner = card.player;
 	this.game.setData(this,'flagSpellUsed',true);
 	var count = this.game.getData(this,'CodeHeartAMS') || 0;
 	this.game.setData(this,'CodeHeartAMS',count + 1);
@@ -599,11 +603,16 @@ Player.prototype.handleSpellAsyn = function (card,ignoreCost,costObj) {
 			}).callback(this,function () {
 				// 6. 放到废弃区
 				// 恢复控制权
-				card.player = owner;
+				card.player = card.owner;
 				this.game.spellToCutIn = null;
 				if (card.zone !== this.checkZone) return;
 				return this.game.blockAsyn(this,function () {
-					card.trash();
+					// <皮露露可 APEX>
+					if (arg.excludeAfterUse) {
+						card.exclude()
+					} else {
+						card.trash();
+					}
 				});
 			}).callback(this,function () {
 				// <混乱交织> 的特殊处理
@@ -655,11 +664,23 @@ Player.prototype.handleArtsAsyn = function (card,ignoreCost) {
 		}
 	}).callback(this,function () {
 		// 2. 支付费用
-		// アンコール费用
+		// アンコール费用,约定: 除了颜色费用，其它属性直接覆盖
 		if (!card.encore) return;
 		var encoredCost = Object.create(costObj);
+		var enerCostProps = [
+			'costColorless',
+			'costWhite',
+			'costBlack',
+			'costRed',
+			'costBlue',
+			'costGreen',
+		];
 		for (var prop in card.encore) {
-			encoredCost[prop] += card.encore[prop];
+			if (inArr(prop,enerCostProps)) {
+				encoredCost[prop] += card.encore[prop];
+			} else {
+				encoredCost[prop] = card.encore[prop];
+			}
 		}
 		if (!this.enoughCost(encoredCost)) return;
 		return this.confirmAsyn('CONFIRM_ENCORE').callback(this,function (answer) {
@@ -766,11 +787,12 @@ Player.prototype.useMainPhaseArtsAsyn = function () {
 	});
 };
 
-Player.prototype.canUseActionEffect = function (effect,onAttack,arg) {
+Player.prototype.canUseActionEffect = function (effect,arg) {
+	if (!arg) arg = {};
 	if (this.charmedActionEffectBanned && effect.source.charm) return false;
 	if (effect.source.abilityLost) return false;
-	if (onAttack && !effect.onAttack) return false;
-	if (!onAttack && effect.onAttack) return false;
+	if (arg.onAttack && !effect.onAttack) return false;
+	if (!arg.onAttack && effect.onAttack) return false;
 	if (effect.cross && !effect.source.crossed) return false;
 	if (effect.once && inArr(effect,this.usedActionEffects)) return false;
 	if (effect.useCondition && !effect.useCondition.call(effect.source,arg)) return false;
@@ -786,51 +808,51 @@ Player.prototype.canUseActionEffect = function (effect,onAttack,arg) {
 	} else {
 		obj.costColorless = effect.source.attachedCostColorless;
 	}
+	if (arg.ignoreExceedCost) {
+		obj.costExceed = 0;
+	}
 	return this.enoughCost(obj);
 };
 
 // 玩家使用起动效果
 Player.prototype.useActionEffectAsyn = function () {
 	var effects = [];
-	concat(this.lrig,this.signis).forEach(function (card) {
+	var cards = concat(this.lrig,this.signis,this.trashZone.cards,this.hands);
+	cards.forEach(function (card) {
 		card.actionEffects.forEach(function (effect) {
 			if (effect.spellCutIn) return;
 			if (effect.attackPhase && !effect.mainPhase) return;
-			if (effect.activatedInTrashZone) return;
+			if (effect.activatedInTrashZone && card.zone !== this.trashZone) return;
+			if (effect.activatedInHand && card.zone !== this.handZone) return;
 			if (this.canUseActionEffect(effect)) {
 				effects.push(effect);
 			}
-		},this);
-	},this);
-	this.trashZone.cards.forEach(function (card) {
-		// if (card.type !== 'SIGNI') return;
-		card.actionEffects.forEach(function (effect) {
-			if (effect.spellCutIn) return;
-			if (effect.attackPhase && !effect.mainPhase) return;
-			if (!effect.activatedInTrashZone) return;
-			if (this.canUseActionEffect(effect)) {
-				effects.push(effect);
-			}
-		},this);
-	},this);
+		});
+	});
 	if (!effects.length) return Callback.never();
 	return this.selectAsyn('USE_ACTION_EFFECT',effects).callback(this,function (effect) {
-		return this.handleActionEffectAsyn(effect,{},true);
+		return this.handleActionEffectAsyn(effect,{
+			cancelable: true,
+		});
 	});
 };
 
 Player.prototype.useOnAttackActionEffectAsyn = function (event) {
 	var effects = this.lrig.actionEffects.filter(function (effect) {
-		return this.canUseActionEffect(effect,true,event);
+		return this.canUseActionEffect(effect,{
+			onAttack: true,
+			event: event,
+		});
 	},this);
 	if (!effects.length) return Callback.immediately();
 	return this.selectOptionalAsyn('LAUNCH',effects).callback(this,function (effect) {
 		if (!effect) return;
-		return this.handleActionEffectAsyn(effect,event);
+		return this.handleActionEffectAsyn(effect,{event: event});
 	});
 };
 
-Player.prototype.handleActionEffectAsyn = function (effect,event,cancelable) {
+Player.prototype.handleActionEffectAsyn = function (effect,arg) {
+	if (!arg) arg = {};
 	this.usedActionEffects.push(effect);
 	return this.game.blockAsyn(this,function () {
 		var obj = Object.create(effect);
@@ -838,6 +860,9 @@ Player.prototype.handleActionEffectAsyn = function (effect,event,cancelable) {
 			obj.costColorless += effect.source.attachedCostColorless;
 		} else {
 			obj.costColorless = effect.source.attachedCostColorless;
+		}
+		if (arg.ignoreExceedCost) {
+			obj.costExceed = 0;
 		}
 		// <混沌之键主 乌姆尔=FYRA>
 		if (effect.activatedInTrashZone) {
@@ -847,12 +872,12 @@ Player.prototype.handleActionEffectAsyn = function (effect,event,cancelable) {
 			}
 		}
 		this.inActionEffectCost = true;
-		return this.payCostAsyn(obj,cancelable).callback(this,function (costArg) {
+		return this.payCostAsyn(obj,arg.cancelable).callback(this,function (costArg) {
 			this.inActionEffectCost = false;
 			if (!costArg) return; // canceled
 			effect.source.activate();
 			return this.game.blockAsyn(effect.source,this,function () {
-				return effect.actionAsyn.call(effect.source,costArg,event);
+				return effect.actionAsyn.call(effect.source,costArg,arg);
 			});
 		});
 	});
@@ -1049,6 +1074,12 @@ Player.prototype.crashAsyn = function (n,arg) {
 
 Player.prototype.damageAsyn = function () {
 	if (this.wontBeDamaged) return Callback.immediately(false);
+	if (this.wontBeDamagedByOpponentLrig) {
+		var source = this.game.getEffectSource();
+		if (source === this.player.opponent.lrig) {
+			return Callback.immediately(false);
+		}
+	}
 	if (!this.lifeClothZone.cards.length) {
 		if (this.game.win(this.opponent)) return Callback.never();
 		return Callback.immediately(false);

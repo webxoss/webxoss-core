@@ -996,11 +996,20 @@ Game.prototype.setAdd = function (source,obj,prop,value,isSet,arg) {
 	if (!arg) arg = {};
 	if (!arg.forced) {
 		if (obj.isEffectFiltered && obj.isEffectFiltered(source)) return;
-		if (obj.canNotGainAbility) {
-			if (inArr(prop,Card.abilityProps)) return;
+		var card = null;
+		if (obj.player && inArr(prop,Card.abilityProps)) {
+			card = obj;
+		} else if (isObj(value) && (value.constructor === Effect)) {
+			card = value.source;
+			if (card.isEffectFiltered(source)) return;
 		}
-		if (isObj(value) && (value.constructor === Effect)) {
-			if (value.source.canNotGainAbility) return;
+		if (card) {
+			if (card.canNotGainAbility || card.player.canNotGainAbility) return;
+			if (card.canNotGainAbilityBySelfPlayer) {
+				if (source.player === card.player) {
+					return;
+				}
+			}
 		}
 	}
 	var destroyTimming = [this.phase.onTurnEnd];

@@ -144,7 +144,7 @@ ConstEffect.prototype.add = function (target,prop,value,arg) {
 
 ConstEffect.prototype._setAdd = function (masks,target,prop,value,arg) {
 	if (!arg) arg = {};
-	var mask = new Mask(target,prop,value,!!arg.forced);
+	var mask = new Mask(this.source,target,prop,value,!!arg.forced);
 	if (!mask.checkFilter(this.source)) return;
 	this.constEffectManager.setBase(target,prop);
 	masks.push(mask);

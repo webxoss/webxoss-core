@@ -279,8 +279,12 @@ Phase.prototype.endPhase = function () {
 		// 处理"回合结束时,把XXX放到废弃区".
 		// 同时触发"回合结束时"时点.
 		var cards = concat(this.player.signis,this.player.opponent.signis).filter(function (signi) {
-			if (signi._trashWhenTurnEnd) {
-				signi._trashWhenTurnEnd = false;
+			if (signi.fieldData.excludeWhenTurnEnd) {
+				signi.fieldData.excludeWhenTurnEnd = false;
+				return true;
+			}
+			if (signi.fieldData.trashWhenTurnEnd) {
+				signi.fieldData.trashWhenTurnEnd = false;
 				return true;
 			}
 		},this);
