@@ -735,6 +735,20 @@ Game.prototype.upCards = function (cards) {
 	return cards;
 };
 
+Game.prototype.upCardsAsyn = function (cards) {
+	if (!cards.length) return;
+	var upCards = [];
+	this.frameStart();
+	return Callback.forEach(cards,function (card) {
+		return card.upAsyn().callback(this,function (succ) {
+			if (succ) upCards.push(card);
+		});
+	}).callback(this,function () {
+		this.frameEnd();
+		return upCards;
+	});
+};
+
 Game.prototype.downCards = function (cards) {
 	if (!cards.length) return;
 	this.packOutputs(function () {

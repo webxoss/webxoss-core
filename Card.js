@@ -153,6 +153,7 @@ function Card (game,player,zone,pid,side) {
 	this._GustaftCenterBallista      = false; // <弩中砲　グスタフト>
 	this.colorLost                   = false; // <侍从 ∞>
 	this.banishProtections           = [];
+	this.upProtections               = [];
 	// 注意hasAbility
 }
 
@@ -581,6 +582,21 @@ Card.prototype.up = function () {
 		content: {card: this}
 	});
 	return true;
+};
+
+Card.prototype.upAsyn = function () {
+	if (this.isUp) return Callback.immediately(false);
+	if (this.isEffectFiltered()) return Callback.immediately(false);
+	var protections = this.upProtections.filter(function (protection) {
+		return protection.condition.call(protection.source);
+	},this);
+	if (!this.upProtections.length) return Callback.immediately(this.up());
+	return player.selectAsyn('CHOOSE_EFFECT',protections).callback(this,function (protection) {
+		protection.source.activate();
+		return protection.actionAsyn.call(protection.source,card);
+	}).callback(this,function () {
+		return true;
+	});
 };
 
 Card.prototype.down = function () {

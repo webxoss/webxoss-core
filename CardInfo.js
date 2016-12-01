@@ -1627,7 +1627,7 @@ var CardInfo = {
 				},this);
 				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
 					if (!card) return;
-					card.up();
+					return card.upAsyn();
 				});
 			}
 		}],
@@ -1729,7 +1729,7 @@ var CardInfo = {
 							if (!card) return;
 							return card.trashAsyn().callback(this,function (succ) {
 								if (succ) {
-									this.up();
+									return this.upAsyn();
 								}
 							});
 						});
@@ -4113,7 +4113,7 @@ var CardInfo = {
 		],
 		spellEffect : {
 			actionAsyn: function () {
-				this.game.upCards(this.player.signis);
+				return this.game.upCardsAsyn(this.player.signis);
 			}
 		},
 		// ======================
@@ -28561,7 +28561,7 @@ var CardInfo = {
 				},this);
 				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
-					card.up();
+					return card.upAsyn();
 				});
 			}
 		}]
@@ -35299,7 +35299,7 @@ var CardInfo = {
 					// 	return inArr(this,this.player.signis);
 					// },
 					actionAsyn: function () {
-						this.up();
+						return this.upAsyn();
 					}
 				});
 				add(this.player.opponent,'onCrash',effect);
@@ -38991,7 +38991,7 @@ var CardInfo = {
 						var cards = this.player.signis.filter(function (signi) {
 							return signi.hasClass('水獣');
 						},this);
-						this.game.upCards(cards);
+						return this.game.upCardsAsyn(cards);
 					}
 				});
 				add(this.player,'onAttackPhaseStart',effect);
@@ -44334,7 +44334,7 @@ var CardInfo = {
 						return inArr(this,this.player.signis);
 					},
 					actionAsyn: function () {
-						this.up();
+						return this.upAsyn();
 					}
 				});
 				add(this.player,'onSummonSigni',effect);
@@ -46438,7 +46438,7 @@ var CardInfo = {
 							if (card.isUp) {
 								card.down();
 							} else {
-								card.up();
+								return card.upAsyn();
 							}
 						});
 					}
@@ -62520,7 +62520,7 @@ var CardInfo = {
 					source: this,
 					description: '1073-const-1',
 					actionAsyn: function () {
-						this.up();
+						return this.upAsyn();
 					}
 				});
 				add(this.player,'onHeaven',effect);
@@ -68502,7 +68502,7 @@ var CardInfo = {
 						return this.player.selectSomeAsyn('TARGET',cards,0,2).callback(this,function (cards) {
 							if (cards.length !== 2) return;
 							this.game.trashCards(cards);
-							this.up();
+							return this.upAsyn();
 						});
 					}
 				});
@@ -70958,7 +70958,7 @@ var CardInfo = {
 					},
 					costRed: 1,
 					actionAsyn: function () {
-						this.up();
+						return this.upAsyn();
 					}
 				});
 				add(this.player.opponent,'onSigniBanished',effect);
@@ -71091,7 +71091,7 @@ var CardInfo = {
 						},this);
 						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
 							if (!card) return;
-							card.up();
+							return card.upAsyn();
 						});
 					}
 				});
@@ -74424,7 +74424,7 @@ var CardInfo = {
 					description: '1253-const-0',
 					once: true,
 					actionAsyn: function () {
-						this.up();
+						return this.upAsyn();
 					}
 				});
 				add(this.player.opponent,'onDoubleCrashed',effect);
@@ -78401,7 +78401,7 @@ var CardInfo = {
 						return inArr(this,this.player.signis);
 					},
 					actionAsyn: function (event) {
-						event.card.up();
+						return event.card.upAsyn();
 					}
 				});
 				add(this.player,'onSummonSigni',effect);
@@ -78470,7 +78470,7 @@ var CardInfo = {
 						return inArr(this,this.player.signis);
 					},
 					actionAsyn: function () {
-						this.up();
+						return this.upAsyn();
 					}
 				});
 				add(this.player,'onSummonSigni',effect);
@@ -78539,7 +78539,7 @@ var CardInfo = {
 						return inArr(this,this.player.signis);
 					},
 					actionAsyn: function () {
-						this.up();
+						return this.upAsyn();
 					}
 				});
 				add(this.player,'onSummonSigni',effect);
@@ -78656,7 +78656,7 @@ var CardInfo = {
 						return !event.card.isUp;
 					},
 					actionAsyn: function (event) {
-						event.card.up();
+						return event.card.upAsyn();
 					}
 				});
 				add(this.player,'onSummonSigni',effect);
@@ -80135,7 +80135,7 @@ var CardInfo = {
 						return inArr(this,this.player.signis);
 					},
 					actionAsyn: function (event) {
-						event.card.up();
+						return event.card.upAsyn();
 					}
 				});
 				add(this.player,'onSummonSigni',effect);
@@ -82888,7 +82888,7 @@ var CardInfo = {
 					source: this,
 					description: '1375-const-1',
 					actionAsyn: function () {
-						this.up();
+						return this.upAsyn();
 					}
 				});
 				add(this.player,'onUseSpell',effect);
@@ -83197,7 +83197,7 @@ var CardInfo = {
 						return !this.isUp
 					},
 					actionAsyn: function () {
-						this.up();
+						return this.upAsyn();
 					}
 				});
 				add(this.player,'onSummonSigni',effect);
@@ -83217,7 +83217,7 @@ var CardInfo = {
 						},this);
 						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
 							if (!card) return;
-							card.up();
+							return card.upAsyn();
 						});
 					}
 				});
@@ -84259,7 +84259,7 @@ var CardInfo = {
 						return !this.isUp;
 					},
 					actionAsyn: function () {
-						this.up();
+						return this.upAsyn();
 					}
 				});
 				add(this.player,'onUseSpell',effect);
@@ -86026,7 +86026,7 @@ var CardInfo = {
 						},this);
 						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
 							if (!card) return;
-							card.up();
+							return card.upAsyn();
 						});
 					}
 				});
@@ -87881,10 +87881,9 @@ var CardInfo = {
 							return this.player.selectSomeTargetsAsyn(signis,0,count).callback(this,function (cards) {
 								if (!cards.length) return;
 								if (text === 'UP') {
-									this.game.upCards(cards);
-								} else {
-									this.game.downCards(cards);
+									return this.game.upCardsAsyn(cards);
 								}
+								this.game.downCards(cards);
 							});
 						});
 					}
@@ -87951,7 +87950,7 @@ var CardInfo = {
 						return (this.game.getData(this.player,'_UltimPhantomBeastDeity') === 3);
 					},
 					actionAsyn: function () {
-						this.up();
+						return this.upAsyn();
 					}
 				});
 				add(this.player.opponent,'onSigniBanished',effect);
@@ -88588,7 +88587,7 @@ var CardInfo = {
 						var cards = this.player.signis.filter(function (signi) {
 							return signi.hasClass('迷宮');
 						},this);
-						this.game.upCards(cards);
+						return this.game.upCardsAsyn(cards);
 					}
 				});
 				add(this.player,'onTurnEnd2',effect);
@@ -89335,7 +89334,7 @@ var CardInfo = {
 						},this);
 						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
 							if (!card) return;
-							card.up();
+							return card.upAsyn();
 						});
 					}
 				});
@@ -93655,7 +93654,7 @@ var CardInfo = {
 							this.game.trashCards(cards);
 							this.game.frameEnd();
 							if (this.player.mainDeck.cards.length) return;
-							this.up();
+							return this.upAsyn();
 						});
 					}
 				});
@@ -94011,7 +94010,7 @@ var CardInfo = {
 									this.game.tillTurnEndSet(this,this,'tripleCrash',true);
 								}
 								if (len >= 5) {
-									this.up();
+									return this.upAsyn();
 								}
 							});
 						});
@@ -95153,7 +95152,7 @@ var CardInfo = {
 					},this);
 					return this.player.selectOptionalAsyn('UP',cards).callback(this,function (card) {
 						if (!card) return;
-						card.up();
+						return card.upAsyn();
 					});
 				});
 			}
@@ -101648,7 +101647,7 @@ var CardInfo = {
 				return this.player.rearrangeOpponentSignisAsyn().callback(this,function (signis) {
 					return this.player.selectOptionalAsyn('UP',[this]).callback(this,function (c) {
 						if (!c) return;
-						this.game.upCards(signis);
+						return this.game.upCardsAsyn(signis);
 					});
 				});
 			}
@@ -102164,7 +102163,7 @@ var CardInfo = {
 						},this);
 						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
 							if (!card) return;
-							card.up();
+							return card.upAsyn();
 						});
 					}
 				});
@@ -102180,7 +102179,7 @@ var CardInfo = {
 							return !this.isUp;
 						},
 						actionAsyn: function () {
-							this.up();
+							return this.upAsyn();
 						}
 					});
 					add(signi,'onUp',effect);
@@ -107921,7 +107920,7 @@ var CardInfo = {
 				},this);
 				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
 					if (!card) return;
-					card.up();
+					return card.upAsyn();
 				});
 			}
 		},{
@@ -109232,7 +109231,7 @@ var CardInfo = {
 						return !this.isUp;
 					},
 					actionAsyn: function () {
-						this.up();
+						return this.upAsyn();
 					}
 				});
 				add(this.player.opponent,'onCrash',effect);
@@ -110117,7 +110116,7 @@ var CardInfo = {
 					description: '1803-const-1',
 					once: true,
 					actionAsyn: function () {
-						this.game.upCards(this.player.signis);
+						return this.game.upCardsAsyn(this.player.signis);
 					}
 				});
 				add(this,'onHeaven',effect);
@@ -118703,7 +118702,17 @@ var CardInfo = {
 			costDown: true,
 			actionAsyn: function () {
 				return this.decreasePowerAsyn(5000).callback(this,function () {
-					// !here
+					var protection = {
+						source: this,
+						description: '1920-const-0',
+						condition: function () {
+							return this.game.getEffectSource();
+						},
+						actionAsyn: function (card) {
+							return card.decreasePowerAsyn(7000);
+						}
+					};
+					this.game.tillTurnEndAdd(this,this,'upProtections',protections);
 				});
 			}
 		},{
@@ -118722,7 +118731,7 @@ var CardInfo = {
 				});
 			},
 			actionAsyn: function () {
-				this.up();
+				return this.upAsyn();
 			}
 		}],
 	},
@@ -119876,7 +119885,7 @@ var CardInfo = {
 								return (event.source === this);
 							},
 							actionAsyn: function () {
-								this.up();
+								return this.upAsyn();
 							}
 						});
 						this.game.tillTurnEndAdd(this,this.player.opponent,'onSigniBanished',effect);
@@ -121546,7 +121555,7 @@ var CardInfo = {
 						return this.player.selectOptionalAsyn('DISCARD',cards).callback(this,function (card) {
 							if (!card) return;
 							card.trash();
-							this.up();
+							return this.upAsyn();
 						});
 					}
 				});
@@ -123280,7 +123289,7 @@ var CardInfo = {
 							if (!card) return;
 							return card.banishAsyn().callback(this,function (succ) {
 								if (!succ) return;
-								this.up();
+								return this.upAsyn();
 							});
 						});
 					}
@@ -123733,7 +123742,7 @@ var CardInfo = {
 						},this);
 						return this.player.selectOptionalAsyn('UP',cards).callback(this,function (card) {
 							if (!card) return;
-							card.up();
+							return card.upAsyn();
 						});
 					}
 				});
