@@ -32,7 +32,7 @@ Mask.prototype.set = function (reset) {
 			return;
 		}
 		if (source.canNotGainAbilityBySelfPlayer) {
-			if (this.source.player === source.player) {
+			if (this.source && (this.source.player === source.player)) {
 				return;
 			}
 		}
@@ -58,7 +58,7 @@ Mask.prototype.set = function (reset) {
 				return;
 			}
 			if (target.canNotGainAbilityBySelfPlayer) {
-				if (this.source === target.player) {
+				if (this.source && (this.source === target.player)) {
 					return;
 				}
 			}

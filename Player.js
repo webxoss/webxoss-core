@@ -827,8 +827,8 @@ Player.prototype.useActionEffectAsyn = function () {
 			if (this.canUseActionEffect(effect)) {
 				effects.push(effect);
 			}
-		});
-	});
+		},this);
+	},this);
 	if (!effects.length) return Callback.never();
 	return this.selectAsyn('USE_ACTION_EFFECT',effects).callback(this,function (effect) {
 		return this.handleActionEffectAsyn(effect,{

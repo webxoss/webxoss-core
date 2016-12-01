@@ -116180,6 +116180,7 @@ var CardInfo = {
 					}
 				});
 				add(this.player,'onSummonSigni',effect);
+			}
 		}],
 		// ======================
 		//        迸发效果       
@@ -116209,7 +116210,7 @@ var CardInfo = {
 					}
 					return this.player.seekAndSummonAsyn(filter,1);
 				});
-			});
+			}
 		}
 	},
 	"1889": {
@@ -116316,7 +116317,7 @@ var CardInfo = {
 		constEffectTexts_en: [
 			"[Constant]: When you [Guard] your opponent's LRIG's attack, or when you disable your opponent's SIGNI's attack, if your LRIG is <Anne>, you may exclude this card in your trash from the game. If you do, draw a card."
 		],
-		constEffects: 
+		constEffects: [{
 			duringGame: true,
 			fixed: true,
 			action: function (set,add) {
@@ -118032,7 +118033,7 @@ var CardInfo = {
 					description: '1912-const-0',
 					triggerCondition: function (event) {
 						return (event.card.power <= 8000);
-					}
+					},
 					actionAsyn: function (event) {
 						return event.card.banishAsyn();
 					}
@@ -118342,7 +118343,7 @@ var CardInfo = {
 							this.player.mainDeck.moveCardsToBottom(cards);
 						});
 					});
-				};
+				});
 			}
 		}],
 	},
@@ -118403,7 +118404,7 @@ var CardInfo = {
 		spellEffect: [{
 			getTargets: function () {
 				return this.player.signis.filter(function (signi) {
-					return signi.hasClass('毒牙')；
+					return signi.hasClass('毒牙');
 				},this);
 			},
 			actionAsyn: function (target) {
@@ -118425,7 +118426,7 @@ var CardInfo = {
 		},{
 			getTargets: function () {
 				return this.player.signis.filter(function (signi) {
-					return signi.hasClass('毒牙')；
+					return signi.hasClass('毒牙');
 				},this);
 			},
 			actionAsyn: function (target) {
@@ -118691,7 +118692,7 @@ var CardInfo = {
 			"【起】あなたの＜毒牙＞のシグニ１体を場からトラッシュに置く：このシグニをアップする。"
 		],
 		actionEffectTexts_zh_CN: [
-			"【起】【横置】：直到回合结束为止，对战对手的1只SIGNI力量-5000。这个回合，这只SIGNI因效果从横置状态变为竖置状态的场合，作为替代，直到回合结束为止，将对战对手的1只SIGNI力量-7000。"
+			"【起】【横置】：直到回合结束为止，对战对手的1只SIGNI力量-5000。这个回合，这只SIGNI因效果从横置状态变为竖置状态的场合，作为替代，直到回合结束为止，将对战对手的1只SIGNI力量-7000。",
 			"【起】将你的1只<毒牙>SIGNI从场上放置到废弃区：将这只SIGNI竖置。"
 		],
 		actionEffectTexts_en: [
@@ -121814,7 +121815,7 @@ var CardInfo = {
 			var obj = Object.create(this);
 			obj.costChange = null;
 			return obj;
-		}
+		},
 		artsEffect: {
 			actionAsyn: function () {
 				var actionEffects = this.player.lrig.actionEffects.filter(function (effect) {
@@ -122389,7 +122390,7 @@ var CardInfo = {
 						var source = this.game.getEffectSource();
 						if (!source) return false;
 						return (source.player === this.player.opponent);
-					}
+					},
 					actionAsyn: function () {
 						this.player.opponent.discardRandomly(1);
 					}
@@ -122403,7 +122404,7 @@ var CardInfo = {
 					description: '1968-const-1',
 					triggerCondition: function (event) {
 						return (event.card.owner === this.player.opponent);
-					}
+					},
 					actionAsyn: function () {
 						return this.player.selectOpponentSigniAsyn().callback(this,function (card) {
 							if (card) {
@@ -123043,11 +123044,11 @@ var CardInfo = {
 		cardText: "思ったよりここも居心地がいいじゃん。～遊月～",
 		cardText_zh_CN: "",
 		cardText_en: "",
-		costOr: ['black', 'green'],
+		costOr: ['red', 'green'],
 		growCondition: function () {
-			var black = Object.create(this);
-			black.costBlack++;
-			if (this.player.enoughCost(black)) return true;
+			var red = Object.create(this);
+			red.costRed++;
+			if (this.player.enoughCost(red)) return true;
 			var green = Object.create(this);
 			green.costGreen++;
 			if (this.player.enoughCost(green)) return true;
@@ -123055,9 +123056,9 @@ var CardInfo = {
 		},
 		costChangeAsyn: function () {
 			var colors = [];
-			var black = Object.create(this);
-			black.costBlack++;
-			if (this.player.enoughCost(black)) colors.push('black');
+			var red = Object.create(this);
+			red.costRed++;
+			if (this.player.enoughCost(red)) colors.push('red');
 			var green = Object.create(this);
 			green.costGreen++;
 			if (this.player.enoughCost(green)) colors.push('green');

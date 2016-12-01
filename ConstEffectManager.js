@@ -27,7 +27,7 @@ ConstEffectManager.prototype.setBase = function (target,prop) {
 	if (isObj(value) && (value.constructor === Timming)) {
 		value = null;
 	}
-	this.tableBase[hash] = new Mask(target,prop,value);
+	this.tableBase[hash] = new Mask(null,target,prop,value);
 };
 
 ConstEffectManager.prototype.compute = function () {
