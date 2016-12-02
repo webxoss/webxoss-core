@@ -120739,7 +120739,7 @@ var CardInfo = {
 		artsEffect: {
 			actionAsyn: function () {
 				return Callback.immediately().callback(this,function () {
-					if (this.hands.length) return;
+					if (this.player.hands.length) return;
 					var filter = function (card) {
 						return (card.type === 'SIGNI');
 					};
@@ -123983,7 +123983,7 @@ var CardInfo = {
 		constEffects: [{
 			condition: function () {
 				return (this.game.turnPlayer === this.player.opponent) &&
-				       (this.hands.length >= 6);
+				       (this.player.hands.length >= 6);
 			},
 			action: function (set,add) {
 				set(this,'power',15000);
@@ -124041,7 +124041,7 @@ var CardInfo = {
 		constEffects: [{
 			condition: function () {
 				return (this.game.turnPlayer === this.player.opponent) &&
-				       (this.hands.length >= 6);
+				       (this.player.hands.length >= 6);
 			},
 			action: function (set,add) {
 				set(this,'power',12000);
