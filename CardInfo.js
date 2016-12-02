@@ -120752,6 +120752,7 @@ var CardInfo = {
 						return card.canSummon();
 					},this);
 					return this.player.selectOptionalAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
+						if (!card) return;
 						return card.summonAsyn();
 					});
 				});
