@@ -115300,7 +115300,7 @@ var CardInfo = {
 		],
 		artsEffectTexts_zh_CN: [
 			"从以下2项中选择1项。\n" +
-			"①你抽4张卡。之后，不查看对战对手的手牌而选择2张，你将那些卡从游戏中除外。\n" +
+			"①你抽4张卡。之后，对战对手不查看你的手牌而选择2张，你将那些卡从游戏中除外。\n" +
 			"②将对战对手的1只SIGNI驱逐。对战对手抽1张卡，将对阵对手卡组顶的1张卡放置到能量区。",
 			"你抽4张卡。之后，不查看对战对手的手牌而选择2张，你将那些卡从游戏中除外。",
 			"将对战对手的1只SIGNI驱逐。对战对手抽1张卡，将对阵对手卡组顶的1张卡放置到能量区。"
@@ -115315,8 +115315,18 @@ var CardInfo = {
 		artsEffect: [{
 			actionAsyn: function () {
 				this.player.draw(4);
-				var cards = this.player.opponent.discardRandomly(2);
-				return this.player.showCardsAsyn(cards);
+				var cards = []
+				var hands = this.player.hands.slice();
+				for (var i = 0; i < 2; i++) {
+					if (!hands.length) break;
+					var idx = this.game.rand(0,hands.length - 1);
+					cards.push(hands[idx]);
+					removeFromArr(hands[idx],hands);
+				}
+				if (!cards.length) return;
+				return this.player.showCardsAsyn(cards).callback(this,function () {
+					return this.game.excludeCards(cards);
+				});
 			}
 		},{
 			actionAsyn: function () {
