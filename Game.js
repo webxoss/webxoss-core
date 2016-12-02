@@ -155,6 +155,14 @@ Game.checkMayusRoom = function (infos) {
 	})) {
 		return false;
 	}
+	// 禁止 台风蛇
+	if (infos.some(function (info) {
+		return info.cid === 957; // 台風一過
+	}) && infos.some(function (info) {
+		return (info.cid === 1652); // コードアンシエンツ　ヘルボロス
+	})) {
+		return false;
+	}
 	// 限制
 	var limitMap = {
 		37: 2,  // <忘得ぬ幻想　ヴァルキリー>
@@ -164,6 +172,9 @@ Game.checkMayusRoom = function (infos) {
 		689: 1, // <ＲＡＩＮＹ>
 		474: 0, // <ノー・ゲイン>
 		23: 0,  // <大器晩成>
+		689: 0, // <ＲＡＩＮＹ>
+		1030: 0, // <四面楚火>
+		1457: 0, // <サーバント　Ｚ>
 	};
 	for (var i = 0; i < infos.length; i++) {
 		var info = infos[i];
