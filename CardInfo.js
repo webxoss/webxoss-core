@@ -123130,7 +123130,7 @@ var CardInfo = {
 		"costGreen": 0,
 		"costColorless": 0,
 		"guardFlag": false,
-		"multiEner": false,
+		"multiEner": true,
 		cardText: "ウトゥルスは、最後に一つになることを拒んだ。\nなぜならタウィルは思い出したから、始めの少女の記憶を。",
 		cardText_zh_CN: "",
 		cardText_en: "",
