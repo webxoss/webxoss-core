@@ -97,6 +97,9 @@ Game.checkDeck = function (cfg,mayusRoom) {
 	var legal = [mainDeckInfos,lrigDeckInfos].every(function (infos) {
 		var bucket = {};
 		infos.forEach(function (info) {
+			if (info.sideA) {
+				info = CardInfo[info.sideA]
+			}
 			if (info.cid in bucket) {
 				bucket[info.cid]++;
 			} else {
