@@ -1164,7 +1164,7 @@ Card.prototype.attackAsyn = function () {
 						return;
 					};
 					if (event.wontBeDamaged || opponent.wontBeDamaged) return;
-					if (player.wontBeDamagedByOpponentLrig) return;
+					if (player.opponent.wontBeDamagedByOpponentLrig) return;
 					crashArg.damage = true;
 					if (opponent.lifeClothZone.cards.length) {
 						var count = 1;
