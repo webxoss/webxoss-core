@@ -323,8 +323,7 @@ Card.prototype.canSummonWith = function (signis) {
 	},this);
 	if (flag) return false;
 	// 限定
-	flag = this.player.ignoreLimitingOfLevel5Signi && (this.level === 5);
-	if (!flag && !this.checkLimiting()) return false;
+	if (!this.checkLimiting()) return false;
 	// 等级限制
 	if (this.level > this.player.lrig.level) return false;
 	// SIGNI 数量限制
@@ -504,6 +503,11 @@ Card.prototype.checkLimiting = function () {
 	if (!this.limitings.length) return true;
 	if (this.player.ignoreLimitingOfArtsAndSpell) {
 		if ((this.type === 'SPELL') || (this.type === 'ARTS')) {
+			return true;
+		}
+	}
+	if (this.player.ignoreLimitingOfLevel5Signi) {
+		if ((this.type === 'SIGNI') && (this.level === 5)) {
 			return true;
 		}
 	}
