@@ -123155,7 +123155,7 @@ var CardInfo = {
 					'TRASH_ZONE',
 				];
 				return this.player.selectTextAsyn('CHOOSE_ZONE',texts).callback(this,function (text) {
-					this.filedData['_1982'] = text;
+					this.fieldData['_1982'] = text;
 					return this.player.opponent.showTextAsyn('CHOOSE_ZONE','text',text);
 				});
 			}
@@ -123175,7 +123175,7 @@ var CardInfo = {
 		constEffects: [{
 			action: function (set,add) {
 				var cards = [];
-				var text = this.filedData['_1982'];
+				var text = this.fieldData['_1982'];
 				if (text === 'MAIN_DECK') {
 					cards = this.player.opponent.mainDeck.cards;
 				} else if (text === 'HAND') {
