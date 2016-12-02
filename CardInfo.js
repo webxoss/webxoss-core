@@ -117336,8 +117336,8 @@ var CardInfo = {
 		"timestamp": 1479021151506,
 		"wxid": "WX14-072",
 		name: "やり直しの廃和　†ミカエル†",
-		name_zh_CN: "†Michael†, Abolished Harmony of Reconciliation",
-		name_en: "重启的废和 †堕落米迦勒†",
+		name_zh_CN: "重启的废和 †堕落米迦勒†",
+		name_en: "†Michael†, Abolished Harmony of Reconciliation",
 		"kana": "ヤリナオシノハイワフォールンミカエル",
 		"rarity": "C",
 		"cardType": "SIGNI",
@@ -121076,7 +121076,7 @@ var CardInfo = {
 			"対戦相手のシグニ１体をバニッシュする。そうした場合、あなたはカードを２枚引く。"
 		],
 		spellEffectTexts_zh_CN: [
-			"将对战对手的1只SIGNI驱逐。"
+			"将对战对手的1只SIGNI驱逐。这样做了的场合，你抽2张卡。"
 		],
 		spellEffectTexts_en: [
 			"Banish 1 of your opponent's SIGNI. If you do, draw 2 cards."
@@ -122314,8 +122314,8 @@ var CardInfo = {
 			"将对战对手的废弃区中的1张魔法卡视为你的手牌不支付费用无视限定条件使用它。这个回合，那张魔法卡从检查区移动到其他区域的场合，作为代替从游戏中除外。"
 		],
 		artsEffectTexts_en: [
-			"アンコール―《青》《無》\n" +
-			"対戦相手のトラッシュからスペル１枚を、あなたの手札にあるかのようにコストを支払わずに限定条件を無視して使用する。このターン、そのスペルがチェックゾーンから別の領域に移動される場合、代わりにゲームから除外される。"
+			"Encore - [Blue] [Colorless]\n" +
+			"You may use 1 spell from your opponent's trash as if it were in your hand without paying its cost and ignoring its limiting conditions. This turn, if that spell would be moved to a different zone from the Check Zone, it is excluded from the game instead."
 		],
 		artsEffect: {
 			actionAsyn: function () {
