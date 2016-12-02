@@ -821,9 +821,10 @@ Player.prototype.useActionEffectAsyn = function () {
 	cards.forEach(function (card) {
 		card.actionEffects.forEach(function (effect) {
 			if (effect.spellCutIn) return;
+			if (card.zone === this.handZone && !effect.activatedInHand) return;
+			if (card.zone !== this.handZone && effect.activatedInHand) return;
 			if (effect.attackPhase && !effect.mainPhase) return;
 			if (effect.activatedInTrashZone && card.zone !== this.trashZone) return;
-			if (effect.activatedInHand && card.zone !== this.handZone) return;
 			if (this.canUseActionEffect(effect)) {
 				effects.push(effect);
 			}
