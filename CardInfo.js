@@ -119063,7 +119063,7 @@ var CardInfo = {
 		],
 		constEffects: [{
 			action: function (set,add) {
-				set(this.player,'signiStartUpBanned',true);
+				set(this.player.opponent,'signiStartUpBanned',true);
 			}
 		},{
 			action: function (set,add) {
@@ -119283,8 +119283,12 @@ var CardInfo = {
 					source: this,
 					description: '1927-const-0',
 					optional: true,
+					triggerCondition: function (event) {
+						if (evnet.card.type !== 'SIGNI') return false;
+						if (event.card.isEffectFiltered()) return false;
+						return true;
+					},
 					actionAsyn: function (event) {
-						if (event.isEffectFiltered()) return;
 						var zones = this.player.opponent.signiZones.filter(function (zone) {
 							return !zone.disabled && (zone !== event.card.zone) && !zone.cards.length;
 						},this);
