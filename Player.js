@@ -791,10 +791,26 @@ Player.prototype.canUseActionEffect = function (effect,arg) {
 	if (!arg) arg = {};
 	if (this.charmedActionEffectBanned && effect.source.charm) return false;
 	if (effect.source.abilityLost) return false;
+	// inHand
+	if (effect.source.zone === this.handZone && !effect.activatedInHand) return false;
+	if (effect.source.zone !== this.handZone && effect.activatedInHand) return false;
+	// inTrashZone
+	if (effect.source.zone === this.trashZone && !effect.activatedInTrashZone) return false;
+	if (effect.source.zone !== this.handZone && effect.activatedInHand) return false;
+	// attackPhase
+	if (this.game.phase.isAttackPhase()) {
+		if (!effect.attackPhase) return false;
+	} else {
+		if (effect.attackPhase && !effect.mainPhase) return false;
+	}
+	// onAttack
 	if (arg.onAttack && !effect.onAttack) return false;
 	if (!arg.onAttack && effect.onAttack) return false;
+	// cross
 	if (effect.cross && !effect.source.crossed) return false;
+	// once
 	if (effect.once && inArr(effect,this.usedActionEffects)) return false;
+	// condition
 	if (effect.useCondition && !effect.useCondition.call(effect.source,arg)) return false;
 	// <混沌之键主 乌姆尔=FYRA>
 	if (effect.activatedInTrashZone) {
@@ -821,10 +837,6 @@ Player.prototype.useActionEffectAsyn = function () {
 	cards.forEach(function (card) {
 		card.actionEffects.forEach(function (effect) {
 			if (effect.spellCutIn) return;
-			if (card.zone === this.handZone && !effect.activatedInHand) return;
-			if (card.zone !== this.handZone && effect.activatedInHand) return;
-			if (effect.attackPhase && !effect.mainPhase) return;
-			if (effect.activatedInTrashZone && card.zone !== this.trashZone) return;
 			if (this.canUseActionEffect(effect)) {
 				effects.push(effect);
 			}
@@ -933,24 +945,15 @@ Player.prototype.useAttackPhaseArtsAsyn = function () {
 };
 
 Player.prototype.useAttackPhaseActionEffect = function () {
-	var cards = [];
-	concat(this.signis,this.lrig).forEach(function (card) {
-		var flag = card.actionEffects.some(function (effect) {
-			return !effect.activatedInTrashZone && effect.attackPhase && this.canUseActionEffect(effect);
+	var cards = concat(this.signis,this.lrig,this.trashZone.cards).filter(function (card) {
+		return card.actionEffects.some(function (effect) {
+			return this.canUseActionEffect(effect);
 		},this);
-		if (flag) cards.push(card);
-	},this);
-	this.trashZone.cards.forEach(function (card) {
-		// if (card.type !== 'SIGNI') return;
-		var flag = card.actionEffects.some(function (effect) {
-			return effect.activatedInTrashZone && effect.attackPhase && this.canUseActionEffect(effect);
-		},this);
-		if (flag) cards.push(card);
-	},this);
+	});
 	if (!cards.length) return Callback.never();
 	return this.selectAsyn('USE_ACTION_EFFECT',cards).callback(this,function (card) {
 		var effects = card.actionEffects.filter(function (effect) {
-			return effect.attackPhase && this.canUseActionEffect(effect);
+			return this.canUseActionEffect(effect);
 		},this);
 		if (!effects.length) return;
 		return Callback.immediately().callback(this,function () {

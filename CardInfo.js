@@ -116937,14 +116937,22 @@ var CardInfo = {
 			"【※】：あなたのトラッシュから白のカード１枚と黒のカード１枚を手札に加える。"
 		],
 		burstEffectTexts_zh_CN: [
-			"【※】：抽1张牌。"
+			"【※】：从你的废弃区将1张白色的卡和1张黑色的卡加入手牌。"
 		],
 		burstEffectTexts_en: [
 			"【※】：Add 1 white card and 1 black card from your trash to your hand."
 		],
 		burstEffect: {
 			actionAsyn: function () {
-				this.player.draw(1);
+				var filter = function (card) {
+					return card.hasColor('white');
+				};
+				return this.player.pickCardAsyn(filter).callback(this,function () {
+					var filter = function (card) {
+						return card.hasColor('black');
+					};
+					return this.player.pickCardAsyn(filter);
+				});
 			}
 		}
 	},
@@ -117380,7 +117388,7 @@ var CardInfo = {
 			"【出】：あなたの手札から＜天使＞のシグニ1枚を公開するか、このシグニをトラッシュに置く。この方法で＜天使＞のシグニを公開した場合、あなたのデッキから＜天使＞のシグニ１枚を探してトラッシュに置く。その後、デッキをシャッフルする。"
 		],
 		startUpEffectTexts_zh_CN: [
-			"【出】：从你的手牌将1张<天使>SIGNI公开，或将这只SIGNI放置到废弃区。通过这个方法将<天使>SIGNI公开了的场合，从你的卡组中探寻1张<天使>SIGNI公开并加入手牌。之后，洗切牌组。"
+			"【出】：从你的手牌将1张<天使>SIGNI公开，或将这只SIGNI放置到废弃区。通过这个方法将<天使>SIGNI公开了的场合，从你的卡组中探寻1张<天使>SIGNI放置到废弃区。之后，洗切牌组。"
 		],
 		startUpEffectTexts_en: [
 			"[On-Play]: Reveal 1 <Angel> SIGNI from your hand, or put this SIGNI into the trash. If you revealed an <Angel> SIGNI this way, search your deck for 1 <Angel> SIGNI and put it into the trash. Then, shuffle your deck."
@@ -117390,13 +117398,15 @@ var CardInfo = {
 				var cards = this.player.hands.filter(function (card) {
 					return card.hasClass('天使');
 				},this);
-				return this.player.selectOptionalAsyn('REVEAL',cards).callback(this,function (card) {
+				return this.player.selectOptionalAsyn('REVEAL',cards,true).callback(this,function (card) {
 					if (!card) return this.trashAsyn();
 					return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 						var filter = function (card) {
 							return card.hasClass('天使');
 						};
-						return this.player.seekAsyn(filter,1);
+						return this.player.searchAsyn(filter,1).callback(this,function (cards) {
+							this.game.trashCards(cards);
+						});
 					});
 				});
 			}
@@ -117452,7 +117462,7 @@ var CardInfo = {
 				var cards = this.player.hands.filter(function (card) {
 					return card.hasClass('天使');
 				},this);
-				return this.player.selectOptionalAsyn('REVEAL',cards).callback(this,function (card) {
+				return this.player.selectOptionalAsyn('REVEAL',cards,true).callback(this,function (card) {
 					if (!card) return this.trashAsyn();
 				});
 			}
@@ -118924,7 +118934,7 @@ var CardInfo = {
 			action: function (set,add) {
 				var effect = this.game.newEffect({
 					source: this,
-					description: '1923-const-0',
+					description: '1923-const-1',
 					triggerCondition: function (event) {
 						return (event.oldZone === this.player.trashZone);
 					},
