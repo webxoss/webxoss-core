@@ -667,6 +667,7 @@ Player.prototype.handleArtsAsyn = function (card,ignoreCost) {
 		// アンコール费用,约定: 除了颜色费用，其它属性直接覆盖
 		if (!card.encore) return;
 		var encoredCost = Object.create(costObj);
+		encoredCost.source = card;
 		var enerCostProps = [
 			'costColorless',
 			'costWhite',
@@ -949,7 +950,7 @@ Player.prototype.useAttackPhaseActionEffect = function () {
 		return card.actionEffects.some(function (effect) {
 			return this.canUseActionEffect(effect);
 		},this);
-	});
+	},this);
 	if (!cards.length) return Callback.never();
 	return this.selectAsyn('USE_ACTION_EFFECT',cards).callback(this,function (card) {
 		var effects = card.actionEffects.filter(function (effect) {

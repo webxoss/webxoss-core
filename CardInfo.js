@@ -116336,8 +116336,8 @@ var CardInfo = {
 					description: '1890-const-0',
 					optional: true,
 					triggerCondition: function (event) {
-						if (!this.lrig.hasClass('アン')) return false;
 						if (this.zone !== this.player.trashZone) return false;
+						if (!this.player.lrig.hasClass('アン')) return false;
 						if (event.card.type === 'LRIG') {
 							return event.preventedByGuard;
 						}
@@ -116440,8 +116440,8 @@ var CardInfo = {
 		artsEffectTexts_zh_CN: [
 			"连锁 【绿】【蓝】\n" +
 			"从以下4项中选择最多2项。\n" +
-			"①将对战对手的之多2只SIGNI横置。\n" +
-			"②从你的能量区将之多2张卡加入手牌。\n" +
+			"①将对战对手的至多2只SIGNI横置。\n" +
+			"②从你的能量区将至多2张卡加入手牌。\n" +
 			"③从你的卡组顶将2张卡放置到能量区。\n" +
 			"④你抽2张卡。",
 			"将对战对手的至多2只SIGNI横置。",
@@ -120477,7 +120477,7 @@ var CardInfo = {
 		"kana": "コードピルルクアペクス",
 		"rarity": "LR",
 		"cardType": "LRIG",
-		"color": "green/black",
+		"color": "blue/black",
 		"level": 5,
 		"limit": 12,
 		"power": 0,
@@ -122030,40 +122030,40 @@ var CardInfo = {
 		cardText_zh_CN: "",
 		cardText_en: ""
 	},
-	"1959": {
-		"pid": 1959,
-		cid: 1956,
-		"timestamp": 1479021159712,
-		"wxid": "PR-311",
-		name: "無二の征服　アレクサンド(WIXOSSお楽しみパック 2016年8-9月 Ver.)",
-		name_zh_CN: "無二の征服　アレクサンド(WIXOSSお楽しみパック 2016年8-9月 Ver.)",
-		name_en: "Alexand, Peerless Conquest(WIXOSSお楽しみパック 2016年8-9月 Ver.)",
-		"kana": "ムニノセイフクアレクサンド",
-		"rarity": "PR",
-		"cardType": "SIGNI",
-		"color": "red",
-		"level": 2,
-		"limit": 0,
-		"power": 8000,
-		"limiting": "",
-		"imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/PR/PR-311.jpg",
-		"illust": "村上ゆいち",
-		"classes": [
-			"精像",
-			"武勇"
-		],
-		"costWhite": 0,
-		"costBlack": 0,
-		"costRed": 0,
-		"costBlue": 0,
-		"costGreen": 0,
-		"costColorless": 0,
-		"guardFlag": false,
-		"multiEner": false,
-		cardText: "新たな力が戦いの狼煙をあげる。",
-		cardText_zh_CN: "",
-		cardText_en: ""
-	},
+	// "1959": {
+	// 	"pid": 1959,
+	// 	cid: 1956,
+	// 	"timestamp": 1479021159712,
+	// 	"wxid": "PR-311",
+	// 	name: "無二の征服　アレクサンド(WIXOSSお楽しみパック 2016年8-9月 Ver.)",
+	// 	name_zh_CN: "無二の征服　アレクサンド(WIXOSSお楽しみパック 2016年8-9月 Ver.)",
+	// 	name_en: "Alexand, Peerless Conquest(WIXOSSお楽しみパック 2016年8-9月 Ver.)",
+	// 	"kana": "ムニノセイフクアレクサンド",
+	// 	"rarity": "PR",
+	// 	"cardType": "SIGNI",
+	// 	"color": "red",
+	// 	"level": 2,
+	// 	"limit": 0,
+	// 	"power": 8000,
+	// 	"limiting": "",
+	// 	"imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/PR/PR-311.jpg",
+	// 	"illust": "村上ゆいち",
+	// 	"classes": [
+	// 		"精像",
+	// 		"武勇"
+	// 	],
+	// 	"costWhite": 0,
+	// 	"costBlack": 0,
+	// 	"costRed": 0,
+	// 	"costBlue": 0,
+	// 	"costGreen": 0,
+	// 	"costColorless": 0,
+	// 	"guardFlag": false,
+	// 	"multiEner": false,
+	// 	cardText: "新たな力が戦いの狼煙をあげる。",
+	// 	cardText_zh_CN: "",
+	// 	cardText_en: ""
+	// },
 	"1960": {
 		"pid": 1960,
 		cid: 1957,
