@@ -121257,8 +121257,9 @@ var CardInfo = {
 		],
 		spellEffect: {
 			actionAsyn: function (target) {
+				var lrig = this.player.lrig
 				var filter = function (card) {
-					return card.hasSameColorWith(this.player.lrig);
+					return card.hasSameColorWith(lrig);
 				};
 				return this.player.seekAsyn(filter,1);
 			}
