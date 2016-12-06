@@ -2230,7 +2230,7 @@ Player.prototype.getCard = function (arg) {
 	return card;
 };
 
-Player.prototype.putCardToLifeCloth = function (cid) {
+Player.prototype.putCardToLifeCloth = function (arg) {
 	var card = this.matchCard(arg);
 	if (!card) return null;
 	card.moveTo(this.lifeClothZone);
