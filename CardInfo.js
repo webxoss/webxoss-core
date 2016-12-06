@@ -115332,7 +115332,7 @@ var CardInfo = {
 			actionAsyn: function () {
 				return this.banishSigniAsyn().callback(this,function () {
 					this.player.opponent.draw(1);
-					this.player.enerCharge(1);
+					this.player.opponent.enerCharge(1);
 				});
 			}
 		}]
@@ -117110,7 +117110,7 @@ var CardInfo = {
 				var c = costArg.others;
 				if (!c) return;
 				var filter = function (card) {
-					return (card.cid !== 1899) && (card.level <= 4) && card.hasClass('天使') && card.hasSameColorWith(c);
+					return (card.cid !== 1899) && (card.level <= 4) && card.hasSameColorWith(c);
 				};
 				return this.player.seekAsyn(filter,1);
 			}
@@ -117418,7 +117418,7 @@ var CardInfo = {
 		"timestamp": 1479021151502,
 		"wxid": "WX14-075",
 		name: "探究の死相　†ハニエル†",
-		name_zh_CN: "探究的死相  †堕落汉尼尔†",
+		name_zh_CN: "探究的死相 †堕落汉尼尔†",
 		name_en: "†Haniel†, Death's Shadow of Seeking",
 		"kana": "タンキュウノシソウフォールンハニエル",
 		"rarity": "C",
@@ -117464,6 +117464,7 @@ var CardInfo = {
 				},this);
 				return this.player.selectOptionalAsyn('REVEAL',cards,true).callback(this,function (card) {
 					if (!card) return this.trashAsyn();
+					return this.player.opponent.showCardsAsyn([card]);
 				});
 			}
 		}],
@@ -119294,7 +119295,7 @@ var CardInfo = {
 					description: '1927-const-0',
 					optional: true,
 					triggerCondition: function (event) {
-						if (evnet.card.type !== 'SIGNI') return false;
+						if (event.card.type !== 'SIGNI') return false;
 						if (event.card.isEffectFiltered()) return false;
 						return true;
 					},
@@ -120389,10 +120390,10 @@ var CardInfo = {
 					description: '1937-const-0',
 					triggerCondition: function (event) {
 						if (!this.game.phase.isAttackPhase()) return false;
-						var effect = this.game.getEffectSource();
-						if (!effect) return false;
-						if (!inArr(effect.card.type,['LRIG','SIGNI'])) return false;
-						if (!inArr(effect.oldZone,[this.player.handZone,this.player.mainDeck])) return false;
+						var source = this.game.getEffectSource();
+						if (!source) return false;
+						if (!inArr(event.card.type,['LRIG','SIGNI'])) return false;
+						if (!inArr(event.oldZone,[this.player.handZone,this.player.mainDeck])) return false;
 						if (event.newZone !== this.player.enerZone) return false;
 						return true;
 					},
@@ -120542,8 +120543,15 @@ var CardInfo = {
 			costExceed: 2,
 			actionAsyn: function () {
 				var cards = this.player.trashZone.cards.filter(function (card) {
-					return (card.type === 'SPELL') && (card.hasColor('blue') || card.hasColor('black'));
-				});
+					var flag = (card.type === 'SPELL') && (card.hasColor('blue') || card.hasColor('black'));
+					if (!flag) return false;
+					var obj = Object.create(card);
+					obj.costBlue -= 1;
+					if (obj.costBlue < 0) obj.costBlue = 0;
+					obj.costBlack -= 1;
+					if (obj.costBlack < 0) obj.costBlack = 0;
+					return this.player.enoughCost(obj);
+				},this);
 				return this.player.selectOptionalAsyn('TARGET',cards).callback(this,function (card) {
 					var obj = Object.create(card);
 					obj.costBlue -= 1;
@@ -121935,7 +121943,6 @@ var CardInfo = {
 		],
 		constEffects: [{
 			duringGame: true,
-			activatedInTrashZone: true,
 			fixed: true,
 			action: function (set,add) {
 				var effect = this.game.newEffect({
@@ -121943,14 +121950,14 @@ var CardInfo = {
 					description: '1957-const-0',
 					optional: true,
 					triggerCondition: function (event) {
-						return (event.oldZone === this.player.trashZone);
+						return (this.zone === this.player.trashZone) && (event.oldZone === this.player.trashZone);
 					},
 					condition: function () {
 						return this.canSummon();
 					},
 					actionAsyn: function () {
 						return this.summonAsyn().callback(this,function () {
-							this.filedData.excludeWhenTurnEnd = true;
+							this.fieldData.excludeWhenTurnEnd = true;
 						});
 					}
 				});
@@ -123570,7 +123577,7 @@ var CardInfo = {
 					return this.player.selectAsyn('TRASH',cards_B).callback(this,function (card) {
 						if (!card) return;
 						cards_trash.push(card);
-						return this.game.trashCardsAsyn();
+						return this.game.trashCardsAsyn(cards_trash);
 					});
 				});
 			},
