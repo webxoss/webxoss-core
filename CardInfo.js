@@ -121784,28 +121784,6 @@ var CardInfo = {
 		"limiting": "",
 		"imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/PR/PR-307.jpg",
 		"illust": "希",
-		faqs: [
-			{
-				"q": "「エクシードの値が3以下の能力」とはどういうことですか？",
-				"a": "例えば《永遠の巫女　タマヨリヒメ》のエクシード能力のように、エクシードのコストの数値が3以下の能力を使用できます。《黒点の巫女　タマヨリヒメ》のようなエクシード４以上の能力は使用できません。"
-			},
-			{
-				"q": "このアーツによって《永遠の巫女　タマヨリヒメ》のエクシード能力を使用して、対戦相手の《先駆の大天使　アークゲイン》を手札に戻すことはできますか？",
-				"a": "はい、可能です。このアーツによってコストを支払わずに使用されたエクシード能力であっても、使用しているのはルリグですので、アーツの効果を受けない《先駆の大天使　アークゲイン》を手札に戻すことができます。"
-			},
-			{
-				"q": "《永遠の巫女　タマヨリヒメ》の上のエクシード能力のように、「1ターンに一度しか使用できない」という制限のある能力について、通常の手順で一度使用し、同じターンに《リヴァイバル・エクシード》で再度使用できますか？",
-				"a": "いいえ、できません。《リヴァイバル・エクシード》でエクシード能力を使用する際、「1ターンに一度しか使用できない」という制限は無視できません。そのターンは一度使用してしまっている為、《リヴァイバル・エクシード》を使用してもそのエクシード能力は使用できません。"
-			},
-			{
-				"q": "《紆余曲折》などで、そのルリグが元々持っている能力ではなく後から付与されたエクシード能力でも《リヴァイバル・エクシード》で使用できますか？",
-				"a": "はい、できます。"
-			},
-			{
-				"q": "対戦相手の場に《星占の巫女　リメンバ・ナイト》がある場合、《リヴァイバル・エクシード》でエクシード能力を使用する際に《無》×１を支払う必要はありますか？",
-				"a": "《リヴァイバル・エクシード》は、エクシード能力の本来のコストは支払いませんが、《星占の巫女　リメンバ・ナイト》の常時能力によって増えた「使用するためのコスト」は別途支払う必要があります。この場合、追加で《無》×１を支払わなければ使用できません。"
-			}
-		],
 		"classes": [],
 		"costWhite": 0,
 		"costBlack": 0,
@@ -121844,12 +121822,12 @@ var CardInfo = {
 		},
 		artsEffect: {
 			actionAsyn: function () {
-				var actionEffects = this.player.lrig.actionEffects.filter(function (effect) {
+				var effects = this.player.lrig.actionEffects.filter(function (effect) {
 					if (effect.costExceed <= 0) return;
 					if (effect.costExceed > 3) return;
 					return (this.player.canUseActionEffect(effect,{ignoreExceedCost: true}));
-				});
-				if (!actionEffects.length) return;
+				},this);
+				if (!effects.length) return;
 				return this.player.selectAsyn('USE_ACTION_EFFECT',effects).callback(this,function (effect) {
 					if (!effect) return;
 					return this.player.handleActionEffectAsyn(effect,{ignoreExceedCost: true});
