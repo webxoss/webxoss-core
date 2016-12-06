@@ -117032,7 +117032,7 @@ var CardInfo = {
 				return this.player.opponent.discardAsyn(1);
 			}
 		},{
-			costWhite: 1,
+			costBlack: 1,
 			actionAsyn: function () {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return (card.type === 'SIGNI') && card.hasColor('green') && card.canSummon();
@@ -121669,13 +121669,13 @@ var CardInfo = {
 					source: this,
 					description: '1953-const-0',
 					actionAsyn: function () {
-						this.frameStart();
+						this.game.frameStart();
 						this.player.signis.forEach(function (signi) {
 							if (signi.hasClass('空獣') || signi.hasClass('地獣')) {
 								this.game.tillTurnEndAdd(this,signi,'power',3000);
 							}
-						});
-						this.frameEnd();
+						},this);
+						this.game.frameEnd();
 					}
 				});
 				add(this,'onAttack',effect);

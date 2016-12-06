@@ -946,7 +946,7 @@ Player.prototype.useAttackPhaseArtsAsyn = function () {
 };
 
 Player.prototype.useAttackPhaseActionEffect = function () {
-	var cards = concat(this.signis,this.lrig,this.trashZone.cards).filter(function (card) {
+	var cards = concat(this.signis,this.lrig,this.trashZone.cards,this.hands).filter(function (card) {
 		return card.actionEffects.some(function (effect) {
 			return this.canUseActionEffect(effect);
 		},this);
