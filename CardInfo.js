@@ -115343,7 +115343,7 @@ var CardInfo = {
 		"timestamp": 1479020780288,
 		"wxid": "WX14-026",
 		name: "羅石　スイカリン",
-		name_zh_CN: "罗石  西瓜碧玺",
+		name_zh_CN: "罗石 西瓜碧玺",
 		name_en: "Suikaline, Natural Stone",
 		"kana": "ラセキスイカリン",
 		"rarity": "SR",
@@ -115414,7 +115414,7 @@ var CardInfo = {
 		],
 		startUpEffects: [{
 			actionAsyn: function () {
-				return this.player.discardAsyn().callback(this,function (cards) {
+				return this.player.discardAsyn(1).callback(this,function (cards) {
 					if (!this.player.lrig.hasColor('red')) return;
 					var flag = cards.some(function (card) {
 						return card.hasClass('鉱石') || card.hasClass('宝石');
@@ -115599,7 +115599,7 @@ var CardInfo = {
 					this.player.signis.forEach(function (signi) {
 						if (!signi.hasClass('天使')) return;
 						this.game.tillTurnEndSet(this,signi,'canNotBeBanished',true);
-					});
+					},this);
 				});
 			}
 		}]
@@ -115650,7 +115650,7 @@ var CardInfo = {
 		artsEffect: {
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				if (!signis.length) return false;
+				if (!cards.length) return false;
 				return this.player.selectSomeTargetsAsyn(cards).callback(this,function (cards) {
 					if (!cards.length) return;
 					var level = cards.reduce(function (total,card) {
@@ -115741,7 +115741,7 @@ var CardInfo = {
 				},this);
 				return this.player.selectAsyn('DOWN',cards).callback(this,function (card) {
 					if (!card) return;
-					card.dwon();
+					card.down();
 				});
 			},
 			actionAsyn: function () {
@@ -115809,7 +115809,7 @@ var CardInfo = {
 						this.game.trashCards(cards);
 						var value = 3000 * cards.filter(function (card) {
 							return (card.type === 'SIGNI') && card.hasColor('black');
-						},this);
+						},this).length;
 						if (!value) return;
 						return this.decreasePowerAsyn(value);
 					}
@@ -116152,7 +116152,7 @@ var CardInfo = {
 			"【常】：あなたの＜美巧＞のシグニ１体が手札以外から場に出るたび、あなたは《白》を支払ってもよい。そうした場合、対戦相手のシグニ１体を手札に戻す。（このシグニが場に出たときも発動する）"
 		],
 		constEffectTexts_zh_CN: [
-			"【常】：只要你的场上存在2只以上的<美巧>SIGNI，这只SIGNI的力量就变为12000。",
+			"【常】：只要你的场上存在2只以上的绿色<美巧>SIGNI，这只SIGNI的力量就变为12000。",
 			"【常】：你的1只<美巧>SIGNI从手牌以外的地方出场时，你可以支付【白】。这样做了的场合，将对战对手的1只SIGNI返回手牌。（这只SIGNI出场也发动）"
 		],
 		constEffectTexts_en: [
@@ -116162,7 +116162,7 @@ var CardInfo = {
 		constEffects: [{
 			condition: function () {
 				var cards = this.player.signis.filter(function (signi) {
-					return signi.hasClass('美巧');
+					return signi.hasClass('美巧') && signi.hasColor('green');
 				},this);
 				return cards.length >= 2;
 			},
@@ -116805,7 +116805,7 @@ var CardInfo = {
 					if (!card) return;
 					if (card.hasColor('colorless')) return;
 					filter = function (c) {
-						return c.hasSameColorWith(card)
+						return !c.hasSameColorWith(card)
 					}
 					return this.player.searchAsyn(filter,1,0,true).callback(this,function (cards) {
 						if (!cards.length) return;
@@ -117745,7 +117745,7 @@ var CardInfo = {
 		},{
 			actionAsyn: function () {
 				var cards = concat(this.player.signis,this.player.opponent.signis).filter(function (signi) {
-					return signi.assassin || signis.lancer || signi.doubleCrash;
+					return signi.assassin || signi.lancer || signi.doubleCrash;
 				},this);
 				return this.game.banishCardsAsyn(cards);
 			}
@@ -118007,16 +118007,6 @@ var CardInfo = {
 		"limiting": "花代",
 		"imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX14/WX14-025.jpg",
 		"illust": "出水ぽすか",
-		faqs: [
-			{
-				"q": "自分のターンの間、対戦相手のパワー8000以下のシグニが場に出ました。そのシグニの出現時能力の発動と、《撃弩炎　フレイスロ大将》の常時能力でのバニッシュはどちらが先ですか？",
-				"a": "それらのトリガー能力はターンプレイヤー側から先に発動しますので、《撃弩炎　フレイスロ大将》のバニッシュが先となります。また、そのシグニの出現時能力は、トリガーしてから領域を移動してしまった為、不発となります。"
-			},
-			{
-				"q": "こちらの場にカード名に《フレイスロ》を含むシグニが３体ありませんが、場に出したら出現時能力は発動できますか？",
-				"a": "はい、コストを支払って発動することはできますが、その効果によって対戦相手のシグニをバニッシュすることはできません。"
-			}
-		],
 		"classes": [
 			"精武",
 			"ウェポン"
@@ -118079,7 +118069,7 @@ var CardInfo = {
 			actionAsyn: function () {
 				if (this.player.signis.length !== 3) return;
 				var flag = this.player.signis.every(function (signi) {
-					return (signi.indexOf('フレイスロ') !== -1);
+					return (signi.name.indexOf('フレイスロ') !== -1);
 				},this);
 				if (!flag) return;
 				return this.game.banishCardsAsyn(this.player.opponent.signis);
@@ -118739,7 +118729,7 @@ var CardInfo = {
 			}
 		},{
 			costCondition: function () {
-				return this.player.signi.some(function (signi) {
+				return this.player.signis.some(function (signi) {
 					return (signi !== this) && signi.hasClass('毒牙') && card.canTrashAsCost();
 				},this);
 			},
@@ -119096,6 +119086,8 @@ var CardInfo = {
 			"[Action] [White]: Return 1 of your opponent's SIGNI with no abilities to their hand. This ability has Use Timing [Main Phase] [Attack Phase]."
 		],
 		actionEffects: [{
+			mainPhase: true,
+			attackPhase: true,
 			costWhite: 1,
 			actionAsyn: function () {
 				var filter = function (card) {
@@ -119281,7 +119273,7 @@ var CardInfo = {
 			"【常】：場にあるこのシグニが効果によって他のシグニゾーンに移動したとき、ターン終了時まで、このシグニのパワーを＋3000する。"
 		],
 		constEffectTexts_zh_CN: [
-			"【常】：对战对手的1只SIGNI攻击时，可以将那只SIGNI重新配置到其他SIGNI区域。（不能配置到已经有SIGNI的区域）",
+			"【常】：对战对手的1只SIGNI攻击时，可以将这只SIGNI重新配置到其他SIGNI区域。（不能配置到已经有SIGNI的区域）",
 			"【常】：场上的这只SIGNI因效果移动到其他SIGNI区域时，直到回合结束为止，这只SIGNI的力量+3000。"
 		],
 		constEffectTexts_en: [
@@ -119300,12 +119292,13 @@ var CardInfo = {
 						return true;
 					},
 					actionAsyn: function (event) {
-						var zones = this.player.opponent.signiZones.filter(function (zone) {
-							return !zone.disabled && (zone !== event.card.zone) && !zone.cards.length;
+						var zones = this.player.signiZones.filter(function (zone) {
+							return !zone.disabled && (zone !== event.card.zone) && !zone.getActualCards().length;
 						},this);
-						if (!zones.length) return this.player.selectAsyn('RESET_SIGNI_ZONE',zones).callback(this,function (zone) {
+						if (!zones.length) return;
+						return this.player.selectAsyn('RESET_SIGNI_ZONE',zones).callback(this,function (zone) {
 							if (!zone) return;
-							event.card.changeSigniZone(zone);
+							this.changeSigniZone(zone);
 						});
 					}
 				});
@@ -119381,16 +119374,20 @@ var CardInfo = {
 					source: this,
 					description: '1928-const-0',
 					optional: true,
+					triggerCondition: function (event) {
+						if (event.card.type !== 'SIGNI') return false;
+						if (event.card.isEffectFiltered()) return false;
+						return true;
+					},
 					actionAsyn: function (event) {
-						if (event.isEffectFiltered()) return;
-						var zones = this.player.opponent.signiZones.filter(function (zone) {
-							return !zone.disabled && (zone !== event.card.zone) && !zone.cards.length;
+						var zones = this.player.signiZones.filter(function (zone) {
+							return !zone.disabled && (zone !== event.card.zone) && !zone.getActualCards().length;
 						},this);
-						if (!zones.length) return this.player.selectAsyn('RESET_SIGNI_ZONE',zones).callback(this,function (zone) {
+						if (!zones.length) return;
+						return this.player.selectAsyn('RESET_SIGNI_ZONE',zones).callback(this,function (zone) {
 							if (!zone) return;
-							event.card.changeSigniZone(zone);
+							this.changeSigniZone(zone);
 						});
-					}
 				});
 				add(this.player.opponent,'onAttack',effect);
 			}
@@ -119451,7 +119448,7 @@ var CardInfo = {
 			"【常】：場にあるこのシグニが効果によって他のシグニゾーンに移動したとき、ターン終了時まで、このシグニのパワーを＋3000する。"
 		],
 		constEffectTexts_zh_CN: [
-			"【常】：对战对手的1只SIGNI攻击时，可以将那只SIGNI重新配置到其他SIGNI区域。（不能配置到已经有SIGNI的区域）",
+			"【常】：对战对手的1只SIGNI攻击时，可以将这只SIGNI重新配置到其他SIGNI区域。（不能配置到已经有SIGNI的区域）",
 			"【常】：场上的这只SIGNI因效果移动到其他SIGNI区域时，直到回合结束为止，这只SIGNI的力量+3000。"
 		],
 		constEffectTexts_en: [
@@ -119464,14 +119461,19 @@ var CardInfo = {
 					source: this,
 					description: '1928-const-0',
 					optional: true,
+					triggerCondition: function (event) {
+						if (event.card.type !== 'SIGNI') return false;
+						if (event.card.isEffectFiltered()) return false;
+						return true;
+					},
 					actionAsyn: function (event) {
-						if (event.isEffectFiltered()) return;
-						var zones = this.player.opponent.signiZones.filter(function (zone) {
-							return !zone.disabled && (zone !== event.card.zone) && !zone.cards.length;
+						var zones = this.player.signiZones.filter(function (zone) {
+							return !zone.disabled && (zone !== event.card.zone) && !zone.getActualCards().length;
 						},this);
-						if (!zones.length) return this.player.selectAsyn('RESET_SIGNI_ZONE',zones).callback(this,function (zone) {
+						if (!zones.length) return;
+						return this.player.selectAsyn('RESET_SIGNI_ZONE',zones).callback(this,function (zone) {
 							if (!zone) return;
-							event.card.changeSigniZone(zone);
+							this.changeSigniZone(zone);
 						});
 					}
 				});
@@ -120553,6 +120555,7 @@ var CardInfo = {
 					return this.player.enoughCost(obj);
 				},this);
 				return this.player.selectOptionalAsyn('TARGET',cards).callback(this,function (card) {
+					if (!card) return;
 					var obj = Object.create(card);
 					obj.costBlue -= 1;
 					if (obj.costBlue < 0) obj.costBlue = 0;
@@ -120769,6 +120772,7 @@ var CardInfo = {
 				}).callback(this,function () {
 					if (this.player.enerZone.cards.length) return;
 					this.player.enerCharge(2);
+				}).callback(this,function () {
 					if (this.player.signis.length) return;
 					var cards = this.player.hands.filter(function (card) {
 						return card.canSummon();
@@ -122328,6 +122332,10 @@ var CardInfo = {
 			"Encore - [Blue] [Colorless]\n" +
 			"You may use 1 spell from your opponent's trash as if it were in your hand without paying its cost and ignoring its limiting conditions. This turn, if that spell would be moved to a different zone from the Check Zone, it is excluded from the game instead."
 		],
+		encore: {
+			costBlue: 1,
+			costColorless: 1,
+		},
 		artsEffect: {
 			actionAsyn: function () {
 				// 复制并修改自 WX05-011
@@ -122535,7 +122543,7 @@ var CardInfo = {
 					return this.player.showCardsAsyn(cards);
 				}
 				this.player.informCards(cards);
-				return this.player.selectSomeAsyn('TRASH',cards,0,1,false,cards).callback(this,function (cards) {
+				return this.player.selectSomeAsyn('TRASH',targets,0,1,false,cards).callback(this,function (cards) {
 					this.game.trashCards(cards);
 				});
 			}
@@ -123687,7 +123695,7 @@ var CardInfo = {
 							source: this,
 							destroyTimming: this.player.onTurnStart,
 							action: function (set,add) {
-								add(this,resona,'effectFilters',function (card) {
+								add(resona,'effectFilters',function (card) {
 									return (card.player !== this.player.opponent) || (card.type !== 'SIGNI');
 								});
 							}

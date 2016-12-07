@@ -867,7 +867,6 @@ Player.prototype.useOnAttackActionEffectAsyn = function (event) {
 
 Player.prototype.handleActionEffectAsyn = function (effect,arg) {
 	if (!arg) arg = {};
-	this.usedActionEffects.push(effect);
 	return this.game.blockAsyn(this,function () {
 		var obj = Object.create(effect);
 		if (obj.costColorless) {
@@ -890,6 +889,7 @@ Player.prototype.handleActionEffectAsyn = function (effect,arg) {
 			this.inActionEffectCost = false;
 			if (!costArg) return; // canceled
 			effect.source.activate();
+			this.usedActionEffects.push(effect);
 			return this.game.blockAsyn(effect.source,this,function () {
 				return effect.actionAsyn.call(effect.source,costArg,arg);
 			});
