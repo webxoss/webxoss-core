@@ -119388,6 +119388,7 @@ var CardInfo = {
 							if (!zone) return;
 							this.changeSigniZone(zone);
 						});
+					}
 				});
 				add(this.player.opponent,'onAttack',effect);
 			}
