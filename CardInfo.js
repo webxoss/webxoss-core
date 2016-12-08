@@ -107249,7 +107249,8 @@ var CardInfo = {
 						if (cards_trash.length >= 2) return;
 						if (!cards_B.length) return;
 						var min = 2 - cards_trash.length - cards_C.length;
-						return this.player.selectSomeAsyn('TRASH',cards_B,min,2).callback(this,function (cards) {
+						var max = 2 - cards_trash;
+						return this.player.selectSomeAsyn('TRASH',cards_B,min,max).callback(this,function (cards) {
 							cards_trash = cards_trash.concat(cards);
 						});
 					}).callback(this,function () {
@@ -119760,7 +119761,7 @@ var CardInfo = {
 		resonaPhase: 'mainPhase',
 		resonaCondition: function () {
 			var filter = function (card) {
-				return card.hasClass('游具') && !card.resona && card.canTrashAsCost();
+				return card.hasClass('遊具') && !card.resona && card.canTrashAsCost();
 			};
 			var cards_A = this.player.signis.filter(filter);
 			var cards_B = this.player.hands.filter(filter);
@@ -119809,7 +119810,7 @@ var CardInfo = {
 
 			// 可以不用废弃 SIGNI
 			if (this.canSummon()) {
-				return afterCanSummonAsyn();
+				return afterCanSummonAsyn;
 			} else {
 				// 需要废弃1~2只 SIGNI
 				var cards = []; // 可以废弃的 SIGNI
@@ -119918,7 +119919,7 @@ var CardInfo = {
 							}
 						});
 						this.game.tillTurnEndAdd(this,this.player.opponent,'onSigniBanished',effect);
-					});
+					},this);
 				});
 			}
 		}],
@@ -119984,7 +119985,7 @@ var CardInfo = {
 		resonaCondition: function () {
 			// 复制并修改自<白罗星 新月>
 			var filter = function (card) {
-				return card.hasClass('游具') && !card.resona && card.canTrashAsCost();
+				return card.hasClass('遊具') && !card.resona && card.canTrashAsCost();
 			};
 			var cards_A = this.player.signis.filter(filter);
 			var cards_B = this.player.hands.filter(filter);
@@ -120003,7 +120004,8 @@ var CardInfo = {
 						if (cards_trash.length >= 2) return;
 						if (!cards_B.length) return;
 						var min = 2 - cards_trash.length - cards_C.length;
-						return this.player.selectSomeAsyn('TRASH',cards_B,min,2).callback(this,function (cards) {
+						var max = 2 - cards_trash;
+						return this.player.selectSomeAsyn('TRASH',cards_B,min,max).callback(this,function (cards) {
 							cards_trash = cards_trash.concat(cards);
 						});
 					}).callback(this,function () {
