@@ -39530,7 +39530,9 @@ var CardInfo = {
 				});
 			},
 			actionAsyn: function () {
-				return this.player.rearrangeOpponentSignisAsyn();
+				return this.player.rearrangeOpponentSignisAsyn().callback(this,function () {
+					this.player.draw(1);
+				});
 			}
 		}],
 		// ======================
@@ -119773,10 +119775,10 @@ var CardInfo = {
 			if (concat(cards_A,cards_B,cards_C).length < 3) return null;
 
 			var canSummonWithout = function (signis) {
-				var signis = this.player.signis.filter(function (signi) {
+				var cards = this.player.signis.filter(function (signi) {
 					return !inArr(signi,signis);
 				},this);
-				return this.canSummonWith(signis);
+				return this.canSummonWith(cards);
 			}.bind(this);
 
 			var afterCanSummonAsyn = function () {
@@ -119826,11 +119828,11 @@ var CardInfo = {
 				var signis = [];
 				// 废弃1只就可以出场的情况
 				cards_A.forEach(function (signi) {
-					if (this.canSummonWithout([signi])) add([signi])
+					if (canSummonWithout([signi])) add([signi])
 				},this);
 				// 废弃2只才能出场的情况
 				if (cards_A.length === 2) {
-					if (this.canSummonWithout(cards_A)) add(cards_A);
+					if (canSummonWithout(cards_A)) add(cards_A);
 				}
 				if (cards_A.length === 3) {
 					this.player.signis.forEach(function (signi) {
@@ -119839,7 +119841,7 @@ var CardInfo = {
 								return card !== signi;
 							}));
 						}
-					});
+					},this);
 				}
 				if (cards.length) {
 					return function () {
@@ -119847,10 +119849,10 @@ var CardInfo = {
 						return this.player.selectAsyn('TRASH',cards).callback(this,function (card) {
 							cards_trash.push(card);
 							removeFromArr(card,cards_A);
-							if (this.canSummonWithout([card])) return;
+							if (canSummonWithout([card])) return;
 							// 必须再废弃1只
-							var cards = cards_A.map(function (signi) {
-								return this.canSummonWithout([card,signi]);
+							var cards = cards_A.filter(function (signi) {
+								return canSummonWithout([card,signi]);
 							},this);
 							return this.player.selectAsyn('TRASH',cards).callback(this,function (card) {
 								cards_trash.push(card);
@@ -120057,7 +120059,7 @@ var CardInfo = {
 		],
 		startUpEffectTexts_zh_CN: [
 			"【出】：对战对手的检查区中存在魔法卡的场合，从以下两项中选择1项。这个出现时能力在那个魔法效果之前发动。\n" +
-			"①从你的卡组顶将3张卡放置到废弃区。\n" +
+			"①从你的卡组顶将3张卡放置到能量区。\n" +
 			"②从对战对手的废弃区中将至多1张SIGNI和至多1张魔法卡从游戏中除外。",
 		],
 		startUpEffectTexts_en: [
@@ -120073,7 +120075,8 @@ var CardInfo = {
 					description: '1934-attached-0',
 					actionAsyn: function () {
 						var cards = this.player.mainDeck.getTopCards(3);
-						this.game.trashCards(cards);
+						if (!cards.length) return;
+						this.game.moveCards(cards,this.player.enerZone);
 					}
 				},{
 					source: this,
