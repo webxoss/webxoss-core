@@ -116872,14 +116872,15 @@ var CardInfo = {
 				var effect = this.game.newEffect({
 					source: this,
 					description: '1897-const-0',
-					triggerCondition: function (event) {
-						return event.card.hasClass('天使')
-					},
 					actionAsyn: function () {
 						return this.decreasePowerAsyn(3000);
 					}
 				});
-				add(this.player,'onSigniBanished',effect);
+				this.player.signis.forEach(function (signi) {
+					if (signi === this) return;
+					if (!signi.hasClass('天使')) return;
+					add(signi,'onBanish',effect);
+				});
 			}
 		}],
 		// ======================
