@@ -117707,17 +117707,17 @@ var CardInfo = {
 		artsEffectTexts_zh_CN: [
 			"从以下4项中选择最多2项。\n" +
 			"①直到回合结束为止，将对战对手的至多2张SIGNI的力量-8000。\n" +
-			"②将对战对手所有力量7000以下是SIGNI驱逐。\n" +
+			"②将对战对手所有力量7000以下的SIGNI驱逐。\n" +
 			"③将所有的持有【暗杀】或【枪兵】或【双重击溃】的SIGNI驱逐。\n" +
 			"④从你的废弃区将至多2张SIGNI加入手牌。",
 			"直到回合结束为止，将对战对手的至多2张SIGNI的力量-8000。",
-			"将对战对手所有力量7000以下是SIGNI驱逐。",
+			"将对战对手所有力量7000以下的SIGNI驱逐。",
 			"将所有的持有【暗杀】或【枪兵】或【双重击溃】的SIGNI驱逐。",
 			"从你的废弃区将至多2张SIGNI加入手牌。"
 		],
 		artsEffectTexts_en: [
 			"Choose 2 of the following 4.\n" +
-			"① Until end of turn, 2 of your opponent's SIGNI get −8000 power.\n" +
+			"① Until end of turn, up to 2 of your opponent's SIGNI get −8000 power.\n" +
 			"② Banish all of your opponent's SIGNI with power 7000 or less.\n" +
 			"③ Banish all SIGNI with either [Assassin], [Lancer], or [Double Crush].\n" +
 			"④ Add up to 2 SIGNI from your trash to your hand.",
@@ -117735,7 +117735,8 @@ var CardInfo = {
 		artsEffect: [{
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectSomeTargetsAsyn(cards).callback(this,function (cards) {
+				if (!cards.length) return;
+				return this.player.selectSomeTargetsAsyn(cards,0,2).callback(this,function (cards) {
 					cards.forEach(function (card) {
 						this.game.tillTurnEndAdd(this,card,'power',-8000);
 					},this);
@@ -118730,7 +118731,7 @@ var CardInfo = {
 							return card.decreasePowerAsyn(7000);
 						}
 					};
-					this.game.tillTurnEndAdd(this,this,'upProtections',protections);
+					this.game.tillTurnEndAdd(this,this,'upProtections',protection);
 				});
 			}
 		},{
