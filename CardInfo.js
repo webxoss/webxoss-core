@@ -19401,7 +19401,7 @@ var CardInfo = {
 			"【常】：我方生命护甲中每增加1张牌，可以支付（蓝）（蓝）（蓝）。若如此做，破坏对方1只精灵。"
 		],
 		constEffectTexts_en: [
-			"[Constant]: Each time your Life Burst is triggered, you may draw a card.",
+			"[Constant]: Each time your Life Burst is triggered, draw 1 card.",
 			"[Constant]: Each time a card is added to your Life Cloth, you may pay [Blue][Blue][Blue]. If you do, banish one of your opponent's SIGNI."
 		],
 		constEffects: [{
@@ -108429,7 +108429,10 @@ var CardInfo = {
 							return (card.type === 'SPELL');
 						},this);
 						return this.player.selectSomeTargetsAsyn(cards,0,2).callback(this,function (cards) {
-							this.game.excludeCards(cards);
+							if (!cards.length) return;
+							return this.player.opponent.showCardsAsyn(cards).callback(this,function () {
+								this.game.excludeCards(cards);
+							});
 						});
 					}
 				},{
@@ -112436,7 +112439,7 @@ var CardInfo = {
 			"【出】【白】将你的1只共鸣SIGNI放置到LRIG废弃区：将对战对手的至多2只等级3以下的SIGNI返回手牌。"
 		],
 		startUpEffectTexts_en: [
-			"[On-Play] [White] Put 1 of your Resonas into the LRIG Trash: Return up to 2 of your opponent's level 3 or less SIGNI to their hand."
+			"[On-Play] [White] Put 1 of your Resonas from the field into the LRIG Trash: Return up to 2 of your opponent's level 3 or less SIGNI to their hand."
 		],
 		startUpEffects: [{
 			costWhite: 1,
@@ -118731,12 +118734,12 @@ var CardInfo = {
 		},{
 			costCondition: function () {
 				return this.player.signis.some(function (signi) {
-					return (signi !== this) && signi.hasClass('毒牙') && card.canTrashAsCost();
+					return (signi !== this) && signi.hasClass('毒牙') && signi.canTrashAsCost();
 				},this);
 			},
 			costAsyn: function () {
-				var cards = this.player.signis.filter(function (card) {
-					return (signi !== this) && signi.hasClass('毒牙') && card.canTrashAsCost();
+				var cards = this.player.signis.filter(function (signi) {
+					return (signi !== this) && signi.hasClass('毒牙') && signi.canTrashAsCost();
 				},this);
 				return this.player.selectAsyn('PAY',cards).callback(this,function (card) {
 					if (!card) return;
