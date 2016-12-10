@@ -48747,7 +48747,7 @@ var CardInfo = {
 				var cards = this.player.mainDeck.getTopCards(5);
 				var countMap = {};
 				var classes = [];
-				function add (cls) {
+				var add = function (cls) {
 					if (cls in countMap) {
 						countMap[cls]++;
 						if (countMap[cls] === 3) classes.push(cls);
@@ -119827,7 +119827,7 @@ var CardInfo = {
 			} else {
 				// 需要废弃1~2只 SIGNI
 				var cards = []; // 可以废弃的 SIGNI
-				function add (signis) {
+				var add = function (signis) {
 					signis.forEach(function (signi) {
 						if (inArr(signi,cards)) return;
 						cards.push(signi);
@@ -120214,15 +120214,13 @@ var CardInfo = {
 				var effect = this.game.newEffect({
 					source: this,
 					description: '1935-const-1',
-					condition: function () {
-						return this.player.lrig && this.player.lrig.hasClass('アイヤイ');
-					},
 					triggerCondition: function (event) {
 						return inArr(event.oldZone,[this.player.mainDeck,this.player.handZone]) &&
 						       (event.newZone === this.player.trashZone);
 					},
 					condition: function () {
-						return (this.zone === this.player.trashZone);
+						return this.player.lrig && this.player.lrig.hasClass('アイヤイ') &&
+						       (this.zone === this.player.trashZone);
 					},
 					actionAsyn: function () {
 						this.moveTo(this.player.enerZone);
