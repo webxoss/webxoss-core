@@ -123104,7 +123104,7 @@ var CardInfo = {
 				if (colors.length === 1) return colors[0];
 				return this.player.selectTextAsyn('COLOR',colors);
 			}).callback(this,function (color) {
-				if (color === 'black') return black;
+				if (color === 'red') return red;
 				return green;
 			});
 		},
