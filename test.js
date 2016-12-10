@@ -58,7 +58,14 @@ if (global.window) {
 		pingTimeout: 30000,
 		maxHttpBufferSize: 1024*1024,
 	});
-	server.listen(80);
+	var port = 80;
+	process.argv.slice(2).forEach(function (arg) {
+		var match = arg.match(/^port=(\d+)/)
+		if (match) {
+			port = +match[1];
+		}
+	});
+	server.listen(port);
 }
 
 var cfg = {
