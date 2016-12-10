@@ -121031,7 +121031,11 @@ var CardInfo = {
 					return (card.type === 'SPELL');
 				},this);
 				if (cards.length < 3) return;
-				return this.decreasePowerAsyn(3000,1,1);
+				cards = this.player.opponent.signis;
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
+					if (!card) return;
+					this.game.tillTurnEndAdd(this,card,'power',-3000);
+				});
 			}
 		}],
 	},
