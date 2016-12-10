@@ -736,7 +736,7 @@ Player.prototype.useSpellCutInArtsAsyn = function () {
 		cards = cards.concat(this.getResonas({spellCutIn: true}));
 		concat(this.signis,this.lrig).forEach(function (card) {
 			var hasSpellCutInEffect = card.actionEffects.some(function (effect) {
-				return effect.spellCutIn && this.canUseActionEffect(effect);
+				return this.canUseActionEffect(effect,{spellCutIn: true});
 			},this);
 			if (hasSpellCutInEffect) cards.push(card);
 		},this);
@@ -798,11 +798,15 @@ Player.prototype.canUseActionEffect = function (effect,arg) {
 	// inTrashZone
 	if (effect.source.zone === this.trashZone && !effect.activatedInTrashZone) return false;
 	if (effect.source.zone !== this.handZone && effect.activatedInHand) return false;
-	// attackPhase
-	if (this.game.phase.isAttackPhase()) {
-		if (!effect.attackPhase) return false;
+	// attackPhase && spellCutIn
+	if (arg.spellCutIn) {
+		if (!effect.spellCutIn) return false;
 	} else {
-		if (effect.attackPhase && !effect.mainPhase) return false;
+		if (this.game.phase.isAttackPhase()) {
+			if (!effect.attackPhase) return false;
+		} else {
+			if (effect.attackPhase && !effect.mainPhase) return false;
+		}
 	}
 	// onAttack
 	if (arg.onAttack && !effect.onAttack) return false;
