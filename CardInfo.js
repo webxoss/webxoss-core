@@ -115657,7 +115657,9 @@ var CardInfo = {
 		],
 		artsEffect: {
 			actionAsyn: function () {
-				var cards = this.player.opponent.signis;
+				var cards = this.player.signis.filter(function (signi) {
+					return signi.hasColor('black');
+				},this);
 				if (!cards.length) return false;
 				return this.player.selectSomeTargetsAsyn(cards).callback(this,function (cards) {
 					if (!cards.length) return;
@@ -115686,6 +115688,8 @@ var CardInfo = {
 								return card.summonAsyn();
 							});
 						});
+					}).callback(this,function () {
+						return false;
 					});
 				});
 			}
