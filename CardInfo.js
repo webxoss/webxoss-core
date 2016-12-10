@@ -115331,7 +115331,9 @@ var CardInfo = {
 				}
 				if (!cards.length) return;
 				return this.player.showCardsAsyn(cards).callback(this,function () {
-					return this.game.excludeCards(cards);
+					return this.player.opponent.showCardsAsyn(cards).callback(this,function () {
+						this.game.excludeCards(cards);
+					});
 				});
 			}
 		},{
@@ -118050,7 +118052,7 @@ var CardInfo = {
 				var effect = this.game.newEffect({
 					source: this,
 					description: '1912-const-0',
-					triggerCondition: function (event) {
+					condition: function (event) {
 						return (event.card.power <= 8000);
 					},
 					actionAsyn: function (event) {
@@ -118724,7 +118726,7 @@ var CardInfo = {
 				return this.decreasePowerAsyn(5000).callback(this,function () {
 					var protection = {
 						source: this,
-						description: '1920-const-0',
+						description: '1920-action-0',
 						condition: function () {
 							return this.game.getEffectSource();
 						},

@@ -597,7 +597,7 @@ Card.prototype.upAsyn = function () {
 	if (!this.upProtections.length) return Callback.immediately(this.up());
 	return this.player.selectAsyn('CHOOSE_EFFECT',protections).callback(this,function (protection) {
 		protection.source.activate();
-		return protection.actionAsyn.call(protection.source,card);
+		return protection.actionAsyn.call(protection.source,this);
 	}).callback(this,function () {
 		return true;
 	});
