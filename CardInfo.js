@@ -121989,6 +121989,7 @@ var CardInfo = {
 					actionAsyn: function () {
 						return this.summonAsyn().callback(this,function () {
 							this.fieldData.excludeWhenTurnEnd = true;
+							this.fieldData.excludeWhenLeaveField = true;
 						});
 					}
 				});

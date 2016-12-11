@@ -666,6 +666,12 @@ Card.prototype.moveTo = function (zone,arg) {
 			arg = {}; // 忽略移动参数
 		}
 	}
+	// <コードアンチ　カイヅカ>
+	if (this.fieldData.excludeWhenLeaveField) {
+		if (inArr(this,this.player.signis) && zone.name !== 'SigniZone') {
+			zone = this.player.excludedZone;
+		}
+	}
 	if (arg === undefined) arg = {};
 	if (arg.up === undefined) arg.up = zone.up;
 	if (arg.faceup === undefined) arg.faceup = zone.faceup;
