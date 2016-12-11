@@ -755,7 +755,7 @@ Player.prototype.useSpellCutInArtsAsyn = function () {
 			} else {
 				// 如果选择的是持有起动效果的卡
 				var effects = card.actionEffects.filter(function (effect) {
-					return effect.spellCutIn && this.canUseActionEffect(effect);
+					return this.canUseActionEffect(effect,{spellCutIn: true});
 				},this);
 				if (!effects.length) return false;
 				return Callback.immediately().callback(this,function () {

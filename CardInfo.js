@@ -109713,7 +109713,7 @@ var CardInfo = {
 				var filter = function (card) {
 					return card.guardFlag && card.hasColor('colorless');
 				};
-				return this.player.pickCardAsyn(filter,1,2);
+				return this.player.pickCardAsyn(filter,0,2);
 			}
 		}
 	},
