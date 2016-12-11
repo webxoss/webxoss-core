@@ -117872,8 +117872,13 @@ var CardInfo = {
 		],
 		actionEffects: [{
 			costExceed: 1,
-			once: true,
+			useCondition: function () {
+				return !(this.game.getData(this,'_1909') >= 2)
+			},
 			actionAsyn: function () {
+				var count = this.game.getData(this,'_1909') || 0;
+				count++
+				this.game.setData(this,'_1909',count);
 				var filter = function (card) {
 					return (card.name.indexOf('フレイスロ') !== -1);
 				};
