@@ -117817,7 +117817,7 @@ var CardInfo = {
 		],
 		constEffectTexts_zh_CN: [
 			"【常】：你的废弃区中每存在7张名字含有《火焰喷射》的卡，这张卡的成长费用就减少【红1】。",
-			"【常】：你的1只名字含有《火焰喷射》的SIGNI离场时，可以从你的手牌将1张等级比那只SIGNI低的、名字含有《火焰喷射》的SIGNI出场。",
+			"【常】：你的1只名字含有《火焰喷射》的SIGNI离场时，可以从你的手牌将1张等级比那只SIGNI低的、名字含有《火焰喷射》的SIGNIwx14-009以横置状态出场。",
 		],
 		constEffectTexts_en: [
 			"[Constant]: The cost to grow into this card is decreased by 1 [Red] for each 7 cards with \"Flathro\" in their card name in your trash.",
@@ -117841,7 +117841,7 @@ var CardInfo = {
 						},this);
 						return this.player.selectOptionalAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
 							if (!card) return;
-							return card.summonAsyn();
+							return card.summonAsyn(false,false,true);
 						});
 					}
 				});
