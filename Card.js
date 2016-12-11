@@ -538,10 +538,11 @@ Card.prototype.getColors = function (ignoreColorless) {
 	if (!this._SnoropNaturalPlantPrincess) return colors;
 	if (!inArr(this,this.player.signis)) return colors;
 	this.player.enerZone.cards.forEach(function (card) {
-		var color = card.color;
-		if (color === 'colorless') return;
-		if (inArr(color,colors)) return;
-		colors.push(color);
+		card.otherColors.concat(card.color).forEach(function (color) {
+			if (color === 'colorless') return;
+			if (inArr(color,colors)) return;
+			colors.push(color);
+		},this);
 	});
 	return colors;
 };
