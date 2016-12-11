@@ -118849,6 +118849,7 @@ var CardInfo = {
 			attackPhase: true,
 			actionAsyn: function () {
 				return this.player.selectOpponentSigniAsyn().callback(this,function (card) {
+					if (!card) return;
 					this.game.tillTurnEndSet(this,card,'abilityLost',true);
 					this.game.tillTurnEndSet(this,card,'canNotGainAbility',true, {forced: true});
 				});
