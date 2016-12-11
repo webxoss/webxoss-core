@@ -117116,14 +117116,16 @@ var CardInfo = {
 				return this.player.selectAsyn('TRASH',cards).callback(this,function (card) {
 					if (!card) return;
 					card.trash();
-					return card;
+					return card.getColors(true);
 				});
 			},
 			actionAsyn: function (costArg) {
-				var c = costArg.others;
-				if (!c) return;
+				var colors = costArg.others;
+				if (!colors) return;
 				var filter = function (card) {
-					return (card.cid !== 1899) && (card.level <= 4) && card.hasSameColorWith(c);
+					return (card.cid !== 1899) && (card.level <= 4) && (card.type === 'SIGNI') && card.getColors(true).some(function (color) {
+						return inArr(color, colors);
+					},this);
 				};
 				return this.player.seekAsyn(filter,1);
 			}
