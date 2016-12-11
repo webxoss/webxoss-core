@@ -35030,6 +35030,8 @@ var CardInfo = {
 		],
 		actionEffects: [{
 			onAttack: true,
+			attackPhase: true,
+			mainPhase: true,
 			costExceed: 2,
 			useCondition: function (arg) {
 				return (arg.event.card.type === 'SIGNI');
