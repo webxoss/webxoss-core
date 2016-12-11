@@ -799,13 +799,15 @@ Player.prototype.canUseActionEffect = function (effect,arg) {
 	if (effect.source.zone === this.trashZone && !effect.activatedInTrashZone) return false;
 	if (effect.source.zone !== this.handZone && effect.activatedInHand) return false;
 	// attackPhase && spellCutIn
-	if (arg.spellCutIn) {
-		if (!effect.spellCutIn) return false;
-	} else {
-		if (this.game.phase.isAttackPhase()) {
-			if (!effect.attackPhase) return false;
+	if (!arg.ignoreTimming) {
+		if (arg.spellCutIn) {
+			if (!effect.spellCutIn) return false;
 		} else {
-			if (effect.attackPhase && !effect.mainPhase) return false;
+			if (this.game.phase.isAttackPhase()) {
+				if (!effect.attackPhase) return false;
+			} else {
+				if (effect.attackPhase && !effect.mainPhase) return false;
+			}
 		}
 	}
 	// onAttack

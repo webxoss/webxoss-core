@@ -121856,7 +121856,10 @@ var CardInfo = {
 				var effects = this.player.lrig.actionEffects.filter(function (effect) {
 					if (effect.costExceed <= 0) return;
 					if (effect.costExceed > 3) return;
-					return (this.player.canUseActionEffect(effect,{ignoreExceedCost: true}));
+					return (this.player.canUseActionEffect(effect,{
+						ignoreExceedCost: true,
+						ignoreTimming: true,
+					}));
 				},this);
 				if (!effects.length) return;
 				return this.player.selectAsyn('USE_ACTION_EFFECT',effects).callback(this,function (effect) {
