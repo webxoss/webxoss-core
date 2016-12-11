@@ -276,15 +276,17 @@ Phase.prototype.endPhase = function () {
 	this.game.effectManager.triggeredEffects.length = 0; // 1回合1次的效果.
 	this.game.handleFrameEnd();
 	Callback.immediately().callback(this,function () {
-		// 处理"回合结束时,把XXX放到废弃区".
+		// 处理"回合结束时,把XXX放到废弃区" + "回合结束时,把XXX除外".
 		// 同时触发"回合结束时"时点.
 		var cards = concat(this.player.signis,this.player.opponent.signis).filter(function (signi) {
-			if (signi.fieldData.excludeWhenTurnEnd) {
-				signi.fieldData.excludeWhenTurnEnd = false;
-				return true;
-			}
 			if (signi.fieldData.trashWhenTurnEnd) {
 				signi.fieldData.trashWhenTurnEnd = false;
+				return true;
+			}
+		},this);
+		var cards_exclude = concat(this.player.signis,this.player.opponent.signis).filter(function (signi) {
+			if (signi.fieldData.excludeWhenTurnEnd) {
+				signi.fieldData.excludeWhenTurnEnd = false;
 				return true;
 			}
 		},this);
@@ -306,6 +308,7 @@ Phase.prototype.endPhase = function () {
 			//     player.onTurnEnd2 指弃牌之前.
 			this.player.onTurnEnd2.trigger();
 			this.game.trashCards(cards);
+			this.game.excludeCards(cards_exclude);
 		});
 	}).callback(this,function () {
 		// 弃牌

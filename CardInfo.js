@@ -115415,7 +115415,7 @@ var CardInfo = {
 			"【出】：あなたは手札を１枚捨てる。この方法で捨てたカードが＜鉱石＞または＜宝石＞のシグニで、あなたのルリグが赤の場合、ターン終了時まで、このシグニは【アサシン】を得る。"
 		],
 		startUpEffectTexts_zh_CN: [
-			"【出】：你将1张手牌舍弃。通过这个方法舍弃的卡为<矿石>或者<宝石>SIGNI，且你的LRIG为红色的场合，直到回合结束为止，这只SIGNI获得【枪兵】。"
+			"【出】：你将1张手牌舍弃。通过这个方法舍弃的卡为<矿石>或者<宝石>SIGNI，且你的LRIG为红色的场合，直到回合结束为止，这只SIGNI获得【暗杀者】。"
 		],
 		startUpEffectTexts_en: [
 			"[On-Play]: Discard 1 card from your hand. If the card that was discarded this way was an <Ore> or <Gem> SIGNI, and your LRIG is red, until end of turn, this SIGNI gets [Assassin]."
@@ -115428,7 +115428,7 @@ var CardInfo = {
 						return card.hasClass('鉱石') || card.hasClass('宝石');
 					},this);
 					if (flag) {
-						this.game.tillTurnEndSet(this,this,'lancer',true);
+						this.game.tillTurnEndSet(this,this,'assassin',true);
 					}
 				});
 			}
