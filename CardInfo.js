@@ -117865,7 +117865,7 @@ var CardInfo = {
 			"【起】エクシード１：あなたのトラッシュからカード名に《フレイスロ》を含むシグニ１枚を手札に加える。この能力は１ターンに二度までしか使用できない。"
 		],
 		actionEffectTexts_zh_CN: [
-			"【起】超越1：从你的废弃区将1张名字含有《火焰喷射》的SIGNI加入手牌。这个能力1回合只能使用1次。"
+			"【起】超越1：从你的废弃区将1张名字含有《火焰喷射》的SIGNI加入手牌。这个能力1回合只能使用至多2次。"
 		],
 		actionEffectTexts_en: [
 			"[Action] Exceed 1: Add 1 SIGNI with \"Flathro\" in its card name from your trash to your hand. This ability can only be used up to twice per turn."
