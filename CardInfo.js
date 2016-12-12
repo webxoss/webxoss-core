@@ -123650,7 +123650,7 @@ var CardInfo = {
 					if (text === 'ADD_TO_HAND') {
 						return this.player.pickCardAsyn(filter);
 					} else {
-						cards = this.player.trashZone.cards.filter(function (card) {
+						var cards = this.player.trashZone.cards.filter(function (card) {
 							return filter(card) && card.canSummon();
 						},this);
 						return this.player.selectOptionalAsyn('TARGET',cards).callback(this,function (card) {
