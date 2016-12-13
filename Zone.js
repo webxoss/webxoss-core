@@ -58,6 +58,9 @@ Zone.prototype.getActualCards = function () {
 };
 
 Zone.prototype.moveCardsToTop = function (cards) {
+	cards = cards.filter(function (card) {
+		return inArr(card,this.cards);
+	},this);
 	cards.forEach(function (card) {
 		removeFromArr(card,this.cards);
 	},this);
@@ -65,6 +68,9 @@ Zone.prototype.moveCardsToTop = function (cards) {
 };
 
 Zone.prototype.moveCardsToBottom = function (cards) {
+	cards = cards.filter(function (card) {
+		return inArr(card,this.cards);
+	},this);
 	cards.forEach(function (card) {
 		removeFromArr(card,this.cards);
 	},this);

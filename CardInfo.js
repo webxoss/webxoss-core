@@ -116192,6 +116192,7 @@ var CardInfo = {
 					description: '1888-const-1',
 					triggerCondition: function (event) {
 						return inArr(this,this.player.signis) &&
+						       (event.card.hasClass('美巧')) &&
 						       (event.oldZone !== this.player.handZone) &&
 						       (!event.isCharm);
 					},
@@ -119741,6 +119742,7 @@ var CardInfo = {
 		cid: 1933,
 		"timestamp": 1479021155676,
 		"wxid": "WX14-006A",
+		sideB: 1934,
 		name: "緑肆ノ遊　アスレ【ＨＡＲＤ】",
 		name_zh_CN: "绿肆之游 绳架【HARD】",
 		name_en: "Athle (HARD), Green Fourth Play",
@@ -119907,6 +119909,9 @@ var CardInfo = {
 				var effect = this.game.newEffect({
 					source: this,
 					description: '1933-const-0',
+					triggerCondition: function (event) {
+						return inArr(event.card,this.player.signis);
+					},
 					actionAsyn: function () {
 						return this.player.enerCharge(1);
 					}
@@ -119964,6 +119969,7 @@ var CardInfo = {
 		cid: 1934,
 		"timestamp": 1479021156233,
 		"wxid": "WX14-006B",
+		sideB: 1933,
 		name: "緑弐ノ遊　アスレ【ＮＯＲＭＡＬ】",
 		name_zh_CN: "绿弍之游 绳架【NORMAL】",
 		name_en: "Athle (NORMAL), Green Second Play",
@@ -122477,7 +122483,7 @@ var CardInfo = {
 			"【出】《青》：対戦相手のトラッシュからスペル１枚をあなたの手札にあるかのように使用する。（コストは支払い、限定条件は無視しない）"
 		],
 		startUpEffectTexts_zh_CN: [
-			"【出】【蓝】：将对战对手的废弃区中的1张魔法卡视为你的手牌不支付费用无视限定条件使用它。"
+			"【出】【蓝】：将对战对手的废弃区中的1张魔法卡视为你的手牌使用它。（支付费用，不能无视限定条件）"
 		],
 		startUpEffectTexts_en: [
 			"[On-Play] [Blue] You may use 1 spell from your opponent's trash as if it were in your hand. (Cost payment and limiting conditions are not ignored.)"
@@ -122488,12 +122494,16 @@ var CardInfo = {
 				// 复制并修改自 WX05-011
 				if (this.player.spellBanned) return;
 				var cards = this.player.opponent.trashZone.cards.filter(function (card) {
-					return (card.type === 'SPELL') &&
-					       (!card.useCondition || card.useCondition());
+					if (card.type !== 'SPELL') return false;
+					var player = card.player;
+					card.player = this.player;
+					var flag = card.canUse();
+					card.player = player;
+					return flag;
 				},this);
 				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
 					if (!card) return;
-					return this.player.handleSpellAsyn(card,true,null);
+					return this.player.handleSpellAsyn(card);
 				});
 			}
 		}],
