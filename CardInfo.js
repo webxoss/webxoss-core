@@ -121861,7 +121861,7 @@ var CardInfo = {
 		],
 		costChange: function () {
 			if (this.game.turnPlayer === this.player.opponent) return {
-				colorless: 3
+				costColorless: 3
 			};
 			var obj = Object.create(this);
 			obj.costChange = null;

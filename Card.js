@@ -449,7 +449,7 @@ Card.prototype.canAttack = function () {
 
 	// <バインド・ウェポンズ>
 	if (this.type === 'SIGNI') {
-		var attackCount = this.game.getData(this,'attackCount') || 0;
+		var attackCount = this.fieldData.attackCount || 0;
 		if (attackCount >= this.player.signiAttackCountLimit) return false;
 	} else {
 		var lrigAttackCount = this.game.getData(this.player,'lrigAttackCount') || 0;
@@ -1019,8 +1019,8 @@ Card.prototype.attackAsyn = function () {
 	}
 	// <バインド・ウェポンズ>, <白羅星　フルムーン>
 	if (this.type === 'SIGNI') {
-		var attackCount = this.game.getData(this,'attackCount') || 0;
-		this.game.setData(this,'attackCount',++attackCount);
+		var attackCount = this.fieldData.attackCount || 0;
+		this.fieldData.attackCount++;
 		var signiAttackCount = this.game.getData(this.player,'signiAttackCount') || 0;
 		this.game.setData(this.player,'signiAttackCount',++signiAttackCount);
 	} else {
@@ -1114,17 +1114,7 @@ Card.prototype.attackAsyn = function () {
 											return opponent.crashAsyn(1,crashArg);
 										}
 									});
-								}).callback(this,function () {
-									// "这场战斗结束之后,就回老家结婚" (划掉)
-									// "战斗结束后,将进行攻击的 SIGNI 驱逐"
-									if (event.banishAttackingSigniSource) {
-										return this.game.blockAsyn(event.banishAttackingSigniSource,card,card.banishAsyn);
-									}
 								});
-							} else {
-								if (event.banishAttackingSigniSource) {
-									return this.game.blockAsyn(event.banishAttackingSigniSource,card,card.banishAsyn);
-								}
 							}
 						});
 					} else {
@@ -1143,6 +1133,12 @@ Card.prototype.attackAsyn = function () {
 						}
 					}
 				});
+			}).callback(this,function () {
+				// "这场战斗结束之后,就回老家结婚" (划掉)
+				// "战斗结束后,将进行攻击的 SIGNI 驱逐"
+				if (event.banishAttackingSigniSource) {
+					return this.game.blockAsyn(event.banishAttackingSigniSource,card,card.banishAsyn);
+				}
 			}).callback(this,function () {
 				if (event.prevented) {
 					return this.game.blockAsyn(this,function () {

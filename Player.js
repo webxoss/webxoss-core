@@ -797,7 +797,7 @@ Player.prototype.canUseActionEffect = function (effect,arg) {
 	if (effect.source.zone !== this.handZone && effect.activatedInHand) return false;
 	// inTrashZone
 	if (effect.source.zone === this.trashZone && !effect.activatedInTrashZone) return false;
-	if (effect.source.zone !== this.handZone && effect.activatedInHand) return false;
+	if (effect.source.zone !== this.trashZone && effect.activatedInTrashZone) return false;
 	// attackPhase && spellCutIn
 	if (!arg.ignoreTimming) {
 		if (arg.spellCutIn) {
