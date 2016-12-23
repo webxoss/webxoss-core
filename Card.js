@@ -1088,11 +1088,11 @@ Card.prototype.attackAsyn = function () {
 					if (opposingSigni && !card.assassin) {
 						// 战斗
 						// 触发"进行战斗"时点
+						var onBattleEvent = {
+							card: card,
+							opposingSigni: opposingSigni
+						};
 						return this.game.blockAsyn(this,function () {
-							var onBattleEvent = {
-								card: card,
-								opposingSigni: opposingSigni
-							};
 							this.game.frameStart();
 							card.onBattle.trigger(onBattleEvent);
 							opposingSigni.onBattle.trigger(onBattleEvent);
@@ -1118,8 +1118,8 @@ Card.prototype.attackAsyn = function () {
 								});
 							}
 						}).callback(this,function () {
-							if (event._1877 && inArr(opposingSigni,opposingSigni.player.signis)) {
-								return this.game.blockAsyn(event._1877,this,function () {
+							if (onBattleEvent._1877 && inArr(opposingSigni,opposingSigni.player.signis)) {
+								return this.game.blockAsyn(onBattleEvent._1877,this,function () {
 									opposingSigni.moveTo(opposingSigni.player.mainDeck,{bottom: true});
 								});
 							}

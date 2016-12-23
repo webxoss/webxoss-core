@@ -115267,7 +115267,7 @@ var CardInfo = {
 					description: '1877-const-0',
 					optional: true,
 					actionAsyn: function (event) {
-						return this.discardAsyn(1).callback(this,function (cards) {
+						return this.player.discardAsyn(1).callback(this,function (cards) {
 							if (!cards.length) return;
 							event._1877 = this;
 						});
