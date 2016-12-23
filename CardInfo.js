@@ -115212,59 +115212,109 @@ var CardInfo = {
 			}
 		}
 	},
-	// "1877": {
-	// 	"pid": 1877,
-	// 	cid: 1877,
-	// 	"timestamp": 1468056557856,
-	// 	"wxid": "PR-305",
-	// 	name: "エンジェルキラー　†上柚木綾瀬†(Z/Xコラボイベント景品)",
-	// 	name_zh_CN: "エンジェルキラー　†上柚木綾瀬†(Z/Xコラボイベント景品)",
-	// 	name_en: "エンジェルキラー　†上柚木綾瀬†(Z/Xコラボイベント景品)",
-	// 	"kana": "ｴﾝｼﾞｪﾙｷﾗｰﾌｫｰﾙﾝｶﾐﾕｷﾞｱﾔｾ",
-	// 	"rarity": "PR",
-	// 	"cardType": "SIGNI",
-	// 	"color": "black",
-	// 	"level": 3,
-	// 	"limit": 0,
-	// 	"power": 8000,
-	// 	"limiting": "",
-	// 	"imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/PR/PR-305.jpg",
-	// 	"illust": "羽音たらく",
-	// 	faqs: [
-	// 		{
-	// 			"q": "「バトル終了時」とはいつですか？",
-	// 			"a": "正面のシグニとバトルし、バトルの結果そのシグニがバニッシュされるか場に残るかした後となります。結果的に、このシグニのアタックで正面のシグニをバニッシュしていた場合は、そのシグニは場にありませんので、手札を捨てていたとしてもデッキの一番下へ置くことはできません。"
-	// 		},
-	// 		{
-	// 			"q": "自分のシグニが《コード・ピルルク　VERMILION》のとき、「あなたのルリグが黒の場合」を満たしますか？",
-	// 			"a": "はい、《コード・ピルルク　VERMILION》は青であり黒でもありますので、条件を満たし、出現時能力で対戦相手の＜天使＞のシグニ１体をバニッシュできます。"
-	// 		},
-	// 		{
-	// 			"q": "常時能力では、この《エンジェルキラー　†上柚木綾瀬†》自身もデッキの一番下に置かれるのですか？",
-	// 			"a": "いいえ、この常時能力は「このシグニとバトルしたシグニ」のみをデッキの一番下に置きます。《エンジェルキラー　†上柚木綾瀬†》は場に残ったままとなります。"
-	// 		}
-	// 	],
-	// 	"classes": [
-	// 		"精像",
-	// 		"天使"
-	// 	],
-	// 	"costWhite": 0,
-	// 	"costBlack": 0,
-	// 	"costRed": 0,
-	// 	"costBlue": 0,
-	// 	"costGreen": 0,
-	// 	"costColorless": 0,
-	// 	"guardFlag": false,
-	// 	cardSkills: [
-	// 		"【常時能力】：あなたのターンの間、このシグニがバトルしたとき、あなたは手札を１枚捨ててもよい。そうした場合、そのバトル終了時にこのシグニとバトルしたシグニを場からデッキの一番下に置く。",
-	// 		"【出現時能力】：あなたのルリグが黒の場合、対戦相手の＜天使＞のシグニ１体をバニッシュする。",
-	// 		"【出現時能力】【黒】：対戦相手のレベル３のシグニ１体をバニッシュする。"
-	// 	],
-	// 	"multiEner": false,
-	// 	cardText: "許さない…絶対にッ!! ～†上柚木綾瀬†～",
-	// 	cardText_zh_CN: "",
-	// 	cardText_en: ""
-	// },
+	"1877": {
+		"pid": 1877,
+		cid: 1877,
+		"timestamp": 1468056557856,
+		"wxid": "PR-305",
+		name: "エンジェルキラー　†上柚木綾瀬†(Z/Xコラボイベント景品)",
+		name_zh_CN: "天使杀手 †上柚木绫瀬†(Z/Xコラボイベント景品)",
+		name_en: "†Ayase Kamiyugi†, Angel Killer(Z/Xコラボイベント景品)",
+		"kana": "ｴﾝｼﾞｪﾙｷﾗｰﾌｫｰﾙﾝｶﾐﾕｷﾞｱﾔｾ",
+		"rarity": "PR",
+		"cardType": "SIGNI",
+		"color": "black",
+		"level": 3,
+		"limit": 0,
+		"power": 8000,
+		"limiting": "",
+		"imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/PR/PR-305.jpg",
+		"illust": "羽音たらく",
+		"classes": [
+			"精像",
+			"天使"
+		],
+		"costWhite": 0,
+		"costBlack": 0,
+		"costRed": 0,
+		"costBlue": 0,
+		"costGreen": 0,
+		"costColorless": 0,
+		"guardFlag": false,
+		"multiEner": false,
+		cardText: "許さない…絶対にッ!! ～†上柚木綾瀬†～",
+		cardText_zh_CN: "",
+		cardText_en: "",
+		// ======================
+		//        常时效果       
+		// ======================
+		constEffectTexts: [
+			"【常時能力】：あなたのターンの間、このシグニがバトルしたとき、あなたは手札を１枚捨ててもよい。そうした場合、そのバトル終了時にこのシグニとバトルしたシグニを場からデッキの一番下に置く。",
+		],
+		constEffectTexts_zh_CN: [
+			"【常】：你的回合期间，这只SIGNI进行战斗时，你可以舍弃1张手牌。这样做了的场合，那次战斗结束时将和这只SIGNI进行战斗的SIGNI从场上放置到卡组底。"
+		],
+		constEffectTexts_en: [
+			"[Constant]: During your turn, when this SIGNI battles, you may discard a card from your hand. If you do, at the end of the battle, put the SIGNI that battled with this SIGNI from the field at the bottom of their deck."
+		],
+		constEffects: [{
+			condition: function () {
+				return (this.game.turnPlayer === this.player);
+			},
+			action: function (set,add) {
+				var effect = this.game.newEffect({
+					source: this,
+					description: '1877-const-0',
+					optional: true,
+					actionAsyn: function (event) {
+						return this.discardAsyn(1).callback(this,function (cards) {
+							if (!cards.length) return;
+							event._1877 = this;
+						});
+					}
+				});
+				add(this,'onBattle',effect);
+			}
+		}],
+		// ======================
+		//        出场效果       
+		// ======================
+		startUpEffectTexts: [
+			"【出現時能力】：あなたのルリグが黒の場合、対戦相手の＜天使＞のシグニ１体をバニッシュする。",
+			"【出現時能力】【黒】：対戦相手のレベル３のシグニ１体をバニッシュする。"
+		],
+		startUpEffectTexts_zh_CN: [
+			"【出】：你的LRIG为黑色的场合，将对战对手的1只<天使>SIGNI驱逐。",
+			"【出】【黑】：将对战对手的1只等级3的SIGNI驱逐。"
+		],
+		startUpEffectTexts_en: [
+			"[On-Play]: If your LRIG is black, banish 1 of your opponent's <Angel> SIGNI.",
+			"[On-Play] [Black]: Banish 1 of your opponent's level 3 SIGNI."
+		],
+		startUpEffects: [{
+			actionAsyn: function () {
+				if (!this.player.lrig.hasColor('black')) return;
+				var cards = this.player.opponent.signis.filter(function (signi) {
+					return signi.hasClass('天使');
+				},this);
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
+					if (!card) return;
+					return card.banishAsyn();
+				});
+			}
+		},{
+			costBlack: 1,
+			actionAsyn: function () {
+				var cards = this.player.opponent.signis.filter(function (signi) {
+					return signi.level === 3;
+				},this);
+				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+					if (!card) return;
+					return card.banishAsyn();
+				});
+			}
+		}],
+	},
 	"1878": {
 		"pid": 1878,
 		cid: 1878,

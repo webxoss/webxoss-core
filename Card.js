@@ -1049,6 +1049,7 @@ Card.prototype.attackAsyn = function () {
 			card: card,
 			banishAttackingSigniSource: null,
 			wontBeDamaged: false,
+			_1877: false, // PR-305
 		};
 		if (card.type === 'SIGNI') {
 			// 触发"攻击时"时点
@@ -1114,6 +1115,12 @@ Card.prototype.attackAsyn = function () {
 											return opponent.crashAsyn(1,crashArg);
 										}
 									});
+								});
+							}
+						}).callback(this,function () {
+							if (event._1877 && inArr(opposingSigni,opposingSigni.player.signis)) {
+								return this.game.blockAsyn(event._1877,this,function () {
+									opposingSigni.moveTo(opposingSigni.player.mainDeck,{bottom: true});
 								});
 							}
 						});
