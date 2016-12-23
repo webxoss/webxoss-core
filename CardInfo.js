@@ -116812,15 +116812,14 @@ var CardInfo = {
 		],
 		burstEffect: {
 			actionAsyn: function () {
-				var filter = function () {
-					return true;
+				var filter = function (card) {
+					return !card.hasColor('colorless');
 				};
 				return this.player.searchAsyn(filter,1,0,true).callback(this,function (cards) {
 					var card = cards[0];
 					if (!card) return;
-					if (card.hasColor('colorless')) return;
 					filter = function (c) {
-						return !c.hasSameColorWith(card)
+						return !c.hasColor('colorless') && !c.hasSameColorWith(card) && c !== card;
 					}
 					return this.player.searchAsyn(filter,1,0,true).callback(this,function (cards) {
 						if (!cards.length) return;
