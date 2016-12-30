@@ -98877,7 +98877,7 @@ var CardInfo = {
 					source: this,
 					description: '1629-const-1',
 					condition: function () {
-						return (this.game.getData(this,'attackCount') > 0);
+						return this.fieldData.attackCount > 0;
 					},
 					actionAsyn: function () {
 						return this.player.discardAsyn(1);
@@ -98952,7 +98952,7 @@ var CardInfo = {
 					source: this,
 					description: '1630-const-1',
 					condition: function () {
-						return (this.game.getData(this,'attackCount') > 0);
+						return this.attackCount > 0;
 					},
 					actionAsyn: function () {
 						return this.player.discardAsyn(1);
@@ -108349,38 +108349,94 @@ var CardInfo = {
 		//        共鸣           
 		// ======================
 		extraTexts: [
-			"［出現条件］【スペルカットイン】合計２枚のレゾナではない＜凶蟲＞のシグニをあなたの手札と場からトラッシュに置く"
+			"［出現条件］【スペルカットイン】合計２枚のレゾナではない＜凶蟲＞のシグニをあなたの手札とエナゾーンと場からトラッシュに置く"
 		],
 		extraTexts_zh_CN: [
-			"[出现条件] 【魔法切入】从你的手牌和场上将合计2张非共鸣＜凶虫＞SIGNI放置到废弃区"
+			"[出现条件] 【魔法切入】从你的手牌和能量区和场上将合计2张非共鸣＜凶虫＞SIGNI放置到废弃区"
 		],
 		extraTexts_en: [
-			"(Play Condition) [Spell Cut-In] Put a total of 2 non-Resona <Misfortune Insect> SIGNI from your hand and field into the trash"
+			"(Play Condition) [Spell Cut-In] Put a total of 2 non-Resona <Misfortune Insect> SIGNI from your hand, Ener Zone, and field into the trash"
 		],
 		resonaPhase: 'spellCutIn',
 		resonaCondition: function () {
+			// var filter = function (card) {
+			// 	return card.hasClass('凶蟲') && !card.resona && card.canTrashAsCost();
+			// };
+			// var signis = this.player.signis.filter(filter);
+			// var hands = this.player.hands.filter(filter);
+			// if (concat(signis,hands).length < 2) return null;
+			// if (this.canSummon()) {
+			// 	return function () {
+			// 		if (!signis.length) {
+			// 			return this.player.selectSomeAsyn('TRASH',hands,2,2).callback(this,function (cards) {
+			// 				return this.game.trashCardsAsyn(cards);
+			// 			});
+			// 		}
+			// 		var min = Math.max(0,2 - hands.length);
+			// 		return this.player.selectSomeAsyn('TRASH',signis,min,2).callback(this,function (cards) {
+			// 			if (cards.length === 2) return this.game.trashCardsAsyn(cards);
+			// 			var cards_trash = cards;
+			// 			var count = 2 - cards.length;
+			// 			return this.player.selectSomeAsyn('TRASH',hands,count,count).callback(this,function (cards) {
+			// 				cards_trash = cards_trash.concat(cards);
+			// 				return this.game.trashCardsAsyn(cards_trash);
+			// 			});
+			// 		});
+			// 	}.bind(this);
+			// } else {
+			// 	var actionAsyn = this.getSummonSolution(filter,1);
+			// 	if (actionAsyn) {
+			// 		return function () {
+			// 			return actionAsyn.call(this).callback(this,function () {
+			// 				signis = this.player.signis.filter(filter);
+			// 				if (!hands.length) {
+			// 					return this.player.selectAsyn('TRASH',signis)
+			// 				}
+			// 				return this.player.selectOptionalAsyn('TRASH',signis).callback(this,function (card) {
+			// 					if (card) return card;
+			// 					return this.player.selectAsyn('TRASH',hands)
+			// 				});
+			// 			}).callback(this,function (card) {
+			// 				return card.trashAsyn();
+			// 			});
+			// 		}.bind(this);
+			// 	}
+			// 	return this.getSummonSolution(filter,2);
+			// }
+			// 复制并修改自<白罗星 新月>
 			var filter = function (card) {
 				return card.hasClass('凶蟲') && !card.resona && card.canTrashAsCost();
 			};
-			var signis = this.player.signis.filter(filter);
-			var hands = this.player.hands.filter(filter);
-			if (concat(signis,hands).length < 2) return null;
+			var cards_A = this.player.signis.filter(filter);
+			var cards_B = this.player.hands.filter(filter);
+			var cards_C = this.player.enerZone.cards.filter(filter);
+			var cards_trash = [];
+			if (concat(cards_A,cards_B,cards_C).length < 2) return null;
 			if (this.canSummon()) {
 				return function () {
-					if (!signis.length) {
-						return this.player.selectSomeAsyn('TRASH',hands,2,2).callback(this,function (cards) {
-							return this.game.trashCardsAsyn(cards);
-						});
-					}
-					var min = Math.max(0,2 - hands.length);
-					return this.player.selectSomeAsyn('TRASH',signis,min,2).callback(this,function (cards) {
-						if (cards.length === 2) return this.game.trashCardsAsyn(cards);
-						var cards_trash = cards;
-						var count = 2 - cards.length;
-						return this.player.selectSomeAsyn('TRASH',hands,count,count).callback(this,function (cards) {
+					return Callback.immediately().callback(this,function () {
+						if (!cards_A.length) return;
+						var min = Math.max(0,2 - cards_B.length - cards_C.length);
+						return this.player.selectSomeAsyn('TRASH',cards_A,min,2).callback(this,function (cards) {
 							cards_trash = cards_trash.concat(cards);
-							return this.game.trashCardsAsyn(cards_trash);
 						});
+					}).callback(this,function () {
+						if (cards_trash.length >= 2) return;
+						if (!cards_B.length) return;
+						var min = 2 - cards_trash.length - cards_C.length;
+						var max = 2 - cards_trash;
+						return this.player.selectSomeAsyn('TRASH',cards_B,min,max).callback(this,function (cards) {
+							cards_trash = cards_trash.concat(cards);
+						});
+					}).callback(this,function () {
+						if (cards_trash.length >= 2) return;
+						if (!cards_C.length) return;
+						var min = 2 - cards_trash.length;
+						return this.player.selectSomeAsyn('TRASH',cards_C,min,min).callback(this,function (cards) {
+							cards_trash = cards_trash.concat(cards);
+						});
+					}).callback(this,function () {
+						return this.game.trashCardsAsyn(cards_trash);
 					});
 				}.bind(this);
 			} else {
@@ -108388,20 +108444,24 @@ var CardInfo = {
 				if (actionAsyn) {
 					return function () {
 						return actionAsyn.call(this).callback(this,function () {
-							signis = this.player.signis.filter(filter);
-							if (!hands.length) {
-								return this.player.selectAsyn('TRASH',signis)
-							}
-							return this.player.selectOptionalAsyn('TRASH',signis).callback(this,function (card) {
+							cards_A = this.player.signis.filter(filter);
+							var optional = cards_B.length || cards_C.length;
+							return this.player.selectAsyn('TRASH',cards_A,optional).callback(this,function (card) {
 								if (card) return card;
-								return this.player.selectAsyn('TRASH',hands)
+								optional = cards_C.length;
+								return this.player.selectAsyn('TRASH',cards_B,optional).callback(this,function (card) {
+									if (card) return card;
+									return this.player.selectAsyn('TRASH',cards_C);
+								});
+							}).callback(this,function (card) {
+								if (!card) return;
+								return card.trashAsyn();
 							});
-						}).callback(this,function (card) {
-							return card.trashAsyn();
-						});
+						})
 					}.bind(this);
+				} else {
+					return this.getSummonSolution(filter,2);
 				}
-				return this.getSummonSolution(filter,2);
 			}
 		},
 		// ======================
