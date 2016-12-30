@@ -120684,6 +120684,7 @@ var CardInfo = {
 			attackPhase: true,
 			costExceed: 2,
 			actionAsyn: function () {
+				if (this.player.spellBanned) return;
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					var flag = (card.type === 'SPELL') && (card.hasColor('blue') || card.hasColor('black'));
 					if (!flag) return false;
