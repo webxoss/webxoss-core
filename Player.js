@@ -1087,7 +1087,7 @@ Player.prototype.damageAsyn = function () {
 	if (this.wontBeDamaged) return Callback.immediately(false);
 	if (this.wontBeDamagedByOpponentLrig) {
 		var source = this.game.getEffectSource();
-		if (source === this.player.opponent.lrig) {
+		if (source === this.opponent.lrig) {
 			return Callback.immediately(false);
 		}
 	}
