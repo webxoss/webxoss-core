@@ -98952,7 +98952,7 @@ var CardInfo = {
 					source: this,
 					description: '1630-const-1',
 					condition: function () {
-						return this.attackCount > 0;
+						return this.fieldData.attackCount > 0;
 					},
 					actionAsyn: function () {
 						return this.player.discardAsyn(1);
