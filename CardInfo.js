@@ -90658,6 +90658,7 @@ var CardInfo = {
 					triggerCondition: function (event) {
 						if (!inArr(this,this.player.signis)) return false;
 						if (!this.game.getEffectSource()) return false;
+						if (!event.card.hasClass('アーム')) return false;
 						return true;
 					},
 					actionAsyn: function () {
