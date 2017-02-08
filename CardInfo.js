@@ -86292,6 +86292,7 @@ var CardInfo = {
 		"imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX11/WX11-013.jpg",
 		"illust": "bomi",
 		"classes": [
+			"精羅",
 			"宇宙"
 		],
 		"costWhite": 0,
