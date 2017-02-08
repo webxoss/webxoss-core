@@ -87852,6 +87852,9 @@ var CardInfo = {
 				var effect = this.game.newEffect({
 					source: this,
 					description: '1437-const-0',
+					triggerCondition: function () {
+						return !this.player.addCardTohandBanned
+					},
 					actionAsyn: function () {
 						this.player.draw(1);
 					}
