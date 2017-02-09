@@ -333,6 +333,9 @@ Phase.prototype.endPhase = function () {
 Phase.prototype.wixoss = function () {
 	this.additionalTurn = !!this.game.getData(this.player,'additionalTurn');
 	this.game.clearData();
+	this.game.cards.forEach(function (card) {
+		card.fieldTurnData = {}
+	});
 	this.status = '';
 	this.player.usedActionEffects.length = 0;
 	this.player.opponent.usedActionEffects.length = 0;
