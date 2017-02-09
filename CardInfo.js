@@ -123512,8 +123512,8 @@ var CardInfo = {
 			"【出】手札から緑の＜龍獣＞のシグニを１枚捨てる：あなたのデッキの上からカードを２枚公開する。その中からすべての＜龍獣＞のシグニをエナゾーンに置き、残りを好きな順番でデッキの一番上に置く。"
 		],
 		startUpEffectTexts_zh_CN: [
-			"【出】从手牌将1张绿色的<龙兽>SIGNI舍弃：对战对手的能量区中存在3张以上的卡的场合，对战对手自己从能量区中将1张卡放置到废弃区。",
-			"【出】从手牌将1张红色的<龙兽>SIGNI舍弃：从你的卡组顶将2张卡公开。从中将所有的＜龙兽＞SIGNI放置到能量区，剩下的按任意顺序放置到卡组最上方。"
+			"【出】从手牌将1张红色的<龙兽>SIGNI舍弃：对战对手的能量区中存在3张以上的卡的场合，对战对手自己从能量区中将1张卡放置到废弃区。",
+			"【出】从手牌将1张绿色的<龙兽>SIGNI舍弃：从你的卡组顶将2张卡公开。从中将所有的＜龙兽＞SIGNI放置到能量区，剩下的按任意顺序放置到卡组最上方。"
 		],
 		startUpEffectTexts_en: [
 			"[On-Play] Discard 1 red <Dragon Beast> SIGNI from your hand: If there are 3 or more cards in your opponent's Ener Zone, your opponent puts 1 card from their Ener Zone into the trash.",
@@ -123522,12 +123522,12 @@ var CardInfo = {
 		startUpEffects: [{
 			costCondition: function () {
 				return this.player.hands.some(function (card) {
-					return card.hasClass('龍獣') && card.hasColor('green');
+					return card.hasClass('龍獣') && card.hasColor('red');
 				},this);
 			},
 			costAsyn: function () {
 				var cards = this.player.hands.filter(function (card) {
-					return card.hasClass('龍獣') && card.hasColor('green');
+					return card.hasClass('龍獣') && card.hasColor('red');
 				},this);
 				return this.player.selectAsyn('PAY',cards).callback(this,function (card) {
 					if (!card) return;
@@ -123545,12 +123545,12 @@ var CardInfo = {
 		},{
 			costCondition: function () {
 				return this.player.hands.some(function (card) {
-					return card.hasClass('龍獣') && card.hasColor('red');
+					return card.hasClass('龍獣') && card.hasColor('green');
 				},this);
 			},
 			costAsyn: function () {
 				var cards = this.player.hands.filter(function (card) {
-					return card.hasClass('龍獣') && card.hasColor('red');
+					return card.hasClass('龍獣') && card.hasColor('green');
 				},this);
 				return this.player.selectAsyn('PAY',cards).callback(this,function (card) {
 					if (!card) return;
