@@ -261,6 +261,7 @@ Player.prototype.up = function () {
 // 返回:
 //   cards: Array,抽到的卡,长度可能少于n(卡组没有足够的卡可以抽),也可能为空数组.
 Player.prototype.draw = function (n) {
+	if (this.addCardToHandBanned) return [];
 	var cards = this.mainDeck.getTopCards(n);
 	if (!cards.length) return [];
 	if (this.game.phase.isAttackPhase()) {
