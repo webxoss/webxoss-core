@@ -28,13 +28,8 @@ Mask.prototype.set = function (reset) {
 		var effect = this.value;
 		var source = effect.source;
 		// 不能获得新能力
-		if (source.canNotGainAbility || source.player.canNotGainAbility) {
+		if (!source.canGainAbility(this.source)) {
 			return;
-		}
-		if (source.canNotGainAbilityBySelfPlayer) {
-			if (this.source && (this.source.player === source.player)) {
-				return;
-			}
 		}
 		effect.disabled = false;
 		timming.effects.push(effect);
@@ -54,13 +49,8 @@ Mask.prototype.set = function (reset) {
 	} else {
 		if (!reset && target.player && inArr(this.prop,Card.abilityProps)) {
 			// 不能获得新能力
-			if (target.canNotGainAbility && target.player.canNotGainAbility) {
+			if (!target.canGainAbility(this.source)) {
 				return;
-			}
-			if (target.canNotGainAbilityBySelfPlayer) {
-				if (this.source && (this.source === target.player)) {
-					return;
-				}
 			}
 		}
 		target[this.prop] = this.value;

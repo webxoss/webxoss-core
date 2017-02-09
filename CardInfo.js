@@ -109953,7 +109953,7 @@ var CardInfo = {
 							source: this,
 							description: '1801-attached-2',
 							actionAsyn: function () {
-								this.game.tillTurnEndSet(this,this.player,'canNotGainAbility',true,{forced: true});
+								this.game.tillTurnEndSet(this,this.player,'signiCanNotGainAbility',true,{forced: true});
 							}
 						},{
 							source: this,
