@@ -1480,4 +1480,12 @@ Card.prototype.canBeBanished = function () {
 	return true;
 };
 
+Card.prototype.canGainAbility = function (source) {
+	let canNotGainAbility =
+		this.canNotGainAbility ||
+		(this.player.signiCanNotGainAbility && this.type === 'SIGNI') ||
+		(this.canNotGainAbilityBySelfPlayer && source && source.player === this.player);
+	return !canNotGainAbility;
+};
+
 global.Card = Card;

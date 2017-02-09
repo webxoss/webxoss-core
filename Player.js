@@ -133,7 +133,7 @@ function Player (game,io,mainDeck,lrigDeck) {
 	this.wontLoseGame = false; // <紅蓮乙女　遊月・肆>
 	this.canNotBeBanished = false;
 	this.canNotBeBounced = false;
-	this.canNotGainAbility = false;
+	this.signiCanNotGainAbility = false;
 	this.canNotBeDownedByOpponentEffect = false;
 	this.canNotUseColorlessSigni = false; // <绿罗植 世界树>
 	this.canNotUseColorlessSpell = false; // <绿罗植 世界树>
