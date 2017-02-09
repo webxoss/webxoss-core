@@ -101,6 +101,7 @@ function Card (game,player,zone,pid,side) {
 	this.charm             = null; // 魅饰卡
 	this._data             = null; // 私有的数据储存,约定: 只能在 CardInfo.js 自身的代码里访问
 	this.fieldData         = {};   // 离场即清空的数据
+	this.fieldTurnData     = {};   // 离场或回合结束即清空的数据
 
 	// 时点
 	this.onMove            = new Timming(game);
@@ -449,7 +450,7 @@ Card.prototype.canAttack = function () {
 
 	// <バインド・ウェポンズ>
 	if (this.type === 'SIGNI') {
-		var attackCount = this.fieldData.attackCount || 0;
+		var attackCount = this.fieldTurnData.attackCount || 0;
 		if (attackCount >= this.player.signiAttackCountLimit) return false;
 	} else {
 		var lrigAttackCount = this.game.getData(this.player,'lrigAttackCount') || 0;
@@ -759,6 +760,7 @@ Card.prototype.moveTo = function (zone,arg) {
 			leaveFieldEvent = moveEvent;
 			card.frozen = false;
 			card.fieldData = {};
+			card.fieldTurnData = {};
 			charm = card.charm;
 			card.charm = null;
 			removeFromArr(card,card.player.signis);
@@ -1019,8 +1021,8 @@ Card.prototype.attackAsyn = function () {
 	}
 	// <バインド・ウェポンズ>, <白羅星　フルムーン>
 	if (this.type === 'SIGNI') {
-		var attackCount = this.fieldData.attackCount || 0;
-		this.fieldData.attackCount++;
+		var attackCount = this.fieldTurnData.attackCount || 0;
+		this.fieldTurnData.attackCount = ++attackCount;
 		var signiAttackCount = this.game.getData(this.player,'signiAttackCount') || 0;
 		this.game.setData(this.player,'signiAttackCount',++signiAttackCount);
 	} else {
