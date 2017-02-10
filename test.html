@@ -197,18 +197,23 @@ function down (content, filename = 'down.txt') {
 
 <body>
 <div>
-	<button onclick="newClient();">newClient</button>
-	<button onclick="updateBattle();">updateBattle</button>
+	<span>Deck:</span>
+	<select id="deck-select"></select>
+</div>
+<div>
+	<button onclick="newClient();">new client</button>
+	<button onclick="oben();">oben!</button>
+	<button onclick="updateBattle();">update battle</button>
 </div>
 <div>
 	<button onclick="upgrade()">upgrade</button>
 	<button onclick="game.turnPlayer.draw(5)">draw</button>
-	<button onclick="game.turnPlayer.enerCharge(10);">enerCharge</button>
+	<button onclick="game.turnPlayer.enerCharge(10);">ener charge</button>
 </div>
 <div>
-	<input id="card-name" type="text"></div>
-	<button onclick="addToHand()">addCard</button>
-	<button onclick="addToLifeCloth()">addToLifeCloth</button>
+	<input id="card-name" type="text" placeholder="WX01-100"></div>
+	<button onclick="addToHand()">add card</button>
+	<button onclick="addToLifeCloth()">add to life cloth</button>
 </div>
 </body>
 </html>
