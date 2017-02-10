@@ -3,8 +3,24 @@
 // browser only
 
 function testHelper() {
+  this.deckNames = this.readDeckNames();
+  this.deckName = '';
+
   this.cfg = {
     disableAudio: true,
+  }
+}
+window.onload = function() {
+  var deckSelect = document.getElementById('deck-select');
+  testHelper.deckNames.forEach(function(name){
+    var deckNameItem = document.createElement('option');
+    deckNameItem.setAttribute('value',name);
+    deckNameItem.innerHTML = name;
+    deckSelect.appendChild(deckNameItem);
+  })
+  testHelper.deckName = deckSelect.value;
+  deckSelect.onchange = function() {
+    testHelper.deckName = this.value;
   }
 }
 testHelper.prototype.disableAudio = function (doc) {
@@ -27,12 +43,16 @@ testHelper.prototype.initClient = function (win) {
 
   this.disableAudio(doc);
 }
-testHelper.prototype.closeAllClient = function () {
-  for (var uid in this.clients) {
-    this.clients[uid].close();
-  }
+testHelper.prototype.readDeckNames = function () {
+  return JSON.parse(localStorage.getItem('deck_filenames'));
+}
+testHelper.prototype.readDeckByName = function (name) {
+  if (typeof name === 'undefined')
+    name = this.deckNames[0];
+  return JSON.parse(localStorage.getItem('deck_file_'+ name));
 }
 var testHelper = new testHelper();
+
 global.window.newClient = function () {
   var win = window.open('./webxoss-client/?local=true');
   win.addEventListener('load',function () {
@@ -74,7 +94,29 @@ global.window.addToLifeCloth = function () {
   else 
     console.log('no matched card')
 }
+global.window.oben = function () {
+  if (sockets.length !== 2) {
+    console.log("two client needed");
+    return;
+  };
+  var createRoomMsg = {
+    "roomName": "test",
+    "nickname": "player",
+    "password": "",
+    "mayusRoom": true
+  }
+  sockets[0]._doEmit('createRoom', createRoomMsg);
+  var joinRoomMsg = {
+    "roomName": "test",
+    "nickname": "player",
+    "password": ""
+  }
+  sockets[1]._doEmit('joinRoom', joinRoomMsg);
 
+  var deck = testHelper.readDeckByName();
+  sockets[1]._doEmit('ready',deck);
+  sockets[0]._doEmit('startGame',deck);
+}
 // copy from test.js
 
 var io = {

@@ -3,7 +3,7 @@
 window.FakeSocket = (function () {
 
 
-var sockets = [];
+window.sockets = [];
 
 window.addEventListener('message',function (event) {
 	var win = event.source;
