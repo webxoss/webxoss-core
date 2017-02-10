@@ -191,10 +191,24 @@ function down (content, filename = 'down.txt') {
 <script src="Client.js"></script>
 <script src="Room.js"></script>
 <script src="RoomManager.js"></script>
-<script src="test.js"></script>
+<script src="testHelper.js"></script>
+<!-- <script src="test.js"></script> -->
 </head>
 
 <body>
-<button onclick="newClient();">newClient</button>
+<div>
+	<button onclick="newClient();">newClient</button>
+	<button onclick="updateBattle();">updateBattle</button>
+</div>
+<div>
+	<button onclick="upgrade()">upgrade</button>
+	<button onclick="game.turnPlayer.draw(5)">draw</button>
+	<button onclick="game.turnPlayer.enerCharge(10);">enerCharge</button>
+</div>
+<div>
+	<input id="card-name" type="text"></div>
+	<button onclick="addToHand()">addCard</button>
+	<button onclick="addToLifeCloth()">addToLifeCloth</button>
+</div>
 </body>
 </html>
