@@ -197,7 +197,7 @@ function down (content, filename = 'down.txt') {
 
 <body>
 <div>
-	<span>Deck:</span>
+	<a href="#" onclick="window.open('./webxoss-client/DeckEditor/')">Deck:</a>
 	<select id="deck-select"></select>
 </div>
 <div>
@@ -215,5 +215,13 @@ function down (content, filename = 'down.txt') {
 	<button onclick="addToHand()">add card</button>
 	<button onclick="addToLifeCloth()">add to life cloth</button>
 </div>
+<style type="text/css">
+a {
+  outline: none;
+  color: inherit;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+</style>
 </body>
 </html>

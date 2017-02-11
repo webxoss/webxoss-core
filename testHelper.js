@@ -2,72 +2,86 @@
 
 // browser only
 
-function testHelper() {
+var game; // in-play game
+
+function TestHelper() {
   this.deckNames = this.readDeckNames();
   this.deckName = '';
 
   this.cfg = {
     disableAudio: true,
-  }
 }
-window.onload = function() {
-  var deckSelect = document.getElementById('deck-select');
-  testHelper.deckNames.forEach(function(name){
-    var deckNameItem = document.createElement('option');
-    deckNameItem.setAttribute('value',name);
-    deckNameItem.innerHTML = name;
-    deckSelect.appendChild(deckNameItem);
-  })
-  testHelper.deckName = deckSelect.value;
-  deckSelect.onchange = function() {
-    testHelper.deckName = this.value;
-  }
-}
-testHelper.prototype.disableAudio = function (doc) {
+
+TestHelper.prototype.disableAudio = function (doc) {
   // disable BGM
   if (!this.cfg.disableAudio) return;
   var bgm = doc.getElementById('checkbox-bgm');
   var sound = doc.getElementById('checkbox-sound-effect');
-  if (bgm.checked) bgm.click()
-  if (sound.checked) sound.click()
+  if (bgm.checked) bgm.click();
+  if (sound.checked) sound.click();
 }
-testHelper.prototype.initClient = function (win) {
+TestHelper.prototype.initClient = function (win) {
   var doc = win.document;
   var self = this;
   var socket = new FakeSocket(win);
   win.addEventListener('unload',function () {
-    socket._doEmit('disconnect');
+    socket._dEomit('disconnect');
   });
   win.document.title = 'Client' + socket.id;
   io._handler(socket);
 
   this.disableAudio(doc);
 }
-testHelper.prototype.readDeckNames = function () {
+TestHelper.prototype.readDeckNames = function () {
   return JSON.parse(localStorage.getItem('deck_filenames'));
 }
-testHelper.prototype.readDeckByName = function (name) {
+TestHelper.prototype.readDeckByName = function (name) {
   if (typeof name === 'undefined')
-    name = this.deckNames[0];
+    if (this.deckName === '')
+      name = this.deckNames[0]; // use WHITE_HOPE
+    else
+      name = this.deckName; // (default) use selected deck
   return JSON.parse(localStorage.getItem('deck_file_'+ name));
 }
-var testHelper = new testHelper();
+
+var helper = new TestHelper();
 
 global.window.newClient = function () {
   var win = window.open('./webxoss-client/?local=true');
   win.addEventListener('load',function () {
-    testHelper.initClient(win)
+    helper.initClient(win);
   });
 }
-var game;
+global.window.oben = function () {
+  if (sockets.length !== 2) {
+    console.log("two client needed");
+    return;
+  };
+  var createRoomMsg = {
+    "roomName": "test",
+    "nickname": "player",
+    "password": "",
+    "mayusRoom": true
+,  }
+  sockets[0]._doEmit('createRoom', createRoomMsg);
+  var joinRoomMsg = {
+    "roomName": "test",
+    "nickname": "player",
+    "password": "",
+  }
+  sockets[1]._doEmit('joinRoom', joinRoomMsg);
+
+  var deck = helper.readDeckByName();
+  sockets[1]._doEmit('ready',deck);
+  sockets[0]._doEmit('startGame',deck);
+}
 global.window.updateBattle = function () {
   if (roomManager.rooms.length === 0) {
-    game = false;
-    console.log('no in-play game found')
+    console.log('no in-play game found');
     return;
   }
   game = roomManager.rooms[0].game;
-  console.log('update game infomation successfully')
+  console.log('update game infomation successfully');
 }
 global.window.upgrade = function () {
   var p = game.turnPlayer;
@@ -85,37 +99,28 @@ global.window.addToHand = function () {
   if (game.turnPlayer.getCard(cardName))
     console.log('add ' + cardName + ' to hand');
   else 
-    console.log('no matched card')
+    console.log('no matched card');
 }
 global.window.addToLifeCloth = function () {
   var cardName = document.getElementById('card-name').value;
   if (game.turnPlayer.putCardToLifeCloth(cardName))
     console.log('put ' + cardName + ' to life cloth');
   else 
-    console.log('no matched card')
+    console.log('no matched card');
 }
-global.window.oben = function () {
-  if (sockets.length !== 2) {
-    console.log("two client needed");
-    return;
-  };
-  var createRoomMsg = {
-    "roomName": "test",
-    "nickname": "player",
-    "password": "",
-    "mayusRoom": true
-  }
-  sockets[0]._doEmit('createRoom', createRoomMsg);
-  var joinRoomMsg = {
-    "roomName": "test",
-    "nickname": "player",
-    "password": ""
-  }
-  sockets[1]._doEmit('joinRoom', joinRoomMsg);
 
-  var deck = testHelper.readDeckByName();
-  sockets[1]._doEmit('ready',deck);
-  sockets[0]._doEmit('startGame',deck);
+window.onload = function() {
+  var deckSelect = document.getElementById('deck-select');
+  helper.deckNames.forEach(function(name){
+    var deckNameItem = document.createElement('option');
+    deckNameItem.setAttribute('value',name);
+    deckNameItem.innerHTML = name;
+    deckSelect.appendChild(deckNameItem);
+  })
+  helper.deckName = deckSelect.value;
+  deckSelect.onchange = function() {
+    helper.deckName = this.value;
+  }
 }
 // copy from test.js
 
