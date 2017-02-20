@@ -95,6 +95,9 @@ function Card (game,player,zone,pid,side) {
 		this.sideB = info.sideB? new Card(game,player,zone,info.sideB,this) : null;
 	}
 
+	// Lostorage
+	this.rise = info.rise;
+
 	// 杂项
 	this.effectFilters     = [];
 	this.registeredEffects = [];
@@ -106,7 +109,8 @@ function Card (game,player,zone,pid,side) {
 	// 时点
 	this.onMove            = new Timming(game);
 	this.onEnterField      = new Timming(game);
-	this.onLeaveField      = new Timming(game);
+	this.onLeaveField      = new Timming(game); // 常时效果中「离场时」的时点
+	this.onLeaveField2     = new Timming(game); // 包括被 rise 等而成为卡垫的时点
 	this.onBurst           = new Timming(game);
 	this.onAttack          = new Timming(game);
 	this.onStartUp         = new Timming(game);
@@ -179,7 +183,7 @@ Card.prototype.cookEffect = function (rawEffect,type,offset) {
 };
 
 Card.prototype.setupConstEffects = function () {
-	this.constEffects.forEach(function (eff) {
+	this.constEffects.forEach(function (eff,idx) {
 		var createTimming,destroyTimming,once;
 		if (eff.duringGame) {
 			createTimming = null;
@@ -191,8 +195,19 @@ Card.prototype.setupConstEffects = function () {
 			once = eff.once;
 		} else {
 			createTimming = this.onEnterField;
-			destroyTimming = this.onLeaveField;
+			destroyTimming = this.onLeaveField2;
 			once = false;
+		}
+		var action = eff.action
+		if (eff.auto) {
+			action = function (set,add) {
+				var effect = this.game.newEffect({
+					source: this,
+					description: this.cid+'-'+'const-'+idx,
+					actionAsyn: eff.actionAsyn,
+				});
+				add(this,eff.auto,effect);
+			};
 		}
 		this.game.addConstEffect({
 			source: this,
@@ -202,7 +217,7 @@ Card.prototype.setupConstEffects = function () {
 			cross: !!eff.cross,
 			fixed: !!eff.fixed,
 			condition: eff.condition,
-			action: eff.action
+			action: action,
 		},true);
 	},this);
 };
@@ -312,6 +327,14 @@ Card.prototype.canSummon = function () {
 Card.prototype.canSummonWith = function (signis) {
 	// 类型
 	if (this.type !== 'SIGNI') return false;
+	// rise
+	var riseTargets = []
+	if (this.rise) {
+		riseTargets = signis.filter(function (signi) {
+			return this.rise(signi)
+		},this)
+		if (!riseTargets.length) return false;
+	}
 	// <绿罗植 世界树>
 	if (this.player.canNotUseColorlessSigni) {
 		if (this.hasColor('colorless')) {
@@ -328,16 +351,24 @@ Card.prototype.canSummonWith = function (signis) {
 	// 等级限制
 	if (this.level > this.player.lrig.level) return false;
 	// SIGNI 数量限制
-	if (signis.length >= this.player.getSigniAmountLimit()) {
+	var length = signis.length;
+	if (this.rise) length--;
+	if (length >= this.player.getSigniAmountLimit()) {
 		return false;
 	}
 	// 界限限制
 	var totalLevel = signis.reduce(function (total,signi) {
 		return total + signi.level;
 	},this.level);
+	if (this.rise) {
+		// rise 减去等级最高的目标即可
+		totalLevel -= Math.max.apply(Math,riseTargets.map(function (signi) {
+			return signi.level;
+		}));
+	}
 	if (totalLevel > this.player.lrig.limit) return false;
 	// 召唤区限制
-	var zones = this.player.getSummonZones(signis);
+	var zones = this.player.getSummonZones(signis,this.rise);
 	if (!zones.length) return false;
 	// 结束
 	return true;
@@ -750,6 +781,8 @@ Card.prototype.moveTo = function (zone,arg) {
 	var leaveFieldEvent = null;
 	var lrigChangeEvent = null;
 	var charm = null;
+
+	/* 处理离开区域逻辑 */
 	if (card.zone.name === 'HandZone') {
 		// 离开手牌
 		removeFromArr(card,card.player.hands);
@@ -757,6 +790,7 @@ Card.prototype.moveTo = function (zone,arg) {
 		// 离开 SigniZone
 		if (inArr(card,card.player.signis)) {
 			// 是 SIGNI
+			// 以下代码 rise 里复用了，虽然说 DRY 原则，但这里也不太好抽离，养肥了再抽吧（
 			leaveFieldEvent = moveEvent;
 			card.frozen = false;
 			card.fieldData = {};
@@ -774,15 +808,36 @@ Card.prototype.moveTo = function (zone,arg) {
 			}
 		}
 	}
+
+	/* 处理进入区域逻辑 */
 	if (zone.name === 'HandZone') {
 		// 进入手牌
 		zone.player.hands.push(card);
 	} else if (zone.name === 'SigniZone') {
 		if (card.zone.name !== 'SigniZone' || zone.player !== card.player) {
+			// 进入 SIGNI 区
 			if (zone.getActualCards().length) {
-				// 放置到 SIGNI 下面的卡
+				// rise
+				if (card.rise) {
+					// 被 rise 的卡“离场”
+					signi = zone.getActualCards()[0];
+					removeFromArr(signi,signi.player.signis);
+					signi.frozen = false;
+					signi.fieldData = {};
+					signi.fieldTurnData = {};
+					charm = signi.charm;
+					signi.charm = null;
+					signi.onLeaveField2.trigger({});
+					// 出场
+					arg.bottom = false;
+					enterFieldEvent = moveEvent;
+					card.player.signis.push(card);
+				} else {
+					// 放置到 SIGNI 下面的卡
+					// （目前不用处理）
+				}
 			} else {
-				// 进入 SigniZone
+				// 出场
 				enterFieldEvent = moveEvent;
 				zone.player.signis.push(card);
 			}
@@ -882,6 +937,7 @@ Card.prototype.moveTo = function (zone,arg) {
 	} else if (leaveFieldEvent) {
 		// card.player.onSignisChange.trigger();
 		card.onLeaveField.trigger(leaveFieldEvent);
+		card.onLeaveField2.trigger(leaveFieldEvent);
 		card.player.onSigniLeaveField.trigger(leaveFieldEvent);
 		// SIGNI 离场时,下面的卡送入废弃区，
 		// 此处理在块结束时执行。
@@ -896,7 +952,7 @@ Card.prototype.moveTo = function (zone,arg) {
 	} else if (lrigChangeEvent) {
 		// card.player.onLrigChange.trigger(lrigChangeEvent);
 		var oldLrig = lrigChangeEvent.oldLrig;
-		if (oldLrig) oldLrig.onLeaveField.trigger();
+		if (oldLrig) oldLrig.onLeaveField2.trigger();
 		card.onEnterField.trigger(enterFieldEvent);
 		if (!(arg.dontTriggerStartUp || card.player.lrigStartUpBanned)) {
 			card.onStartUp.trigger(enterFieldEvent);
@@ -1280,10 +1336,7 @@ Card.prototype.banishAsyn = function (arg) {
 // };
 
 Card.prototype.summonAsyn = function (optional,dontTriggerStartUp,down) {
-	var zones = this.player.signiZones.filter(function (zone) {
-		return (zone.getActualCards().length === 0);
-	},this);
-	if (!this.canSummon() || !zones.length) return Callback.immediately();
+	if (!this.canSummon()) return Callback.immediately();
 	return Callback.immediately().callback(this,function () {
 		if (optional) {
 			return this.player.selectOptionalAsyn('SUMMON_SIGNI',[this]);

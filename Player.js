@@ -28,6 +28,7 @@ function Player (game,io,mainDeck,lrigDeck) {
 	                    // 然后在调用堆栈的最后将整个队列发送.
 	this.messagePacks = []; // 用于保存录像.
 	this.rebuildCount = 0;
+	this.coin         = 0;
 
 	// 快捷方式
 	this.hands    = [];   // 手牌
@@ -404,7 +405,7 @@ Player.prototype.summonSigniAsyn = function () {
 		return Callback.never();
 	}
 	return this.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
-		return this.selectSummonZoneAsyn(true).callback(this,function (zone) {
+		return this.selectSummonZoneAsyn(true,card.rise).callback(this,function (zone) {
 			if (!zone) return;
 			return this.game.blockAsyn(this,function () {
 				card.moveTo(zone);
@@ -459,8 +460,8 @@ Player.prototype.summonResonaAsyn = function (card) {
 	});
 };
 
-Player.prototype.selectSummonZoneAsyn = function (optional) {
-	var zones = this.getSummonZones();
+Player.prototype.selectSummonZoneAsyn = function (optional,rise) {
+	var zones = this.getSummonZones(null,rise);
 	if (!zones.length) {
 		debugger;
 		return Callback.immediately(null);
@@ -469,13 +470,17 @@ Player.prototype.selectSummonZoneAsyn = function (optional) {
 	return this.selectAsyn('SUMMON_SIGNI_ZONE',zones);
 };
 
-Player.prototype.getSummonZones = function (signis) {
+Player.prototype.getSummonZones = function (signis,rise) {
 	if (!signis) signis = this.signis;
 	var forcedZones = [];
 	var zones = this.signiZones.filter(function (zone,idx) {
 		if (zone.disabled) return false;
 		var signi = zone.getActualCards()[0];
-		if (signi && inArr(signi,signis)) return false;
+		if (rise) {
+			if (!signi || !rise(signi)) return false;
+		} else {
+			if (signi && inArr(signi,signis)) return false;
+		}
 		var opposingSigni = this.opponent.signiZones[2-idx].getActualCards()[0];
 		if (opposingSigni && opposingSigni.forceSummonZone) {
 			forcedZones.push(zone);
@@ -1385,7 +1390,7 @@ Player.prototype.needEner = function (obj) {
 	if (obj.costChange) {
 		obj = obj.costChange();
 	}
-	var costs = [obj.costColorless,obj.costWhite,obj.costBlack,obj.costRed,obj.costBlue,obj.costGreen];
+	var costs = [obj.costColorless,obj.costWhite,obj.costBlack,obj.costRed,obj.costBlue,obj.costGreen,costCoin];
 	return costs.some(function (cost) {
 		return cost > 0;
 	});
@@ -1665,6 +1670,7 @@ Player.prototype.enoughCost = function (obj) {
 	if (obj.costChange) {
 		obj = obj.costChange();
 	}
+	if (obj.costCoin && obj.costCoin >= this.coin) return false;
 	if (!this.enoughEner(obj)) return false;
 	if (obj.costDown && obj.source && !obj.source.isUp) return false;
 	if (obj.costCondition && obj.source) {
@@ -1820,6 +1826,11 @@ Player.prototype.payCostAsyn = function (obj,cancelable) {
 				// 横置
 				if (obj.costDown && obj.source) {
 					obj.source.down();
+				}
+				// Coin
+				if (obj.costCoin) {
+					this.coin -= obj.costCoin
+					if (this.coin < 0) this.coin = 0
 				}
 				// 其它
 				if (obj.costAsyn) {
@@ -2201,6 +2212,13 @@ Player.prototype.setCrossPair = function () {
 	this.crossed = [card,pair];
 	card.crossed = [card,pair];
 	pair.crossed = [card,pair];
+};
+
+Player.prototype.gainCoins = function(count) {
+	this.coin += count;
+	if (this.coin > 5) {
+		this.coin = 5;
+	}
 };
 
 
