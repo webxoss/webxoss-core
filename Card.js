@@ -97,6 +97,8 @@ function Card (game,player,zone,pid,side) {
 
 	// Lostorage
 	this.rise = info.rise;
+	this.acce = !!info.acce;
+	this.acceingCard = null;
 
 	// 杂项
 	this.effectFilters     = [];
@@ -1484,6 +1486,32 @@ Card.prototype.charmTo = function (signi) {
 	this.moveTo(signi.zone,{
 		faceup: false,
 		up: signi.isUp
+	});
+	this.game.frameEnd();
+};
+
+Card.prototype.getAccedCards = function () {
+	if (!inArr(this,this.player.signis)) return [];
+	return this.zone.cards.filter(function (card) {
+		return card.acceingCard === this;
+	},this);
+};
+
+Card.prototype.isAcced = function () {
+	return this.getAccedCards().length;
+};
+
+Card.prototype.canBeAcced = function () {
+	return !this.isAcced();
+};
+
+Card.prototype.acceTo = function (signi) {
+	if (!signi.canBeAcced()) return;
+	this.acceingCard = signi;
+	this.game.frameStart();
+	this.moveTo(signi.zone,{
+		faceup: true,
+		up: signi.isUp,
 	});
 	this.game.frameEnd();
 };

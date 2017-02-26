@@ -164,6 +164,12 @@ function Player (game,io,mainDeck,lrigDeck) {
 // 	});
 // };
 
+Player.prototype.getCards = function () {
+	return this.game.cards.filter(function (card) {
+		return card.player === this;
+	},this);
+};
+
 // 玩家设置lrig
 // (从LRIG卡组里选择等级0的卡片,背面表示放置到LRIG区)
 Player.prototype.setupLrigAsyn = function () {
@@ -820,6 +826,9 @@ Player.prototype.canUseActionEffect = function (effect,arg) {
 	// inTrashZone
 	if (effect.source.zone === this.trashZone && !effect.activatedInTrashZone) return false;
 	if (effect.source.zone !== this.trashZone && effect.activatedInTrashZone) return false;
+	// inEnerZone
+	if (effect.source.zone === this.enerZone && !effect.activatedInEnerZone) return false;
+	if (effect.source.zone !== this.enerZone && effect.activatedInEnerZone) return false;
 	// attackPhase && spellCutIn
 	if (!arg.ignoreTimming) {
 		if (arg.spellCutIn) {
@@ -862,7 +871,7 @@ Player.prototype.canUseActionEffect = function (effect,arg) {
 // 玩家使用起动效果
 Player.prototype.useActionEffectAsyn = function () {
 	var effects = [];
-	var cards = concat(this.lrig,this.signis,this.trashZone.cards,this.hands);
+	var cards = this.getCards();
 	cards.forEach(function (card) {
 		card.actionEffects.forEach(function (effect) {
 			if (effect.spellCutIn) return;
