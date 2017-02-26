@@ -649,6 +649,23 @@ Player.prototype.handleArtsAsyn = function (card,ignoreCost) {
 		this.game.blockStart();
 		// 1. 放到检查区
 		card.moveTo(this.checkZone);
+		// bet
+		if (!card.bet) return;
+		if (this.coin < card.bet) return;
+		var bettedCost = Object.create(costObj);
+		if (card.bettedCost) {
+			bettedCost = this.getChainedCostObj(card.bettedCost);
+		}
+		bettedCost.costCoin += card.bet;
+		if (!this.enoughCost(costObj)) {
+			// 必须 bet
+			return costObj = bettedCost;
+		}
+		return this.player.confirmAsyn('BET').callback(this,function (answer) {
+			if (!answer) return;
+			costObj = bettedCost;
+		})
+	}).callback(this,function () {
 		// 如果效果不止一个,选择其中n个发动
 		if (card.artsEffects.length === 1) {
 			effects = card.artsEffects.slice();
@@ -669,8 +686,7 @@ Player.prototype.handleArtsAsyn = function (card,ignoreCost) {
 			});
 		}
 	}).callback(this,function () {
-		// 2. 支付费用
-		// アンコール费用,约定: 除了颜色费用，其它属性直接覆盖
+		// encore 费用,约定: 除了颜色费用，其它属性直接覆盖
 		if (!card.encore) return;
 		var encoredCost = Object.create(costObj);
 		encoredCost.source = card;
@@ -1829,8 +1845,8 @@ Player.prototype.payCostAsyn = function (obj,cancelable) {
 				}
 				// Coin
 				if (obj.costCoin) {
-					this.coin -= obj.costCoin
-					if (this.coin < 0) this.coin = 0
+					this.loseCoins(obj.costCoin);
+					costArg.bet = costCoin;
 				}
 				// 其它
 				if (obj.costAsyn) {
@@ -2219,6 +2235,11 @@ Player.prototype.gainCoins = function(count) {
 	if (this.coin > 5) {
 		this.coin = 5;
 	}
+};
+
+Player.prototype.loseCoins = function(count) {
+	this.coin -= count;
+	if (this.coin < 0) this.coin = 0;
 };
 
 

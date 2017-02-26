@@ -302,9 +302,11 @@ Card.prototype.getGrowCostObj = function () {
 	return obj;
 };
 
-Card.prototype.getChainedCostObj = function () {
-	if (!this.player.chain) return this;
-	var obj = Object.create(this);
+Card.prototype.getChainedCostObj = function (obj) {
+	if (!obj) {
+		obj = Object.create(this);
+	}
+	if (!this.player.chain) return obj;
 	obj.costWhite     -= this.player.chain.costWhite     || 0;
 	obj.costBlack     -= this.player.chain.costBlack     || 0;
 	obj.costRed       -= this.player.chain.costRed       || 0;
@@ -524,8 +526,17 @@ Card.prototype.canUse = function (timming,ignoreCost) {
 		if (this.player.artsBanned) return false;
 		if (!inArr(timming,this.timmings)) return false;
 		if (this.player.oneArtEachTurn && this.game.getData(this.player,'flagArtsUsed')) return false;
+
+		// cost 判断
 		if (ignoreCost) return true;
-		return this.player.enoughCost(this.getChainedCostObj());
+		var cost = this.getChainedCostObj()
+		if (this.player.enoughCost(cost)) return true;
+		// bet 相关
+		if (this.bet && this.bettedCost) {
+			cost = this.getChainedCostObj(this.bettedCost)
+			if (this.player.enoughCost(cost)) return true;
+		}
+		return false;
 	}
 	return false;
 };
