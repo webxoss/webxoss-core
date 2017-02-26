@@ -936,7 +936,7 @@ Game.prototype.handleBlockEndAsyn = function () {
 		return this.banishNonPositiveAsyn();
 	}).callback(this,function () {
 		// 废弃【魅饰】和SIGNI下方的卡
-		this.trashCards.forEach(function (card) {
+		this.trashingCards.forEach(function (card) {
 			card.acceingCard = null;
 		},this);
 		this.trashCards(this.trashingCharms,{ isCharm: true });

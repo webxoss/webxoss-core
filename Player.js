@@ -164,12 +164,6 @@ function Player (game,io,mainDeck,lrigDeck) {
 // 	});
 // };
 
-Player.prototype.getCards = function () {
-	return this.game.cards.filter(function (card) {
-		return card.player === this;
-	},this);
-};
-
 // 玩家设置lrig
 // (从LRIG卡组里选择等级0的卡片,背面表示放置到LRIG区)
 Player.prototype.setupLrigAsyn = function () {
@@ -660,14 +654,14 @@ Player.prototype.handleArtsAsyn = function (card,ignoreCost) {
 		if (this.coin < card.bet) return;
 		var bettedCost = Object.create(costObj);
 		if (card.bettedCost) {
-			bettedCost = this.getChainedCostObj(card.bettedCost);
+			bettedCost = card.getChainedCostObj(card.bettedCost);
 		}
-		bettedCost.costCoin += card.bet;
+		bettedCost.costCoin = card.bet;
 		if (!this.enoughCost(costObj)) {
 			// 必须 bet
 			return costObj = bettedCost;
 		}
-		return this.player.confirmAsyn('BET').callback(this,function (answer) {
+		return this.confirmAsyn('BET').callback(this,function (answer) {
 			if (!answer) return;
 			costObj = bettedCost;
 		})
@@ -871,7 +865,7 @@ Player.prototype.canUseActionEffect = function (effect,arg) {
 // 玩家使用起动效果
 Player.prototype.useActionEffectAsyn = function () {
 	var effects = [];
-	var cards = this.getCards();
+	var cards = concat(this.lrig,this.signis,this.trashZone.cards,this.hands,this.enerZone.cards);
 	cards.forEach(function (card) {
 		card.actionEffects.forEach(function (effect) {
 			if (effect.spellCutIn) return;
@@ -1415,7 +1409,7 @@ Player.prototype.needEner = function (obj) {
 	if (obj.costChange) {
 		obj = obj.costChange();
 	}
-	var costs = [obj.costColorless,obj.costWhite,obj.costBlack,obj.costRed,obj.costBlue,obj.costGreen,costCoin];
+	var costs = [obj.costColorless,obj.costWhite,obj.costBlack,obj.costRed,obj.costBlue,obj.costGreen];
 	return costs.some(function (cost) {
 		return cost > 0;
 	});
@@ -1458,6 +1452,7 @@ Player.prototype.needCost = function (obj) {
 	if (obj.costChange) {
 		obj = obj.costChange();
 	}
+	if (obj.costCoin) return true;
 	if (obj.costDown && obj.source) return true;
 	if (obj.costAsyn && obj.source) return true;
 	if (obj.costExceed && obj.source) return true;
@@ -1695,8 +1690,7 @@ Player.prototype.enoughCost = function (obj) {
 	if (obj.costChange) {
 		obj = obj.costChange();
 	}
-	if (obj.costCoin && obj.costCoin >= this.coin) return false;
-	if (!this.enoughEner(obj)) return false;
+	if (obj.costCoin && obj.costCoin > this.coin) return false;
 	if (obj.costDown && obj.source && !obj.source.isUp) return false;
 	if (obj.costCondition && obj.source) {
 		if (!obj.costCondition.call(obj.source)) return false;
@@ -1704,6 +1698,7 @@ Player.prototype.enoughCost = function (obj) {
 	if (obj.costExceed && obj.source) {
 		if (!this.enoughExceed(obj)) return false;
 	}
+	if (!this.enoughEner(obj)) return false;
 	return true;
 };
 
@@ -1855,7 +1850,7 @@ Player.prototype.payCostAsyn = function (obj,cancelable) {
 				// Coin
 				if (obj.costCoin) {
 					this.loseCoins(obj.costCoin);
-					costArg.bet = costCoin;
+					costArg.bet = obj.costCoin;
 				}
 				// 其它
 				if (obj.costAsyn) {

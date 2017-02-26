@@ -38,6 +38,7 @@ function Card (game,player,zone,pid,side) {
 	this.costBlue       = info.costBlue;
 	this.costGreen      = info.costGreen;
 	this.costColorless  = info.costColorless;
+	this.costCoin       = info.costCoin;
 	this.costAsyn       = info.costAsyn;
 	this.costChange     = info.costChange;
 	this.costChangeAsyn = info.costChangeAsyn;
@@ -96,6 +97,9 @@ function Card (game,player,zone,pid,side) {
 	}
 
 	// Lostorage
+	this.coin = info.coin || 0;
+	this.bet = info.bet || 0;
+	this.bettedCost = info.bettedCost || null;
 	this.rise = info.rise;
 	this.acce = !!info.acce;
 	this.acceingCard = null;
@@ -971,6 +975,9 @@ Card.prototype.moveTo = function (zone,arg) {
 		},this);
 	} else if (lrigChangeEvent) {
 		// card.player.onLrigChange.trigger(lrigChangeEvent);
+		if (card.coin) {
+			card.player.gainCoins(card.coin)
+		}
 		var oldLrig = lrigChangeEvent.oldLrig;
 		if (oldLrig) oldLrig.onLeaveField2.trigger();
 		card.onEnterField.trigger(enterFieldEvent);

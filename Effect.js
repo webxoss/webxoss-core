@@ -25,6 +25,7 @@ function Effect (effectManager,cfg) {
 	this.costColorless    = cfg.costColorless;
 	this.costDown         = cfg.costDown;
 	this.costExceed       = cfg.costExceed;
+	this.costCoin         = cfg.costCoin;
 	this.costCondition    = cfg.costCondition;
 	this.costAsyn         = cfg.costAsyn;
 	this.costChange       = cfg.costChange;
