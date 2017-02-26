@@ -124,6 +124,7 @@ function Card (game,player,zone,pid,side) {
 	this.onHeaven          = new Timming(game);
 	this.onFreeze          = new Timming(game);
 	this.onChangeSigniZone = new Timming(game);
+	this.onRised           = new Timming(game);
 
 	// 附加的属性
 	this.canNotAttack                = false;
@@ -781,6 +782,7 @@ Card.prototype.moveTo = function (zone,arg) {
 		isSigni: inArr(card,card.player.signis),
 		isCharm: arg.isCharm || false,
 		isCrossed: !!card.crossed,
+		riseTarget: null,
 		isUp: arg.up,
 		oldZone: card.zone,
 		newZone: zone,
@@ -842,6 +844,7 @@ Card.prototype.moveTo = function (zone,arg) {
 					// 出场
 					arg.bottom = false;
 					enterFieldEvent = moveEvent;
+					enterFieldEvent.riseTarget = signi;
 					card.player.signis.push(card);
 				} else {
 					// 放置到 SIGNI 下面的卡
@@ -944,6 +947,10 @@ Card.prototype.moveTo = function (zone,arg) {
 		card.onEnterField.trigger(enterFieldEvent);
 		if (!(arg.dontTriggerStartUp || card.player.signiStartUpBanned)) {
 			card.onStartUp.trigger(enterFieldEvent);
+		}
+		// rise
+		if (enterFieldEvent.riseTarget) {
+			enterFieldEvent.riseTarget.onRised.trigger(enterFieldEvent);
 		}
 	} else if (leaveFieldEvent) {
 		// card.player.onSignisChange.trigger();
