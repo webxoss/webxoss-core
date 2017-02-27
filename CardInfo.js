@@ -124539,7 +124539,7 @@ var CardInfo = {
 		"timestamp": 1479021166658,
 		"wxid": "WD17-001",
 		name: "決死の記憶　リル",
-		name_zh_CN: "決死の記憶　リル",
+		name_zh_CN: "决死的记忆 莉露",
 		name_en: "Ril, Memory of Desperation",
 		"kana": "ケッシノキオクリル",
 		"rarity": "ST",
@@ -124572,7 +124572,7 @@ var CardInfo = {
 			"【出】《コイン》：対戦相手のパワー12000以下のシグニ１体をバニッシュする。"
 		],
 		startUpEffectTexts_zh_CN: [
-			"【出】《COIN》：将对战对手的1只力量12000以下的SIGNI驱逐。"
+			"【出】【COIN】：破坏对方1只力量12000以下的精灵。"
 		],
 		startUpEffectTexts_en: [
 			"[On-Play] [Coin]: Banish 1 of your opponent's SIGNI with power 12000 or less."
@@ -124590,7 +124590,7 @@ var CardInfo = {
 			"【起】《ターン１回》《赤》《赤》《赤》：ターン終了時まで、あなたの《ライズアイコン》を持つシグニ１体は「このシグニが正面にあるシグニ１体をバニッシュしたとき、このシグニをアップする。」を得る。"
 		],
 		actionEffectTexts_zh_CN: [
-			"【起】《1回合1次》【红】【红】【红】：直到回合结束为止，你的1只持有【Rise】的SIGNI获得「这只SIGNI对面的SIGNI被驱逐时，将这只SIGNI竖置」。"
+			"【起】【回合1】【红】【红】【红】：直到回合结束时为止，我方1只持有<升阶>的精灵获得「此牌破坏其正前方的1只精灵时，竖置此牌。」的效果。"
 		],
 		actionEffectTexts_en: [
 			"[Action] [1/Turn] [Red] [Red] [Red]: Until end of turn, 1 of your SIGNI with Rise gets \"When the SIGNI in front of this SIGNI is banished, up this SIGNI.\"."
@@ -124630,7 +124630,7 @@ var CardInfo = {
 		"timestamp": 1484724003593,
 		"wxid": "WD17-002",
 		name: "蒼天の記憶　リル",
-		name_zh_CN: "蒼天の記憶　リル",
+		name_zh_CN: "苍天的记忆 莉露",
 		name_en: "Ril, Memory of the Blue Sky",
 		"kana": "ソウテンノキオクリル",
 		"rarity": "ST",
@@ -124663,7 +124663,7 @@ var CardInfo = {
 			"【出】《赤》：《コイン》《コイン》を得る。"
 		],
 		startUpEffectTexts_zh_CN: [
-			"【出】【红】：获得《COIN》《COIN》。"
+			"【出】【红】：获得【COIN】【COIN】。"
 		],
 		startUpEffectTexts_en: [
 			"[On-Play] Red: Gain [Coin] [Coin]."
@@ -124681,7 +124681,7 @@ var CardInfo = {
 		"timestamp": 1484724003597,
 		"wxid": "WD17-003",
 		name: "動揺の記憶　リル",
-		name_zh_CN: "動揺の記憶　リル",
+		name_zh_CN: "动摇的记忆 莉露",
 		name_en: "Ril, Memory of Shaking",
 		"kana": "ドウヨウノキオクリル",
 		"rarity": "ST",
@@ -124711,16 +124711,15 @@ var CardInfo = {
 		//        出场效果
 		// ======================
 		startUpEffectTexts: [
-			"【出】《赤》：《コイン》を得る。"
+			"【出】：《コイン》を得る。"
 		],
 		startUpEffectTexts_zh_CN: [
-			"【出】【红】：获得《COIN》。"
+			"【出】：获得【COIN】。"
 		],
 		startUpEffectTexts_en: [
-			"[On-Play] Red: Gain [Coin]."
+			"[On-Play] : Gain [Coin]."
 		],
 		startUpEffects: [{
-			costRed: 1,
 			actionAsyn: function () {
 				this.player.gainCoins(1);
 			}
@@ -124732,7 +124731,7 @@ var CardInfo = {
 		"timestamp": 1484724003378,
 		"wxid": "WD17-004",
 		name: "欠片の記憶　リル",
-		name_zh_CN: "欠片の記憶　リル",
+		name_zh_CN: "欠片的记忆 莉露",
 		name_en: "Ril, Fragmented Memory",
 		"kana": "カケラノキオクリル",
 		"rarity": "ST",
@@ -124765,7 +124764,7 @@ var CardInfo = {
 			"【出】《コイン》：カードを１枚引く。"
 		],
 		startUpEffectTexts_zh_CN: [
-			"【出】【COIN】：抽1张卡。"
+			"【出】【COIN】：抽1张牌。"
 		],
 		startUpEffectTexts_en: [
 			"[On-Play] Coin: Draw 1 card."
@@ -124783,7 +124782,7 @@ var CardInfo = {
 		"timestamp": 1484724002919,
 		"wxid": "WD17-005",
 		name: "純真の記憶　リル",
-		name_zh_CN: "純真の記憶　リル",
+		name_zh_CN: "纯真的记忆 莉露",
 		name_en: "Ril, Memory of Innocence",
 		coin: 1,
 		"kana": "ジュンシンノキオクリル",
@@ -124818,7 +124817,7 @@ var CardInfo = {
 		"timestamp": 1484724003590,
 		"wxid": "WD17-006",
 		name: "孤立無炎",
-		name_zh_CN: "孤立無炎",
+		name_zh_CN: "孤立无炎",
 		name_en: "Flameless Isolation",
 		"kana": "コリツムエン",
 		"rarity": "ST",
@@ -124851,8 +124850,8 @@ var CardInfo = {
 			"対戦相手のすべてのシグニをバニッシュする。"
 		],
 		artsEffectTexts_zh_CN: [
-			"你赌上硬币的场合，这张技艺的使用费用变成【红0】\n" +
-			"将对战对手的所有SIGNI驱逐。"
+			"下注-【COIN】【COIN】我方下注的话，此牌的使用费用变为【红0】。\n" +
+			"破坏对方所有精灵。"
 		],
 		artsEffectTexts_en: [
 			"If you bet, the cost for using this ARTS is [Red0].\n" +
@@ -124872,7 +124871,7 @@ var CardInfo = {
 		"timestamp": 1484724003400,
 		"wxid": "WD17-007",
 		name: "一騎当閃",
-		name_zh_CN: "一騎当閃",
+		name_zh_CN: "一骑当闪",
 		name_en: "Mighty Flash",
 		"kana": "イッキトウセン",
 		"rarity": "ST",
@@ -124904,7 +124903,7 @@ var CardInfo = {
 			"対戦相手のパワー7000以下のシグニ１体をバニッシュする。あなたがベットしていた場合、代わりにパワー20000以下のシグニ１体をバニッシュする。"
 		],
 		artsEffectTexts_zh_CN: [
-			"将对战对手的1只力量7000以下的SIGNI驱逐。你赌上硬币的场合，作为代替将1只力量20000以下的SIGNI驱逐。"
+			"下注-【COIN】破坏对方1只力量7000以下的精灵。我方下注的话，作为代替破坏对方1只力量20000以下的精灵。"
 		],
 		artsEffectTexts_en: [
 			"Banish 1 of your opponent's SIGNI with power 7000 or less. If you bet, instead banish 1 of your opponent's SIGNI with power 20000 or less."
@@ -124923,7 +124922,7 @@ var CardInfo = {
 		"timestamp": 1484724003325,
 		"wxid": "WD17-008",
 		name: "瞬息爆変",
-		name_zh_CN: "瞬息爆変",
+		name_zh_CN: "瞬息爆变",
 		name_en: "Instant Breath, Explosive Strangeness",
 		"kana": "シュンソクバクペン",
 		"rarity": "ST",
@@ -124955,7 +124954,7 @@ var CardInfo = {
 			"あなたのデッキから赤のシグニ１枚を探してダウン状態で場に出す。その後、デッキをシャッフルする。ターン終了時に、そのシグニを場からトラッシュに置く。"
 		],
 		artsEffectTexts_zh_CN: [
-			"从你的卡组中探寻1张红色的SIGNI以横置状态出场。之后，洗切牌组。回合结束时，将那只SIGNI放置到废弃区。"
+			"从我方牌组中找1张红色精灵牌并让其以横置状态出场。之后，洗切牌组。回合结束时，将那只精灵从场上放置到废弃区。"
 		],
 		artsEffectTexts_en: [
 			"Search your deck for 1 red SIGNI and put it onto the field downed. Then, shuffle your deck. At the end of the turn, put that SIGNI from the field into the trash."
@@ -124979,7 +124978,7 @@ var CardInfo = {
 		"timestamp": 1484724003857,
 		"wxid": "WD17-009",
 		name: "仙石の西猿　ゴクウ",
-		name_zh_CN: "仙石の西猿　ゴクウ",
+		name_zh_CN: "仙石的西猿 悟空",
 		name_en: "Goku, Western Monkey of the Sage's Stone",
 		"kana": "センゴクノセイエンゴクウ",
 		"rarity": "ST",
@@ -125031,7 +125030,7 @@ var CardInfo = {
 			"［ライズ］あなたの＜武勇＞のシグニ１体の上に置く"
 		],
 		extraTexts_zh_CN: [
-			"［ライズ］あなたの＜武勇＞のシグニ１体の上に置く"
+			"<升阶>放置到我方1只＜武勇＞精灵上方。"
 		],
 		extraTexts_en: [
 			"(Rise) Put on 1 of your <Valor> SIGNI"
@@ -125046,7 +125045,7 @@ var CardInfo = {
 			"【自】：このシグニがアタックしたとき、このシグニのパワーが15000以上の場合、このシグニの正面のシグニ１体をバニッシュする。"
 		],
 		constEffectTexts_zh_CN: [
-			"【自】：这只SIGNI攻击时，这只SIGNI的力量在15000以上的场合，将这只SIGNI对面1只的SIGNI驱逐。"
+			"【自】：此牌攻击时，此牌力量在15000以上的话，破坏此牌正前方的1只精灵。"
 		],
 		constEffectTexts_en: [
 			"[Auto]: When this SIGNI attacks, if this SIGNI's power is 15000 or more, banish 1 SIGNI in front of this SIGNI."
@@ -125069,7 +125068,7 @@ var CardInfo = {
 			"【起】《赤》：ターン終了時まで、このシグニのパワーを＋3000する。"
 		],
 		actionEffectTexts_zh_CN: [
-			"【起】【红】：直到回合结束为止，这只SIGNI的力量+3000。"
+			"【起】【红】：直到回合结束时为止，此牌力量+3000。"
 		],
 		actionEffectTexts_en: [
 			"[Action] [Red]: Until end of turn, this SIGNI gets +3000 power."
@@ -125087,7 +125086,7 @@ var CardInfo = {
 			"【※】：対戦相手のパワー10000以下のシグニ１体をバニッシュする。あなたの場に＜武勇＞のシグニがある場合、代わりにパワー15000以下のシグニ１体をバニッシュする。"
 		],
 		burstEffectTexts_zh_CN: [
-			"【※】：将对战对手的1只力量10000以下的SIGNI驱逐。你的场上存在<武勇>SIGNI的场合，作为代替将1只力量15000以下的SIGNI驱逐。"
+			"【※】：破坏对方1只力量10000以下的精灵。如果我方场上有＜武勇＞精灵，作为代替破坏1只力量15000以下的精灵。"
 		],
 		burstEffectTexts_en: [
 			"【※】：Banish 1 of your opponent's SIGNI with power 10000 or less. If there is a <Valor> SIGNI on your field, instead banish a SIGNI with power 15000 or less."
@@ -125108,7 +125107,7 @@ var CardInfo = {
 		"timestamp": 1484724003963,
 		"wxid": "WD17-010",
 		name: "湖騎の円卓　ランスロット",
-		name_zh_CN: "湖騎の円卓　ランスロット",
+		name_zh_CN: "湖骑的圆桌 兰斯洛特",
 		name_en: "Lancelot, Lake Cavalry of the Round Table",
 		"kana": "コキノエンタクラスロット",
 		"rarity": "ST",
@@ -125142,7 +125141,7 @@ var CardInfo = {
 		"timestamp": 1484724003974,
 		"wxid": "WD17-011",
 		name: "金山の西蔵　サンゾウ",
-		name_zh_CN: "金山の西蔵　サンゾウ",
+		name_zh_CN: "金山的西藏 三藏",
 		name_en: "Sanzo, Tibetan of the Golden Mountain",
 		"kana": "キンザンノセイゾウサンゾウ",
 		"rarity": "ST",
@@ -125176,7 +125175,7 @@ var CardInfo = {
 			"【自】：場にあるこのシグニの上に《ライズアイコン》を持つシグニが置かれたとき、ターン終了時まで、そのシグニのパワーを＋3000する。",
 		],
 		constEffectTexts_zh_CN: [
-			"【自】："
+			"【自】：场上的此牌上方被放置了持有<升阶>的精灵时，直到回合结束时为止，那只精灵力量+3000。"
 		],
 		constEffectTexts_en: [
 			"[Auto]: When your SIGNI with Rise enters the field on this SIGNI, until end of turn, that SIGNI gets +3000 power."
@@ -125195,7 +125194,7 @@ var CardInfo = {
 			"【出】《赤》：あなたのデッキから《ライズアイコン》を持つシグニ１枚を探して公開し手札に加える。その後、デッキをシャッフルする。"
 		],
 		startUpEffectTexts_zh_CN: [
-			"【出】【红】："
+			"【出】【红】：从我方牌组中找1张持有<升阶>的精灵牌将其展示后加入手牌。之后，洗切牌组。"
 		],
 		startUpEffectTexts_en: [
 			"[On-Play] [Red]: Search your deck for 1 SIGNI with Rise, reveal it, and add it to your hand. Then, shuffle your deck."
@@ -125216,7 +125215,7 @@ var CardInfo = {
 		"timestamp": 1484724004236,
 		"wxid": "WD17-012",
 		name: "鷹武の円卓　ガウェイン",
-		name_zh_CN: "鷹武の円卓　ガウェイン",
+		name_zh_CN: "鹰武的圆桌 高文",
 		name_en: "Gawain, War Hawk of the Round Table",
 		"kana": "タカブノエンタクガウェイン",
 		"rarity": "ST",
@@ -125250,7 +125249,7 @@ var CardInfo = {
 		"timestamp": 1484724004271,
 		"wxid": "WD17-013",
 		name: "貫鍬の西猪　ハッカイ",
-		name_zh_CN: "貫鍬の西猪　ハッカイ",
+		name_zh_CN: "贯锹的西猪",
 		name_en: "Hakkai, Western Boar of the Piercing Hoe",
 		"kana": "ツラヌキグワノセイチョハッカイ",
 		"rarity": "ST",
@@ -125284,7 +125283,7 @@ var CardInfo = {
 			"【自】：このシグニがアタックしたとき、ターン終了時まで、このシグニのパワーを＋3000する。あなたの場に＜武勇＞のシグニが３体ある場合、代わりに＋5000する。"
 		],
 		constEffectTexts_zh_CN: [
-			"【自】："
+			"【自】：此牌攻击时，直到回合结束时为止，此牌力量+3000。如果我方场上有3只＜武勇＞精灵，作为代替+5000。"
 		],
 		constEffectTexts_en: [
 			"[Auto]: When this SIGNI attacks, until end of turn, this SIGNI gets +3000 power. If there are 3 <Valor> SIGNI on your field, it gets +5000 instead."
@@ -125323,7 +125322,7 @@ var CardInfo = {
 		"timestamp": 1484724004246,
 		"wxid": "WD17-014",
 		name: "一槍の円卓　パシバル",
-		name_zh_CN: "一槍の円卓　パシバル",
+		name_zh_CN: "一枪的圆桌 珀西瓦尔",
 		name_en: "Percival, First Spear of the Round Table",
 		"kana": "ヒトヤリノエンタクパシバル",
 		"rarity": "ST",
@@ -125357,7 +125356,7 @@ var CardInfo = {
 		"timestamp": 1484724004355,
 		"wxid": "WD17-015",
 		name: "人魂の西河　サゴジョ",
-		name_zh_CN: "人魂の西河　サゴジョ",
+		name_zh_CN: "人魂的西河 沙悟净",
 		name_en: "Sagojo, Western River of the Hitodama",
 		"kana": "ヒトダマノセイガサゴジョ",
 		"rarity": "ST",
@@ -125391,7 +125390,7 @@ var CardInfo = {
 			"【自】：このシグニがアタックしたとき、ターン終了時まで、このシグニのパワーを＋3000する。あなたの場に＜武勇＞のシグニが３体ある場合、代わりに＋5000する。"
 		],
 		constEffectTexts_zh_CN: [
-			"【自】："
+			"【自】：此牌攻击时，直到回合结束时为止，此牌力量+3000。如果我方场上有3只＜武勇＞精灵，作为代替+5000。"
 		],
 		constEffectTexts_en: [
 			"[Auto]: When this SIGNI attacks, until end of turn, this SIGNI gets +3000 power. If there are 3 <Valor> SIGNI on your field, it gets +5000 instead."
@@ -125496,7 +125495,7 @@ var CardInfo = {
 		"timestamp": 1484724005421,
 		"wxid": "WD17-018",
 		name: "神流の一振",
-		name_zh_CN: "神流の一振",
+		name_zh_CN: "神流的一振",
 		name_en: "One Swing of the Divine Current",
 		"kana": "カンナノヒトフリ",
 		"rarity": "ST",
@@ -125537,11 +125536,11 @@ var CardInfo = {
 			"あなたの《ライズアイコン》を持つ＜武勇＞のシグニ１体をバニッシュする。そうした場合、対戦相手のパワー12000以下のシグニ１体をバニッシュする。",
 		],
 		spellEffectTexts_zh_CN: [
-			"以下の２つから１つを選ぶ。\n" +
-			"①あなたの《ライズアイコン》を持たない＜武勇＞のシグニ１体をバニッシュする。そうした場合、あなたのデッキから《ライズアイコン》を持つ＜武勇＞のシグニ１枚を探して公開し手札に加える。その後、デッキをシャッフルする。\n" +
-			"②あなたの《ライズアイコン》を持つ＜武勇＞のシグニ１体をバニッシュする。そうした場合、対戦相手のパワー12000以下のシグニ１体をバニッシュする。",
-			"あなたの《ライズアイコン》を持たない＜武勇＞のシグニ１体をバニッシュする。そうした場合、あなたのデッキから《ライズアイコン》を持つ＜武勇＞のシグニ１枚を探して公開し手札に加える。その後、デッキをシャッフルする。",
-			"あなたの《ライズアイコン》を持つ＜武勇＞のシグニ１体をバニッシュする。そうした場合、対戦相手のパワー12000以下のシグニ１体をバニッシュする。",
+			"从以下2项中选择1项。\n" +
+			"①破坏我方1只不持有<升阶>的＜武勇＞精灵。若如此做，从我方牌组中找1张持有<升阶>的＜武勇＞精灵牌将其展示后加入手牌。之后，洗切牌组。\n" +
+			"②破坏我方1只持有<升阶>的＜武勇＞精灵。若如此做，破坏对方1只力量12000以下的精灵。",
+			"破坏我方1只不持有<升阶>的＜武勇＞精灵。若如此做，从我方牌组中找1张持有<升阶>的＜武勇＞精灵牌将其展示后加入手牌。之后，洗切牌组。",
+			"破坏我方1只持有<升阶>的＜武勇＞精灵。若如此做，破坏对方1只力量12000以下的精灵。",
 		],
 		spellEffectTexts_en: [
 			"Choose 1 of the following 2.\n" +
@@ -125604,8 +125603,8 @@ var CardInfo = {
 		"timestamp": 1484724005425,
 		"wxid": "WD18-001",
 		name: "メル＝アンジュ",
-		name_zh_CN: "メル＝アンジュ",
-		name_en: "メル＝アンジュ",
+		name_zh_CN: "梅露=安茹",
+		name_en: "Mel=Ange",
 		"kana": "メルアンジュ",
 		"rarity": "ST",
 		"cardType": "LRIG",
@@ -125637,7 +125636,7 @@ var CardInfo = {
 			"【出】《コインアイコン》：あなたのデッキから《アクセアイコン》を持つカードを２枚まで探してエナゾーンに置く。その後、デッキをシャッフルする。"
 		],
 		startUpEffectTexts_zh_CN: [
-			"【出】《COIN》：从我方牌组中找最多2张持有【饰品】的卡并放置到能量区，之后洗切卡组"
+			"【出】【COIN】：从我方牌组中找最多2张持有<附属>的卡牌并将其放置到能量区。之后，洗切牌组。"
 		],
 		startUpEffectTexts_en: [
 			"[On-Play] [Coin]: Search your deck for up to 2 cards with Accessory and put them into the Ener Zone. Then, shuffle your deck."
@@ -125660,7 +125659,7 @@ var CardInfo = {
 			"【起】それぞれレベルの異なる＜調理＞のシグニ４枚をあなたのエナゾーンからトラッシュに置く：あなたのデッキの一番上のカードをライフクロスに加える。この能力は1ターンに一度しか使用できない。"
 		],
 		actionEffectTexts_zh_CN: [
-			"【起】将4张不同等级的<料理>SIGNI从能量区放置到废弃区：将我方卡组顶1张卡加入生命护甲。将这个能力一回合只能使用一次。"
+			"【起】【回合1】将等级各不相同的4张<调理>精灵牌从我方能量区放置到废弃区：将我方牌组顶1张牌加入生命护甲。"
 		],
 		actionEffectTexts_en: [
 			"[Action] Put 4 <Cooking> SIGNI with different levels from your Ener Zone into the trash: Add the top card of your deck to Life Cloth. This ability can only be used once per turn."
@@ -125711,8 +125710,8 @@ var CardInfo = {
 		"timestamp": 1484724005429,
 		"wxid": "WD18-002",
 		name: "メル＝ダイキリ",
-		name_zh_CN: "メル＝ダイキリ",
-		name_en: "メル＝ダイキリ",
+		name_zh_CN: "梅露=得其利",
+		name_en: "Mel=Daiquiri",
 		"kana": "メルダイキリ",
 		"rarity": "ST",
 		"cardType": "LRIG",
@@ -125744,7 +125743,7 @@ var CardInfo = {
 			"【出】《緑》《緑》：《コイン》《コイン》を得る。"
 		],
 		startUpEffectTexts_zh_CN: [
-			"【出】【绿绿】：获得《COIN》《COIN》。"
+			"【出】【绿】【绿】：获得【COIN】【COIN】。"
 		],
 		startUpEffectTexts_en: [
 			"[On-Play] [Green] [Green]: Gain 2 Coins."
@@ -125762,8 +125761,8 @@ var CardInfo = {
 		"timestamp": 1484724005513,
 		"wxid": "WD18-003",
 		name: "メル＝モヒート",
-		name_zh_CN: "メル＝モヒート",
-		name_en: "メル＝モヒート",
+		name_zh_CN: "梅露=莫吉托",
+		name_en: "Mel=Mojito",
 		"kana": "メルモヒート",
 		"rarity": "ST",
 		"cardType": "LRIG",
@@ -125795,7 +125794,7 @@ var CardInfo = {
 			"【出】：《コイン》を得る。"
 		],
 		startUpEffectTexts_zh_CN: [
-			"【出】：获得《COIN》。"
+			"【出】：获得【COIN】。"
 		],
 		startUpEffectTexts_en: [
 			"[On-Play]: Gain 1 Coin."
@@ -125812,8 +125811,8 @@ var CardInfo = {
 		"timestamp": 1484724005412,
 		"wxid": "WD18-004",
 		name: "メル＝スプモニ",
-		name_zh_CN: "メル＝スプモニ",
-		name_en: "メル＝スプモニ",
+		name_zh_CN: "梅露=斯普摩尼",
+		name_en: "Mel=Spumoni",
 		"kana": "メルスプモニ",
 		"rarity": "ST",
 		"cardType": "LRIG",
@@ -125845,7 +125844,7 @@ var CardInfo = {
 			"【出】《コイン》：あなたのデッキの一番上のカードをエナゾーンに置く。"
 		],
 		startUpEffectTexts_zh_CN: [
-			"【出】《COIN》：将我方牌组顶1张牌放置到能量区"
+			"【出】【COIN】：将我方牌组顶1张牌放置到能量区。"
 		],
 		startUpEffectTexts_en: [
 			"[On-Play] Coin: Put the top card of your deck into the Ener Zone."
@@ -125863,8 +125862,8 @@ var CardInfo = {
 		"timestamp": 1484724005539,
 		"wxid": "WD18-005",
 		name: "メル＝レディ",
-		name_zh_CN: "メル＝レディ",
-		name_en: "メル＝レディ",
+		name_zh_CN: "梅露=佳人",
+		name_en: "Mel=Ready",
 		coin: 3,
 		"kana": "メルレディ",
 		"rarity": "ST",
@@ -125897,8 +125896,8 @@ var CardInfo = {
 		"timestamp": 1484724005956,
 		"wxid": "WD18-006",
 		name: "千軍万馬",
-		name_zh_CN: "千軍万馬",
-		name_en: "千軍万馬",
+		name_zh_CN: "千军万马",
+		name_en: "Many Battles",
 		"kana": "シーズニング",
 		"rarity": "ST",
 		"cardType": "ARTS",
@@ -125929,7 +125928,7 @@ var CardInfo = {
 			"ターン終了時まで、あなたのすべての＜調理＞のシグニは「このシグニがアタックしたとき、自身よりパワーの低い対戦相手のシグニ１体をバニッシュする。」を得る。"
 		],
 		artsEffectTexts_zh_CN: [
-			"直到此回合为止，我方所有<料理>SIGNI获得「这只SIGNI攻击时，将对手的一只力量比你低的SIGNI驱逐」。"
+			"直到回合结束时为止，我方所有＜调理＞精灵获得「此牌攻击时，破坏对方1只力量比此牌低的精灵」的效果。"
 		],
 		artsEffectTexts_en: [
 			"Until end of turn, all of your <Cooking> SIGNI get \"When this SIGNI attacks, banish 1 of your opponent's SIGNI with less power than this SIGNI.\"."
@@ -125964,8 +125963,8 @@ var CardInfo = {
 		"timestamp": 1484724005965,
 		"wxid": "WD18-007",
 		name: "試行錯誤",
-		name_zh_CN: "試行錯誤",
-		name_en: "試行錯誤",
+		name_zh_CN: "试行错误",
+		name_en: "Trial and Error",
 		"kana": "ワンモアチャンス",
 		"rarity": "ST",
 		"cardType": "ARTS",
@@ -125997,8 +125996,8 @@ var CardInfo = {
 			"あなたのエナゾーンから緑のカードを３枚まで手札に加える。あなたがベットしていた場合、追加で手札から緑のシグニを３枚まで場に出す。それらのシグニの【出】の能力は発動しない。"
 		],
 		artsEffectTexts_zh_CN: [
-			"《COIN》《COIN》\n" +
-			"将最多三张绿色的卡从能量区加入手牌。你赌上硬币的场合，从手牌中将3只绿色SIGNI出场，其【出】的效果不能发动。"
+			"下注-【COIN】【COIN】\n" +
+			"从我方能量区将最多3张绿色卡牌加入手牌。我方下注的话，追加从手牌让最多3张精灵牌出场。这些精灵牌的【出】的效果不能发动。"
 		],
 		artsEffectTexts_en: [
 			"Bet - Coin Coin \n" +
@@ -126036,8 +126035,8 @@ var CardInfo = {
 		"timestamp": 1484724005946,
 		"wxid": "WD18-008",
 		name: "悠々自適",
-		name_zh_CN: "悠々自適",
-		name_en: "悠々自適",
+		name_zh_CN: "悠悠自适",
+		name_en: "Life Free from Worldly Cares",
 		"kana": "パーティータイム",
 		"rarity": "ST",
 		"cardType": "ARTS",
@@ -126069,8 +126068,8 @@ var CardInfo = {
 			"ターン終了時まで、あなたのすべてのシグニのパワーを＋2000する。あなたがベットしていた場合、追加でターン終了時まで、あなたのシグニ１体は「対戦相手のターンであるかぎり、対戦相手の効果を受けない。」を得る。"
 		],
 		artsEffectTexts_zh_CN: [
-			"《COIN》\n" +
-			"直到回合结束，你的所有精灵力量+2000。你赌上硬币的场合，直到回合结束，你的一只SIGNI获得「只要在你对手的回合，这只SIGNI不会受到对手效果的影响」。"
+			"下注-【COIN】\n" +
+			"直到回合结束时为止，我方所有精灵力量+2000。我方下注的话，追加直到回合结束时为止，我方1只精灵获得「只要在对方回合中，不受对方的效果影响」的效果。"
 		],
 		artsEffectTexts_en: [
 			"Bet - Coin \n" +
@@ -126101,8 +126100,8 @@ var CardInfo = {
 		"timestamp": 1484724005960,
 		"wxid": "WD18-009",
 		name: "コードイート　ハンバ",
-		name_zh_CN: "コードイート　ハンバ",
-		name_en: "コードイート　ハンバ",
+		name_zh_CN: "食用代号 汉堡牛肉饼",
+		name_en: "Code Eat Hambur",
 		"kana": "コードイートハンバ",
 		"rarity": "ST",
 		"cardType": "SIGNI",
@@ -126135,7 +126134,7 @@ var CardInfo = {
 			"【常】：このシグニがアクセされているかぎり、このシグニのパワーは＋3000される。",
 		],
 		constEffectTexts_zh_CN: [
-			"【常】：这只SIGNI被<修饰>的场合，这只SIGNI的力量+3000。"
+			"【常】：只要此牌被附属，此牌力量+3000。"
 		],
 		constEffectTexts_en: [
 			"[Constant]: As long as this SIGNI is accessorized, this SIGNI gets +3000 power."
@@ -126155,7 +126154,7 @@ var CardInfo = {
 			"【自】：このシグニがバニッシュされたとき、このシグニがアクセされていた場合、あなたのトラッシュから《アクセアイコン》を持つシグニ１枚をエナゾーンに置く。"
 		],
 		constEffectTexts_zh_CN: [
-			"【自】：当这只SIGNI被驱逐时，如果这只SIGNI被<修饰>，将一只带有<饰品>SIGNI从废弃区放置到能量区。"
+			"【自】：此牌被破坏时，此牌被附属的话，从我方废弃区将1张持有<附属>的精灵牌放置到能量区。"
 		],
 		constEffectTexts_en: [
 			"[Auto]: When this SIGNI is banished, if this SIGNI was accessorized, put 1 SIGNI with Accessory from your trash into the Ener Zone."
@@ -126182,7 +126181,7 @@ var CardInfo = {
 			"【※】：あなたのデッキから《アクセアイコン》を持つシグニ１枚を探してエナゾーンに置く。その後、それをあなたのシグニ１体の【アクセ】にしてもよい。その後、デッキをシャッフルする。"
 		],
 		burstEffectTexts_zh_CN: [
-			"【※】：从你的卡组中找一张带有<饰品>的SIGNI并把放置到能量区，你可以将这张卡放到一只SIGNI的下方作为<饰品>。之后洗切牌组。"
+			"【※】：从我方牌组中找1张持有<附属>的精灵牌放置到能量区。之后，可以让其成为我方1只精灵的<附属>。之后，洗切牌组。"
 		],
 		burstEffectTexts_en: [
 			"【※】：Search your deck for 1 SIGNI with Accessory and put it into the Ener Zone. Then, you may put that card under 1 of your SIGNI as an [Accessory]. Then, shuffle your deck."
@@ -126214,8 +126213,8 @@ var CardInfo = {
 		"timestamp": 1484724006032,
 		"wxid": "WD18-010",
 		name: "コードイート　テンド",
-		name_zh_CN: "コードイート　テンド",
-		name_en: "コードイート　テンド",
+		name_zh_CN: "食用代号 天丼",
+		name_en: "Code Eat Tendo",
 		"kana": "コードイートテンド",
 		"rarity": "ST",
 		"cardType": "SIGNI",
@@ -126248,8 +126247,8 @@ var CardInfo = {
 		"timestamp": 1484724006024,
 		"wxid": "WD18-011",
 		name: "コードイート　カレー",
-		name_zh_CN: "コードイート　カレー",
-		name_en: "コードイート　カレー",
+		name_zh_CN: "食用代号 咖喱",
+		name_en: "Code Eat Curry",
 		"kana": "コードイートカレー",
 		"rarity": "ST",
 		"cardType": "SIGNI",
@@ -126288,7 +126287,7 @@ var CardInfo = {
 			"【常】：このシグニがアクセされているかぎり、このシグニは【ランサー】を得る。",
 		],
 		constEffectTexts_zh_CN: [
-			"【常】：只要这个SIGNI被<修饰>，这个SIGNI获得【枪兵】的能力。"
+			"【常】：只要此牌被附属，此牌获得【枪兵】能力。"
 		],
 		constEffectTexts_en: [
 			"[Constant]: As long as this SIGNI is accessorized, this SIGNI gets [Lancer]."
@@ -126308,8 +126307,8 @@ var CardInfo = {
 		"timestamp": 1484724006576,
 		"wxid": "WD18-012",
 		name: "コードイート　オヤコ",
-		name_zh_CN: "コードイート　オヤコ",
-		name_en: "コードイート　オヤコ",
+		name_zh_CN: " 食用代号 亲子丼",
+		name_en: "Code Eat Oyako",
 		"kana": "コードイートオヤコ",
 		"rarity": "ST",
 		"cardType": "SIGNI",
@@ -126342,8 +126341,8 @@ var CardInfo = {
 		"timestamp": 1484724006568,
 		"wxid": "WD18-013",
 		name: "コードイート　ケチャ",
-		name_zh_CN: "コードイート　ケチャ",
-		name_en: "コードイート　ケチャ",
+		name_zh_CN: " 食用代号 番茄酱",
+		name_en: "Code Eat Ketchu",
 		"kana": "コードイートケチャ",
 		"rarity": "ST",
 		"cardType": "SIGNI",
@@ -126377,7 +126376,7 @@ var CardInfo = {
 			"【起】《緑》：このカードをエナゾーンからあなたのシグニ１体の【アクセ】にする。"
 		],
 		actionEffectTexts_zh_CN: [
-			"【起】【绿】：将这张卡从能量区放置到你的一只SIGNI下作为<饰品>。"
+			"【起】【绿】：从能量区让此牌成为我方1只精灵的<附属>。"
 		],
 		actionEffectTexts_en: [
 			"[Action] [Green]: Put this card from your Ener Zone under 1 of your SIGNI as an [Accessory]."
@@ -126407,7 +126406,7 @@ var CardInfo = {
 			"【常】：これにアクセされている＜調理＞のシグニのパワーを＋5000する。"
 		],
 		constEffectTexts_zh_CN: [
-			"【常】：被这只SIGNI<修饰>的<料理>SIGNI的力量+5000。"
+			"【常】：被此牌附属的＜调理＞精灵的力量+5000。"
 		],
 		constEffectTexts_en: [
 			"[Constant]: The <Cooking> SIGNI accessorized with this gets +5000 power."
@@ -126447,8 +126446,8 @@ var CardInfo = {
 		"timestamp": 1484724006579,
 		"wxid": "WD18-014",
 		name: "コードイート　ギュウド",
-		name_zh_CN: "コードイート　ギュウド",
-		name_en: "コードイート　ギュウド",
+		name_zh_CN: "食用代号 牛丼",
+		name_en: "Code Eat Gyudo",
 		"kana": "コードイートギュウド",
 		"rarity": "ST",
 		"cardType": "SIGNI",
@@ -126481,8 +126480,8 @@ var CardInfo = {
 		"timestamp": 1484724006582,
 		"wxid": "WD18-015",
 		name: "コードイート　マヨ",
-		name_zh_CN: "コードイート　マヨ",
-		name_en: "コードイート　マヨ",
+		name_zh_CN: " 食用代号 蛋黄酱",
+		name_en: "Code Eat Mayo",
 		"kana": "コードイートマヨ",
 		"rarity": "ST",
 		"cardType": "SIGNI",
@@ -126516,7 +126515,7 @@ var CardInfo = {
 			"【起】《緑×0》：このカードをエナゾーンからあなたのシグニ１体の【アクセ】にする。",
 		],
 		actionEffectTexts_zh_CN: [
-			"【起】【绿0】：将这张卡从能量区放置到你的一只SIGNI下作为<饰品>。"
+			"【起】【绿0】：从能量区让此牌成为我方1只精灵的<附属>。"
 		],
 		actionEffectTexts_en: [
 			"[Action] [Green 0] Put this card from your Ener Zone under 1 of your SIGNI as an [Accessory]."
@@ -126545,7 +126544,7 @@ var CardInfo = {
 			"【常】：これにアクセされている＜調理＞のシグニのパワーを＋2000する。"
 		],
 		constEffectTexts_zh_CN: [
-			"【常】：被这只SIGNI<修饰>的<料理>SIGNI的力量+2000。"
+			"【常】：被此牌附属的＜调理＞精灵的力量+2000。。"
 		],
 		constEffectTexts_en: [
 			"[Constant]: The <Cooking> SIGNI accessorized with this gets +2000 power."
@@ -126585,8 +126584,8 @@ var CardInfo = {
 		"timestamp": 1484724006588,
 		"wxid": "WD18-016",
 		name: "サーバント　Ｄ",
-		name_zh_CN: "サーバント　Ｄ",
-		name_en: "サーバント　Ｄ",
+		name_zh_CN: "侍从 D",
+		name_en: "Servant D",
 		"kana": "サーバントデュオ",
 		"rarity": "ST",
 		"cardType": "SIGNI",
@@ -126618,8 +126617,8 @@ var CardInfo = {
 		"timestamp": 1484724006585,
 		"wxid": "WD18-017",
 		name: "サーバント　Ｏ",
-		name_zh_CN: "サーバント　Ｏ",
-		name_en: "サーバント　Ｏ",
+		name_zh_CN: "侍从 O",
+		name_en: "Servant O",
 		"kana": "サーバントワン",
 		"rarity": "ST",
 		"cardType": "SIGNI",
@@ -126652,7 +126651,7 @@ var CardInfo = {
 		"wxid": "WD18-018",
 		name: "千切",
 		name_zh_CN: "千切",
-		name_en: "千切",
+		name_en: "Shred",
 		"kana": "センギリ",
 		"rarity": "ST",
 		"cardType": "SPELL",
@@ -126687,10 +126686,10 @@ var CardInfo = {
 		],
 		spellEffectTexts_zh_CN: [
 			"从以下2项中选择1项。\n" +
-			"①驱逐你的1只<料理>SIGNI，这么做的场合，从你的牌组中找1只<料理>SIGNI并放置到能量区。之后，洗切牌组。\n" +
-			"②驱逐你的1只<料理>SIGNI，这么做的场合，驱逐对手的1只力量在15000以上的SIGNI。",
-			"驱逐你的1只<料理>SIGNI，这么做的场合，从你的牌组中找1只<料理>SIGNI并放置到能量区。之后，洗切牌组。",
-			"驱逐你的1只<料理>SIGNI，这么做的场合，驱逐对手的1只力量在15000以上的SIGNI。"
+			"①破坏我方1只＜调理＞精灵。若如此做，从我方牌组中找1张＜调理＞精灵牌放置到能量区。之后，洗切牌组。\n" +
+			"②破坏我方1只＜调理＞精灵。若如此做，破坏对方1只力量15000以上的精灵。",
+			"破坏我方1只＜调理＞精灵。若如此做，从我方牌组中找1张＜调理＞精灵牌放置到能量区。之后，洗切牌组。",
+			"破坏我方1只＜调理＞精灵。若如此做，破坏对方1只力量15000以上的精灵。"
 		],
 		spellEffectTexts_en: [
 			"Choose 1 from the following 2.\n" +
