@@ -124590,7 +124590,7 @@ var CardInfo = {
 			"【起】《ターン１回》《赤》《赤》《赤》：ターン終了時まで、あなたの《ライズアイコン》を持つシグニ１体は「このシグニが正面にあるシグニ１体をバニッシュしたとき、このシグニをアップする。」を得る。"
 		],
 		actionEffectTexts_zh_CN: [
-			"【起】【回合1】【红】【红】【红】：直到回合结束时为止，我方1只持有<升阶>的精灵获得「此牌破坏其正前方的1只精灵时，竖置此牌。」的效果。"
+			"【起】【每回合1次】【红】【红】【红】：直到回合结束时为止，我方1只持有<升阶>的精灵获得「此牌破坏其正前方的1只精灵时，竖置此牌。」的效果。"
 		],
 		actionEffectTexts_en: [
 			"[Action] [1/Turn] [Red] [Red] [Red]: Until end of turn, 1 of your SIGNI with Rise gets \"When the SIGNI in front of this SIGNI is banished, up this SIGNI.\"."
@@ -125659,7 +125659,7 @@ var CardInfo = {
 			"【起】それぞれレベルの異なる＜調理＞のシグニ４枚をあなたのエナゾーンからトラッシュに置く：あなたのデッキの一番上のカードをライフクロスに加える。この能力は1ターンに一度しか使用できない。"
 		],
 		actionEffectTexts_zh_CN: [
-			"【起】【回合1】将等级各不相同的4张<调理>精灵牌从我方能量区放置到废弃区：将我方牌组顶1张牌加入生命护甲。"
+			"【起】【每回合1次】将等级各不相同的4张<调理>精灵牌从我方能量区放置到废弃区：将我方牌组顶1张牌加入生命护甲。"
 		],
 		actionEffectTexts_en: [
 			"[Action] Put 4 <Cooking> SIGNI with different levels from your Ener Zone into the trash: Add the top card of your deck to Life Cloth. This ability can only be used once per turn."
