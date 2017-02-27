@@ -125955,7 +125955,19 @@ var CardInfo = {
 					this.game.tillTurnEndAdd(this,signi,'onAttack',effect);
 				},this);
 			}
-		}
+		},
+		// ======================
+		//        附加效果       
+		// ======================
+		attachedEffectTexts: [
+			"このシグニがアタックしたとき、自身よりパワーの低い対戦相手のシグニ１体をバニッシュする。"
+		],
+		attachedEffectTexts_zh_CN: [
+			"此牌攻击时，破坏对方1只力量比此牌低的精灵"
+		],
+		attachedEffectTexts_en: [
+			"When this SIGNI attacks, banish 1 of your opponent's SIGNI with less power than this SIGNI."
+		],
 	},
 	"2024": {
 		"pid": 2024,
