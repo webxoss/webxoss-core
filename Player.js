@@ -2246,6 +2246,19 @@ Player.prototype.loseCoins = function(count) {
 	if (this.coin < 0) this.coin = 0;
 };
 
+Player.prototype.setCoin = function(count) {
+	var coin = this.coin;
+	this.coin = Math.max(0, Math.min(5, count));
+	if (coin !== this.coin) {
+		this.game.output({
+			type: 'COIN_CHANGE',
+			content: {
+				player: this,
+				coin: this.coin,
+			},
+		});
+	}
+};
 
 // For test:
 Player.prototype.matchCard = function (arg) {
