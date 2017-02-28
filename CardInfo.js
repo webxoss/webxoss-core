@@ -126722,7 +126722,9 @@ var CardInfo = {
 					var filter = function (card) {
 						return card.hasClass('調理');
 					};
-					return this.player.seekAsyn(filter,1);
+					return this.player.searchAsyn(filter,1,0,true).callback(this,function (cards) {
+						this.game.moveCards(cards,this.player.enerZone);
+					});
 				});
 			}
 		},{
