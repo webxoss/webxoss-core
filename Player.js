@@ -1717,6 +1717,7 @@ Player.prototype.selectEnerAsyn = function (obj,cancelable) {
 	player.output({
 		type: 'PAY_ENER',
 		content: {
+			source: obj.source || 0,
 			cancelable: !!cancelable,
 			cards: this.enerZone.cards,
 			colors: this.enerZone.cards.map(function (card) {
