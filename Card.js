@@ -8,7 +8,7 @@ function Card (game,player,zone,pid,side) {
 	this.zone   = zone;
 
 	// 状态
-	this.isFaceUp = false;
+	this.isFaceup = false;
 	this.isUp     = true;
 
 	// 注册

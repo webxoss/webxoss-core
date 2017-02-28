@@ -239,6 +239,7 @@ Player.prototype.setupLifeCloth = function () {
 // OPEN!!
 Player.prototype.open = function () {
 	this.lrig.faceup();
+	this.setCoin(this.coin); // output
 };
 
 // 玩家把lrig和所有signi竖置 (竖置阶段)
@@ -2235,21 +2236,17 @@ Player.prototype.setCrossPair = function () {
 };
 
 Player.prototype.gainCoins = function(count) {
-	this.coin += count;
-	if (this.coin > 5) {
-		this.coin = 5;
-	}
+	this.setCoin(this.coin + count);
 };
 
 Player.prototype.loseCoins = function(count) {
-	this.coin -= count;
-	if (this.coin < 0) this.coin = 0;
+	this.setCoin(this.coin - count);
 };
 
 Player.prototype.setCoin = function(count) {
 	var coin = this.coin;
 	this.coin = Math.max(0, Math.min(5, count));
-	if (coin !== this.coin) {
+	if (this.lrig.isFaceup) {
 		this.game.output({
 			type: 'COIN_CHANGE',
 			content: {
