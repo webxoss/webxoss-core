@@ -661,7 +661,7 @@ Player.prototype.handleArtsAsyn = function (card,ignoreCost) {
 			// 必须 bet
 			return costObj = bettedCost;
 		}
-		return this.confirmAsyn('BET').callback(this,function (answer) {
+		return this.confirmAsyn('CONFIRM_BET').callback(this,function (answer) {
 			if (!answer) return;
 			costObj = bettedCost;
 		})
