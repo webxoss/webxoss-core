@@ -126098,7 +126098,7 @@ var CardInfo = {
 				if (costArg.bet) {
 					return this.player.selectSelfSigniAsyn().callback(this,function (signi) {
 						if (!signi) return;
-						this.game.tillTurnEndAdd(this,card,'effectFilters',function (card) {
+						this.game.tillTurnEndAdd(this,signi,'effectFilters',function (card) {
 							return (card.player === this.player) || (card.type !== 'ARTS');
 						});
 					});
