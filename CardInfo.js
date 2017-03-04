@@ -124854,6 +124854,7 @@ var CardInfo = {
 			"破坏对方所有精灵。"
 		],
 		artsEffectTexts_en: [
+			"Bet - [Coin] [Coin]\n" +
 			"If you bet, the cost for using this ARTS is [Red0].\n" +
 			"Banish all of your opponent's SIGNI."
 		],
@@ -124906,6 +124907,7 @@ var CardInfo = {
 			"下注-【COIN】破坏对方1只力量7000以下的精灵。我方下注的话，作为代替破坏对方1只力量20000以下的精灵。"
 		],
 		artsEffectTexts_en: [
+			"Bet - [Coin]\n" +
 			"Banish 1 of your opponent's SIGNI with power 7000 or less. If you bet, instead banish 1 of your opponent's SIGNI with power 20000 or less."
 		],
 		bet: 1,
@@ -126012,7 +126014,7 @@ var CardInfo = {
 			"从我方能量区将最多3张绿色卡牌加入手牌。我方下注的话，追加从手牌让最多3张精灵牌出场。这些精灵牌的【出】的效果不能发动。"
 		],
 		artsEffectTexts_en: [
-			"Bet - Coin Coin \n" +
+			"Bet - [Coin] [Coin] \n" +
 			"Add up to 3 green cards from your Ener Zone to your hand. If you bet, put 3 green SIGNI from your hand onto the field. The [On-Play] abilities of those SIGNI do not trigger."
 		],
 		bet: 2,
@@ -126084,7 +126086,7 @@ var CardInfo = {
 			"直到回合结束时为止，我方所有精灵力量+2000。我方下注的话，追加直到回合结束时为止，我方1只精灵获得「只要在对方回合中，不受对方的效果影响」的效果。"
 		],
 		artsEffectTexts_en: [
-			"Bet - Coin \n" +
+			"Bet - [Coin] \n" +
 			"Until end of turn, all of your SIGNI get +2000 power. If you bet, additionally, until end of turn, 1 of your SIGNI gets \"As long as it is your opponent's turn, this SIGNI is unaffected by your opponent's effects.\""
 		],
 		bet: 1,
