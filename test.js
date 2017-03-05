@@ -42,30 +42,39 @@ if (global.window) {
 		});
 	}
 } else {
-	var express = require('express');
-	var compression = require('compression');
-	var app = express();
-	var server = require('http').Server(app);
-	app.use(compression());
-	app.use('/background',express.static(__dirname + '/webxoss-client/images',{
-		maxAge: '2h'
-	}));
-	app.use('/images',express.static(__dirname + '/webxoss-client/images',{
-		maxAge: '30d'
-	}));
-	app.use(express.static(__dirname + '/webxoss-client'));
-	io = require('socket.io')(server,{
+	var noStaticServe = process.argv.slice(2).some(function (arg) {
+		return arg === '--no-static-server';
+	});
+	// static server
+	if (!noStaticServe) {
+		var express = require('express');
+		var compression = require('compression');
+		var app = express();
+		var server = require('http').Server(app);
+		app.use(compression());
+		app.use('/background',express.static(__dirname + '/webxoss-client/images',{
+			maxAge: '2h'
+		}));
+		app.use('/images',express.static(__dirname + '/webxoss-client/images',{
+			maxAge: '30d'
+		}));
+		app.use(express.static(__dirname + '/webxoss-client'));
+		var port = 80;
+		process.argv.slice(2).forEach(function (arg) {
+			var match = arg.match(/^port=(\d+)/)
+			if (match) {
+				port = +match[1];
+			}
+		});
+		server.listen(port);
+	}
+	// game server
+	var gameServer = new require('http').createServer();
+	io = require('socket.io')(gameServer,{
 		pingTimeout: 30000,
 		maxHttpBufferSize: 1024*1024,
 	});
-	var port = 80;
-	process.argv.slice(2).forEach(function (arg) {
-		var match = arg.match(/^port=(\d+)/)
-		if (match) {
-			port = +match[1];
-		}
-	});
-	server.listen(port);
+	gameServer.listen(2015);
 }
 
 var cfg = {
