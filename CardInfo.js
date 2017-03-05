@@ -124608,9 +124608,7 @@ var CardInfo = {
 						source: card,
 						description: '2000-action-0',
 						triggerCondition: function (event) {
-							if (!event.card) return false;
-							let opposingSigni = event.card.getOpposingSigni()
-							return (opposingSigni === this);
+							return (event.opposingSigni === this);
 						},
 						condition: function () {
 							return !this.isUp;
