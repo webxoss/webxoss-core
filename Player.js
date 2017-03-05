@@ -654,7 +654,7 @@ Player.prototype.handleArtsAsyn = function (card,ignoreCost) {
 		if (!card.bet) return;
 		if (this.coin < card.bet) return;
 		var bettedCost = Object.create(costObj);
-		if (card.bettedCost) {
+		if (card.bettedCost && !ignoreCost) {
 			bettedCost = card.getChainedCostObj(card.bettedCost);
 		}
 		bettedCost.costCoin = card.bet;

@@ -124964,7 +124964,8 @@ var CardInfo = {
 				var filter = function (card) {
 					return card.hasColor('red') && card.canSummon();
 				};
-				return this.player.searchAsyn(filter,1,0,true).callback(this,function (card) {
+				return this.player.searchAsyn(filter,1,0,true).callback(this,function (cards) {
+					var card = cards[0];
 					if (!card) return;
 					card.trashWhenTurnEnd();
 					return card.summonAsyn(false,false,true);
