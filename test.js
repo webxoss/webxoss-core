@@ -43,7 +43,7 @@ if (global.window) {
 	}
 } else {
 	var noStaticServe = process.argv.slice(2).some(function (arg) {
-		return arg === '--no-static-server';
+		return arg === 'no-static-server';
 	});
 	// static server
 	if (!noStaticServe) {
