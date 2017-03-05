@@ -51,6 +51,8 @@ function handleCardInfo () {
 		delete info.resonaCondition;
 		delete info.resonaAsyn;
 		delete info.encore;
+		delete info.bettedCost;
+		if (info.rise) info.rise = true;
 		// for (var key in defaultValueMap) {
 		// 	if (info[key] === defaultValueMap[key]) {
 		// 		delete info[key];
