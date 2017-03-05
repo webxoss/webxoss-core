@@ -126082,7 +126082,7 @@ var CardInfo = {
 					return this.player.selectSelfSigniAsyn().callback(this,function (signi) {
 						if (!signi) return;
 						this.game.tillTurnEndAdd(this,signi,'effectFilters',function (card) {
-							return (card.player === this.player) || (card.type !== 'ARTS');
+							return (card.player === this.player);
 						});
 					});
 				}
