@@ -126162,7 +126162,7 @@ var CardInfo = {
 				var filter = function (card) {
 					return card.acce;
 				};
-				this.player.searchAsyn(filter,1).callback(this,function (cards) {
+				return this.player.searchAsyn(filter,1).callback(this,function (cards) {
 					var card = cards[0];
 					if (!card) return;
 					card.moveTo(this.player.enerZone);
