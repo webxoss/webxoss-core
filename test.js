@@ -69,7 +69,26 @@ if (global.window) {
 		server.listen(port);
 	}
 	// game server
-	var gameServer = new require('http').createServer();
+	var getArg = function (key) {
+		var value = '';
+		process.argv.slice(2).forEach(function (arg) {
+			if (arg.indexOf(key + '=') === 0) {
+				value = arg.replace(key + '=', '');
+			}
+		});
+		return value;
+	};
+	var gameServer
+	if (getArg('key')) {
+		var fs = require('fs');
+		gameServer = require('https').createServer({
+			key: fs.readFileSync(getArg('key')),
+			cert: fs.readFileSync(getArg('cert')),
+			ca: fs.readFileSync(getArg('ca')),
+		});
+	} else {
+		gameServer = require('http').createServer();
+	}
 	io = require('socket.io')(gameServer,{
 		pingTimeout: 30000,
 		maxHttpBufferSize: 1024*1024,
