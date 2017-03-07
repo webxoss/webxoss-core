@@ -540,6 +540,7 @@ Card.prototype.canUse = function (timming,ignoreCost) {
 		if (this.player.enoughCost(cost)) return true;
 		// bet 相关
 		if (this.bet && this.bettedCost) {
+			if (this.bet > this.player.coin) return false; // 避免出现coin不够却可以选择使用技艺。《孤立无炎》
 			cost = this.getChainedCostObj(this.bettedCost)
 			if (this.player.enoughCost(cost)) return true;
 		}
