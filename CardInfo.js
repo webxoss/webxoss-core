@@ -126103,12 +126103,15 @@ var CardInfo = {
 		// ======================
 		constEffectTexts: [
 			"【常】：このシグニがアクセされているかぎり、このシグニのパワーは＋3000される。",
+			"【自】：このシグニがバニッシュされたとき、このシグニがアクセされていた場合、あなたのトラッシュから《アクセアイコン》を持つシグニ１枚をエナゾーンに置く。"
 		],
 		constEffectTexts_zh_CN: [
-			"【常】：只要此牌被附属，此牌力量+3000。"
+			"【常】：只要此牌被附属，此牌力量+3000。",
+			"【自】：此牌被破坏时，此牌被附属的话，从我方废弃区将1张持有<附属>的精灵牌放置到能量区。"
 		],
 		constEffectTexts_en: [
-			"[Constant]: As long as this SIGNI is accessorized, this SIGNI gets +3000 power."
+			"[Constant]: As long as this SIGNI is accessorized, this SIGNI gets +3000 power.",
+			"[Auto]: When this SIGNI is banished, if this SIGNI was accessorized, put 1 SIGNI with Accessory from your trash into the Ener Zone."
 		],
 		constEffects: [{
 			condition: function () {
@@ -126117,20 +126120,7 @@ var CardInfo = {
 			action: function (set,add) {
 				add(this,'power',3000);
 			}
-		}],
-		// ======================
-		//        常时效果
-		// ======================
-		constEffectTexts: [
-			"【自】：このシグニがバニッシュされたとき、このシグニがアクセされていた場合、あなたのトラッシュから《アクセアイコン》を持つシグニ１枚をエナゾーンに置く。"
-		],
-		constEffectTexts_zh_CN: [
-			"【自】：此牌被破坏时，此牌被附属的话，从我方废弃区将1张持有<附属>的精灵牌放置到能量区。"
-		],
-		constEffectTexts_en: [
-			"[Auto]: When this SIGNI is banished, if this SIGNI was accessorized, put 1 SIGNI with Accessory from your trash into the Ener Zone."
-		],
-		constEffects: [{
+		},{
 			auto: 'onBanish',
 			condition: function () {
 				return this.isAcced();
