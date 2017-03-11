@@ -1374,7 +1374,7 @@ Card.prototype.summonAsyn = function (optional,dontTriggerStartUp,down) {
 		}
 	}).callback(this,function (card) {
 		if (!card) return;
-		return this.player.selectSummonZoneAsyn().callback(this,function (zone) {
+		return this.player.selectSummonZoneAsyn(false,this.rise).callback(this,function (zone) {
 			card.moveTo(zone,{
 				dontTriggerStartUp: dontTriggerStartUp,
 				up: !down
