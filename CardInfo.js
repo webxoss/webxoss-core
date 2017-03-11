@@ -79269,15 +79269,7 @@ var CardInfo = {
 					},this);
 					return this.player.selectAsyn('TRASH_CHARM',zones).callback(this,function (zone) {
 						if (!zone) return;
-						var card = zone.cards[0].charm;
-						card.trash();
-					});
-					var zones = this.player.getCharms().map(function (charm) {
-						return charm.zone;
-					},this);
-					return this.player.selectAsyn('TRASH_CHARM',zones).callback(this,function (zone) {
-						if (!zone) return;
-						var card = zone.cards[0].charm;
+						var card = zone.getActualCards()[0].charm;
 						card.trash();
 					});
 				});
