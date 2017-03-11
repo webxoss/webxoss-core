@@ -117645,12 +117645,16 @@ var CardInfo = {
 		},{
 			actionAsyn: function () {
 				this.game.trashCards(this.player.hands);
-				var cards = this.player.trashZone.cards.filter(function (card) {
-					return card.hasClass('毒牙');
-				},this);
-				return this.player.selectOptionalAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
-					if (!card) return;
-					return card.summonAsyn();
+				var done = false;
+				return Callback.loop(this,2,function () {
+					if (done) return;
+					var cards = this.player.trashZone.cards.filter(function (card) {
+						return card.hasClass('毒牙') && card.canSummon();
+					},this);
+					return this.player.selectOptionalAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
+						if (!card) return done = true;
+						return card.summonAsyn();
+					});
 				});
 			}
 		}]
