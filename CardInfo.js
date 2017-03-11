@@ -124599,7 +124599,7 @@ var CardInfo = {
 							return this.upAsyn();
 						},
 					})
-					this.game.tillTurnEndAdd(this,this.player,'onSigniBanished',effect)
+					this.game.tillTurnEndAdd(this,this.player.opponent,'onSigniBanished',effect)
 				});
 			}
 		}],
