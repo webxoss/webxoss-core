@@ -115079,7 +115079,7 @@ var CardInfo = {
 		"color": "green",
 		"level": 1,
 		"limit": 0,
-		"power": 2000,
+		"power": 1000,
 		"limiting": "",
 		"imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/PR/PR-291.jpg",
 		"illust": "ときち",
