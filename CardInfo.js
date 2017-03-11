@@ -115079,7 +115079,7 @@ var CardInfo = {
 		"color": "green",
 		"level": 1,
 		"limit": 0,
-		"power": 2000,
+		"power": 1000,
 		"limiting": "",
 		"imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/PR/PR-291.jpg",
 		"illust": "ときち",
@@ -117645,12 +117645,16 @@ var CardInfo = {
 		},{
 			actionAsyn: function () {
 				this.game.trashCards(this.player.hands);
-				var cards = this.player.trashZone.cards.filter(function (card) {
-					return card.hasClass('毒牙');
-				},this);
-				return this.player.selectOptionalAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
-					if (!card) return;
-					return card.summonAsyn();
+				var done = false;
+				return Callback.loop(this,2,function () {
+					if (done) return;
+					var cards = this.player.trashZone.cards.filter(function (card) {
+						return card.hasClass('毒牙') && card.canSummon();
+					},this);
+					return this.player.selectOptionalAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
+						if (!card) return done = true;
+						return card.summonAsyn();
+					});
 				});
 			}
 		}]
@@ -124599,7 +124603,7 @@ var CardInfo = {
 							return this.upAsyn();
 						},
 					})
-					this.game.tillTurnEndAdd(this,this.player,'onSigniBanished',effect)
+					this.game.tillTurnEndAdd(this,this.player.opponent,'onSigniBanished',effect)
 				});
 			}
 		}],
@@ -124931,7 +124935,7 @@ var CardInfo = {
 		// ======================
 		//        技艺效果
 		// ======================
-		timmings: ['mainPhase', 'attackPhase'],
+		timmings: ['mainPhase'],
 		artsEffectTexts: [
 			"あなたのデッキから赤のシグニ１枚を探してダウン状態で場に出す。その後、デッキをシャッフルする。ターン終了時に、そのシグニを場からトラッシュに置く。"
 		],
