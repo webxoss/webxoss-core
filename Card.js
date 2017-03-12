@@ -1440,8 +1440,9 @@ Card.prototype.banishSigniAsyn = function (power,min,max,above) {
 
 Card.prototype.decreasePowerAsyn = function (power,filter) {
 	return this.player.selectOpponentSigniAsyn(filter).callback(this,function (card) {
-		if (!card) return;
+		if (!card) return null;
 		this.game.tillTurnEndAdd(this,card,'power',-power);
+		return card;
 	});
 };
 

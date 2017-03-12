@@ -110,6 +110,7 @@ function Player (game,io,mainDeck,lrigDeck) {
 	this.burstTwice = false; // <Burst Rush>
 	this.wontBeDamaged = false; // <音阶的右律 G>
 	this.wontBeDamagedByOpponentLrig = false; // <紡ぐ者>
+	this.actionEffectBanned = false;
 	this.charmedActionEffectBanned = false; // <黒幻蟲　アラクネ・パイダ>
 	this.canNotGrow = false; // <ドント・グロウ>
 	this._HammerChance = false; // <ハンマー・チャンス>
@@ -813,6 +814,7 @@ Player.prototype.useMainPhaseArtsAsyn = function () {
 
 Player.prototype.canUseActionEffect = function (effect,arg) {
 	if (!arg) arg = {};
+	if (this.actionEffectBanned) return false;
 	if (this.charmedActionEffectBanned && effect.source.charm) return false;
 	if (effect.source.abilityLost) return false;
 	// inHand
@@ -2064,6 +2066,23 @@ Player.prototype.pickCardAsyn = function (filter,min,max,zone) {
 		if (!cards.length) return;
 		return this.opponent.showCardsAsyn(cards).callback(this,function () {
 			this.game.moveCards(cards,this.handZone);
+		});
+	});
+};
+
+Player.prototype.rebornAsyn = function (filter,count,arg) {
+	if (!isNum(count)) count = 1;
+	if (!arg) arg = {};
+	var done = false;
+	return Callback.loop(this,count,function () {
+		if (done) return;
+		var cards = this.trashZone.cards.filter(function (card) {
+			if (filter && !filter(card)) return false;
+			return card.canSummon();
+		},this);
+		return this.selectOptionalAsyn('SUMMON_SIGNI',cards).callback(function (card) {
+			if (!card) return done = true;
+			return card.summonAsyn(false,arg.dontTriggerStartUp,arg.down);
 		});
 	});
 };
