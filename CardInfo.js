@@ -115832,7 +115832,7 @@ var CardInfo = {
 			"【起】【横置】将你的1张竖置状态的<天使>SIGNI横置：将对战对手的1只SIGNI返回手牌。"
 		],
 		actionEffectTexts_en: [
-			"[Action] [Down] 1 of your upped <Angel> SIGNI: Return 1 of your opponent's SIGNI to their hand."
+			"[Action] [Down] Down 1 of your upped <Angel> SIGNI: Return 1 of your opponent's SIGNI to their hand."
 		],
 		actionEffects: [{
 			costDown: true,
