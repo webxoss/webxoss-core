@@ -1585,6 +1585,11 @@ Card.prototype.canBeBanished = function () {
 			return false;
 		}
 	}
+	var count = this.game.getData(this,'banishProtectCount') || 0
+	if (count) {
+		this.game.setData(this,'banishProtectCount',count-1);
+		return false;
+	}
 	return true;
 };
 
