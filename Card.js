@@ -131,6 +131,7 @@ function Card (game,player,zone,pid,side) {
 	this.onFreeze          = new Timming(game);
 	this.onChangeSigniZone = new Timming(game);
 	this.onRised           = new Timming(game);
+	this.onAcced           = new Timming(game);
 
 	// 附加的属性
 	this.canNotAttack                = false;
@@ -1553,6 +1554,7 @@ Card.prototype.acceTo = function (signi) {
 		faceup: true,
 		up: signi.isUp,
 	});
+	this.onAcced.trigger();
 	this.game.frameEnd();
 };
 
