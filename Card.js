@@ -166,6 +166,8 @@ function Card (game,player,zone,pid,side) {
 	this.colorLost                   = false; // <侍从 ∞>
 	this.banishProtections           = [];
 	this.upProtections               = [];
+	this.canAttackAnySigniZone       = false;
+	this.canAttackNearbySigniZone    = false;
 	// 注意hasAbility
 }
 
@@ -1095,6 +1097,7 @@ Card.prototype.attackAsyn = function () {
 		attack: true,
 	};
 	var cost = null;
+	var attackedZone = null;
 	if (this.attackCostColorless) {
 		cost = {
 			costColorless: this.attackCostColorless
@@ -1117,6 +1120,29 @@ Card.prototype.attackAsyn = function () {
 	return Callback.immediately().callback(this,function () {
 		if (!cost) return;
 		return this.player.payCostAsyn(cost);
+	}).callback(this,function () {
+		// 选择攻击的区域
+		var zones = [];
+		var opposingZone = this.player.opponent.signiZones[2-index];
+		var index = this.player.signiZones.indexOf(this.zone);
+		if (this.canAttackAnySigniZone) {
+			zones = this.player.opponent.signiZones;
+		} else if (this.canAttackNearbySigniZone) {
+			if (index === 1) {
+				zones = this.player.opponent.signiZones
+			} else {
+				zones = [
+					opposingZone,
+					this.player.opponent.signiZones[1],
+				];
+			}
+		}
+		if (!zones.length) return attackedZone = opposingZone;
+		return this.player.selectAsyn('TARGET',zones).callback(this,function (zone) {
+			attackedZone = zone
+			var card = zone.getActualCards()[0];
+			if (card) card.beSelectedAsTarget();
+		});
 	}).callback(this,function () {
 		// "下次攻击无效化"
 		var prevented = !!this.game.getData(this.game,'preventNextAttack');
@@ -1168,34 +1194,38 @@ Card.prototype.attackAsyn = function () {
 					// 攻击的卡不在场上或攻击被无效化,结束处理.
 					if (!inArr(card,player.signis)) return;
 					if (event.prevented) return;
-					// 若对面有 SIGNI 且攻击方无暗杀,则进行战斗;
-					// 否则造成伤害.
+					// 若攻击的目标存在，进行战斗;
+					// (暗杀的情况下，目标为正对面的 SIGNI 时，不战斗)
 					var opposingSigni = card.getOpposingSigni();
-					if (opposingSigni && !card.assassin) {
+					var target = attackedZone.getActualCards()[0] || null;
+					var battle = true;
+					if (!target) battle = false;
+					if (card.assassin && (target === opposingSigni)) return false;
+					if (battle) {
 						// 战斗
 						// 触发"进行战斗"时点
 						var onBattleEvent = {
 							card: card,
-							opposingSigni: opposingSigni
+							target: target,
 						};
 						return this.game.blockAsyn(this,function () {
 							this.game.frameStart();
 							card.onBattle.trigger(onBattleEvent);
-							opposingSigni.onBattle.trigger(onBattleEvent);
+							target.onBattle.trigger(onBattleEvent);
 							this.game.frameEnd();
 						}).callback(this,function () {
 							// 此时,攻击的卡可能已不在场上
 							if (!inArr(card,player.signis)) return;
 							// 受攻击的卡也可能已不在场上
 							// 注意: 根据事务所QA,此时不击溃对方的生命护甲(即使有 lancer ). (<大剣　レヴァテイン>)
-							if (!inArr(opposingSigni,opposingSigni.player.signis)) return;
+							if (!inArr(target,target.player.signis)) return;
 							// 结算战斗伤害
-							if (card.power >= opposingSigni.power) {
+							if (card.power >= target.power) {
 								// 保存此时的 lancer 属性作为参考,
 								// 因为驱逐被攻击的 SIGNI 后,攻击侧的 lancer 可能改变.
 								var lancer = card.lancer;
 								return this.game.blockAsyn(this,function () {
-									return opposingSigni.banishAsyn({attackingSigni: card}).callback(this,function (succ) {
+									return target.banishAsyn({attackingSigni: card}).callback(this,function (succ) {
 										if (succ && lancer) {
 											crashArg.lancer = lancer;
 											return opponent.crashAsyn(1,crashArg);
@@ -1204,14 +1234,15 @@ Card.prototype.attackAsyn = function () {
 								});
 							}
 						}).callback(this,function () {
-							if (onBattleEvent._1877 && inArr(opposingSigni,opposingSigni.player.signis)) {
+							if (onBattleEvent._1877 && inArr(target,target.player.signis)) {
 								return this.game.blockAsyn(onBattleEvent._1877,this,function () {
-									opposingSigni.moveTo(opposingSigni.player.mainDeck,{bottom: true});
+									target.moveTo(target.player.mainDeck,{bottom: true});
 								});
 							}
 						});
 					} else {
 						// 伤害
+						if (target !== opposingSigni) return;
 						if (event.wontBeDamaged || opponent.wontBeDamaged) return;
 						crashArg.damage = true;
 						if (opponent.lifeClothZone.cards.length) {
