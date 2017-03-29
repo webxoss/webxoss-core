@@ -35,6 +35,7 @@ function Zone (game,player,name,args,pids) {
 	// 附加的属性
 	this.disabled = false; // <ワーム・ホール>
 	this.powerDown = false; // <黒幻蟲　サソリス>
+	this.virus = false;
 }
 
 Zone.prototype.getTopCards = function (n) {
@@ -81,6 +82,7 @@ Zone.prototype.getStates = function () {
 	var states = [];
 	if (this.powerDown) states.push('powerDown');
 	if (this.disabled) states.push('disabled');
+	if (this.virus) states.push('infected');
 	return states;
 };
 
