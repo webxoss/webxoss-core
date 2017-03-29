@@ -1634,4 +1634,8 @@ Card.prototype.canGainAbility = function (source) {
 	return !canNotGainAbility;
 };
 
+Card.prototype.isInfected = function() {
+	return this.zone.virus;
+};
+
 global.Card = Card;

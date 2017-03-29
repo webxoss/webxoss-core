@@ -2317,4 +2317,26 @@ Player.prototype.putCardToLifeCloth = function (arg) {
 	return card;
 };
 
+Player.prototype.getInfectedZones = function() {
+	return this.signiZones.filter(function (zone) {
+		return zone.virus;
+	},this);
+};
+
+Player.prototype.getInfectedCards = function() {
+	return this.signis.filter(function (signi) {
+		return signi.isInfected();
+	},this);
+};
+
+Player.prototype.infectZoneAsyn = function() {
+	var zones = this.opponent.signiZones.filter(function (zone) {
+		return !zone.virus;
+	},this);
+	return this.selectAsyn('TARGET',zones).callback(this,function (zone) {
+		if (!zone) return;
+		zone.virus = true;
+	});
+};
+
 global.Player = Player;
