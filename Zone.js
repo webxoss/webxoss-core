@@ -36,6 +36,7 @@ function Zone (game,player,name,args,pids) {
 	this.disabled = false; // <ワーム・ホール>
 	this.powerDown = false; // <黒幻蟲　サソリス>
 	this.virus = false;
+	this.trap = null;
 }
 
 Zone.prototype.getTopCards = function (n) {

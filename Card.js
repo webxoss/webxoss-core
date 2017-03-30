@@ -829,6 +829,10 @@ Card.prototype.moveTo = function (zone,arg) {
 				moveEvent.isCharm = true;
 				signi.charm = null;
 			}
+			// 处理陷阱
+			if (card === card.zone.trap) {
+				card.zone.trap = null;
+			}
 		}
 	}
 
@@ -841,7 +845,7 @@ Card.prototype.moveTo = function (zone,arg) {
 			// 进入 SIGNI 区
 			if (zone.getActualCards().length) {
 				// rise
-				if (card.rise) {
+				if (!arg.bottom && card.rise) {
 					// 被 rise 的卡“离场”
 					signi = zone.getActualCards()[0];
 					removeFromArr(signi,signi.player.signis);
@@ -908,6 +912,7 @@ Card.prototype.moveTo = function (zone,arg) {
 	//         手牌中非公开的卡,在游戏逻辑中是"背面朝上"的,即:
 	//             对方不能查看;己方能查看(这是因为手牌区是 checkable 的).
 	//         但在客户端中,手牌里的卡即使逻辑上是背面朝上的,仍显示为正面朝上.
+	//         PS: 增加了陷阱，陷阱和手牌一样，是仅己方玩家可见的。
 	card.player.output({
 		type: 'MOVE_CARD',
 		content: {
@@ -915,7 +920,7 @@ Card.prototype.moveTo = function (zone,arg) {
 			pid: (card.isFaceup || zone.checkable)? card.pid : 0,
 			zone: zone,
 			up: arg.up,
-			faceup: zone.inhand? true : arg.faceup,
+			faceup: (arg.isTrap || zone.inhand)? true : arg.faceup,
 			bottom: arg.bottom,
 			isSide: arg.isSide
 		}
@@ -1124,8 +1129,8 @@ Card.prototype.attackAsyn = function () {
 	}).callback(this,function () {
 		// 选择攻击的区域
 		var zones = [];
-		var opposingZone = this.player.opponent.signiZones[2-index];
 		var index = this.player.signiZones.indexOf(this.zone);
+		var opposingZone = this.player.opponent.signiZones[2-index];
 		if (this.canAttackAnySigniZone) {
 			zones = this.player.opponent.signiZones;
 		} else if (this.canAttackNearbySigniZone) {
@@ -1184,79 +1189,91 @@ Card.prototype.attackAsyn = function () {
 				}
 				this.game.frameEnd();
 			}).callback(this,function () {
-				// 强制结束回合
-				if (this.game.phase.checkForcedEndTurn()) return;
-				// 此时,攻击的卡可能已不在场上
-				if (!inArr(card,player.signis)) return;
-				// 被无效化
-				if (event.prevented) return;
 				// 攻击时发动的起动效果 (<被侵犯的神判 安=Fifth>)
 				return opponent.useOnAttackActionEffectAsyn(event).callback(this,function () {
-					// 攻击的卡不在场上或攻击被无效化,结束处理.
+					// 强制结束回合
+					if (this.game.phase.checkForcedEndTurn()) return;
+					// 攻击的卡不在场上，结束处理.
 					if (!inArr(card,player.signis)) return;
-					if (event.prevented) return;
-					// 若攻击的目标存在，进行战斗;
-					// (暗杀的情况下，目标为正对面的 SIGNI 时，不战斗)
+					// 处理陷阱
 					var opposingSigni = card.getOpposingSigni();
-					var target = attackedZone.getActualCards()[0] || null;
-					var battle = true;
-					if (!target) battle = false;
-					if (card.assassin && (target === opposingSigni)) return false;
-					if (battle) {
-						// 战斗
-						// 触发"进行战斗"时点
-						var onBattleEvent = {
-							card: card,
-							target: target,
-						};
-						return this.game.blockAsyn(this,function () {
-							this.game.frameStart();
-							card.onBattle.trigger(onBattleEvent);
-							target.onBattle.trigger(onBattleEvent);
-							this.game.frameEnd();
-						}).callback(this,function () {
-							// 此时,攻击的卡可能已不在场上
-							if (!inArr(card,player.signis)) return;
-							// 受攻击的卡也可能已不在场上
-							// 注意: 根据事务所QA,此时不击溃对方的生命护甲(即使有 lancer ). (<大剣　レヴァテイン>)
-							if (!inArr(target,target.player.signis)) return;
-							// 结算战斗伤害
-							if (card.power >= target.power) {
-								// 保存此时的 lancer 属性作为参考,
-								// 因为驱逐被攻击的 SIGNI 后,攻击侧的 lancer 可能改变.
-								var lancer = card.lancer;
-								return this.game.blockAsyn(this,function () {
-									return target.banishAsyn({attackingSigni: card}).callback(this,function (succ) {
-										if (succ && lancer) {
-											crashArg.lancer = lancer;
-											return opponent.crashAsyn(1,crashArg);
-										}
-									});
-								});
-							}
-						}).callback(this,function () {
-							if (onBattleEvent._1877 && inArr(target,target.player.signis)) {
-								return this.game.blockAsyn(onBattleEvent._1877,this,function () {
-									target.moveTo(target.player.mainDeck,{bottom: true});
-								});
-							}
+					var index = this.player.signiZones.indexOf(this.zone);
+					var opposingZone = this.player.opponent.signiZones[2-index];
+					var trap = opposingZone.trap
+					return Callback.immediately().callback(this,function () {
+						if (opposingSigni || !trap) return;
+						return this.player.selectOptionalAsyn('LAUNCH',[trap]).callback(this,function (card) {
+							if (!card) return;
+							card.beSelectedAsTarget();
+							return card.trap.actionAsyn.call(card).callback(this,function () {
+								card.trash();
+							});
 						});
-					} else {
-						// 伤害
-						if (target !== opposingSigni) return;
-						if (event.wontBeDamaged || opponent.wontBeDamaged) return;
-						crashArg.damage = true;
-						if (opponent.lifeClothZone.cards.length) {
-							var count = 1;
-							if (this.doubleCrash) count = 2;
-							if (this.tripleCrash) count = 3;
-							crashArg.doubleCrash = this.doubleCrash;
-							return opponent.crashAsyn(count,crashArg);
+					}).callback(this,function () {
+						// 攻击被无效，结束处理
+						if (event.prevented) return;
+						// 若攻击的目标存在，进行战斗;
+						// (暗杀的情况下，目标为正对面的 SIGNI 时，不战斗)
+						var target = attackedZone.getActualCards()[0] || null;
+						var battle = true;
+						if (!target) battle = false;
+						if (card.assassin && (target === opposingSigni)) return false;
+						if (battle) {
+							// 战斗
+							// 触发"进行战斗"时点
+							var onBattleEvent = {
+								card: card,
+								target: target,
+							};
+							return this.game.blockAsyn(this,function () {
+								this.game.frameStart();
+								card.onBattle.trigger(onBattleEvent);
+								target.onBattle.trigger(onBattleEvent);
+								this.game.frameEnd();
+							}).callback(this,function () {
+								// 此时,攻击的卡可能已不在场上
+								if (!inArr(card,player.signis)) return;
+								// 受攻击的卡也可能已不在场上
+								// 注意: 根据事务所QA,此时不击溃对方的生命护甲(即使有 lancer ). (<大剣　レヴァテイン>)
+								if (!inArr(target,target.player.signis)) return;
+								// 结算战斗伤害
+								if (card.power >= target.power) {
+									// 保存此时的 lancer 属性作为参考,
+									// 因为驱逐被攻击的 SIGNI 后,攻击侧的 lancer 可能改变.
+									var lancer = card.lancer;
+									return this.game.blockAsyn(this,function () {
+										return target.banishAsyn({attackingSigni: card}).callback(this,function (succ) {
+											if (succ && lancer) {
+												crashArg.lancer = lancer;
+												return opponent.crashAsyn(1,crashArg);
+											}
+										});
+									});
+								}
+							}).callback(this,function () {
+								if (onBattleEvent._1877 && inArr(target,target.player.signis)) {
+									return this.game.blockAsyn(onBattleEvent._1877,this,function () {
+										target.moveTo(target.player.mainDeck,{bottom: true});
+									});
+								}
+							});
 						} else {
-							if (card.game.win(player)) return Callback.never();
-							return;
+							// 伤害
+							if (target !== opposingSigni) return;
+							if (event.wontBeDamaged || opponent.wontBeDamaged) return;
+							crashArg.damage = true;
+							if (opponent.lifeClothZone.cards.length) {
+								var count = 1;
+								if (this.doubleCrash) count = 2;
+								if (this.tripleCrash) count = 3;
+								crashArg.doubleCrash = this.doubleCrash;
+								return opponent.crashAsyn(count,crashArg);
+							} else {
+								if (card.game.win(player)) return Callback.never();
+								return;
+							}
 						}
-					}
+					});
 				});
 			}).callback(this,function () {
 				// "这场战斗结束之后,就回老家结婚" (划掉)
@@ -1529,6 +1546,16 @@ Card.prototype.charmTo = function (signi) {
 		up: signi.isUp
 	});
 	this.game.frameEnd();
+};
+
+Card.prototype.trapTo = function(zone) {
+	if (zone.trap) zone.trap.trash();
+	zone.trap = this;
+	this.moveTo(zone,{
+		faceup: false,
+		up: signi.isUp,
+		isTrap: true,
+	});
 };
 
 Card.prototype.getAccedCards = function () {
