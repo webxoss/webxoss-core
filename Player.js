@@ -2339,4 +2339,35 @@ Player.prototype.infectZoneAsyn = function() {
 	});
 };
 
+Player.prototype.setTrapFromDeckTopAsyn = function(count,max) {
+	if (!isNum(max)) max = 1;
+	var cards = this.mainDeck.getTopCards(count);
+	this.informCards(cards);
+	var done = false;
+	return Callback.loop(this,max,function () {
+		if (done) return;
+		return this.selectOptionalAsyn('TARGET',cards).callback(this,function (card) {
+			if (!card) return done = true;
+			removeFromArr(card,cards);
+			return this.selectAsyn('TARGET',this.signiZones).callback(this,function (zone) {
+				card.trapTo(zone);
+			});
+		});
+	}).callback(this,function () {
+		var len = cards.length;
+		if (!len) return;
+		return this.selectSomeAsyn('SET_ORDER',cards,len,len,true).callback(this,function (cards) {
+			this.mainDeck.moveCardsToBottom(cards);
+		});
+	});
+};
+
+Player.prototype.getTraps = function() {
+	return this.player.signiZones.filter(function (zone) {
+		return zone.trap;
+	}).map(function (zone) {
+		return zone.trap;
+	});
+};
+
 global.Player = Player;
