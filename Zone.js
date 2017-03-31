@@ -59,6 +59,12 @@ Zone.prototype.getActualCards = function () {
 	},this);
 };
 
+Zone.prototype.getSigni = function() {
+	return this.player.signis.filter(function (signi) {
+		return signi.zone === this;
+	},this)[0] || null;
+};
+
 Zone.prototype.moveCardsToTop = function (cards) {
 	cards = cards.filter(function (card) {
 		return inArr(card,this.cards);
