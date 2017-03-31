@@ -400,17 +400,14 @@ Player.prototype.summonSigniAsyn = function () {
 	var cards = this.hands.filter(function (card) {
 		return card.canSummon() && (!this.summonPowerLimit || (card.power < this.summonPowerLimit));
 	},this);
-	var zones = this.signiZones.filter(function (zone) {
-		return (zone.getActualCards().length === 0);
-	},this);
-	if (!cards.length || !zones.length) {
+	if (!cards.length) {
 		return Callback.never();
 	}
 	return this.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
 		return this.selectSummonZoneAsyn(true,card.rise).callback(this,function (zone) {
 			if (!zone) return;
 			return this.game.blockAsyn(this,function () {
-				card.moveTo(zone);
+				card.moveTo(zone,{isSummon: true});
 				this.game.handleFrameEnd(); // 增加一个空帧,以进行两次常计算
 			});
 		});
@@ -455,7 +452,7 @@ Player.prototype.summonResonaAsyn = function (card) {
 		return this.selectSummonZoneAsyn(false).callback(this,function (zone) {
 			if (!zone) return;
 			return this.game.blockAsyn(this,function () {
-				card.moveTo(zone,{resonaArg: resonaArg});
+				card.moveTo(zone,{isSummon: true, resonaArg: resonaArg});
 				this.game.handleFrameEnd(); // 增加一个空帧,以进行两次常计算
 			});
 		});
@@ -477,13 +474,13 @@ Player.prototype.getSummonZones = function (signis,rise) {
 	var forcedZones = [];
 	var zones = this.signiZones.filter(function (zone,idx) {
 		if (zone.disabled) return false;
-		var signi = zone.getActualCards()[0];
+		var signi = zone.getSigni();
 		if (rise) {
 			if (!signi || !rise(signi)) return false;
 		} else {
 			if (signi && inArr(signi,signis)) return false;
 		}
-		var opposingSigni = this.opponent.signiZones[2-idx].getActualCards()[0];
+		var opposingSigni = this.opponent.signiZones[2-idx].getSigni();
 		if (opposingSigni && opposingSigni.forceSummonZone) {
 			forcedZones.push(zone);
 		}
@@ -2228,7 +2225,7 @@ Player.prototype.setCrossPair = function () {
 	if (!card.crossLeft && !card.crossRight) return;
 	function checkMatch (zone,cross) {
 		if (!zone) return null;
-		var card = zone.getActualCards()[0];
+		var card = zone.getSigni();
 		if (!card) return null;
 		var cids = concat(cross);
 		var matched = cids.some(function (cid) {

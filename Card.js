@@ -103,6 +103,7 @@ function Card (game,player,zone,pid,side) {
 	this.rise = info.rise;
 	this.acce = !!info.acce;
 	this.acceingCard = null;
+	this.trap = info.trap || null;
 
 	// 杂项
 	this.effectFilters     = [];
@@ -731,6 +732,8 @@ Card.prototype.moveTo = function (zone,arg) {
 	if (arg.faceup === undefined) arg.faceup = zone.faceup;
 	if (arg.bottom === undefined) arg.bottom = zone.bottom;
 
+	if (arg.isSummon) arg.bottom = false;
+
 	var card = this;
 
 	// 效果过滤 (不会受到XXX的效果影响)
@@ -824,7 +827,7 @@ Card.prototype.moveTo = function (zone,arg) {
 		} else {
 			// 是 SIGNI 下方的卡,比如魅饰卡
 			// 处理魅饰卡
-			var signi = card.zone.getActualCards()[0];
+			var signi = card.zone.getSigni();
 			if (signi && card === signi.charm) {
 				moveEvent.isCharm = true;
 				signi.charm = null;
@@ -843,11 +846,10 @@ Card.prototype.moveTo = function (zone,arg) {
 	} else if (zone.name === 'SigniZone') {
 		if (card.zone.name !== 'SigniZone' || zone.player !== card.player) {
 			// 进入 SIGNI 区
-			if (zone.getActualCards().length) {
-				// rise
-				if (!arg.bottom && card.rise) {
+			if (arg.isSummon) {
+				if (card.rise) {
 					// 被 rise 的卡“离场”
-					signi = zone.getActualCards()[0];
+					signi = zone.getSigni();
 					removeFromArr(signi,signi.player.signis);
 					signi.frozen = false;
 					signi.fieldData = {};
@@ -855,19 +857,14 @@ Card.prototype.moveTo = function (zone,arg) {
 					charm = signi.charm;
 					signi.charm = null;
 					signi.onLeaveField2.trigger({});
-					// 出场
-					arg.bottom = false;
-					enterFieldEvent = moveEvent;
-					enterFieldEvent.riseTarget = signi;
-					card.player.signis.push(card);
-				} else {
-					// 放置到 SIGNI 下面的卡
-					// （目前不用处理）
+					moveEvent.riseTarget = signi;
 				}
-			} else {
 				// 出场
 				enterFieldEvent = moveEvent;
 				zone.player.signis.push(card);
+			} else {
+				// 放置到 SIGNI 下方的卡
+				// 目前不需要处理
 			}
 		}
 	} else if ((zone.name === 'LrigZone') && !arg.bottom) {
@@ -912,15 +909,15 @@ Card.prototype.moveTo = function (zone,arg) {
 	//         手牌中非公开的卡,在游戏逻辑中是"背面朝上"的,即:
 	//             对方不能查看;己方能查看(这是因为手牌区是 checkable 的).
 	//         但在客户端中,手牌里的卡即使逻辑上是背面朝上的,仍显示为正面朝上.
-	//         PS: 增加了陷阱，陷阱和手牌一样，是仅己方玩家可见的。
+	// PS: 增加了陷阱，陷阱是 chekcable 的，背面朝上，但己方玩家可见的。
 	card.player.output({
 		type: 'MOVE_CARD',
 		content: {
 			card: card,
-			pid: (card.isFaceup || zone.checkable)? card.pid : 0,
+			pid: (card.isFaceup || arg.isTrap || zone.checkable)? card.pid : 0,
 			zone: zone,
 			up: arg.up,
-			faceup: (arg.isTrap || zone.inhand)? true : arg.faceup,
+			faceup: zone.inhand? true : arg.faceup,
 			bottom: arg.bottom,
 			isSide: arg.isSide
 		}
@@ -1146,7 +1143,7 @@ Card.prototype.attackAsyn = function () {
 		if (!zones.length) return attackedZone = opposingZone;
 		return this.player.selectAsyn('TARGET',zones).callback(this,function (zone) {
 			attackedZone = zone
-			var card = zone.getActualCards()[0];
+			var card = zone.getSigni();
 			if (card) card.beSelectedAsTarget();
 		});
 	}).callback(this,function () {
@@ -1202,19 +1199,16 @@ Card.prototype.attackAsyn = function () {
 					var trap = opposingZone.trap
 					return Callback.immediately().callback(this,function () {
 						if (opposingSigni || !trap) return;
-						return this.player.selectOptionalAsyn('LAUNCH',[trap]).callback(this,function (card) {
+						return this.player.opponent.selectOptionalAsyn('LAUNCH',[trap]).callback(this,function (card) {
 							if (!card) return;
-							card.beSelectedAsTarget();
-							return card.trap.actionAsyn.call(card).callback(this,function () {
-								card.trash();
-							});
+							return card.handleTrapAsyn();
 						});
 					}).callback(this,function () {
 						// 攻击被无效，结束处理
 						if (event.prevented) return;
 						// 若攻击的目标存在，进行战斗;
 						// (暗杀的情况下，目标为正对面的 SIGNI 时，不战斗)
-						var target = attackedZone.getActualCards()[0] || null;
+						var target = attackedZone.getSigni() || null;
 						var battle = true;
 						if (!target) battle = false;
 						if (card.assassin && (target === opposingSigni)) return false;
@@ -1425,6 +1419,7 @@ Card.prototype.summonAsyn = function (optional,dontTriggerStartUp,down) {
 		if (!card) return;
 		return this.player.selectSummonZoneAsyn(false,this.rise).callback(this,function (zone) {
 			card.moveTo(zone,{
+				isSummon: true,
 				dontTriggerStartUp: dontTriggerStartUp,
 				up: !down
 			});
@@ -1534,7 +1529,7 @@ Card.prototype.getTotalEnerCost = function (original) {
 Card.prototype.getOpposingSigni = function () {
 	if (!inArr(this,this.player.signis)) return null;
 	var idx = 2 - this.player.signiZones.indexOf(this.zone);
-	return this.player.opponent.signiZones[idx].getActualCards()[0] || null;
+	return this.player.opponent.signiZones[idx].getSigni() || null;
 };
 
 Card.prototype.charmTo = function (signi) {
@@ -1553,7 +1548,6 @@ Card.prototype.trapTo = function(zone) {
 	zone.trap = this;
 	this.moveTo(zone,{
 		faceup: false,
-		up: signi.isUp,
 		isTrap: true,
 	});
 };
@@ -1663,6 +1657,21 @@ Card.prototype.canGainAbility = function (source) {
 
 Card.prototype.isInfected = function() {
 	return this.zone.virus;
+};
+
+Card.prototype.handleTrapAsyn = function() {
+	return Callback.immediately().callback(this,function () {
+		if (this.zone.cards.indexOf(this) === 0) {
+			this.faceup();
+		} else {
+			return this.player.opponent.showCardsAsyn([this]);
+		}
+	}).callback(this,function () {
+		if (!this.trap) return;
+		return this.trap.actionAsyn.call(this);
+	}).callback(this,function () {
+		this.trash();
+	});
 };
 
 global.Card = Card;
