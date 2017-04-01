@@ -2360,7 +2360,7 @@ Player.prototype.setTrapFromDeckTopAsyn = function(count,max) {
 };
 
 Player.prototype.getTraps = function() {
-	return this.player.signiZones.filter(function (zone) {
+	return this.signiZones.filter(function (zone) {
 		return zone.trap;
 	}).map(function (zone) {
 		return zone.trap;

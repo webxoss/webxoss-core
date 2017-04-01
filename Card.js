@@ -973,6 +973,7 @@ Card.prototype.moveTo = function (zone,arg) {
 		// 此处理在块结束时执行。
 		// http://www.takaratomy.co.jp/products/wixoss/rule/rule_rulechange/151211/index.html
 		leaveFieldEvent.oldZone.cards.forEach(function (card) {
+			if (card === leaveFieldEvent.oldZone.trap) return;
 			if (card === charm) {
 				card.game.trashingCharms.push(card);
 			} else {
