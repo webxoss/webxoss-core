@@ -191,37 +191,10 @@ function down (content, filename = 'down.txt') {
 <script src="Client.js"></script>
 <script src="Room.js"></script>
 <script src="RoomManager.js"></script>
-<script src="testHelper.js"></script>
-<!-- <script src="test.js"></script> -->
+<script src="test.js"></script>
 </head>
 
 <body>
-<div>
-	<a href="#" onclick="window.open('./webxoss-client/DeckEditor/')">Deck:</a>
-	<select id="deck-select"></select>
-</div>
-<div>
-	<button onclick="newClient();">new client</button>
-	<button onclick="oben();">oben!</button>
-	<button onclick="updateBattle();">update battle</button>
-</div>
-<div>
-	<button onclick="upgrade()">upgrade</button>
-	<button onclick="game.turnPlayer.draw(5)">draw</button>
-	<button onclick="game.turnPlayer.enerCharge(10);">ener charge</button>
-</div>
-<div>
-	<input id="card-name" type="text" placeholder="WX01-100"></div>
-	<button onclick="addToHand()">add card</button>
-	<button onclick="addToLifeCloth()">add to life cloth</button>
-</div>
-<style type="text/css">
-a {
-  outline: none;
-  color: inherit;
-  text-decoration: none;
-  -webkit-tap-highlight-color: transparent;
-}
-</style>
+<button onclick="newClient();">newClient</button>
 </body>
 </html>
