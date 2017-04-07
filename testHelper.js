@@ -1,19 +1,15 @@
-'use strict'
+'use strict';
 
 // browser only
 
-function TestHelper() {
-  this.deckNames = this.readDeckNames();
-  this.hostDeck = '';
-  this.ghostDeck = '';
+var $ = document.getElementById.bind(document);
 
-  this.cfg = {
-    disableAudio: true,
-  }
+function TestHelper() {
+  this.noBGM = true;
 }
 TestHelper.prototype.disableAudio = function(doc) {
   // disable BGM
-  if (!this.cfg.disableAudio) {
+  if (!this.noBGM) {
     return;
   }
   var bgm = doc.getElementById('checkbox-bgm');
@@ -24,10 +20,9 @@ TestHelper.prototype.disableAudio = function(doc) {
   if (sound && sound.checked) {
     sound.click();
   }
-}
+};
 TestHelper.prototype.initClient = function(win) {
   var doc = win.document;
-  var self = this;
   var socket = new FakeSocket(win);
   win.addEventListener('unload', function() {
     socket._doEmit('disconnect');
@@ -36,30 +31,17 @@ TestHelper.prototype.initClient = function(win) {
   io._handler(socket);
 
   this.disableAudio(doc);
-}
-TestHelper.prototype.readDeckNames = function() {
-  return JSON.parse(localStorage.getItem('deck_filenames')) || [];
-}
-TestHelper.prototype.getDeckPids = function(player) {
-  var name;
-  if (player === 'host') {
-    name = this.hostDeck;
-  } else {
-    name = this.ghostDeck;
-  }
-  if (name === '') {
-    name = this.deckNames[0]; // use WHITE_HOPE
-  }
-  return JSON.parse(localStorage.getItem('deck_file_' + name));
-}
+  log(win.document.title + ' added.');
+};
 
 var helper = new TestHelper();
 
+// prepare and start game
 function startBattle() {
   if (sockets.length) {
     sockets.forEach(function(target) {
       target._win.close();
-    })
+    });
     location.reload();
     return;
   }
@@ -73,11 +55,12 @@ function startBattle() {
     helper.initClient(win);
   });
 }
+
 function oben() {
   if (sockets.length !== 2) {
-    console.log('two client needed');
+    log('two client needed');
     return;
-  };
+  }
   var createRoomMsg = {
     'roomName': 'test',
     'nickname': 'host',
@@ -85,28 +68,37 @@ function oben() {
     'mayusRoom': true,
   }
   sockets[0]._doEmit('createRoom', createRoomMsg);
+  log('Client<1> create room.');
+
   var joinRoomMsg = {
     'roomName': 'test',
     'nickname': 'ghost',
     'password': '',
   }
   sockets[1]._doEmit('joinRoom', joinRoomMsg);
+  log('Client<2> join room.');
 
-  sockets[1]._doEmit('ready', helper.getDeckPids('host'));
-  sockets[0]._doEmit('startGame', helper.getDeckPids('ghost'));
+  sockets[1]._doEmit('ready', getDeckPids('host'));
+  log('Client<2> is ready.');
+  sockets[0]._doEmit('startGame', getDeckPids('ghost'));
+  log('oben!');
+
   updateBattle();
 }
 
 var game; // in-play game
 function updateBattle() {
   if (roomManager.rooms.length === 0) {
-    console.log('no in-play game found');
+    log('no in-play game found.');
     return;
   }
   game = roomManager.rooms[0].game;
-  console.log('update game information successfully');
+  log('Handle game successfully.');
+  log('Now you can use helper function.');
 }
-function upgrade() {
+
+// helper function
+function grow() {
   var p = game.turnPlayer;
   var cards = p.lrigDeck.cards.concat(p.lrigTrashZone.cards);
   var lrigCards = [];
@@ -116,42 +108,127 @@ function upgrade() {
     }
   });
   game.moveCards(lrigCards, p.lrigZone);
+  log('grow lrig to level max.');
 }
-function addToHand() {
-  var cardName = document.getElementById('card-name').value;
-  if (game.turnPlayer.getCard(cardName))
-    console.log('add ' + cardName + ' to hand');
-  else
-    console.log('no matched card');
+function draw(num) {
+  if (!num) {
+    num = 5;
+  }
+  var p = game.turnPlayer;
+  p.draw(num);
+  log('draw ' + num + ' cards.');
 }
-function addToLifeCloth() {
-  var cardName = document.getElementById('card-name').value;
-  if (game.turnPlayer.putCardToLifeCloth(cardName))
-    console.log('put ' + cardName + ' to life cloth');
-  else
-    console.log('no matched card');
+function charge(num) {
+  if (!num) {
+    num = 5;
+  }
+  var p = game.turnPlayer;
+  p.enerCharge(num);
+  log('ener charge ' + num + '.');
+}
+
+function matchCard(arg) {
+  if (arg) {
+    arg = arg.toUpperCase();
+  } else {
+    return;
+  }
+  var cid = 0;
+  game.cards.forEach(function(card) {
+    var info = CardInfo[card.cid];
+    var matched = info.pid === arg ||
+      info.cid === arg ||
+      info.wxid === arg;
+    if (matched) {
+      cid = card.cid;
+      return;
+    }
+  });
+  if (!cid) return null;
+  var player = game.turnPlayer;
+  var cards = concat(player.mainDeck.cards,
+    player.trashZone.cards,
+    player.enerZone.cards,
+    player.lifeClothZone.cards);
+
+  cards.forEach(function(card) {
+    if (card.cid === cid) {
+      return card;
+    }
+  });
+  return null;
+}
+
+var zones = [
+  'handZone',
+  'enerZone',
+  'trashZone',
+  'lifeClothZone',
+];
+function addTo(zone) {
+  if (zones.indexOf(zone) === -1) {
+    log('no such zone: ' + zone);
+    return;
+  }
+  var input = $('card-name').value;
+  if (input && matchCard(input)) {
+    var matchedCard = matchCard(input);
+    if (!matchedCard) {
+      log('no matched card');
+      return;
+    }
+    matchedCard.moveTo(game.turnPlayer[zone]);
+    log('add <' + matchedCard.name + '> to ' + zone + '.');
+  }
+}
+
+function resetLrigDeck() {
+  game.moveCards(game.turnPlayer.lrigTrashZone.cards, game.turnPlayer.lrigDeck);
+  log('reset lrig deck.');
+}
+// log
+function log(text) {
+  var logger = $('log');
+  logger.innerHTML += text;
+  logger.innerHTML += '\n';
+}
+// dom
+function getDeckPids(player) {
+  var name = {
+    'host': $('host-decks').value || '',
+    'ghost': $('host-decks').value || '',
+  }[player];
+  if (!name) {
+    log('error in deck select');
+  }
+  return JSON.parse(localStorage.getItem('deck_file_' + name));
+}
+var deckNames = [];
+function readDeckNames() {
+  return JSON.parse(localStorage.getItem('deck_filenames')) || [];
 }
 function initDeckSelect() {
-  var hostDecks = document.getElementById('host-decks');
-  var ghostDecks = document.getElementById('ghost-decks');
-  hostDecks.innerHTML = '';
-  ghostDecks.innerHTML = '';
-  helper.deckNames.forEach(function(name) {
-    var deckname = document.createElement('option');
-    deckname.setAttribute('value', name);
-    deckname.innerHTML = name;
-    hostDecks.appendChild(deckname);
-    ghostDecks.appendChild(deckname.cloneNode(true));
-  })
-  helper.hostDeck = hostDecks.value;
-  helper.ghostDeck = ghostDecks.value;
-  hostDecks.onchange = function() {
-    helper.hostDeck = this.value;
-  }
-  ghostDecks.onchange = function() {
-    helper.ghostDeck = this.value;
-  }
+  deckNames = readDeckNames();
+  var hostDeckSelect = $('host-decks');
+  var ghostDeckSelect = $('ghost-decks');
+  hostDeckSelect.innerHTML = '';
+  ghostDeckSelect.innerHTML = '';
+  deckNames.forEach(function(name) {
+    var deckName = document.createElement('option');
+    deckName.setAttribute('value', name);
+    deckName.innerHTML = name;
+    hostDeckSelect.appendChild(deckName);
+    ghostDeckSelect.appendChild(deckName.cloneNode(true));
+  });
 }
+function changeLanguage() {
+  var lang = $('select-language').value;
+  localStorage.setItem('language', lang);
+  log('set language to ' + lang + '.');
+  location.reload();
+}
+
 window.onload = function() {
+  $('select-language').value = localStorage.getItem('language');
   initDeckSelect();
-}
+};
