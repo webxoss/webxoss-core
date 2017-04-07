@@ -7,26 +7,26 @@
   <script>
   var global = window;
   // function require (file) {
-  // 	return window[file.replace(/^\.[\/\\]/,'').replace(/.js$/,'')];
+  //  return window[file.replace(/^\.[\/\\]/,'').replace(/.js$/,'')];
   // }
   function handleCardInfo() {
     // var defaultValueMap = {
-    // 	"rarity": "LR",
-    // 	"cardType": "SIGNI",
-    // 	"color": "white",
-    // 	"level": 0,
-    // 	"limit": 0,
-    // 	"power": 0,
-    // 	"limiting": "",
-    // 	"classes": [],
-    // 	"costWhite": 0,
-    // 	"costBlack": 0,
-    // 	"costRed": 0,
-    // 	"costBlue": 0,
-    // 	"costGreen": 0,
-    // 	"costColorless": 0,
-    // 	"guardFlag": false,
-    // 	"multiEner": false,
+    //  "rarity": "LR",
+    //  "cardType": "SIGNI",
+    //  "color": "white",
+    //  "level": 0,
+    //  "limit": 0,
+    //  "power": 0,
+    //  "limiting": "",
+    //  "classes": [],
+    //  "costWhite": 0,
+    //  "costBlack": 0,
+    //  "costRed": 0,
+    //  "costBlue": 0,
+    //  "costGreen": 0,
+    //  "costColorless": 0,
+    //  "guardFlag": false,
+    //  "multiEner": false,
     // };
     for (var x in CardInfo) {
       var info = CardInfo[x];
@@ -55,9 +55,9 @@
       delete info.bettedCost;
       if (info.rise) info.rise = true;
       // for (var key in defaultValueMap) {
-      // 	if (info[key] === defaultValueMap[key]) {
-      // 		delete info[key];
-      // 	}
+      //  if (info[key] === defaultValueMap[key]) {
+      //    delete info[key];
+      //  }
       // }
     }
     // var textarea = document.createElement('textarea');
@@ -94,9 +94,9 @@
       };
       props.forEach(function(rawprop) {
         // suffix.forEach(function (suf) {
-        // 	var prop = rawprop + suf;
-        // 	if (!info[prop]) return;
-        // 	obj[prop] = info[prop];
+        //  var prop = rawprop + suf;
+        //  if (!info[prop]) return;
+        //  obj[prop] = info[prop];
         // });
         obj[rawprop + "_ko"] = info[rawprop + "_en"];
       });
@@ -215,20 +215,38 @@
       <select id="ghost-decks"></select>
     </div>
     <div>
-      <button onclick="startBattle();">Oben!</button>
+      <button onclick="startBattle();">oben!</button>
     </div>
-    <div> ---- Helper Action ---- </div>
+    <div> ---- Helper Function ---- </div>
     <div>
-      <button onclick="upgrade()">upgrade</button>
-      <button onclick="game.turnPlayer.draw(5)">draw</button>
-      <button onclick="game.turnPlayer.enerCharge(10);">ener charge</button>
+      <button onclick="grow();">grow!</button>
+      <button onclick="draw()">draw</button>
+      <button onclick="charge();">ener charge</button>
     </div>
     <div>
-      <input id="card-name" type="text" placeholder="WX01-100">
+      <input id="card-name" type="text" placeholder="wx15-001">
     </div>
-    <button onclick="addToHand()">add card</button>
-    <button onclick="addToLifeCloth()">add to life cloth</button>
-  </div>
+    <button onclick="addTo('handZone');">add to hand</button>
+    <button onclick="addTo('lifeClothZone');">add to life cloth</button>
+    <button onclick="addTo('enerZone');">add to ener</button>
+    <button onclick="addTo('trashZone');">add to trash</button>
+    <div>
+      <button onclick="resetLrigDeck();">reset lrig deck</button>
+    </div>
+    <div>
+    <select id="select-language" onchange="changeLanguage();">
+      <option value="en">English</option>
+      <option value="zh_CN">简体中文</option>
+      <option value="zh_TW">繁體中文</option>
+      <option value="jp">日本語</option>
+      <option value="ko">한국어</option>
+      <option value="ru">русский</option>
+      <option value="it">Italiano</option>
+    </select>
+    </div>
+    <div>
+      <textarea id="log"></textarea>
+    </div>
   </div>
   <iframe class="float" src="../webxoss-client/DeckEditor/" width="1090px" height="690px" scrolling="no" frameborder="no" border="0"></iframe>
 </body>
@@ -238,6 +256,12 @@ a {
   color: inherit;
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
+}
+
+textarea {
+  resize: none;
+  width: 270px;
+  height: 500px;
 }
 
 .float {
