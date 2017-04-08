@@ -205,67 +205,136 @@
 </head>
 
 <body>
-  <div class="float">
-    <div>
-      <span> p1 </span>
-      <select id="host-decks"></select>
+  <div class="flex">
+    <div class="helper">
+      <div class="flex row">
+        <div>
+          <span> p1 </span>
+          <select id="host-decks"></select>
+        </div>
+        <div>
+          <span> p2 </span>
+          <select id="ghost-decks"></select>
+        </div>
+      </div>
+      <div>
+        <button id="oben" onclick="startBattle();">oben!</button>
+        <button onclick="grow();">grow!</button>
+        <button onclick="draw()">draw</button>
+        <button onclick="charge();">ener charge</button>
+      </div>
+      <div class="flex row">
+        <div>
+          <span>add</span>
+          <input id="card-name" class="card-name" type="text" placeholder="wx15-001" />
+        </div>
+        <div>
+          <span>to</span>
+          <select id="target-player" class="target-player">
+            <option value="">yourself&#39;s</option>
+            <option value="opponent">opponent&#39;s</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <button onclick="addTo('handZone');">hand</button>
+        <button onclick="addTo('lifeClothZone');">life cloth</button>
+        <button onclick="addTo('enerZone');">ener zone</button>
+        <button onclick="addTo('trashZone');">trash zone</button>
+      </div>
+      <div>
+        <button onclick="resetLrigDeck();">reset lrig deck</button>
+      </div>
+      <div class="flex-center">
+        <textarea id="log"></textarea>
+      </div>
+      <div class="language">
+        <span>Language:</span>
+        <select id="select-language" onchange="changeLanguage();">
+          <option value="en">English</option>
+          <option value="zh_CN">简体中文</option>
+          <option value="zh_TW">繁體中文</option>
+          <option value="jp">日本語</option>
+          <option value="ko">한국어</option>
+          <option value="ru">русский</option>
+          <option value="it">Italiano</option>
+        </select>
+      </div>
     </div>
-    <div>
-      <span> p2 </span>
-      <select id="ghost-decks"></select>
-    </div>
-    <div>
-      <button onclick="startBattle();">oben!</button>
-    </div>
-    <div> ---- Helper Function ---- </div>
-    <div>
-      <button onclick="grow();">grow!</button>
-      <button onclick="draw()">draw</button>
-      <button onclick="charge();">ener charge</button>
-    </div>
-    <div>
-      <input id="card-name" type="text" placeholder="wx15-001">
-    </div>
-    <button onclick="addTo('handZone');">add to hand</button>
-    <button onclick="addTo('lifeClothZone');">add to life cloth</button>
-    <button onclick="addTo('enerZone');">add to ener</button>
-    <button onclick="addTo('trashZone');">add to trash</button>
-    <div>
-      <button onclick="resetLrigDeck();">reset lrig deck</button>
-    </div>
-    <div>
-    <select id="select-language" onchange="changeLanguage();">
-      <option value="en">English</option>
-      <option value="zh_CN">简体中文</option>
-      <option value="zh_TW">繁體中文</option>
-      <option value="jp">日本語</option>
-      <option value="ko">한국어</option>
-      <option value="ru">русский</option>
-      <option value="it">Italiano</option>
-    </select>
-    </div>
-    <div>
-      <textarea id="log"></textarea>
-    </div>
+    <iframe id="deck-editor" src="../webxoss-client/DeckEditor/" scrolling="no" frameborder="no" border="0"></iframe>
   </div>
-  <iframe class="float" src="../webxoss-client/DeckEditor/" width="1090px" height="690px" scrolling="no" frameborder="no" border="0"></iframe>
 </body>
 <style type="text/css">
-a {
-  outline: none;
-  color: inherit;
-  text-decoration: none;
-  -webkit-tap-highlight-color: transparent;
+.flex {
+  display: flex;
+}
+.helper {
+  display: flex;
+  flex-direction: column;
+}
+.helper>div {
+  padding: 0.5em;
+}
+.row>div {
+  flex: 1;
+}
+.row>div>span {
+  margin-right: 1em;
+}
+.card-name {
+  border: none;
+  border-bottom: 1px solid #000;
+  text-align: center;
+  width: 6em;
+}
+.target-player {
+  appearance: none;
+  -moz-appearance: none;
+  /* Firefox */
+  -webkit-appearance: none;
+  /* Safari 和 Chrome */
+  border: none;
+  width: 7em;
+}
+.flex-center {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}
+.language {
+  text-align: right;
 }
 
 textarea {
   resize: none;
-  width: 270px;
-  height: 500px;
+  height: auto;
+  width: 100%;
 }
 
-.float {
-  float: left;
+button {
+  padding: .5em 1em;
+  color: #fff;
+  border: 1px solid #999;
+  border: transparent;
+  background-color: #0078e7;
+  text-decoration: none;
+  border-radius: 2px;
+  display: inline-block;
+  zoom: 1;
+  white-space: nowrap;
+  vertical-align: middle;
+  text-align: center;
+  cursor: pointer;
+}
+button:disabled,
+button[disabled] {
+  border: none;
+  filter: alpha(opacity=40);
+  opacity: .4;
+  cursor: not-allowed;
+}
+body {
+  font-family: PingFangSC-Regular, 'Helvetica Neue', Tahoma, Arial, 'Hiragino Sans GB', 'Microsoft Yahei', sans-serif;
 }
 </style>
 
