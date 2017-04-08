@@ -4,12 +4,11 @@
 
 var $ = document.getElementById.bind(document);
 
-function TestHelper() {
-  this.noBGM = true;
-}
-TestHelper.prototype.disableAudio = function(doc) {
+var noBGM = true;
+
+function disableAudio(doc) {
   // disable BGM
-  if (!this.noBGM) {
+  if (!noBGM) {
     return;
   }
   var bgm = doc.getElementById('checkbox-bgm');
@@ -20,8 +19,8 @@ TestHelper.prototype.disableAudio = function(doc) {
   if (sound && sound.checked) {
     sound.click();
   }
-};
-TestHelper.prototype.initClient = function(win) {
+}
+function initClient(win) {
   var doc = win.document;
   var socket = new FakeSocket(win);
   win.addEventListener('unload', function() {
@@ -30,11 +29,9 @@ TestHelper.prototype.initClient = function(win) {
   win.document.title = 'Client' + socket.id;
   io._handler(socket);
 
-  this.disableAudio(doc);
+  disableAudio(doc);
   log(win.document.title + ' added.');
-};
-
-var helper = new TestHelper();
+}
 
 // prepare and start game
 function startBattle() {
@@ -49,16 +46,16 @@ function startBattle() {
   win.addEventListener('load', function() {
     var win2 = window.open('../webxoss-client/?local=true');
     win2.addEventListener('load', function() {
-      helper.initClient(win2);
+      initClient(win2);
       oben();
     });
-    helper.initClient(win);
+    initClient(win);
   });
 }
 
 function oben() {
   if (sockets.length !== 2) {
-    log('two client needed');
+    log('two client needed.');
     return;
   }
   var createRoomMsg = {
@@ -66,7 +63,7 @@ function oben() {
     'nickname': 'host',
     'password': '',
     'mayusRoom': true,
-  }
+  };
   sockets[0]._doEmit('createRoom', createRoomMsg);
   log('Client<1> create room.');
 
@@ -74,7 +71,7 @@ function oben() {
     'roomName': 'test',
     'nickname': 'ghost',
     'password': '',
-  }
+  };
   sockets[1]._doEmit('joinRoom', joinRoomMsg);
   log('Client<2> join room.');
 
@@ -83,16 +80,17 @@ function oben() {
   sockets[0]._doEmit('startGame', getDeckPids('ghost'));
   log('oben!');
 
-  updateBattle();
+  handleBattle();
 }
 
 var game; // in-play game
-function updateBattle() {
+function handleBattle() {
   if (roomManager.rooms.length === 0) {
     log('no in-play game found.');
     return;
   }
   game = roomManager.rooms[0].game;
+  enableButtons();
   log('Handle game successfully.');
   log('Now you can use helper function.');
 }
@@ -102,13 +100,22 @@ function grow() {
   var p = game.turnPlayer;
   var cards = p.lrigDeck.cards.concat(p.lrigTrashZone.cards);
   var lrigCards = [];
+  var maxLevel = 0;
   cards.forEach(function(card) {
     if (card.type === 'LRIG') {
-      lrigCards.push(card);
+      if (maxLevel < card.level) {
+        lrigCards.push(card);
+        maxLevel = card.level;
+      } else {
+        lrigCards.unshift(card);
+      }
     }
   });
-  game.moveCards(lrigCards, p.lrigZone);
-  log('grow lrig to level max.');
+  lrigCards.pop().moveTo(p.lrigZone);
+  lrigCards.forEach(function(card) {
+    card.moveTo(p.lrigZone, {bottom: true});
+  });
+  log('grow lrig to max level.');
 }
 function draw(num) {
   if (!num) {
@@ -134,28 +141,27 @@ function matchCard(arg) {
     return;
   }
   var cid = 0;
-  game.cards.forEach(function(card) {
+  for (var i = 0; i < game.cards.length; i++) {
+    var card = game.cards[i];
     var info = CardInfo[card.cid];
-    var matched = info.pid === arg ||
-      info.cid === arg ||
-      info.wxid === arg;
+    var matched = info.name === arg ||
+                  info.name_zh_CN === arg ||
+                  info.cid === arg ||
+                  info.wxid === arg;
     if (matched) {
       cid = card.cid;
-      return;
+      break;
     }
-  });
+  }
   if (!cid) return null;
-  var player = game.turnPlayer;
-  var cards = concat(player.mainDeck.cards,
-    player.trashZone.cards,
-    player.enerZone.cards,
-    player.lifeClothZone.cards);
-
-  cards.forEach(function(card) {
+  var p = selectPlayer();
+  var cards = concat(p.mainDeck.cards,p.trashZone.cards,p.enerZone.cards,p.lifeClothZone.cards);
+  for (var j = 0; j < cards.length; j++) {
+    var card = cards[j];
     if (card.cid === cid) {
       return card;
     }
-  });
+  }
   return null;
 }
 
@@ -171,28 +177,37 @@ function addTo(zone) {
     return;
   }
   var input = $('card-name').value;
-  if (input && matchCard(input)) {
+  if (input) {
     var matchedCard = matchCard(input);
     if (!matchedCard) {
       log('no matched card');
       return;
     }
-    matchedCard.moveTo(game.turnPlayer[zone]);
+    var p = selectPlayer();
+    matchedCard.moveTo(p[zone]);
     log('add <' + matchedCard.name + '> to ' + zone + '.');
+  } else {
+    log('card\'s wxid / pid / cid needed.');
   }
 }
 
 function resetLrigDeck() {
-  game.moveCards(game.turnPlayer.lrigTrashZone.cards, game.turnPlayer.lrigDeck);
+  var p = selectPlayer();
+  game.moveCards(p.lrigTrashZone.cards, p.lrigDeck);
   log('reset lrig deck.');
 }
 // log
 function log(text) {
   var logger = $('log');
-  logger.innerHTML += text;
-  logger.innerHTML += '\n';
+  logger.textContent += text;
+  logger.textContent += '\n';
 }
 // dom
+function selectPlayer() {
+  return $('target-player').value === 'opponent' ?
+    game.turnPlayer.opponent :
+    game.turnPlayer;
+}
 function getDeckPids(player) {
   var name = {
     'host': $('host-decks').value || '',
@@ -216,7 +231,7 @@ function initDeckSelect() {
   deckNames.forEach(function(name) {
     var deckName = document.createElement('option');
     deckName.setAttribute('value', name);
-    deckName.innerHTML = name;
+    deckName.textContent = name;
     hostDeckSelect.appendChild(deckName);
     ghostDeckSelect.appendChild(deckName.cloneNode(true));
   });
@@ -227,8 +242,36 @@ function changeLanguage() {
   log('set language to ' + lang + '.');
   location.reload();
 }
-
+function resizeIFrameToFitContent() {
+  var iFrame = $('deck-editor');
+  iFrame.width  = iFrame.contentWindow.document.body.scrollWidth;
+  iFrame.height = iFrame.contentWindow.document.body.scrollHeight;
+}
+function enableButtons() {
+  var buttons = document.getElementsByTagName('button');
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].id !== 'oben') {
+      buttons[i].disabled = false;
+    }
+  }
+}
+function disableButtons() {
+  var buttons = document.getElementsByTagName('button');
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].id !== 'oben') {
+      buttons[i].disabled = true;
+    }
+  }
+}
 window.onload = function() {
   $('select-language').value = localStorage.getItem('language');
   initDeckSelect();
+  resizeIFrameToFitContent();
+  disableButtons();
+};
+
+window.onunload = function() {
+  sockets.forEach(function(socket) {
+    socket._win.close();
+  });
 };
