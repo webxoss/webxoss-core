@@ -1212,7 +1212,7 @@ Card.prototype.attackAsyn = function () {
 						var target = attackedZone.getSigni() || null;
 						var battle = true;
 						if (!target) battle = false;
-						if (card.assassin && (target === opposingSigni)) return false;
+						if (card.assassin && (target === opposingSigni)) battle = false;
 						if (battle) {
 							// 战斗
 							// 触发"进行战斗"时点
