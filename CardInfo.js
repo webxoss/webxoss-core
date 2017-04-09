@@ -111590,7 +111590,10 @@ var CardInfo = {
 		actionEffects: [{
 			costDown: true,
 			actionAsyn: function () {
-				return this.player.selectOpponentSigniAsyn().callback(this,function (card) {
+				var filter = function (card) {
+					return card.rise;
+				};
+				return this.player.selectSelfSigniAsyn(filter).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndSet(this,card,'doubleCrash',true);
 				});
