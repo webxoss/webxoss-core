@@ -110740,7 +110740,7 @@ var CardInfo = {
 		],
 		startUpEffects: [{
 			actionAsyn: function () {
-				var flag = this.player.signis.some(function (signi) {
+				var flag = this.player.opponent.signis.some(function (signi) {
 					return signi.power === 1000;
 				},this);
 				if (!flag) return;
