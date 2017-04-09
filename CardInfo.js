@@ -107025,19 +107025,11 @@ var CardInfo = {
 			"【自】：場にあるこのシグニの上に《ライズアイコン》を持つシグニが置かれたとき、カードを１枚引く。"
 		],
 		constEffects: [{
-			action: function (set,add) {
-				var effect = this.game.newEffect({
-					source: this,
-					description: '2066-const-0',
-					triggerCondition: function (event) {
-						return event.card.rise;
-					},
-					actionAsyn: function () {
-						this.player.draw(1);
-					},
-				});
-				add(this.player,'onSummonSigni',effect);
-			}
+			duringGame: true,
+			auto: 'onRised',
+			actionAsyn: function () {
+				this.player.draw(1);
+			},
 		}],
 		// ======================
 		//        迸发效果       
