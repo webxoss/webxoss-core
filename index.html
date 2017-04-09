@@ -214,7 +214,7 @@
         </div>
         <div>
           <span> p2 </span>
-          <select id="ghost-decks"></select>
+          <select id="guest-decks"></select>
         </div>
       </div>
       <div>
@@ -231,7 +231,7 @@
         <div>
           <span>to</span>
           <select id="target-player" class="target-player">
-            <option value="">yourself&#39;s</option>
+            <option value="">turn player&#39;s</option>
             <option value="opponent">opponent&#39;s</option>
           </select>
         </div>
@@ -246,7 +246,7 @@
         <button onclick="resetLrigDeck();">reset lrig deck</button>
       </div>
       <div class="flex-center">
-        <textarea id="log"></textarea>
+        <textarea id="log" readonly="readonly"></textarea>
       </div>
       <div class="language">
         <span>Language:</span>
@@ -261,7 +261,7 @@
         </select>
       </div>
     </div>
-    <iframe id="deck-editor" src="../webxoss-client/DeckEditor/" scrolling="no" frameborder="no" border="0"></iframe>
+    <iframe id="deck-editor" src="./webxoss-client/DeckEditor/" scrolling="no" frameborder="no" border="0"></iframe>
   </div>
 </body>
 <style type="text/css">
@@ -329,7 +329,6 @@ button {
 button:disabled,
 button[disabled] {
   border: none;
-  filter: alpha(opacity=40);
   opacity: .4;
   cursor: not-allowed;
 }

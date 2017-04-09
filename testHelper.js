@@ -20,6 +20,7 @@ function disableAudio(doc) {
     sound.click();
   }
 }
+
 function initClient(win) {
   var doc = win.document;
   var socket = new FakeSocket(win);
@@ -42,11 +43,12 @@ function startBattle() {
     location.reload();
     return;
   }
-  var win = window.open('../webxoss-client/?local=true');
+  var win = window.open('./webxoss-client/?local=true');
   win.addEventListener('load', function() {
-    var win2 = window.open('../webxoss-client/?local=true');
+    var win2 = window.open('./?local=true');
     win2.addEventListener('load', function() {
       initClient(win2);
+      skipDiscards();
       oben();
     });
     initClient(win);
@@ -69,7 +71,7 @@ function oben() {
 
   var joinRoomMsg = {
     'roomName': 'test',
-    'nickname': 'ghost',
+    'nickname': 'guest',
     'password': '',
   };
   sockets[1]._doEmit('joinRoom', joinRoomMsg);
@@ -77,7 +79,7 @@ function oben() {
 
   sockets[1]._doEmit('ready', getDeckPids('host'));
   log('Client<2> is ready.');
-  sockets[0]._doEmit('startGame', getDeckPids('ghost'));
+  sockets[0]._doEmit('startGame', getDeckPids('guest'));
   log('oben!');
 
   handleBattle();
@@ -95,6 +97,11 @@ function handleBattle() {
   log('Now you can use helper function.');
 }
 
+function skipDiscards() {
+  Player.prototype.redrawAsyn = function() {
+    return new Callback.immediately();
+  }
+}
 // helper function
 function grow() {
   var p = game.turnPlayer;
@@ -112,11 +119,10 @@ function grow() {
     }
   });
   lrigCards.pop().moveTo(p.lrigZone);
-  lrigCards.forEach(function(card) {
-    card.moveTo(p.lrigZone, {bottom: true});
-  });
+  game.moveCards(lrigCards, p.lrigZone, { bottom: true });
   log('grow lrig to max level.');
 }
+
 function draw(num) {
   if (!num) {
     num = 5;
@@ -125,6 +131,7 @@ function draw(num) {
   p.draw(num);
   log('draw ' + num + ' cards.');
 }
+
 function charge(num) {
   if (!num) {
     num = 5;
@@ -145,9 +152,9 @@ function matchCard(arg) {
     var card = game.cards[i];
     var info = CardInfo[card.cid];
     var matched = info.name === arg ||
-                  info.name_zh_CN === arg ||
-                  info.cid === arg ||
-                  info.wxid === arg;
+      info.name_zh_CN === arg ||
+      info.cid === arg ||
+      info.wxid === arg;
     if (matched) {
       cid = card.cid;
       break;
@@ -155,7 +162,7 @@ function matchCard(arg) {
   }
   if (!cid) return null;
   var p = selectPlayer();
-  var cards = concat(p.mainDeck.cards,p.trashZone.cards,p.enerZone.cards,p.lifeClothZone.cards);
+  var cards = concat(p.mainDeck.cards, p.trashZone.cards, p.enerZone.cards, p.lifeClothZone.cards);
   for (var j = 0; j < cards.length; j++) {
     var card = cards[j];
     if (card.cid === cid) {
@@ -171,6 +178,7 @@ var zones = [
   'trashZone',
   'lifeClothZone',
 ];
+
 function addTo(zone) {
   if (zones.indexOf(zone) === -1) {
     log('no such zone: ' + zone);
@@ -208,10 +216,11 @@ function selectPlayer() {
     game.turnPlayer.opponent :
     game.turnPlayer;
 }
+
 function getDeckPids(player) {
   var name = {
     'host': $('host-decks').value || '',
-    'ghost': $('host-decks').value || '',
+    'guest': $('host-decks').value || '',
   }[player];
   if (!name) {
     log('error in deck select');
@@ -219,34 +228,39 @@ function getDeckPids(player) {
   return JSON.parse(localStorage.getItem('deck_file_' + name));
 }
 var deckNames = [];
+
 function readDeckNames() {
   return JSON.parse(localStorage.getItem('deck_filenames')) || [];
 }
+
 function initDeckSelect() {
   deckNames = readDeckNames();
   var hostDeckSelect = $('host-decks');
-  var ghostDeckSelect = $('ghost-decks');
+  var guestDeckSelect = $('guest-decks');
   hostDeckSelect.innerHTML = '';
-  ghostDeckSelect.innerHTML = '';
+  guestDeckSelect.innerHTML = '';
   deckNames.forEach(function(name) {
     var deckName = document.createElement('option');
     deckName.setAttribute('value', name);
     deckName.textContent = name;
     hostDeckSelect.appendChild(deckName);
-    ghostDeckSelect.appendChild(deckName.cloneNode(true));
+    guestDeckSelect.appendChild(deckName.cloneNode(true));
   });
 }
+
 function changeLanguage() {
   var lang = $('select-language').value;
   localStorage.setItem('language', lang);
   log('set language to ' + lang + '.');
   location.reload();
 }
+
 function resizeIFrameToFitContent() {
   var iFrame = $('deck-editor');
-  iFrame.width  = iFrame.contentWindow.document.body.scrollWidth;
+  iFrame.width = iFrame.contentWindow.document.body.scrollWidth;
   iFrame.height = iFrame.contentWindow.document.body.scrollHeight;
 }
+
 function enableButtons() {
   var buttons = document.getElementsByTagName('button');
   for (var i = 0; i < buttons.length; i++) {
@@ -255,6 +269,7 @@ function enableButtons() {
     }
   }
 }
+
 function disableButtons() {
   var buttons = document.getElementsByTagName('button');
   for (var i = 0; i < buttons.length; i++) {
