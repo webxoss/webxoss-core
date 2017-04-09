@@ -107086,6 +107086,7 @@ var CardInfo = {
 			"【起】《ダウン》：カードを１枚引く。この能力は対戦相手の場にレベル３以上のシグニがある場合にしか使用できない。"
 		],
 		actionEffects: [{
+			costDown: true,
 			useCondition: function () {
 				return this.player.signis.some(function (signi) {
 					return signi.level >= 3;
