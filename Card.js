@@ -180,7 +180,9 @@ Card.abilityProps = [
 	'tripleCrash',
 	'assassin',
 	'canNotBeBanished',
-	'canNotBeBanishedByEffect'
+	'canNotBeBanishedByEffect',
+	'canAttackAnySigniZone',
+	'canAttackNearbySigniZone',
 ];
 
 Card.prototype.cookEffect = function (rawEffect,type,offset) {
