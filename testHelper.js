@@ -50,11 +50,15 @@ function startBattle() {
   var win = window.open(absolutePath);
   win.addEventListener('load', function() {
     var win2 = window.open(absolutePath);
-    win2.addEventListener('load', function() {
-      initClient(win2);
-      skipDiscards();
-      oben();
-    });
+    if (win2) {
+      win2.addEventListener('load', function() {
+        initClient(win2);
+        skipDiscards();
+        oben();
+      });
+    } else {
+      log('open Client blocked, please allow pop-ups!');
+    }
     initClient(win);
   });
 }
