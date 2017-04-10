@@ -2274,46 +2274,6 @@ Player.prototype.setCoin = function(count) {
 	}
 };
 
-// For test:
-Player.prototype.matchCard = function (arg) {
-	var cid = 0;
-	for (var i = 0; i < this.game.cards.length; i++) {
-		var card = this.game.cards[i];
-		var info = CardInfo[card.cid];
-		var matched = info.name === arg ||
-		              info.name_zh_CN === arg ||
-		              info.cid === arg ||
-		              info.wxid === arg;
-		if (matched) {
-			cid = card.cid;
-			break;
-		}
-	}
-	if (!cid) return null;
-	var cards = concat(this.mainDeck.cards,this.trashZone.cards,this.enerZone.cards,this.lifeClothZone.cards);
-	for (var i = 0; i < cards.length; i++) {
-		var card = cards[i];
-		if (card.cid === cid) {
-			return card;
-		}
-	}
-	return null;
-};
-
-Player.prototype.getCard = function (arg) {
-	var card = this.matchCard(arg);
-	if (!card) return null;
-	card.moveTo(this.handZone);
-	return card;
-};
-
-Player.prototype.putCardToLifeCloth = function (arg) {
-	var card = this.matchCard(arg);
-	if (!card) return null;
-	card.moveTo(this.lifeClothZone);
-	return card;
-};
-
 Player.prototype.getInfectedZones = function() {
 	return this.signiZones.filter(function (zone) {
 		return zone.virus;
