@@ -229,10 +229,16 @@ function addTo(zone) {
     log('card\'s wxid / pid / cid needed.');
   }
 }
-function resetLrigDeck() {
+function resetArts() {
   var p = selectPlayer();
   game.moveCards(p.lrigTrashZone.cards, p.lrigDeck);
   log('reset lrig deck.');
+}
+function ignoreLimiting() {
+  var p = selectPlayer();
+  // conflict with <虚无阎魔 乌莉丝>
+  p.ignoreLimitingOfArtsAndSpell = true;
+  log('ignore limiting of arts and spell');
 }
 // log
 function log(text) {
