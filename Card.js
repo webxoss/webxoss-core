@@ -1651,7 +1651,7 @@ Card.prototype.canBeBanished = function () {
 };
 
 Card.prototype.canGainAbility = function (source) {
-	let canNotGainAbility =
+	var canNotGainAbility =
 		this.canNotGainAbility ||
 		(this.player.signiCanNotGainAbility && this.type === 'SIGNI') ||
 		(this.canNotGainAbilityBySelfPlayer && source && source.player === this.player);
