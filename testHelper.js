@@ -2,10 +2,39 @@
 
 // browser only
 
-var $ = document.getElementById.bind(document);
+// server
+var io = {
+  on: function (name,handler) {
+    io._handler = handler;
+  },
+  use: function () {}
+};
+var cfg = {
+  MAX_ROOMS: 100,
+  MAX_CLIENTS: 500,
+  MAX_ROOM_NAME_LENGTH: 15,
+  MAX_NICKNAME_LENGTH: 10,
+  MAX_PASSWORD_LENGTH: 15
+};
+var roomManager = new RoomManager(cfg);
+var MAX_SOCKETS = 500;
+function getSocketCount () {
+  if (!io.sockets) return 0;
+  return Object.keys(io.sockets.connected).length;
+}
+io.use(function (socket,next) {
+  if (getSocketCount() >= MAX_SOCKETS) {
+    next(new Error('MAX_SOCKETS'));
+    return;
+  }
+  next();
+});
+io.on('connect',function (socket) {
+  return roomManager.createClient(socket);
+});
 
+// client
 var noBGM = true;
-
 function disableAudio(doc) {
   // disable BGM
   if (!noBGM) {
@@ -20,7 +49,6 @@ function disableAudio(doc) {
     sound.click();
   }
 }
-
 function initClient(win) {
   var doc = win.document;
   var socket = new FakeSocket(win);
@@ -58,7 +86,6 @@ function startBattle() {
     initClient(win);
   });
 }
-
 function oben() {
   if (sockets.length !== 2) {
     log('two client needed.');
@@ -100,7 +127,6 @@ function handleBattle() {
   log('Handle game successfully.');
   log('Now you can use helper function.');
 }
-
 function skipDiscards() {
   Player.prototype.redrawAsyn = function() {
     return new Callback.immediately();
@@ -176,13 +202,14 @@ function matchCard(arg) {
   return null;
 }
 
+var $ = document.getElementById.bind(document);
+
 var zones = [
   'handZone',
   'enerZone',
   'trashZone',
   'lifeClothZone',
 ];
-
 function addTo(zone) {
   if (zones.indexOf(zone) === -1) {
     log('no such zone: ' + zone);
@@ -202,7 +229,6 @@ function addTo(zone) {
     log('card\'s wxid / pid / cid needed.');
   }
 }
-
 function resetLrigDeck() {
   var p = selectPlayer();
   game.moveCards(p.lrigTrashZone.cards, p.lrigDeck);
@@ -258,7 +284,6 @@ function changeLanguage() {
   log('set language to ' + lang + '.');
   location.reload();
 }
-
 function handleDeckEditor() {
   var iFrame = $('deck-editor');
 
@@ -277,7 +302,6 @@ function handleDeckEditor() {
     }
   });
 }
-
 function enableButtons() {
   var buttons = document.getElementsByTagName('button');
   for (var i = 0; i < buttons.length; i++) {
@@ -286,7 +310,6 @@ function enableButtons() {
     }
   }
 }
-
 function disableButtons() {
   var buttons = document.getElementsByTagName('button');
   for (var i = 0; i < buttons.length; i++) {
@@ -295,6 +318,7 @@ function disableButtons() {
     }
   }
 }
+
 window.onload = function() {
   $('select-language').value = localStorage.getItem('language');
   updateDeckSelect();
