@@ -237,7 +237,7 @@ function readDeckNames() {
   return JSON.parse(localStorage.getItem('deck_filenames')) || [];
 }
 
-function initDeckSelect() {
+function updateDeckSelect() {
   deckNames = readDeckNames();
   var hostDeckSelect = $('host-decks');
   var guestDeckSelect = $('guest-decks');
@@ -259,10 +259,23 @@ function changeLanguage() {
   location.reload();
 }
 
-function resizeIFrameToFitContent() {
+function handleDeckEditor() {
   var iFrame = $('deck-editor');
+
+  //resizeIFrameToFitContent
   iFrame.width = iFrame.contentWindow.document.body.scrollWidth;
   iFrame.height = iFrame.contentWindow.document.body.scrollHeight;
+
+  // disable deck-editor return
+  iFrame.contentDocument
+    .getElementById('link-back-to-webxoss').href = "#"
+
+  // auto update deck names when change in deckEditor
+  window.addEventListener('storage', function(e) {
+    if (e.key === 'deck_filenames') {
+      updateDeckSelect();
+    }
+  });
 }
 
 function enableButtons() {
@@ -284,8 +297,8 @@ function disableButtons() {
 }
 window.onload = function() {
   $('select-language').value = localStorage.getItem('language');
-  initDeckSelect();
-  resizeIFrameToFitContent();
+  updateDeckSelect();
+  handleDeckEditor();
   disableButtons();
 };
 
