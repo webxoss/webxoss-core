@@ -43,9 +43,13 @@ function startBattle() {
     location.reload();
     return;
   }
-  var win = window.open('./webxoss-client/?local=true');
+  var relativePath = './webxoss-client/?local=true';
+  var link = document.createElement('a');
+  link.href = relativePath;
+  var absolutePath = link.href;
+  var win = window.open(absolutePath);
   win.addEventListener('load', function() {
-    var win2 = window.open('./?local=true');
+    var win2 = window.open(absolutePath);
     win2.addEventListener('load', function() {
       initClient(win2);
       skipDiscards();
