@@ -47,7 +47,7 @@ if (!noStaticServe) {
     }
   });
   server.listen(port);
-  console.log('server listen on 127.0.0.1:' + port);
+  console.log('listen to 127.0.0.1:' + port);
 }
 // game server
 var getArg = function(key) {
