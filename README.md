@@ -54,7 +54,7 @@ WEBXOSS server can be runned in a browser tab, typically for easier debugging.
 
 In this case, nodejs isn't needed. Just serve this project using `nginx`, `apache` or anything else.
 
-Then, open `http://localhost/path/to/your/project/test.html`. The browser tab you just opened is a real WEBXOSS server. You can open console to see what's inside it. 
+Then, open `127.0.0.1` (map to `webxoss-core` folder). The browser tab you just opened is a real WEBXOSS server. You can open console to see what's inside it. 
 
 Note: 
 
