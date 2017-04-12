@@ -109874,7 +109874,7 @@ var CardInfo = {
 			action: function (set,add) {
 				var effect = this.game.newEffect({
 					source: this,
-					description: '2126-const-0',
+					description: '2126-const-1',
 					actionAsyn: function () {
 						return this.player.infectZoneAsyn();
 					}
