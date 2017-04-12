@@ -108993,14 +108993,14 @@ var CardInfo = {
 			actionAsyn: function () {
 				this.game.frameStart();
 				this.player.opponent.signis.forEach(function (signi) {
-					this.game.tillTurnEndAdd(signi,'power',-2000);
+					this.game.tillTurnEndAdd(this,signi,'power',-2000);
 				},this);
 				this.game.frameEnd();
 
 				this.game.frameStart();
 				this.player.opponent.signis.forEach(function (signi) {
 					if (!signi.isInfected()) return;
-					this.game.tillTurnEndAdd(signi,'power',-3000);
+					this.game.tillTurnEndAdd(this,signi,'power',-3000);
 				},this);
 				this.game.frameEnd();
 			},
