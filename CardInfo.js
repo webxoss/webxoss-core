@@ -112700,7 +112700,7 @@ var CardInfo = {
 		startUpEffects: [{
 			actionAsyn: function (event) {
 				if (!event.source || event.source.type !== 'SIGNI') return;
-				return this.decreasePowerAsyn(-3000);
+				return this.decreasePowerAsyn(3000);
 			},
 		}],
 	},
@@ -112741,7 +112741,7 @@ var CardInfo = {
 		startUpEffects: [{
 			actionAsyn: function (event) {
 				if (!event.source || event.source.type !== 'SIGNI') return;
-				return this.decreasePowerAsyn(-3000);
+				return this.decreasePowerAsyn(3000);
 			},
 		}],
 	},
