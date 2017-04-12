@@ -110410,7 +110410,7 @@ var CardInfo = {
 				var done = false;
 				return Callback.loop(this,3,function () {
 					if (done) return;
-					var zones = this.player.opponent.zones.filter(function (zone) {
+					var zones = this.player.opponent.signiZones.filter(function (zone) {
 						return zone.virus;
 					},this);
 					return this.player.selectOptionalAsyn('TARGET',zones).callback(this,function (zone) {
