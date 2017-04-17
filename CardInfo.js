@@ -102286,6 +102286,10 @@ var CardInfo = {
 				return this.player.selectTextAsyn('CHOOSE_ZONE',texts).callback(this,function (text) {
 					this.fieldData['_1982'] = text;
 					return this.player.opponent.showTextAsyn('CHOOSE_ZONE','text',text);
+				}).callback(this,function () {
+					// 增加一个空帧，进行两次常时效果计算，见 WX04-088 的说明
+					this.game.frameStart();
+					this.game.frameEnd();
 				});
 			}
 		}],
