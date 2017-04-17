@@ -110310,8 +110310,9 @@ var CardInfo = {
 						source: signi,
 						description: '1805-attached-0',
 						actionAsyn: function (event) {
+							var power = this.power;
 							var filter = function (card) {
-								return card.power < this.power;
+								return card.power < power;
 							};
 							return this.player.selectOpponentSigniAsyn(filter).callback(this,function (card) {
 								if (!card) return;
