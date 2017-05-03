@@ -1992,17 +1992,17 @@ Player.prototype.selectSomeAsyn = function (label,items,min,max,careOrder,extraC
 	});
 };
 
-Player.prototype.selectByFilterAsyn = function (filter,cards) {
+Player.prototype.selectByFilterAsyn = function (filter,optional,cards) {
 	var cards = filter? cards.filter(filter) : cards;
-	return this.selectTargetOptionalAsyn(cards);
+	return optional? this.selectTargetOptionalAsyn(cards) : this.selectTargetAsyn(cards);
 };
 
-Player.prototype.selectOpponentSigniAsyn = function (filter) {
-	return this.selectByFilterAsyn(filter,this.opponent.signis);
+Player.prototype.selectOpponentSigniAsyn = function (filter,optional) {
+	return this.selectByFilterAsyn(filter,optional,this.opponent.signis);
 };
 
-Player.prototype.selectSelfSigniAsyn = function (filter) {
-	return this.selectByFilterAsyn(filter,this.signis);
+Player.prototype.selectSelfSigniAsyn = function (filter,optional) {
+	return this.selectByFilterAsyn(filter,optional,this.signis);
 };
 
 Player.prototype.searchAsyn = function (filter,max,min,dontShow) {
@@ -2055,7 +2055,7 @@ Player.prototype.seekAndSummonAsyn = function (filter,n,dontTriggerStartUp) {
 };
 
 Player.prototype.pickCardAsyn = function (filter,min,max,zone) {
-	if (!isNum(min)) min = 0;
+	if (!isNum(min)) min = 1;
 	if (!isNum(max)) max = 1;
 	if (!zone) zone = this.trashZone;
 	var cards = filter? zone.cards.filter(filter) : zone.cards;
@@ -2077,7 +2077,7 @@ Player.prototype.rebornAsyn = function (filter,count,arg) {
 			if (filter && !filter(card)) return false;
 			return card.canSummon();
 		},this);
-		return this.selectOptionalAsyn('SUMMON_SIGNI',cards).callback(function (card) {
+		return this.selectAsyn('SUMMON_SIGNI',cards).callback(function (card) {
 			if (!card) return done = true;
 			return card.summonAsyn(false,arg.dontTriggerStartUp,arg.down);
 		});

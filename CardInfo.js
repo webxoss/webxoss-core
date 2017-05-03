@@ -115,8 +115,6 @@ var CardInfo = {
 		],
 		startUpEffects: [{
 			actionAsyn: function () {
-				// return this.banishSigniAsyn(10000,1,1);
-				// @banishSigniAsyn
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return signi.power <= 10000;
 				},this);
@@ -197,14 +195,6 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				return this.banishSigniAsyn(10000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 10000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		}],
 	},
@@ -600,14 +590,6 @@ var CardInfo = {
 			costRed: 1,
 			actionAsyn: function () {
 				return this.banishSigniAsyn(7000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 7000;
-				// });
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		}]
 	},
@@ -741,14 +723,6 @@ var CardInfo = {
 		artsEffect: {
 			actionAsyn: function () {
 				return this.banishSigniAsyn(10000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 10000;
-				// });
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		}
 	},
@@ -1508,14 +1482,6 @@ var CardInfo = {
 			costRed: 1,
 			actionAsyn: function () {
 				return this.banishSigniAsyn(7000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 7000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		}],
 		// ======================
@@ -1539,14 +1505,6 @@ var CardInfo = {
 		burstEffect: {
 			actionAsyn: function () {
 				return this.banishSigniAsyn(10000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 10000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		}
 	},
@@ -2165,14 +2123,6 @@ var CardInfo = {
 			costDown: true,
 			actionAsyn: function () {
 				return this.banishSigniAsyn(10000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 10000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		}]
 	},
@@ -2213,15 +2163,7 @@ var CardInfo = {
 		],
 		startUpEffects: [{
 			actionAsyn: function () {
-				return this.banishSigniAsyn(3000,1,1);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 3000;
-				// },this);
-				// return this.player.selectTargetAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
+				return this.banishSigniAsyn(3000);
 			}
 		}],
 		// ======================
@@ -2233,14 +2175,6 @@ var CardInfo = {
 		burstEffect: {
 			actionAsyn: function () {
 				return this.banishSigniAsyn(5000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 5000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		}
 	},
@@ -2283,14 +2217,6 @@ var CardInfo = {
 			costDown: true,
 			actionAsyn: function () {
 				return this.banishSigniAsyn(7000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 7000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		}]
 	},
@@ -3594,14 +3520,6 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				return this.banishSigniAsyn(5000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 5000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		}]
 	},
@@ -3750,14 +3668,6 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				return this.banishSigniAsyn(2000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 2000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		}]
 	},
@@ -3812,14 +3722,6 @@ var CardInfo = {
 		burstEffect: {
 			actionAsyn: function () {
 				return this.banishSigniAsyn(10000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 10000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		}
 	},
@@ -6036,14 +5938,6 @@ var CardInfo = {
 		artsEffect: {
 			actionAsyn: function () {
 				return this.banishSigniAsyn(15000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 15000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		}
 	},
@@ -6126,14 +6020,6 @@ var CardInfo = {
 		artsEffect: {
 			actionAsyn: function () {
 				return this.banishSigniAsyn(7000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 7000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		}
 	},
@@ -6176,14 +6062,6 @@ var CardInfo = {
 			costRed: 3,
 			actionAsyn: function () {
 				return this.banishSigniAsyn(15000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 15000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		}],
 		// ======================
@@ -6195,14 +6073,6 @@ var CardInfo = {
 		burstEffect: {
 			actionAsyn: function () {
 				return this.banishSigniAsyn(7000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 7000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		}
 	},
@@ -6385,15 +6255,7 @@ var CardInfo = {
 		],
 		startUpEffects: [{
 			actionAsyn: function () {
-				return this.banishSigniAsyn(1000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 1000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
+				return this.banishSigniAsyn(1000,0);
 			}
 		}]
 	},
@@ -7253,29 +7115,13 @@ var CardInfo = {
 			costRed: 1,
 			actionAsyn: function () {
 				return this.banishSigniAsyn(7000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 7000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		},{
 			costWhite: 1,
 			costGreen: 1,
 			costColorless: 1,
 			actionAsyn: function () {
-				return this.banishSigniAsyn(10000,0,1,true);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power >= 10000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
+				return this.banishSigniAsyn(10000,1,1,true);
 			}
 		}]
 	},
@@ -7604,14 +7450,6 @@ var CardInfo = {
 			costRed: 1,
 			actionAsyn: function () {
 				return this.banishSigniAsyn(5000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 5000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		},{
 			costGreen: 1,
@@ -9111,14 +8949,6 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				return this.banishSigniAsyn(7000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 7000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		}],
 		// ======================
@@ -10305,14 +10135,6 @@ var CardInfo = {
 		startUpEffects: [{
 			actionAsyn: function () {
 				return this.banishSigniAsyn(2000,1,1);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 2000;
-				// },this);
-				// return this.player.selectTargetAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		}]
 	},
@@ -13196,14 +13018,6 @@ var CardInfo = {
 		artsEffect: {
 			actionAsyn: function () {
 				return this.banishSigniAsyn(15000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 15000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		}
 	},
@@ -13822,14 +13636,6 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				return this.banishSigniAsyn(10000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 10000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		}]
 	},
@@ -18469,14 +18275,6 @@ var CardInfo = {
 		artsEffect: {
 			actionAsyn: function () {
 				return this.banishSigniAsyn(10000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 10000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		}
 	},
@@ -21429,14 +21227,6 @@ var CardInfo = {
 					card.trash();
 				}).callback(this,function () {
 					return this.banishSigniAsyn(8000);
-					// @banishSigniAsyn
-					// var cards = this.player.opponent.signis.filter(function (signi) {
-					// 	return signi.power <= 8000;
-					// },this);
-					// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-					// 	if (!card) return;
-					// 	return card.banishAsyn();
-					// });
 				});
 			}
 		}
@@ -21515,14 +21305,6 @@ var CardInfo = {
 				}).callback(this,function () {
 					if (this.player.opponent.enerZone.cards.length > 4) return;
 					return this.banishSigniAsyn(10000);
-					// @banishSigniAsyn
-					// var cards = this.player.opponent.signis.filter(function (signi) {
-					// 	return signi.power <= 10000;
-					// },this);
-					// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-					// 	if (!card) return;
-					// 	return card.banishAsyn();
-					// });
 				});
 			}
 		}
@@ -22487,14 +22269,6 @@ var CardInfo = {
 		burstEffect: {
 			actionAsyn: function () {
 				return this.banishSigniAsyn(12000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 12000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		}
 	},
@@ -22540,14 +22314,6 @@ var CardInfo = {
 			costDown: true,
 			actionAsyn: function () {
 				return this.banishSigniAsyn(8000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 8000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		}]
 	},
@@ -23712,14 +23478,6 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				return this.banishSigniAsyn(8000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 8000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		}],
 		// ======================
@@ -24057,14 +23815,6 @@ var CardInfo = {
 				return this.player.crashAsyn(1).callback(this,function (succ) {
 					if (!succ) return;
 					return this.banishSigniAsyn(8000);
-					// @banishSigniAsyn
-					// var cards = this.player.opponent.signis.filter(function (signi) {
-					// 	return signi.power <= 8000;
-					// },this);
-					// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-					// 	if (!card) return;
-					// 	return card.banishAsyn();
-					// });
 				});
 			}
 		}
@@ -24146,16 +23896,6 @@ var CardInfo = {
 				return this.banishSigniAsyn(5000).callback(this,function () {
 					this.player.enerCharge(1);
 				});
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 5000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// }).callback(this,function () {
-				// 	this.player.enerCharge(1);
-				// });
 			}
 		}
 	},
@@ -29226,18 +28966,6 @@ var CardInfo = {
 						return this.player.opponent.crashAsyn(1);
 					}
 				});
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 10000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// }).callback(this,function () {
-				// 	if (this.player.lifeClothZone.cards.length <= 2) {
-				// 		return this.player.opponent.crashAsyn(1);
-				// 	}
-				// });
 			}
 		}
 	},
@@ -29341,14 +29069,6 @@ var CardInfo = {
 			costRed: 3,
 			actionAsyn: function () {
 				return this.banishSigniAsyn(12000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 12000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		}],
 		// ======================
@@ -30020,14 +29740,6 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				return this.banishSigniAsyn(8000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 8000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		},{
 			costCondition: function () {
@@ -30057,14 +29769,6 @@ var CardInfo = {
 		burstEffect: {
 			actionAsyn: function () {
 				return this.banishSigniAsyn(10000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 10000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		}
 	},
@@ -30111,15 +29815,7 @@ var CardInfo = {
 					return signi.cid === 66; // <羅石　ルビル>
 				});
 				if (!flag) return;
-				return this.banishSigniAsyn(15000,1,1);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 15000;
-				// },this);
-				// return this.player.selectTargetAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
+				return this.banishSigniAsyn(15000);
 			}
 		}]
 	},
@@ -36600,14 +36296,6 @@ var CardInfo = {
 							this.game.trashCards(cards);
 							if (!power) return;
 							return this.banishSigniAsyn(power);
-							// @banishSigniAsyn
-							// cards = this.player.opponent.signis.filter(function (signi) {
-							// 	return signi.power <= power;
-							// },this);
-							// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-							// 	if (!card) return;
-							// 	return card.banishAsyn();
-							// });
 						});
 					}
 				});
@@ -37074,14 +36762,6 @@ var CardInfo = {
 							if (!card) return;
 							this.trash();
 							return this.banishSigniAsyn(3000);
-							// @banishSigniAsyn
-							// var cards = this.player.opponent.signis.filter(function (signi) {
-							// 	return signi.power <= 3000;
-							// },this);
-							// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-							// 	if (!card) return;
-							// 	return card.banishAsyn();
-							// });
 						});
 					}
 				});
@@ -38136,23 +37816,9 @@ var CardInfo = {
 				var flag = (this.player.lrig.hasColor('red')) && (this.player.lifeClothZone.cards.length <= 2);
 				if (!flag) {
 					return this.banishSigniAsyn(8000);
-					// @banishSigniAsyn
-					// var cards = this.player.opponent.signis.filter(function (signi) {
-					// 	return signi.power <= 8000;
-					// },this);
-					// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-					// 	if (!card) return;
-					// 	return card.banishAsyn();
 					// });
 				} else {
 					return this.banishSigniAsyn(15000,0,2);
-					// @banishSigniAsyn
-					// var cards = this.player.opponent.signis.filter(function (signi) {
-					// 	return signi.power <= 15000;
-					// },this);
-					// return this.player.selectSomeTargetsAsyn(cards,0,2).callback(this,function (cards) {
-					// 	return this.game.banishCardsAsyn(cards);
-					// });
 				}
 			}
 		}
@@ -38835,14 +38501,6 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				return this.banishSigniAsyn(8000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 8000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		}],
 		// ======================
@@ -43517,14 +43175,6 @@ var CardInfo = {
 		artsEffect: {
 			actionAsyn: function () {
 				return this.banishSigniAsyn(12000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 12000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		}
 	},
@@ -43764,14 +43414,6 @@ var CardInfo = {
 			cross: true,
 			actionAsyn: function () {
 				return this.banishSigniAsyn(8000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 8000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		}]
 	},
@@ -43898,14 +43540,6 @@ var CardInfo = {
 					description: '923-const-1',
 					actionAsyn: function () {
 						return this.banishSigniAsyn(2000);
-						// @banishSigniAsyn
-						// var cards = this.player.opponent.signis.filter(function (signi) {
-						// 	return signi.power <= 2000;
-						// },this);
-						// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-						// 	if (!card) return;
-						// 	return card.banishAsyn();
-						// });
 					}
 				});
 				add(this,'onHeaven',effect);
@@ -44303,14 +43937,6 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				return this.banishSigniAsyn(12000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 12000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		}]
 	},
@@ -44932,14 +44558,6 @@ var CardInfo = {
 		artsEffect: {
 			actionAsyn: function () {
 				return this.banishSigniAsyn(10000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 10000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		}
 	},
@@ -45735,14 +45353,6 @@ var CardInfo = {
 					costRed: 1,
 					actionAsyn: function () {
 						return this.banishSigniAsyn(15000);
-						// @banishSigniAsyn
-						// var cards = this.player.opponent.signis.filter(function (signi) {
-						// 	return signi.power <= 15000;
-						// },this);
-						// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-						// 	if (!card) return;
-						// 	return card.banishAsyn();
-						// });
 					}
 				});
 				add(this,'onHeaven',effect);
@@ -45758,14 +45368,6 @@ var CardInfo = {
 			costRed: 1,
 			actionAsyn: function () {
 				return this.banishSigniAsyn(7000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 7000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		}],
 		// ======================
@@ -45777,14 +45379,6 @@ var CardInfo = {
 		burstEffect: {
 			actionAsyn: function () {
 				return this.banishSigniAsyn(10000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 10000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		}
 	},
@@ -46902,14 +46496,6 @@ var CardInfo = {
 					description: '977-attached-1',
 					actionAsyn: function () {
 						return this.banishSigniAsyn(5000);
-						// @banishSigniAsyn
-						// var cards = this.player.opponent.signis.filter(function (signi) {
-						// 	return signi.power <= 5000;
-						// },this);
-						// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-						// 	if (!card) return;
-						// 	return card.banishAsyn();
-						// });
 					}
 				}];
 				return this.player.selectAsyn('LAUNCH',effects).callback(this,function (effect) {
@@ -49572,14 +49158,6 @@ var CardInfo = {
 					},
 					actionAsyn: function () {
 						return this.banishSigniAsyn(12000);
-						// @banishSigniAsyn
-						// var cards = concat(this.player.signis,this.player.opponent.signis).filter(function (signi) {
-						// 	return signi.power <= 12000;
-						// },this);
-						// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-						// 	if (!card) return;
-						// 	return card.banishAsyn();
-						// });
 					}
 				});
 				add(this,'onAttack',effect);
@@ -55649,14 +55227,6 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				return this.banishSigniAsyn(8000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 8000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		}],
 	},
@@ -55760,14 +55330,6 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				return this.banishSigniAsyn(7000);
-				// @banishSigniAsyn
-				// var cards = this.player.opponent.signis.filter(function (signi) {
-				// 	return signi.power <= 7000;
-				// },this);
-				// return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
-				// 	if (!card) return;
-				// 	return card.banishAsyn();
-				// });
 			}
 		}],
 	},
@@ -59673,7 +59235,7 @@ var CardInfo = {
 					return (card.type === 'SIGNI') && (card.name.indexOf('アダマスフィア') !== -1);
 				},this);
 				if (!flag) return;
-				return this.banishSigniAsyn(7000,1,1); // 由于没有COST,必选
+				return this.banishSigniAsyn(7000);
 			}
 		}],
 	},
@@ -62420,7 +61982,7 @@ var CardInfo = {
 					},
 					costGreen: 1,
 					actionAsyn: function () {
-						return this.banishSigniAsyn(15000,0,1,true);
+						return this.banishSigniAsyn(15000,1,1,true);
 					}
 				});
 				add(this.player,'onSummonSigni',effect);
@@ -62457,7 +62019,7 @@ var CardInfo = {
 		],
 		burstEffect: {
 			actionAsyn: function () {
-				return this.banishSigniAsyn(10000,0,1,true);
+				return this.banishSigniAsyn(10000,1,1,true);
 			}
 		}
 	},
@@ -79969,7 +79531,7 @@ var CardInfo = {
 				if (!cards.length) return;
 				return this.game.trashCardsAsyn(cards).callback(this,function () {
 					var len = cards.length;
-					return this.banishSigniAsyn(null,0,len);
+					return this.banishSigniAsyn(null,1,len);
 				});
 			}
 		}],
@@ -80544,7 +80106,7 @@ var CardInfo = {
 					return (card.cid === 1592);
 				},this);
 				if (!flag) return;
-				return this.banishSigniAsyn(8000,1,1);
+				return this.banishSigniAsyn(8000);
 			}
 		}],
 		// ======================
@@ -85115,7 +84677,7 @@ var CardInfo = {
 		],
 		startUpEffects: [{
 			actionAsyn: function () {
-				return this.banishSigniAsyn(10000,1,1);
+				return this.banishSigniAsyn(10000);
 			}
 		},{
 			actionAsyn: function () {
@@ -86048,7 +85610,7 @@ var CardInfo = {
 					return !card.hasSameColorWith(this.player.opponent.lrig);
 				},this);
 				if (!flag) return;
-				return this.banishSigniAsyn(5000,1,1);
+				return this.banishSigniAsyn(5000);
 			}
 		}],
 	},
@@ -86544,7 +86106,7 @@ var CardInfo = {
 					description: '1709-const-1',
 					optional: true,
 					actionAsyn: function () {
-						return this.banishSigniAsyn(10000);
+						return this.banishSigniAsyn(10000,0,1);
 					}
 				});
 				add(this,'onBanish',effect);
@@ -86728,7 +86290,7 @@ var CardInfo = {
 				},this);
 				return Callback.immediately().callback(this,function () {
 					if (cards.length >= 1) {
-						return this.banishSigniAsyn(null,1,1);
+						return this.banishSigniAsyn();
 					}
 				}).callback(this,function () {
 					if (cards.length >= 2) {
@@ -99856,7 +99418,7 @@ var CardInfo = {
 										attackPhase: true,
 										once: true,
 										actionAsyn: function () {
-											return this.banishSigniAsyn(12000,0,1,true);
+											return this.banishSigniAsyn(12000,1,1,true);
 										}
 									};
 									add(this.player.lrig,'actionEffects',actionEffect);
@@ -101645,7 +101207,7 @@ var CardInfo = {
 						return (event.card.owner === this.player.opponent);
 					},
 					actionAsyn: function () {
-						return this.player.selectOpponentSigniAsyn().callback(this,function (card) {
+						return this.player.selectOpponentSigniAsyn(null,true).callback(this,function (card) {
 							if (card) {
 								return card.banishAsyn();
 							} else {
@@ -105987,9 +105549,9 @@ var CardInfo = {
 		bet: 1,
 		artsEffect: {
 			actionAsyn: function (costArg) {
-				return this.banishSigniAsyn(15000,0,1,true).callback(this,function () {
+				return this.banishSigniAsyn(15000,1,1,true).callback(this,function () {
 					if (costArg.bet) {
-						return this.banishSigniAsyn(12000,0,1,true);
+						return this.banishSigniAsyn(12000,1,1,true);
 					}
 				})
 			}
@@ -112428,7 +111990,7 @@ var CardInfo = {
 				});
 			},
 			actionAsyn: function () {
-				return this.banishSigniAsyn(12000,0,1,true);
+				return this.banishSigniAsyn(12000,1,1,true);
 			},
 		}],
 	},

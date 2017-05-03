@@ -1467,7 +1467,7 @@ Card.prototype.freeze = function () {
 };
 
 Card.prototype.banishSigniAsyn = function (power,min,max,above) {
-	if (!isNum(min)) min = 0;
+	if (!isNum(min)) min = 1;
 	if (!isNum(max)) max = 1;
 	// <罗石 金铜>
 	if (this._OrichalciaNaturalStone && (min === 0) && (max === 1) && (power === 7000) && !above) {
