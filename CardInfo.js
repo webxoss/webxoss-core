@@ -51,8 +51,7 @@ var CardInfo = {
 				});
 			},
 			actionAsyn: function () {
-				var cards = this.player.opponent.signis;
-				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
+				return this.player.selectOpponentSigniAsyn().callback(this,function (card) {
 					if (!card) return;
 					return card.bounceAsyn();
 				});
@@ -115,10 +114,10 @@ var CardInfo = {
 		],
 		startUpEffects: [{
 			actionAsyn: function () {
-				var cards = this.player.opponent.signis.filter(function (signi) {
+				var filter = function (signi) {
 					return signi.power <= 10000;
-				},this);
-				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
+				};
+				return this.player.selectOpponentSigniAsyn(filter).callback(this,function (card) {
 					if (!card) return;
 					return card.trashAsyn();
 				});
@@ -135,8 +134,7 @@ var CardInfo = {
 			costRed: 1,
 			costDown: true,
 			actionAsyn: function () {
-				var cards = this.player.opponent.signis;
-				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
+				return this.player.selectOpponentSigniAsyn().callback(this,function (card) {
 					if (!card) return;
 					return card.trashAsyn();
 				});
@@ -364,8 +362,7 @@ var CardInfo = {
 				});
 			},
 			actionAsyn: function () {
-				var cards = this.player.signis;
-				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
+				return this.player.selectSelfSigniAsyn().callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',10000);
 				});
@@ -1153,7 +1150,7 @@ var CardInfo = {
 		artsEffect: {
 			actionAsyn: function () {
 				var cards = concat(this.player.signis,this.player.opponent.signis);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',5000);
 				});
@@ -1200,7 +1197,7 @@ var CardInfo = {
 					       (card.color !== 'colorless') &&
 					       (card.hasSameColorWith(this.player.lrig));
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					var cards = card? [card] : [];
 					return this.player.opponent.showCardsAsyn(cards).callback(this,function () {
 						if (!card) return;
@@ -1303,7 +1300,7 @@ var CardInfo = {
 				var cards = this.player.signis.filter(function (signi) {
 					return !signi.isUp;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.upAsyn();
 				});
@@ -1646,7 +1643,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return (card.type === 'SPELL');
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					var cards = card? [card] : [];
 					return this.player.opponent.showCardsAsyn(cards).callback(this,function () {
 						if (!card) return;
@@ -1789,7 +1786,7 @@ var CardInfo = {
 			costGreen: 1,
 			actionAsyn: function () {
 				var cards = this.player.enerZone.cards;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 						card.moveTo(card.player.handZone);
@@ -1924,7 +1921,7 @@ var CardInfo = {
 			costDown: true,
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.bounceAsyn();
 				});
@@ -2486,7 +2483,7 @@ var CardInfo = {
 			costDown: true,
 			actionAsyn: function () {
 				var cards = this.player.enerZone.cards;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					card.moveTo(card.player.handZone);
 				});
@@ -4893,7 +4890,7 @@ var CardInfo = {
 		burstEffect: {
 			actionAsyn: function () {
 				var cards = this.player.enerZone.cards;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					card.moveTo(card.player.handZone);
 				});
@@ -5352,7 +5349,7 @@ var CardInfo = {
 		artsEffect: {
 			actionAsyn: function () {
 				var cards = concat(this.player.opponent.signis,this.player.opponent.lrig);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndSet(this,card,'canNotAttack',true);
 				});
@@ -7314,7 +7311,7 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',-10000);
 				});
@@ -7656,7 +7653,7 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',-7000);
 				});
@@ -7784,7 +7781,7 @@ var CardInfo = {
 		artsEffect: {
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.bounceAsyn();
 				});
@@ -7967,7 +7964,7 @@ var CardInfo = {
 		artsEffect: {
 			actionAsyn: function () {
 				var cards = this.player.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					if (!card.trash()) return;
 					var cards = this.player.opponent.signis;
@@ -8055,7 +8052,7 @@ var CardInfo = {
 				};
 				return this.player.seekAsyn(filter,1).callback(this,function () {
 					var cards = concat(this.player.opponent.signis,this.player.opponent.lrig);
-					return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+					return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 						if (!card) return;
 						card.down();
 					});
@@ -8101,7 +8098,7 @@ var CardInfo = {
 		startUpEffects: [{
 			costRed: 1,
 			actionAsyn: function () {
-				return this.player.selectTargetOptionalAsyn(this.player.signis).callback(this,function (card) {
+				return this.player.selectTargetAsyn(this.player.signis).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndSet(this,card,'doubleCrash',true);
 				});
@@ -8287,7 +8284,7 @@ var CardInfo = {
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return signi.power >= 15000;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn();
 				});
@@ -8694,7 +8691,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return (card.type === 'SIGNI') && (card.hasColor('black')) && card.canSummon();
 				});
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.summonAsyn(false,true); // optional: false, dontTriggerStartUp: true
 				});
@@ -8890,7 +8887,7 @@ var CardInfo = {
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return signi.level <= 2;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.bounceAsyn();
 				});
@@ -9081,7 +9078,7 @@ var CardInfo = {
 					return card.hasColor('green');
 				},this)) {
 					var cards = this.player.opponent.signis;
-					return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+					return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 						if (!card) return;
 						return card.banishAsyn();
 					});
@@ -9141,7 +9138,7 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (card) {
 						card.freeze();
 					}
@@ -9525,7 +9522,7 @@ var CardInfo = {
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return signi.power >= 12000;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn();
 				});
@@ -9574,7 +9571,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return (card.type === 'SIGNI') && card.canSummon();
 				})
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.summonAsyn();
 				});
@@ -9735,7 +9732,7 @@ var CardInfo = {
 				var pSignis = this.player.signis;
 				var oSignis = this.player.opponent.signis;
 				if (!pSignis.length || !oSignis.length) return targets;
-				return this.player.selectTargetOptionalAsyn(pSignis).callback(this,function (targetA) {
+				return this.player.selectTargetAsyn(pSignis).callback(this,function (targetA) {
 					if (!targetA) return;
 					targets.push(targetA);
 					return this.player.selectTargetAsyn(oSignis).callback(this,function (targetB) {
@@ -9767,7 +9764,7 @@ var CardInfo = {
 		burstEffect: {
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn();
 				});
@@ -10809,7 +10806,7 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',-5000);
 				});
@@ -10826,7 +10823,7 @@ var CardInfo = {
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return signi.level <= 2;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn();
 				});
@@ -11011,7 +11008,7 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',-5000);
 				});
@@ -11345,7 +11342,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return (card.type === 'SIGNI');
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					var cards = card? [card] : [];
 					return this.player.opponent.showCardsAsyn(cards).callback(this,function () {
 						if (!card) return;
@@ -11645,7 +11642,7 @@ var CardInfo = {
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return signi.power >= 12000;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn();
 				});
@@ -11707,7 +11704,7 @@ var CardInfo = {
 					},
 					actionAsyn: function () {
 						var cards = this.player.opponent.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							return card.banishAsyn();
 						});
@@ -12145,7 +12142,7 @@ var CardInfo = {
 				var targets = [];
 				var pSignis = this.player.signis;
 				var oSignis = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(pSignis).callback(this,function (targetA) {
+				return this.player.selectTargetAsyn(pSignis).callback(this,function (targetA) {
 					targets.push(targetA);
 					if (!targetA) return;
 					var cards = oSignis.filter(function (signi) {
@@ -12371,7 +12368,7 @@ var CardInfo = {
 		artsEffect: {
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',-7000);
 				});
@@ -12414,7 +12411,7 @@ var CardInfo = {
 		artsEffect: {
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',-15000);
 				});
@@ -12518,7 +12515,7 @@ var CardInfo = {
 		burstEffect: {
 			actionAsyn: function () {
 				var cards = this.player.trashZone.cards;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					var cards = card? [card] : [];
 					return this.player.opponent.showCardsAsyn(cards).callback(this,function () {
 						if (!card) return;
@@ -12965,7 +12962,7 @@ var CardInfo = {
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return !signi.hasClass('天使');
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.trashAsyn();
 				});
@@ -13306,7 +13303,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return (card.type === 'SIGNI') && card.hasClass('古代兵器') && card.canSummon();
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.summonAsyn();
 				});
@@ -13458,7 +13455,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return (card.type === 'SIGNI') && (card.hasColor('black')) && card.canSummon();
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.summonAsyn();
 				});
@@ -13576,7 +13573,7 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.bounceAsyn();
 				});
@@ -13791,7 +13788,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return (card.type === 'SIGNI') && card.canSummon();
 				})
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.summonAsyn();
 				});
@@ -13851,7 +13848,7 @@ var CardInfo = {
 						var cards = this.player.trashZone.cards.filter(function (card) {
 							return (card.type === 'SIGNI') && card.hasClass('古代兵器') && card.canSummon();
 						},this);
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							return card.summonAsyn();
 						});
@@ -13863,7 +13860,7 @@ var CardInfo = {
 						var cards = this.player.opponent.signis.filter(function (signi) {
 							return signi.level <= 2;
 						},this);
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							return card.banishAsyn();
 						});
@@ -14777,7 +14774,7 @@ var CardInfo = {
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return signi.level <= 3;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn();
 				});
@@ -15150,7 +15147,7 @@ var CardInfo = {
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return signi.level <= 2;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					card.freeze();
 				});
@@ -15426,7 +15423,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return (card.type === 'SIGNI') && (card.level === 1) && card.hasClass('古代兵器') && card.canSummon();
 				});
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.summonAsyn().callback(this,function () {
 						card.trashWhenTurnEnd();
@@ -15657,7 +15654,7 @@ var CardInfo = {
 					costBlue: 3,
 					actionAsyn: function () {
 						var cards = this.player.opponent.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							return card.banishAsyn();
 						});
@@ -16550,7 +16547,7 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.trashAsyn();
 				});
@@ -16897,7 +16894,7 @@ var CardInfo = {
 		artsEffect: {
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn();
 				});
@@ -17550,7 +17547,7 @@ var CardInfo = {
 						var cards = this.player.trashZone.cards.filter(function (card) {
 							return (card.type === 'SIGNI') && (card.hasColor('black')) && card.canSummon();
 						},this);
-						return this.player.selectOptionalAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
+						return this.player.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
 							if (!card) return;
 							return card.summonAsyn();
 						});
@@ -18506,7 +18503,7 @@ var CardInfo = {
 					return signi.power <= 10000;
 				},this);
 				// if (!pSignis.length || !oSignis.length) return targets;
-				return this.player.selectTargetOptionalAsyn(pSignis).callback(this,function (targetA) {
+				return this.player.selectTargetAsyn(pSignis).callback(this,function (targetA) {
 					if (!targetA) return;
 					targets.push(targetA);
 					return this.player.selectTargetAsyn(oSignis).callback(this,function (targetB) {
@@ -18571,7 +18568,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return (card.type === 'SIGNI') && (card.level === 1) && card.hasClass('電機');
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					var cards = card? [card] : [];
 					return this.player.opponent.showCardsAsyn(cards).callback(this,function () {
 						if (!card) return;
@@ -18591,7 +18588,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return (card.type === 'SIGNI') && card.hasClass('電機');
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					var cards = card? [card] : [];
 					return this.player.opponent.showCardsAsyn(cards).callback(this,function () {
 						if (!card) return;
@@ -19039,7 +19036,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return (card.type === 'SIGNI') && card.hasClass('古代兵器') && (card.level <= 3) && card.canSummon();
 				},this);
-				return this.player.selectOptionalAsyn('TARGET',cards).callback(this,function (card) {
+				return this.player.selectAsyn('TARGET',cards).callback(this,function (card) {
 					if (!card) return;
 					return card.summonAsyn();
 				});
@@ -19106,7 +19103,7 @@ var CardInfo = {
 		startUpEffects: [{
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					card.freeze();
 				});
@@ -19137,7 +19134,7 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				var cards = concat(this.player.signis,this.player.opponent.signis);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					card.freeze();
 				});
@@ -19148,7 +19145,7 @@ var CardInfo = {
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return signi.frozen;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn();
 				});
@@ -19195,7 +19192,7 @@ var CardInfo = {
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return signi.level <= 2;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					card.freeze();
 				});
@@ -19523,7 +19520,7 @@ var CardInfo = {
 				var cards = this.player.lrigTrashZone.cards.filter(function (card) {
 					return (card.type === 'ARTS') && (card.hasColor('white'));
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 						card.moveTo(this.player.lrigDeck);
@@ -19555,7 +19552,7 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.bounceAsyn();
 				});
@@ -19737,7 +19734,7 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn();
 				});
@@ -19984,7 +19981,7 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn();
 				});
@@ -19996,7 +19993,7 @@ var CardInfo = {
 				var cards = this.player.signis.filter(function (signi) {
 					return (signi.hasColor('black'));
 				},this);
-				return this.player.selectOptionalAsyn('TRASH',cards).callback(this,function (card) {
+				return this.player.selectAsyn('TRASH',cards).callback(this,function (card) {
 					if (!card) return;
 					if (card.trash()) {
 						card = this.player.mainDeck.cards[0];
@@ -20668,7 +20665,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return (card.type === 'SIGNI') && (card.hasColor('black'));
 				},this);
-				return this.player.selectOptionalAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
+				return this.player.selectAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
 					if (!card) return;
 					return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 						card.moveTo(card.player.handZone);
@@ -20692,7 +20689,7 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn();
 				});
@@ -20923,7 +20920,7 @@ var CardInfo = {
 		artsEffect: {
 			actionAsyn: function () {
 				var cards = concat(this.player.signis,this.player.opponent.signis);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',3000);
 				});
@@ -20966,7 +20963,7 @@ var CardInfo = {
 		artsEffect: {
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn();
 				});
@@ -21222,7 +21219,7 @@ var CardInfo = {
 				var cards = this.player.opponent.enerZone.cards.filter(function (card) {
 					return card.multiEner;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					card.trash();
 				}).callback(this,function () {
@@ -21283,7 +21280,7 @@ var CardInfo = {
 				return target.banishAsyn().callback(this,function (succ) {
 					if (!succ) return;
 					var cards = this.player.opponent.enerZone.cards;
-					return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+					return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 						if (!card) return;
 						card.trash();
 					});
@@ -21299,7 +21296,7 @@ var CardInfo = {
 		burstEffect: {
 			actionAsyn: function () {
 				var cards = this.player.opponent.enerZone.cards;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					card.trash();
 				}).callback(this,function () {
@@ -21399,7 +21396,7 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn();
 				});
@@ -21418,7 +21415,7 @@ var CardInfo = {
 					return signi.hasClass('原子');
 				},this)) {
 					var cards = this.player.opponent.signis;
-					return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+					return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 						if (!card) return;
 						return card.banishAsyn();
 					});
@@ -21857,13 +21854,13 @@ var CardInfo = {
 				var flag = this.player.signis.some(function (signi) {
 					return signi.hasClass('毒牙')
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (card) {
 						this.game.tillTurnEndAdd(this,card,'power',-10000);
 					}
 					if (!flag) return;
 					var cards = concat(this.player.signis,this.player.opponent.signis);
-					return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+					return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 						if (!card) return;
 						this.game.tillTurnEndAdd(this,card,'power',-7000);
 					});
@@ -21932,7 +21929,7 @@ var CardInfo = {
 						cards = cards.filter(function (card) {
 							return card.canSummon();
 						},this);
-						return this.player.selectOptionalAsyn('TARGET',cards).callback(this,function (card) {
+						return this.player.selectAsyn('TARGET',cards).callback(this,function (card) {
 							if (!card) return;
 							return card.summonAsyn();
 						});
@@ -22049,7 +22046,7 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn();
 				});
@@ -22397,7 +22394,7 @@ var CardInfo = {
 			costDown: true,
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					card.freeze();
 				});
@@ -22412,7 +22409,7 @@ var CardInfo = {
 		burstEffect: {
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					card.down();
 					card.freeze();
@@ -22786,7 +22783,7 @@ var CardInfo = {
 			costDown: true,
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',-5000);
 				});
@@ -23572,7 +23569,7 @@ var CardInfo = {
 				var cards = this.player.opponent.enerZone.cards.filter(function (card) {
 					return card.multiEner;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					card.trash();
 				});
@@ -23626,7 +23623,7 @@ var CardInfo = {
 				var cards = this.player.signis.filter(function (signi) {
 					return signi.hasClass('鉱石') || signi.hasClass('宝石');
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndSet(this,card,'doubleCrash',true);
 				});
@@ -23760,7 +23757,7 @@ var CardInfo = {
 				var cards = this.player.opponent.enerZone.cards.filter(function (card) {
 					return card.multiEner;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					card.trash();
 				});
@@ -23860,9 +23857,9 @@ var CardInfo = {
 				var cards_B = this.player.opponent.signis.filter(function (signi) {
 					return signi.power >= 10000;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards_A).callback(this,function (targetA) {
+				return this.player.selectTargetAsyn(cards_A).callback(this,function (targetA) {
 					targets.push(targetA);
-					return this.player.selectTargetOptionalAsyn(cards_B);
+					return this.player.selectTargetAsyn(cards_B);
 				}).callback(this,function (targetB) {
 					targets.push(targetB);
 					return targets;
@@ -23971,7 +23968,7 @@ var CardInfo = {
 				var cards = signis.filter(function (signi) {
 					return (signi.level <= 3) && signi.frozen;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn();
 				});
@@ -24646,7 +24643,7 @@ var CardInfo = {
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return signi.power >= 12000;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn();
 				});
@@ -25201,7 +25198,7 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',-1000*this.player.lrig.level);
 				});
@@ -25398,7 +25395,7 @@ var CardInfo = {
 		burstEffect: {
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.trashAsyn();
 				});
@@ -25576,7 +25573,7 @@ var CardInfo = {
 		burstEffect: {
 			actionAsyn: function () {
 				var cards = concat(this.player.opponent.lrig,this.player.opponent.signis);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndSet(this,card,'canNotAttack',true);
 				});
@@ -26240,7 +26237,7 @@ var CardInfo = {
 				var pSignis = this.player.signis;
 				var oSignis = this.player.opponent.signis;
 				// if (!pSignis.length || !oSignis.length) return targets;
-				return this.player.selectTargetOptionalAsyn(pSignis).callback(this,function (targetA) {
+				return this.player.selectTargetAsyn(pSignis).callback(this,function (targetA) {
 					if (!targetA) return;
 					targets.push(targetA);
 					return this.player.selectTargetAsyn(oSignis).callback(this,function (targetB) {
@@ -27261,7 +27258,7 @@ var CardInfo = {
 				var cards = this.player.lrigTrashZone.cards.filter(function (card) {
 					return (card.type === 'ARTS') && (card.cid !== 570); // <スピリット・サルベージ>
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 						card.moveTo(card.player.lrigDeck);
@@ -27313,7 +27310,7 @@ var CardInfo = {
 						},this);
 						return Callback.immediately().callback(this,function () {
 							if (!flag) return;
-							return this.player.selectTargetOptionalAsyn(this.player.opponent.signis).callback(this,function (card) {
+							return this.player.selectTargetAsyn(this.player.opponent.signis).callback(this,function (card) {
 								if (!card) return;
 								return card.bounceAsyn();
 							});
@@ -28517,7 +28514,7 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.trashAsyn();
 				});
@@ -28846,7 +28843,7 @@ var CardInfo = {
 		artsEffect: {
 			actionAsyn: function () {
 				var cards = this.player.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndSet(this,card,'canNotBeBanished',true);
 				});
@@ -29154,7 +29151,7 @@ var CardInfo = {
 				var cards = costArg.others;
 				if (cards.length >= 2) {
 					cards = this.player.opponent.signis;
-					return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+					return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 						if (!card) return;
 						return card.banishAsyn();
 					});
@@ -29294,7 +29291,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return (card.type === 'SPELL');
 				},this);
-				return this.player.selectOptionalAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
+				return this.player.selectAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
 					if (!card) return;
 					return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 						card.moveTo(this.player.handZone);
@@ -29303,7 +29300,7 @@ var CardInfo = {
 					cards = this.player.trashZone.cards.filter(function (card) {
 						return card.hasClass('原子');
 					},this);					
-					return this.player.selectOptionalAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
+					return this.player.selectAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
 						if (!card) return;
 						return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 							card.moveTo(this.player.handZone);
@@ -29517,7 +29514,7 @@ var CardInfo = {
 					// },
 					actionAsyn: function () {
 						var cards = this.player.opponent.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							this.game.tillTurnEndAdd(this,card,'power',-10000);
 						});
@@ -29581,7 +29578,7 @@ var CardInfo = {
 								cards = this.player.trashZone.cards.filter(function (card) {
 									return card.hasClass('悪魔');
 								});
-								return this.player.selectOptionalAsyn('TARGET',cards).callback(this,function (card) {
+								return this.player.selectAsyn('TARGET',cards).callback(this,function (card) {
 									if (!card) return;
 									return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 										card.moveTo(this.player.handZone);
@@ -29591,7 +29588,7 @@ var CardInfo = {
 								cards = this.player.trashZone.cards.filter(function (card) {
 									return card.hasClass('悪魔') && card.canSummon();
 								});
-								return this.player.selectOptionalAsyn('TARGET',cards).callback(this,function (card) {
+								return this.player.selectAsyn('TARGET',cards).callback(this,function (card) {
 									if (!card) return;
 									return card.summonAsyn();
 								});
@@ -29677,7 +29674,7 @@ var CardInfo = {
 					costWhite: 2,
 					actionAsyn: function () {
 						var cards = this.player.opponent.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							return card.trashAsyn();
 						});
@@ -29949,7 +29946,7 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',-7000);
 				});
@@ -30242,7 +30239,7 @@ var CardInfo = {
 					return this.player.opponent.showEffectsAsyn(effects).callback(this,function () {
 						return Callback.forEach(effects,function (effect) {
 							var cards = effect.getTargets.call(this);
-							return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+							return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 								targetObjs.push({
 									card: card,
 									getTargets: effect.getTargets
@@ -30545,7 +30542,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return (card.hasClass('古代兵器') && (card.level >= 3) && card.canSummon());
 				});
-				return this.player.selectOptionalAsyn('TARGET',cards).callback(this,function (card) {
+				return this.player.selectAsyn('TARGET',cards).callback(this,function (card) {
 					if (!card) return;
 					return card.summonAsyn();
 				});
@@ -30941,7 +30938,7 @@ var CardInfo = {
 					return this.player.selectSomeAsyn('TRASH',cards,4,4).callback(this,function (cards) {
 						if (this.game.trashCards(cards).length !== 4) return;
 						cards = this.player.opponent.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							return card.trashAsyn();
 						});
@@ -31071,13 +31068,13 @@ var CardInfo = {
 				var cards = this.player.signis.filter(function (signi) {
 					return signi.isUp && signi.hasClass('龍獣');
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					if (!card.down()) return;
 					cards = this.player.opponent.signis.filter(function (signi) {
 						return signi.power <= card.power;
 					},this);
-					return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+					return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 						if (!card) return;
 						return card.banishAsyn();
 					});
@@ -31221,7 +31218,7 @@ var CardInfo = {
 					return Callback.immediately().callback(this,function () {
 						if (count >= 3) {
 							cards = this.player.opponent.signis;
-							return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+							return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 								if (!card) return;
 								card.down();
 								card.freeze();
@@ -31233,7 +31230,7 @@ var CardInfo = {
 						}
 						if (count >= 5) {
 							cards = this.player.opponent.signis;
-							return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+							return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 								if (!card) return;
 								return card.banishAsyn();
 							});
@@ -31281,7 +31278,7 @@ var CardInfo = {
 				var cards = this.player.signis.filter(function (signi) {
 					return signi.hasClass('毒牙');
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					if (!card.trash()) return;
 					var value = card.level * -2000;
@@ -31539,7 +31536,7 @@ var CardInfo = {
 					actionAsyn: function () {
 						this.game.setData(this,'flag',true);
 						var cards = this.player.trashZone.cards;
-						return this.player.selectOptionalAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
+						return this.player.selectAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
 							if (!card) return;
 							return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 								card.moveTo(this.player.handZone);
@@ -31566,7 +31563,7 @@ var CardInfo = {
 						this.game.trashCards(cards);
 						this.player.shuffle();
 						cards = this.player.trashZone.cards;
-						return this.player.selectOptionalAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
+						return this.player.selectAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
 							if (!card) return;
 							return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 								card.moveTo(this.player.handZone);
@@ -31620,7 +31617,7 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.trashAsyn();
 				});
@@ -31974,7 +31971,7 @@ var CardInfo = {
 		startUpEffects: [{
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					card.freeze();
 					var flag = this.player.opponent.signis.every(function (signi) {
@@ -32102,7 +32099,7 @@ var CardInfo = {
 			actionAsyn: function () {
 				this.player.enerCharge(1);
 				var cards = this.player.enerZone.cards;
-				return this.player.selectOptionalAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
+				return this.player.selectAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
 					if (!card) return;
 					return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 						card.moveTo(this.player.handZone);
@@ -32152,7 +32149,7 @@ var CardInfo = {
 				var cards = this.player.signis.filter(function (signi) {
 					return signi.hasClass('空獣') || signi.hasClass('地獣');
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndSet(this,card,'lancer',true);
 				});
@@ -32217,12 +32214,12 @@ var CardInfo = {
 							actionAsyn: function () {
 								// this.game.setData(player,'増武Flag',true);
 								var cards = player.opponent.signis;
-								return player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+								return player.selectTargetAsyn(cards).callback(this,function (card) {
 									if (!card) return;
 									return card.banishAsyn();
 								}).callback(this,function () {
 									cards = player.enerZone.cards;
-									return player.selectOptionalAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
+									return player.selectAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
 										if (!card) return;
 										return player.opponent.showCardsAsyn([card]).callback(this,function () {
 											card.moveTo(player.handZone);
@@ -32509,7 +32506,7 @@ var CardInfo = {
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return (signi.level <= 3);
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					card.moveTo(card.player.mainDeck);
 					card.player.shuffle();
@@ -33524,7 +33521,7 @@ var CardInfo = {
 				var cards = this.player.signis.filter(function (signi) {
 					return signi.hasClass('悪魔') && !signi.charm && (signi !== this);
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.charmTo(card);
 				});
@@ -33576,7 +33573,7 @@ var CardInfo = {
 						cards = this.player.trashZone.cards.filter(function (card) {
 							return ((card.type === 'SIGNI') && (card.level <= 2) && (card.hasColor('black')) && card.canSummon());
 						},this);
-						return this.player.selectOptionalAsyn('TARGET',cards).callback(this,function (card) {
+						return this.player.selectAsyn('TARGET',cards).callback(this,function (card) {
 							if (!card) return;
 							return card.summonAsyn();
 						});
@@ -33590,7 +33587,7 @@ var CardInfo = {
 						var cards = this.player.trashZone.cards.filter(function (card) {
 							return ((card.type === 'SIGNI') && (card.hasColor('black')) && card.canSummon());
 						},this);
-						return this.player.selectOptionalAsyn('TARGET',cards).callback(this,function (card) {
+						return this.player.selectAsyn('TARGET',cards).callback(this,function (card) {
 							if (!card) return;
 							return card.summonAsyn();
 						});
@@ -33981,7 +33978,7 @@ var CardInfo = {
 					return signi.power >= 12000;
 				},this);
 				// if (!pSignis.length || !oSignis.length) return targets;
-				return this.player.selectTargetOptionalAsyn(pSignis).callback(this,function (targetA) {
+				return this.player.selectTargetAsyn(pSignis).callback(this,function (targetA) {
 					if (!targetA) return;
 					targets.push(targetA);
 					return this.player.selectTargetAsyn(oSignis).callback(this,function (targetB) {
@@ -34643,7 +34640,7 @@ var CardInfo = {
 		artsEffect: {
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',-2000);
 				});
@@ -34985,12 +34982,12 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return (card.type === 'SIGNI');
 				},this);
-				return this.player.selectOptionalAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
+				return this.player.selectAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
 					if (card) cards_add.push(card);
 					cards = this.player.trashZone.cards.filter(function (card) {
 						return (card.type === 'SPELL');
 					},this);
-					return this.player.selectOptionalAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
+					return this.player.selectAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
 						if (card) cards_add.push(card);
 					});
 				}).callback(this,function () {
@@ -35008,7 +35005,7 @@ var CardInfo = {
 					cards = this.player.opponent.signis.filter(function (signi) {
 						return signi.power <= 10000;
 					},this);
-					return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+					return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 						if (!card) return;
 						return card.banishAsyn();
 					});
@@ -35018,7 +35015,7 @@ var CardInfo = {
 					cards = this.player.opponent.signis.filter(function (signi) {
 						return signi.power >= 12000;
 					},this);
-					return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+					return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 						if (!card) return;
 						return card.banishAsyn();
 					});
@@ -35075,7 +35072,7 @@ var CardInfo = {
 					description: '738-attached-0',
 					actionAsyn: function () {
 						var cards = this.player.opponent.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							this.game.tillTurnEndSet(this,card,'abilityLost',true);
 						});
@@ -35216,7 +35213,7 @@ var CardInfo = {
 					       (card.hasSameColorWith(this.player.lrig)) &&
 					       (card.color !== 'colorless');
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					var cards = card? [card] : [];
 					return this.player.opponent.showCardsAsyn(cards).callback(this,function () {
 						if (!card) return;
@@ -35754,7 +35751,7 @@ var CardInfo = {
 						cards = this.game.moveCards(cards,this.player.mainDeck,{bottom: true});
 						if (cards.length < 7) return;
 						cards = this.player.opponent.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							return card.banishAsyn();
 						}).callback(this,function () {
@@ -35793,7 +35790,7 @@ var CardInfo = {
 						cards = this.game.moveCards(cards,this.player.mainDeck,{bottom: true});
 						if (cards.length < 7) return;
 						cards = this.player.opponent.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							return card.trashAsyn();
 						}).callback(this,function () {
@@ -35844,7 +35841,7 @@ var CardInfo = {
 					return signi.isUp;
 				},this);
 				if (!flag) {
-					return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+					return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 						if (!card) return;
 						card.down();
 					});
@@ -36021,7 +36018,7 @@ var CardInfo = {
 				var cards = this.player.hands.filter(function (card) {
 					return card.hasClass('天使') && card.canSummon();
 				},this);
-				return this.player.selectOptionalAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
+				return this.player.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
 					if (!card) return;
 					return card.summonAsyn();
 				});
@@ -36101,7 +36098,7 @@ var CardInfo = {
 						cards = this.game.moveCards(cards,this.player.mainDeck,{bottom: true});
 						if (cards.length !== 5) return;
 						cards = this.player.opponent.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							return card.banishAsyn();
 						});
@@ -36318,7 +36315,7 @@ var CardInfo = {
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return signi.power <= power;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn();
 				});
@@ -36392,7 +36389,7 @@ var CardInfo = {
 			costDown: true,
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',-3000);
 				});
@@ -36407,7 +36404,7 @@ var CardInfo = {
 		burstEffect: {
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					var value = -3000 * card.level;
 					if (!value) return;
@@ -36545,7 +36542,7 @@ var CardInfo = {
 		burstEffect: {
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					var flag = this.player.signis.some(function (signi) {
 						return signi.hasClass('天使');
@@ -36956,7 +36953,7 @@ var CardInfo = {
 					description: '777-const-0',
 					actionAsyn: function () {
 						var cards = this.player.opponent.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							this.game.tillTurnEndAdd(this,card,'power',-2000);
 						});
@@ -37414,7 +37411,7 @@ var CardInfo = {
 				var cards = this.player.opponent.trashZone.cards.filter(function (card) {
 					return (card.type === 'SPELL');
 				},this);
-				return this.player.selectOptionalAsyn('TARGET',cards).callback(this,function (card) {
+				return this.player.selectAsyn('TARGET',cards).callback(this,function (card) {
 					if (!card) return;
 					return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 						card.moveTo(card.player.mainDeck);
@@ -37763,14 +37760,14 @@ var CardInfo = {
 		artsEffect: {
 			actionAsyn: function () {
 				var cards = [this.player.opponent.lrig];
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndSet(this,card,'canNotAttack',true);
 				}).callback(this,function () {
 					if (!this.player.lrig.hasColor('white')) return;
 					if (this.player.lifeClothZone.cards.length > 2) return;
 					cards = this.player.opponent.signis;
-					return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+					return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 						if (!card) return;
 						this.game.tillTurnEndSet(this,card,'canNotAttack',true);
 					});
@@ -37863,7 +37860,7 @@ var CardInfo = {
 					var cards = this.player.opponent.signis.filter(function (signi) {
 						return signi.power >= 15000;
 					},this);
-					return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+					return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 						if (!card) return;
 						return card.banishAsyn();
 					});
@@ -37916,7 +37913,7 @@ var CardInfo = {
 				var cards = this.player.opponent.signis;
 				var flag = (this.player.lrig.hasColor('black')) && (this.player.lifeClothZone.cards.length <= 2);
 				if (!flag) {
-					return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+					return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 						if (!card) return;
 						this.game.tillTurnEndAdd(this,card,'power',-12000);
 					});
@@ -38109,7 +38106,7 @@ var CardInfo = {
 					// },
 					actionAsyn: function () {
 						var cards = concat(this.player.signis,this.player.opponent.signis);
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							if (card.isUp) {
 								card.down();
@@ -38150,7 +38147,7 @@ var CardInfo = {
 		burstEffect: {
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.bounceAsyn();
 				});
@@ -38216,7 +38213,7 @@ var CardInfo = {
 					var value = cards.length * -3000;
 					return this.player.opponent.showCardsAsyn(cards).callback(this,function () {
 						cards = this.player.opponent.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							if (!value) return;
 							this.game.tillTurnEndAdd(this,card,'power',value);
@@ -38558,12 +38555,12 @@ var CardInfo = {
 				var cards_A = this.player.opponent.signis.filter(function (signi) {
 					return signi.power <= 10000;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards_A).callback(this,function (targetA) {
+				return this.player.selectTargetAsyn(cards_A).callback(this,function (targetA) {
 					targets.push(targetA);
 					var cards_B = this.player.opponent.signis.filter(function (signi) {
 						return (signi.power <= 12000) && !inArr(signi,targets);
 					},this);
-					return this.player.selectTargetOptionalAsyn(cards_B);
+					return this.player.selectTargetAsyn(cards_B);
 				}).callback(this,function (targetB) {
 					targets.push(targetB);
 					return targets;
@@ -38833,7 +38830,7 @@ var CardInfo = {
 					},
 					actionAsyn: function () {
 						var cards = this.player.opponent.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							this.game.tillTurnEndAdd(this,card,'power',-3000);
 						});
@@ -38903,7 +38900,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return card.hasClass('古代兵器') && card.canSummon();
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.summonAsyn();
 				});
@@ -38961,7 +38958,7 @@ var CardInfo = {
 		burstEffect: {
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',-10000);
 				});
@@ -39729,7 +39726,7 @@ var CardInfo = {
 						return effect.activatedInTrashZone;
 					},this);
 				},this);
-				return this.player.selectOptionalAsyn('TARGET',cards).callback(this,function (card) {
+				return this.player.selectAsyn('TARGET',cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.setData(card,'zeroActionCostInTrash',true);
 					// 注: 
@@ -39763,7 +39760,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return (card.type === 'SIGNI') && card.canSummon();
 				});
-				return this.player.selectOptionalAsyn('TARGET',cards).callback(this,function (card) {
+				return this.player.selectAsyn('TARGET',cards).callback(this,function (card) {
 					if (!card) return;
 					return card.summonAsyn();
 				});
@@ -39951,7 +39948,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return card.hasClass('古代兵器') && card.canSummon();
 				});
-				return this.player.selectOptionalAsyn('TARGET',cards).callback(this,function (card) {
+				return this.player.selectAsyn('TARGET',cards).callback(this,function (card) {
 					if (!card) return;
 					return card.summonAsyn();
 				});
@@ -40087,7 +40084,7 @@ var CardInfo = {
 					costBlack: 2,
 					actionAsyn: function () {
 						var cards = this.player.opponent.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							return card.banishAsyn();
 						});
@@ -40109,7 +40106,7 @@ var CardInfo = {
 			actionAsyn: function () {
 				return this.player.opponent.showCardsAsyn([this]).callback(this,function () {
 					var cards = this.player.opponent.signis;
-					return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+					return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 						if (!card) return;
 						this.game.tillTurnEndAdd(this,card,'power',-8000);
 					}).callback(this,function () {
@@ -40127,7 +40124,7 @@ var CardInfo = {
 		burstEffect: {
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',-10000);
 				});
@@ -40547,7 +40544,7 @@ var CardInfo = {
 		artsEffect: {
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn();
 				});
@@ -40951,7 +40948,7 @@ var CardInfo = {
 				var cards = this.player.signis.filter(function (signi) {
 					return signi.hasClass('美巧');
 				},this);
-				return this.player.selectOptionalAsyn('BANISH',cards).callback(this,function (card) {
+				return this.player.selectAsyn('BANISH',cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn().callback(this,function (succ) {
 						if (!succ) return;
@@ -40976,7 +40973,7 @@ var CardInfo = {
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return signi.power >= 15000;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.bounceAsyn();
 				});
@@ -41373,7 +41370,7 @@ var CardInfo = {
 			getTargetAdvancedAsyn: function () {
 				var targets = [];
 				var pSignis = this.player.signis;
-				return this.player.selectTargetOptionalAsyn(pSignis).callback(this,function (targetA) {
+				return this.player.selectTargetAsyn(pSignis).callback(this,function (targetA) {
 					if (!targetA) return;
 					targets.push(targetA);
 					// 注意: 可以驱逐己方的 SIGNI .
@@ -41411,7 +41408,7 @@ var CardInfo = {
 				var cards = this.player.opponent.enerZone.cards.filter(function (card) {
 					return card.multiEner;
 				},this);
-				return this.player.selectTargetOptionalAsyn(pSignis).callback(this,function (targetA) {
+				return this.player.selectTargetAsyn(pSignis).callback(this,function (targetA) {
 					if (!targetA) return;
 					targets.push(targetA);
 					return this.player.selectTargetAsyn(cards).callback(this,function (targetB) {
@@ -41530,7 +41527,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return (card.hasColor('colorless'));
 				},this);
-				return this.player.selectOptionalAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
+				return this.player.selectAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
 					if (!card) return;
 					card.moveTo(card.player.handZone);
 				});
@@ -41608,7 +41605,7 @@ var CardInfo = {
 				},this);
 				var oSignis = this.player.opponent.signis;
 				// if (!pSignis.length || !oSignis.length) return targets;
-				return this.player.selectTargetOptionalAsyn(pSignis).callback(this,function (targetA) {
+				return this.player.selectTargetAsyn(pSignis).callback(this,function (targetA) {
 					if (!targetA) return;
 					targets.push(targetA);
 					return this.player.selectTargetAsyn(oSignis).callback(this,function (targetB) {
@@ -42355,7 +42352,7 @@ var CardInfo = {
 		artsEffect: {
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndSet(this,card,'canNotAttack',true);
 				}).callback(this,function () {
@@ -42553,7 +42550,7 @@ var CardInfo = {
 		burstEffect: {
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.bounceAsyn();
 				});
@@ -43221,6 +43218,7 @@ var CardInfo = {
 					this.game.trashCards(cards);
 					var signis = this.player.opponent.signis;
 					var count = Math.min(cards.length,signis.length);
+					if (!count) return;
 					return this.player.selectSomeTargetsAsyn(signis,count,count).callback(this,function (cards) {
 						return this.game.banishCardsAsyn(cards);
 					});
@@ -43337,7 +43335,7 @@ var CardInfo = {
 				var cards = concat(this.player.signis,this.player.opponent.signis).filter(function (signi) {
 					return signi.power <= 10000;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn();
 				});
@@ -43742,7 +43740,7 @@ var CardInfo = {
 						var cards = this.player.opponent.signis.filter(function (signi) {
 							return !signi.frozen;
 						});
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							card.freeze();
 						});
@@ -43812,7 +43810,7 @@ var CardInfo = {
 					costWhite: 1,
 					actionAsyn: function () {
 						var cards = this.player.opponent.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							return card.bounceAsyn();
 						});
@@ -43845,7 +43843,7 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.trashAsyn();
 				});
@@ -43897,7 +43895,7 @@ var CardInfo = {
 					},
 					actionAsyn: function () {
 						var cards = concat(this.player.signis,this.player.opponent.signis);
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							this.game.tillTurnEndAdd(this,card,'power',2000);
 						});
@@ -43912,7 +43910,7 @@ var CardInfo = {
 					description: '942-const-1',
 					actionAsyn: function () {
 						var cards = this.player.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							this.game.tillTurnEndSet(this,card,'doubleCrash',true);
 						});
@@ -44001,7 +43999,7 @@ var CardInfo = {
 						var cards = this.player.trashZone.cards.filter(function (card) {
 							return (card.type === 'SPELL');
 						},this);
-						return this.player.selectOptionalAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
+						return this.player.selectAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
 							if (!card) return;
 							card.moveTo(card.player.handZone);
 						});
@@ -44088,7 +44086,7 @@ var CardInfo = {
 					description: '944-const-1',
 					actionAsyn: function () {
 						var cards = this.player.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							this.game.tillTurnEndSet(this,card,'lancer',true);
 						});
@@ -44160,7 +44158,7 @@ var CardInfo = {
 					},
 					actionAsyn: function () {
 						var cards = this.player.opponent.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							this.game.tillTurnEndAdd(this,card,'power',-2000);
 						});
@@ -44204,7 +44202,7 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',-10000);
 				});
@@ -44351,7 +44349,7 @@ var CardInfo = {
 		artsEffect: {
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndSet(this,card,'abilityLost',true);
 				});
@@ -44509,7 +44507,7 @@ var CardInfo = {
 		artsEffect: {
 			actionAsyn: function () {
 				var cards = this.player.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndSet(this,card,'assassin',true);
 				});
@@ -44906,7 +44904,7 @@ var CardInfo = {
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return signi.power >= 10000;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn();
 				});
@@ -44999,7 +44997,7 @@ var CardInfo = {
 		artsEffect: {
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',-10000);
 				});
@@ -45052,7 +45050,7 @@ var CardInfo = {
 					this.game.trashCards(charms);
 					var value = charms.length * -8000;
 					var cards = this.player.opponent.signis;
-					return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+					return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 						if (!card) return;
 						this.game.tillTurnEndAdd(this,card,'power',value);
 					});
@@ -45148,7 +45146,7 @@ var CardInfo = {
 				},this);
 				if (!flag) return;
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.bounceAsyn();
 				});
@@ -45158,7 +45156,7 @@ var CardInfo = {
 				var cards = this.player.signis.filter(function (signi) {
 					return signi.resona;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					var filter = function (card) {
 						return (card.player === this.player) || (card.type !== 'ARTS');
@@ -45541,7 +45539,7 @@ var CardInfo = {
 						var cards = this.player.trashZone.cards.filter(function (card) {
 							return card.hasClass('原子');
 						},this);
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 								card.moveTo(card.player.handZone);
@@ -45599,7 +45597,7 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				var cards = concat(this.player.signis,this.player.opponent.signis);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn();
 				});
@@ -45809,7 +45807,7 @@ var CardInfo = {
 			costGreen: 1,
 			actionAsyn: function () {
 				var cards = this.player.enerZone.cards;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 						card.moveTo(card.player.handZone);
@@ -45828,7 +45826,7 @@ var CardInfo = {
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return signi.power >= 8000;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn();
 				});
@@ -45911,7 +45909,7 @@ var CardInfo = {
 					return signi.power >= 12000;
 				},this);
 				// if (!pSignis.length || !oSignis.length) return targets;
-				return this.player.selectTargetOptionalAsyn(pSignis).callback(this,function (targetA) {
+				return this.player.selectTargetAsyn(pSignis).callback(this,function (targetA) {
 					if (!targetA) return;
 					targets.push(targetA);
 					return this.player.selectTargetAsyn(oSignis).callback(this,function (targetB) {
@@ -46013,7 +46011,7 @@ var CardInfo = {
 					},
 					actionAsyn: function () {
 						var cards = this.player.opponent.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							this.game.tillTurnEndAdd(this,card,'power',-8000);
 						});
@@ -46043,7 +46041,7 @@ var CardInfo = {
 				},this);
 				var value = flag? -20000 : -10000;
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',value);
 				});
@@ -46124,7 +46122,7 @@ var CardInfo = {
 				var pSignis = this.player.signis;
 				var oSignis = this.player.opponent.signis;
 				// if (!pSignis.length || !oSignis.length) return targets;
-				return this.player.selectTargetOptionalAsyn(pSignis).callback(this,function (targetA) {
+				return this.player.selectTargetAsyn(pSignis).callback(this,function (targetA) {
 					if (!targetA) return;
 					targets.push(targetA);
 					return this.player.selectTargetAsyn(oSignis).callback(this,function (targetB) {
@@ -46147,7 +46145,7 @@ var CardInfo = {
 						var cards = this.player.trashZone.cards.filter(function (card) {
 							return card.hasClass('悪魔') && card.canSummon();
 						},this);
-						return this.player.selectOptionalAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
+						return this.player.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
 							if (!card) return;
 							return card.summonAsyn();
 						});
@@ -46155,7 +46153,7 @@ var CardInfo = {
 						var cards = this.player.trashZone.cards.filter(function (card) {
 							return card.hasClass('悪魔');
 						},this);
-						return this.player.selectOptionalAsyn('TARGET',cards).callback(this,function (card) {
+						return this.player.selectAsyn('TARGET',cards).callback(this,function (card) {
 							if (!card) return;
 							return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 								card.moveTo(card.player.lifeClothZone);
@@ -46174,7 +46172,7 @@ var CardInfo = {
 		burstEffect: {
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn();
 				});
@@ -46312,7 +46310,7 @@ var CardInfo = {
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return signi.level <= 3;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.bounceAsyn();
 				});
@@ -46329,7 +46327,7 @@ var CardInfo = {
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return signi.level <= 2;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.bounceAsyn();
 				});
@@ -46645,7 +46643,7 @@ var CardInfo = {
 				if (cards.length < 3) return;
 				return this.game.banishCardsAsyn(cards).callback(this,function () {
 					var cards = this.player.opponent.signis;
-					return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+					return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 						if (!card) return;
 						return card.banishAsyn();
 					});
@@ -46998,7 +46996,7 @@ var CardInfo = {
 			actionAsyn: function (event,costArg) {
 				var value = costArg.others.length * -7000;
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',value);
 				});
@@ -47076,7 +47074,7 @@ var CardInfo = {
 					card.charmTo(this);
 				}
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',-5000);
 				});
@@ -47281,7 +47279,7 @@ var CardInfo = {
 				var cards = this.player.lrigDeck.cards.filter(function (card) {
 					return (card.level <= 3) && (card.hasColor('white')) && card.canSummon();
 				},this);
-				return this.player.selectOptionalAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
+				return this.player.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
 					if (!card) return;
 					return card.summonAsyn().callback(this,function () {
 						card.trashWhenTurnEnd();
@@ -49173,7 +49171,7 @@ var CardInfo = {
 			actionAsyn: function () {
 				var cards = this.player.opponent.enerZone.cards.slice();
 				var cards_trash = [];
-				return this.player.selectOptionalAsyn('TRASH',cards).callback(this,function (card) {
+				return this.player.selectAsyn('TRASH',cards).callback(this,function (card) {
 					if (card) {
 						cards_trash.push(card);
 						removeFromArr(card,cards);
@@ -49183,7 +49181,7 @@ var CardInfo = {
 							},this);
 						}
 					}
-					return this.player.selectOptionalAsyn('TRASH',cards);
+					return this.player.selectAsyn('TRASH',cards);
 				}).callback(this,function (card) {
 					if (card) cards_trash.push(card);
 					this.game.trashCards(cards_trash);
@@ -49507,7 +49505,7 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.bounceAsyn();
 				});
@@ -49561,7 +49559,7 @@ var CardInfo = {
 					},
 					actionAsyn: function () {
 						var cards = this.player.opponent.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							this.game.tillTurnEndAdd(this,card,'power',-7000);
 						});
@@ -49593,7 +49591,7 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn();
 				});
@@ -50003,7 +50001,7 @@ var CardInfo = {
 					cards = this.player.opponent.signis.filter(function (signi) {
 						return signi.power <= 10000;
 					},this);
-					return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+					return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 						if (!card) return;
 						return card.banishAsyn();
 					});
@@ -50029,7 +50027,7 @@ var CardInfo = {
 				cards = this.player.opponent.signis.filter(function (signi) {
 					return signi.level <= level;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn();
 				});
@@ -50453,7 +50451,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return card.hasClass('凶蟲');
 				},this);
-				return this.player.selectOptionalAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
+				return this.player.selectAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
 					if (!card) return;
 					return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 						card.moveTo(card.player.handZone);
@@ -50631,7 +50629,7 @@ var CardInfo = {
 					if (!value) return;
 					this.game.trashCards(cards);
 					cards = this.player.opponent.signis;
-					return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+					return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 						if (!card) return;
 						this.game.tillTurnEndAdd(this,card,'power',value);
 					});
@@ -50894,7 +50892,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return (card.type === 'SIGNI') && (card.hasColor('black')) && (card.level <= 2) && card.canSummon();
 				},this);
-				return this.player.selectOptionalAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
+				return this.player.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
 					if (!card) return;
 					return card.summonAsyn();
 				});
@@ -50909,7 +50907,7 @@ var CardInfo = {
 		burstEffect: {
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',-10000);
 				});
@@ -50987,7 +50985,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return (card.cid !== 1062) && (card.type === 'SIGNI') && (card.hasColor('black'));
 				},this);
-				return this.player.selectOptionalAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
+				return this.player.selectAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
 					if (!card) return;
 					return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 						card.moveTo(card.player.handZone);
@@ -51094,7 +51092,7 @@ var CardInfo = {
 					description: '1064-const-0',
 					actionAsyn: function () {
 						var cards = this.player.opponent.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							this.game.tillTurnEndAdd(this,card,'power',-1000);
 						});
@@ -51176,7 +51174,7 @@ var CardInfo = {
 					description: '1066-const-0',
 					actionAsyn: function () {
 						var cards = this.player.opponent.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							this.game.tillTurnEndAdd(this,card,'power',-1000);
 						});
@@ -51281,7 +51279,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return (card.hasColor('black')) && (card.type === 'SIGNI');
 				},this);
-				return this.player.selectOptionalAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
+				return this.player.selectAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
 					if (!card) return null;
 					return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 						return card;
@@ -51298,7 +51296,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return (card.hasColor('black')) && (card.type === 'SIGNI');
 				},this);
-				return this.player.selectOptionalAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
+				return this.player.selectAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
 					if (!card) return;
 					return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 						card.moveTo(card.player.handZone);
@@ -51317,7 +51315,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return (card.hasColor('black')) && (card.type === 'SIGNI');
 				},this);
-				return this.player.selectOptionalAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
+				return this.player.selectAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
 					if (!card) return;
 					return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 						card.moveTo(card.player.handZone);
@@ -51372,7 +51370,7 @@ var CardInfo = {
 					costRed: 2,
 					actionAsyn: function () {
 						var cards = this.player.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							this.game.tillTurnEndSet(this,card,'assassin',true);
 						});
@@ -51495,7 +51493,7 @@ var CardInfo = {
 				var arg = {tag: 'dontTriggerBurst'};
 				return this.player.crashAsyn(count,arg).callback(this,function () {
 					var cards = this.player.opponent.signis;
-					return this.player.selectSomeTargetsAsyn(cards,0,count).callback(this,function (cards) {
+					return this.player.selectSomeTargetsAsyn(cards,count,count).callback(this,function (cards) {
 						return this.game.banishCardsAsyn(cards);
 					});
 				});
@@ -51644,7 +51642,7 @@ var CardInfo = {
 						cards.push(signi);
 					}
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn();
 				});
@@ -51728,7 +51726,7 @@ var CardInfo = {
 					if (!card) return;
 					card.trash();
 					var cards = this.player.opponent.signis;
-					return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+					return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 						if (!card) return;
 						return card.banishAsyn();
 					});
@@ -52023,7 +52021,7 @@ var CardInfo = {
 					},
 					actionAsyn: function () {
 						var cards = this.player.opponent.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							this.game.tillTurnEndAdd(this,card,'power',-4000);
 						});
@@ -52077,7 +52075,7 @@ var CardInfo = {
 						var targets = cards.filter(function (card) {
 							return card.hasClass('美巧');
 						},this);
-						return this.player.selectOptionalAsyn('TARGET',targets).callback(this,function (card) {
+						return this.player.selectAsyn('TARGET',targets).callback(this,function (card) {
 							if (!card) return;
 							removeFromArr(card,cards);
 							var texts = ['ADD_TO_HAND','PUT_TO_ENER_ZONE'];
@@ -52195,7 +52193,7 @@ var CardInfo = {
 					cards = concat(this.player.signis,this.player.opponent.signis).filter(function (signi) {
 						return (signi.level === num);
 					},this);
-					return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+					return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 						if (!card) return;
 						return card.banishAsyn();
 					});
@@ -52266,7 +52264,7 @@ var CardInfo = {
 					var cards = this.player.opponent.signis.filter(function (signi) {
 						return signi.level <= 3;
 					},this);
-					return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+					return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 						if (!card) return;
 						return card.bounceAsyn();
 					});
@@ -52784,7 +52782,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return card.hasClass('凶蟲');
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 						card.moveTo(this.player.handZone);
@@ -52795,7 +52793,7 @@ var CardInfo = {
 					},this);
 					if (!flag) return;
 					var cards = this.player.trashZone.cards;
-					return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+					return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 						if (!card) return;
 						return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 							card.moveTo(this.player.handZone);
@@ -52884,7 +52882,7 @@ var CardInfo = {
 		burstEffect: {
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					var value  = card.charm? -15000 : -8000;
 					this.game.tillTurnEndAdd(this,card,'power',value);
@@ -52934,7 +52932,7 @@ var CardInfo = {
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return signi.charm;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn();
 				});
@@ -53022,7 +53020,7 @@ var CardInfo = {
 					description: '1106-burst-2',
 					actionAsyn: function () {
 						var cards = this.player.opponent.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							this.game.tillTurnEndAdd(this,card,'power',-5000);
 						});
@@ -53076,7 +53074,7 @@ var CardInfo = {
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return signi.charm;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',-8000);
 				});
@@ -53308,7 +53306,7 @@ var CardInfo = {
 						var cards = this.player.opponent.signis.filter(function (signi) {
 							return !signi.frozen;
 						},this);
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							card.freeze();
 						});
@@ -53555,7 +53553,7 @@ var CardInfo = {
 						var cards = this.player.opponent.signis.filter(function (signi) {
 							return signi.frozen;
 						},this);
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							return card.banishAsyn();
 						});
@@ -53589,7 +53587,7 @@ var CardInfo = {
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return !signi.frozen;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					card.freeze();
 				});
@@ -53608,7 +53606,7 @@ var CardInfo = {
 				cards = this.player.opponent.signis.filter(function (signi) {
 					return !signi.frozen;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					card.freeze();
 				});
@@ -53691,7 +53689,7 @@ var CardInfo = {
 		burstEffect: {
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					card.down();
 					var flag = this.player.signis.some(function (signi) {
@@ -53774,7 +53772,7 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn();
 				});
@@ -54041,7 +54039,7 @@ var CardInfo = {
 					description: '1123-const-1',
 					actionAsyn: function () {
 						var cards = [this.player.opponent.lrig];
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							card.down();
 							card.freeze();
@@ -54288,7 +54286,7 @@ var CardInfo = {
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return signi.crossed;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn();
 				});
@@ -54555,7 +54553,7 @@ var CardInfo = {
 			costWhite: 1,
 			actionAsyn: function () {
 				var cards = this.player.opponent.trashZone.cards;
-				return this.player.selectOptionalAsyn('TARGET',cards).callback(this,function (card) {
+				return this.player.selectAsyn('TARGET',cards).callback(this,function (card) {
 					if (!card) return;
 					return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 						card.exclude();
@@ -54576,7 +54574,7 @@ var CardInfo = {
 				var cards = this.player.lrigTrashZone.cards.filter(function (card) {
 					return card.resona;
 				},this);
-				return this.player.selectOptionalAsyn('TARGET',cards).callback(this,function (card) {
+				return this.player.selectAsyn('TARGET',cards).callback(this,function (card) {
 					if (!card) return;
 					return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 						card.moveTo(card.player.lrigDeck);
@@ -54796,7 +54794,7 @@ var CardInfo = {
 					},
 					actionAsyn: function () {
 						var cards = this.player.opponent.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							return card.trashAsyn();
 						});
@@ -55105,7 +55103,7 @@ var CardInfo = {
 					return signi.isUp && signi.resona;
 				},this);
 				var oSignis = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(pSignis).callback(this,function (targetA) {
+				return this.player.selectTargetAsyn(pSignis).callback(this,function (targetA) {
 					if (!targetA) return;
 					targets.push(targetA);
 					return this.player.selectTargetAsyn(oSignis).callback(this,function (targetB) {
@@ -55418,7 +55416,7 @@ var CardInfo = {
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return (signi.power <= 5000);
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					targets.push(card);
 					var flag = this.player.signis.some(function (signi) {
@@ -55426,7 +55424,7 @@ var CardInfo = {
 					},this);
 					if (!flag) return;
 					cards = this.player.signis;
-					return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+					return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 						if (!card) return;
 						targets.push(card);
 					});
@@ -56002,7 +56000,7 @@ var CardInfo = {
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return signi.charm;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',-10000);
 				});
@@ -56229,7 +56227,7 @@ var CardInfo = {
 						return this.game.trashCardsAsyn(cards);
 					} else if (count === 1) {
 						var cards = this.player.opponent.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							return card.banishAsyn();
 						});
@@ -56451,7 +56449,7 @@ var CardInfo = {
 		artsEffect: {
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.bounceAsyn();
 				});
@@ -57463,7 +57461,7 @@ var CardInfo = {
 					},
 					actionAsyn: function () {
 						var cards = this.player.opponent.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							this.game.tillTurnEndAdd(this,card,'power',-2000);
 						});
@@ -57502,7 +57500,7 @@ var CardInfo = {
 				},this);
 				return this.player.selectTextAsyn('CHOOSE_EFFECT',['ADD_TO_HAND','SUMMON']).callback(this,function (text) {
 					if (text === 'ADD_TO_HAND') {
-						return this.player.selectOptionalAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
+						return this.player.selectAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
 							if (!card) return;
 							return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 								card.moveTo(card.player.handZone);
@@ -57512,7 +57510,7 @@ var CardInfo = {
 						cards = cards.filter(function (card) {
 							return card.canSummon();
 						},this);
-						return this.player.selectOptionalAsyn('TARGET',cards).callback(this,function (card) {
+						return this.player.selectAsyn('TARGET',cards).callback(this,function (card) {
 							if (!card) return;
 							return card.summonAsyn();
 						});
@@ -57697,7 +57695,7 @@ var CardInfo = {
 				var costCard = costArg.others;
 				if (!costCard) return;
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					var value = -2000 * costCard.level;
 					if (!value) return;
@@ -57716,14 +57714,14 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return card.hasClass('毒牙');
 				},this);
-				return this.player.selectOptionalAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
+				return this.player.selectAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
 					if (!card) return;
 					return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 						card.moveTo(card.player.handZone);
 					});
 				}).callback(this,function () {
 					var cards = this.player.opponent.signis;
-					return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+					return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 						if (!card) return;
 						this.game.tillTurnEndAdd(this,card,'power',-8000);
 					});
@@ -57939,7 +57937,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return (card.type === 'SIGNI') && card.canSummon();
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.summonAsyn();
 				});
@@ -58459,7 +58457,7 @@ var CardInfo = {
 						var cards = concat(this.player.signis,this.player.opponent.signis).filter(function (signi) {
 							return !signi.isUp;
 						},this);
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							return card.upAsyn();
 						});
@@ -58687,7 +58685,7 @@ var CardInfo = {
 						var cards = this.player.opponent.signis.filter(function (signi) {
 							return (signi.level < event.card.level);
 						},this);
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							return card.banishAsyn();
 						});
@@ -58713,7 +58711,7 @@ var CardInfo = {
 						var cards = this.player.opponent.signis.filter(function (signi) {
 							return (signi.level === event.card.level);
 						},this);
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							return card.banishAsyn();
 						});
@@ -58798,7 +58796,7 @@ var CardInfo = {
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return signi.power <= power;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn();
 				});
@@ -58869,7 +58867,7 @@ var CardInfo = {
 					},
 					actionAsyn: function (event) {
 						var cards = this.player.opponent.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							return card.banishAsyn();
 						});
@@ -59307,7 +59305,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return card.type === 'SPELL';
 				},this);
-				return this.player.selectOptionalAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
+				return this.player.selectAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
 					if (!card) return;
 					return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 						card.moveTo(card.player.handZone);
@@ -59501,7 +59499,7 @@ var CardInfo = {
 				var cards = this.player.enerZone.cards.filter(function (card) {
 					return (card.type === 'SIGNI');
 				},this);
-				return this.player.selectOptionalAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
+				return this.player.selectAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
 					if (!card) return;
 					return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 						card.moveTo(card.player.handZone);
@@ -59630,7 +59628,7 @@ var CardInfo = {
 				}
 				if (!flag) return;
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',-7000);
 				});
@@ -60342,7 +60340,7 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',-5000);
 				});
@@ -60402,7 +60400,7 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',-2000);
 				});
@@ -60537,7 +60535,7 @@ var CardInfo = {
 								var cards = this.player.opponent.signis.filter(function (signi) {
 									return signi.frozen;
 								},this);
-								return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+								return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 									if (!card) return;
 									return card.banishAsyn();
 								});
@@ -61322,7 +61320,7 @@ var CardInfo = {
 		artsEffect: {
 			actionAsyn: function () {
 				var cards = this.player.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',3000);
 					if (this.game.turnPlayer === this.player) return;
@@ -61381,7 +61379,7 @@ var CardInfo = {
 					var cards = this.player.trashZone.cards.filter(function (card) {
 						return card.hasClass('凶蟲');
 					},this);
-					return this.player.selectOptionalAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
+					return this.player.selectAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
 						if (!card) return;
 						return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 							card.moveTo(card.player.handZone);
@@ -61399,7 +61397,7 @@ var CardInfo = {
 				return target.banishAsyn().callback(this,function (succ) {
 					if (!succ) return;
 					var cards = this.player.opponent.signis;
-					return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+					return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 						if (!card) return;
 						this.game.tillTurnEndAdd(this,card,'power',-10000);
 					});
@@ -61525,7 +61523,7 @@ var CardInfo = {
 				cards = this.player.trashZone.cards.filter(function (card) {
 					return (card.type === 'SIGNI') && (card.color !== 'colorless');
 				},this);
-				return this.player.selectOptionalAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
+				return this.player.selectAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
 					if (!card) return;
 					return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 						card.moveTo(card.player.handZone);
@@ -61595,7 +61593,7 @@ var CardInfo = {
 				var cards = this.player.enerZone.cards.filter(function (card) {
 					return card.hasClass('遊具');
 				},this);
-				return this.player.selectOptionalAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
+				return this.player.selectAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
 					if (!card) return;
 					return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 						card.moveTo(card.player.handZone);
@@ -61785,7 +61783,7 @@ var CardInfo = {
 				var cards = this.player.enerZone.cards.filter(function (card) {
 					return (card.hasColor('green')) && card.canSummon();
 				},this);
-				return this.player.selectOptionalAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
+				return this.player.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
 					if (!card) return;
 					return card.summonAsyn();
 				});
@@ -61850,7 +61848,7 @@ var CardInfo = {
 						var cards = this.player.lrigDeck.cards.filter(function (card) {
 							return card.resona && (card.level <= 3) && card.canSummon();
 						},this);
-						return this.player.selectOptionalAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
+						return this.player.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
 							if (!card) return;
 							return card.summonAsyn();
 						});
@@ -61871,7 +61869,7 @@ var CardInfo = {
 				var cards = this.player.enerZone.cards.filter(function (card) {
 					return card.canSummon();
 				},this);
-				return this.player.selectOptionalAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
+				return this.player.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
 					if (!card) return;
 					return card.summonAsyn();
 				});
@@ -62278,7 +62276,7 @@ var CardInfo = {
 						var cards = this.player.enerZone.cards.filter(function (card) {
 							return (card.level <= 2) && card.canSummon();
 						},this);
-						return this.player.selectOptionalAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
+						return this.player.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
 							if (!card) return;
 							return card.summonAsyn();
 						});
@@ -62408,7 +62406,7 @@ var CardInfo = {
 						var cards = this.player.enerZone.cards.filter(function (card) {
 							return (card.level <= 1) && card.canSummon();
 						},this);
-						return this.player.selectOptionalAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
+						return this.player.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
 							if (!card) return;
 							return card.summonAsyn();
 						});
@@ -62537,7 +62535,7 @@ var CardInfo = {
 				cards = this.player.enerZone.cards.filter(function (card) {
 					return card.type === 'SIGNI';
 				},this);
-				return this.player.selectOptionalAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
+				return this.player.selectAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
 					if (!card) return;
 					return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 						card.moveTo(card.player.handZone);
@@ -63125,7 +63123,7 @@ var CardInfo = {
 			once: true,
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.bounceAsyn();
 				});
@@ -63245,7 +63243,7 @@ var CardInfo = {
 		artsEffect: [{
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndSet(this,card,'canNotAttack',true);
 				});
@@ -63257,7 +63255,7 @@ var CardInfo = {
 		},{
 			actionAsyn: function () {
 				var cards = this.player.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndSet(this,card,'doubleCrash',true);
 				});
@@ -63359,7 +63357,7 @@ var CardInfo = {
 						var cards = this.player.opponent.signis.filter(function (signi) {
 							return (signi.power <= this.power/2);
 						},this);
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							return card.bounceAsyn();
 						});
@@ -63438,10 +63436,10 @@ var CardInfo = {
 			getTargetAdvancedAsyn: function () {
 				var targets = [];
 				var cards = this.player.opponent.signis.slice();
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (targetA) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (targetA) {
 					targets.push(targetA);
 					removeFromArr(targetA,cards);
-					return this.player.selectTargetOptionalAsyn(cards);
+					return this.player.selectTargetAsyn(cards);
 				}).callback(this,function (targetB) {
 					targets.push(targetB);
 					return targets;
@@ -63473,7 +63471,7 @@ var CardInfo = {
 					return Callback.immediately().callback(this,function () {
 						if (!card.hasClass('アーム')) return;
 						var cards = this.player.opponent.signis;
-						return this.player.selectOptionalAsyn('BOUNCE',cards).callback(this,function (card) {
+						return this.player.selectAsyn('BOUNCE',cards).callback(this,function (card) {
 							if (!card) return;
 							return card.bounceAsyn();
 						});
@@ -63882,7 +63880,7 @@ var CardInfo = {
 				var cards = this.player.signis.filter(function (signi) {
 					return signi.hasClass('水獣');
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',1000);
 				});
@@ -64416,7 +64414,7 @@ var CardInfo = {
 			optional: true,
 			actionAsyn: function () {
 				var cards = this.player.enerZone.cards;
-				return this.player.selectOptionalAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
+				return this.player.selectAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
 					if (!card) return;
 					return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 						card.moveTo(card.player.handZone);
@@ -64477,7 +64475,7 @@ var CardInfo = {
 						return this.banishAsyn().callback(this,function (succ) {
 							if (!succ) return;
 							var cards = this.player.enerZone.cards;
-							return this.player.selectOptionalAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
+							return this.player.selectAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
 								if (!card) return;
 								return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 									card.moveTo(card.player.handZone);
@@ -64510,7 +64508,7 @@ var CardInfo = {
 					description: '1313-burst-2',
 					actionAsyn: function () {
 						var cards = this.player.enerZone.cards;
-						return this.player.selectOptionalAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
+						return this.player.selectAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
 							if (!card) return;
 							return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 								card.moveTo(card.player.handZone);
@@ -64824,7 +64822,7 @@ var CardInfo = {
 				var cards = this.player.enerZone.cards.filter(function (card) {
 					return card.canSummon();
 				},this);
-				return this.player.selectOptionalAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
+				return this.player.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
 					if (!card) return;
 					return card.summonAsyn();
 				});
@@ -65214,7 +65212,7 @@ var CardInfo = {
 					},
 					actionAsyn: function () {
 						var cards = this.player.opponent.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							this.game.tillTurnEndAdd(this,card,'power',-1000);
 						});
@@ -65552,7 +65550,7 @@ var CardInfo = {
 					var cards = this.player.trashZone.cards.filter(function (card) {
 						return (card.type === 'SIGNI') && (card.hasColor('black')) && (card.level <= 2);
 					},this);
-					return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+					return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 						var cards = card? [card] : [];
 						return this.player.opponent.showCardsAsyn(cards).callback(this,function () {
 							if (!card) return;
@@ -65652,7 +65650,7 @@ var CardInfo = {
 					},
 					actionAsyn: function () {
 						var cards = this.player.opponent.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							this.game.tillTurnEndAdd(this,card,'power',-2000);
 						});
@@ -65833,7 +65831,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return (card.type === 'SIGNI') && (card.hasColor('black'));
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					var cards = card? [card] : [];
 					return this.player.opponent.showCardsAsyn(cards).callback(this,function () {
 						if (!card) return;
@@ -66135,7 +66133,7 @@ var CardInfo = {
 		startUpEffects: [{
 			actionAsyn: function () {
 				var cards = this.player.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					var value = card.power;
 					if (!value) return;
@@ -66318,7 +66316,7 @@ var CardInfo = {
 						var cards = this.player.opponent.signis.filter(function (signi) {
 							return signi.resona;
 						},this);
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							return card.banishAsyn();
 						});
@@ -66783,7 +66781,7 @@ var CardInfo = {
 		burstEffect: {
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.bounceAsyn();
 				});
@@ -67093,7 +67091,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return card.guardFlag;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					var cards = card? [card] : [];
 					return this.player.opponent.showCardsAsyn(cards).callback(this,function () {
 						if (!card) return;
@@ -67152,7 +67150,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return card.guardFlag;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					var cards = card? [card] : [];
 					return this.player.opponent.showCardsAsyn(cards).callback(this,function () {
 						if (!card) return;
@@ -67345,7 +67343,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return card.type === 'SPELL';
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					var cards = card? [card] : [];
 					return this.player.opponent.showCardsAsyn(cards).callback(this,function () {
 						if (!card) return;
@@ -67413,7 +67411,7 @@ var CardInfo = {
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return (signi.level <= 2);
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn();
 				});
@@ -67484,7 +67482,7 @@ var CardInfo = {
 		burstEffect: {
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',-7000);
 				});
@@ -67577,7 +67575,7 @@ var CardInfo = {
 		startUpEffects: [{
 			actionAsyn: function () {
 				var cards = concat(this.player.signis,this.player.opponent.signis);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',10000);
 				});
@@ -67721,7 +67719,7 @@ var CardInfo = {
 				var cards = this.player.lrigDeck.cards.filter(function (card) {
 					return card.resona && card.canSummon();
 				},this);
-				return this.player.selectOptionalAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
+				return this.player.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
 					if (!card) return;
 					return card.summonAsyn();
 				});
@@ -67785,7 +67783,7 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',-10000);
 				});
@@ -68255,7 +68253,7 @@ var CardInfo = {
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return signi.power <= this.power;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn();
 				});
@@ -68324,7 +68322,7 @@ var CardInfo = {
 					},
 					actionAsyn: function () {
 						var cards = this.player.opponent.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							return this.game.bounceCardsToDeckAsyn([card]);
 						});
@@ -68353,7 +68351,7 @@ var CardInfo = {
 		burstEffect: {
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return this.game.bounceCardsToDeckAsyn([card]);
 				});
@@ -68493,7 +68491,7 @@ var CardInfo = {
 						var cards = this.player.signis.filter(function (signi) {
 							return signi.resona && !signi.isUp;
 						},this);
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							return card.upAsyn();
 						});
@@ -68532,7 +68530,7 @@ var CardInfo = {
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return signi.level === level;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.bounceAsyn();
 				});
@@ -68549,7 +68547,7 @@ var CardInfo = {
 				var cards = this.player.lrigDeck.cards.filter(function (card) {
 					return card.resona && card.canSummon();
 				},this);
-				return this.player.selectOptionalAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
+				return this.player.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
 					if (!card) return;
 					return card.summonAsyn();
 				});
@@ -68623,7 +68621,7 @@ var CardInfo = {
 					// white
 					if (!inArr('white',colors)) return;
 					var cards = concat(this.player.signis,this.player.opponent.signis);
-					return this.player.selectOptionalAsyn('BOUNCE',cards).callback(this,function (card) {
+					return this.player.selectAsyn('BOUNCE',cards).callback(this,function (card) {
 						if (!card) return;
 						return card.bounceAsyn();
 					});
@@ -68633,7 +68631,7 @@ var CardInfo = {
 					var cards = concat(this.player.signis,this.player.opponent.signis).filter(function (signi) {
 						return (signi.power <= 12000);
 					},this);
-					return this.player.selectOptionalAsyn('BANISH',cards).callback(this,function (card) {
+					return this.player.selectAsyn('BANISH',cards).callback(this,function (card) {
 						if (!card) return;
 						return card.banishAsyn();
 					});
@@ -68649,7 +68647,7 @@ var CardInfo = {
 					// black
 					if (!inArr('black',colors)) return;
 					var cards = concat(this.player.signis,this.player.opponent.signis);
-					return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+					return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 						if (!card) return;
 						this.game.tillTurnEndAdd(this,card,'power',-12000);
 					});
@@ -68705,7 +68703,7 @@ var CardInfo = {
 			actionAsyn: function () {
 				if (this.player.signis.length) return;
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					card.down();
 				});
@@ -68766,7 +68764,7 @@ var CardInfo = {
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return signi.level <= 3;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.bounceAsyn();
 				});
@@ -68774,7 +68772,7 @@ var CardInfo = {
 		},{
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',-12000);
 				});
@@ -68836,7 +68834,7 @@ var CardInfo = {
 					       (card.color !== 'colorless') &&
 					       (card.hasSameColorWith(this.player.lrig));
 				},this);
-				return this.player.selectOptionalAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
+				return this.player.selectAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
 					if (!card) return;
 					return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 						card.moveTo(card.player.handZone);
@@ -68848,7 +68846,7 @@ var CardInfo = {
 				var cards = this.player.opponent.trashZone.cards.filter(function (card) {
 					return (card.type === 'SPELL');
 				},this);
-				return this.player.selectOptionalAsyn('TARGET',cards).callback(this,function (card) {
+				return this.player.selectAsyn('TARGET',cards).callback(this,function (card) {
 					if (!card) return;
 					return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 						this.game.excludeCards([card]);
@@ -69860,7 +69858,7 @@ var CardInfo = {
 				var cards = this.player.signis.filter(function (signi) {
 					return (signi.hasColor('red'));
 				});
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndSet(this,card,'assassin',true);
 				});
@@ -70168,7 +70166,7 @@ var CardInfo = {
 				},this).length;
 				var value = -3000 * count;
 				if (!value) return;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',value);
 				});
@@ -70475,7 +70473,7 @@ var CardInfo = {
 			once: true,
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.bounceAsyn();
 				});
@@ -70565,7 +70563,7 @@ var CardInfo = {
 			once: true,
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return this.game.bounceCardsToDeckAsyn([card]).callback(this,function () {
 						this.player.opponent.shuffle();
@@ -70632,7 +70630,7 @@ var CardInfo = {
 			attackPhase: true,
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					card.down();
 					card.freeze();
@@ -70698,7 +70696,7 @@ var CardInfo = {
 				var cards = concat(this.player.signis,this.player.opponent.signis).filter(function (signi) {
 					return signi.hasClass('悪魔');
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn().callback(this,function (succ) {
 						if (!succ) return;
@@ -70716,7 +70714,7 @@ var CardInfo = {
 					var cards = this.player.trashZone.cards.filter(function (card) {
 						return card.hasClass('悪魔') && card.canSummon();
 					},this);
-					return this.player.selectOptionalAsyn('TARGET',cards).callback(this,function (card) {
+					return this.player.selectAsyn('TARGET',cards).callback(this,function (card) {
 						if (!card) return;
 						return card.summonAsyn();
 					});
@@ -70772,7 +70770,7 @@ var CardInfo = {
 						var cards = this.player.signis.filter(function (signi) {
 							return !signi.isUp;
 						},this);
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							return card.upAsyn();
 						});
@@ -70972,7 +70970,7 @@ var CardInfo = {
 			actionAsyn: function () {
 				var count = this.player.lrig.hasClass('タマ')? 4 : 3;
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'attackCostColorless',count);
 				});
@@ -71102,7 +71100,7 @@ var CardInfo = {
 					},
 					actionAsyn: function () {
 						var cards = this.player.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							this.game.tillTurnEndSet(this,card,'doubleCrash',true);
 						});
@@ -71278,7 +71276,7 @@ var CardInfo = {
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return signi.isUp;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					card.down();
 				});
@@ -71348,7 +71346,7 @@ var CardInfo = {
 		artsEffect: [{
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',-3000);
 				});
@@ -71358,7 +71356,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return (card.type === 'SIGNI') && (card.color !== 'colorless');
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					var cards = card? [card] : [];
 					return this.player.opponent.showCardsAsyn(cards).callback(this,function () {
 						if (!card) return;
@@ -71544,7 +71542,7 @@ var CardInfo = {
 						var cards = this.player.trashZone.cards.filter(function (card) {
 							return (card.type === 'SIGNI') && (card.hasColor('black'));
 						},this);
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							var cards = card? [card] : [];
 							return this.player.opponent.showCardsAsyn(cards).callback(this,function () {
 								if (!card) return;
@@ -71607,7 +71605,7 @@ var CardInfo = {
 		artsEffect: [{
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',-12000);
 				});
@@ -71617,7 +71615,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return (card.level <= 3) && card.canSummon();
 				},this);
-				return this.player.selectOptionalAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
+				return this.player.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
 					if (!card) return;
 					return card.summonAsyn();
 				});
@@ -71627,7 +71625,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return (card.type === 'SIGNI');
 				},this);
-				return this.player.selectOptionalAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
+				return this.player.selectAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
 					var cards = card? [card] : [];
 					return this.player.opponent.showCardsAsyn(cards).callback(this,function () {
 						if (!card) return;
@@ -71778,7 +71776,7 @@ var CardInfo = {
 					var cards = this.player.opponent.signis.filter(function (signi) {
 						return signi.isUp;
 					},this);
-					return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+					return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 						if (!card) return;
 						card.down();
 					});
@@ -71953,7 +71951,7 @@ var CardInfo = {
 						var cards = this.player.signis.filter(function (signi) {
 							return !signi.doubleCrash;
 						},this);
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							this.game.tillTurnEndSet(this,card,'doubleCrash',true);
 						});
@@ -71990,12 +71988,12 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return card.hasClass('鉱石');
 				},this);
-				return this.player.selectOptionalAsyn('ADD_TO_HAND',cards).callback(this,function (target) {
+				return this.player.selectAsyn('ADD_TO_HAND',cards).callback(this,function (target) {
 					if (target) cards_add.push(target);
 					cards = this.player.trashZone.cards.filter(function (card) {
 						return card.hasClass('宝石') && (card !== target);
 					},this);
-					return this.player.selectOptionalAsyn('ADD_TO_HAND',cards).callback(this,function (target) {
+					return this.player.selectAsyn('ADD_TO_HAND',cards).callback(this,function (target) {
 						if (target) cards_add.push(target);
 						return this.player.opponent.showCardsAsyn(cards_add).callback(this,function () {
 							this.game.moveCards(cards_add,this.player.handZone);
@@ -72509,7 +72507,7 @@ var CardInfo = {
 						var cards = this.player.opponent.signis.filter(function (signi) {
 							return signi.level <= 3;
 						},this);
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							return card.banishAsyn();
 						});
@@ -72539,7 +72537,7 @@ var CardInfo = {
 			costBlack: 1,
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'level',-1);
 				});
@@ -72563,7 +72561,7 @@ var CardInfo = {
 					cards = cards.filter(function (card) {
 						return (total + card.level) <= 3;
 					},this);
-					return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+					return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 						if (!card) {
 							done = true;
 							return;
@@ -72693,7 +72691,7 @@ var CardInfo = {
 					},
 					actionAsyn: function () {
 						var cards = this.player.opponent.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							return card.bounceAsyn();
 						});
@@ -72779,7 +72777,7 @@ var CardInfo = {
 						var cards = this.player.lrigTrashZone.cards.filter(function (card) {
 							return (card.type === 'ARTS') && (card.hasColor('white'));
 						},this);
-						return this.player.selectOptionalAsyn('TARGET',cards).callback(this,function (card) {
+						return this.player.selectAsyn('TARGET',cards).callback(this,function (card) {
 							if (!card) return;
 							return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 								card.moveTo(this.player.lrigDeck);
@@ -73002,7 +73000,7 @@ var CardInfo = {
 		burstEffect: {
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return this.game.bounceCardsToDeckAsyn([card]).callback(this,function () {
 						this.player.opponent.shuffle();
@@ -73119,7 +73117,7 @@ var CardInfo = {
 						cards = this.player.opponent.signis.filter(function (signi) {
 							return signi.power <= power;
 						},this);
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							return card.banishAsyn();
 						});
@@ -73475,7 +73473,7 @@ var CardInfo = {
 						var cards = this.player.signis.filter(function (signi) {
 							return !signi.isUp;
 						},this);
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							return card.upAsyn();
 						});
@@ -73577,7 +73575,7 @@ var CardInfo = {
 				var cards = this.player.signis.filter(function (signi) {
 					return (signi.hasClass('空獣') || signi.hasClass('地獣'));
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',5000);
 				});
@@ -73597,14 +73595,14 @@ var CardInfo = {
 					description: '1452-const-0',
 					actionAsyn: function () {
 						var cards = this.player.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							var power = card.power;
 							return card.banishAsyn().callback(this,function () {
 								cards = this.player.opponent.signis.filter(function (signi) {
 									return (signi.power <= power);
 								},this);
-								return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+								return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 									if (!card) return;
 									return card.banishAsyn();
 								});
@@ -73768,7 +73766,7 @@ var CardInfo = {
 		startUpEffects: [{
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'level',-1);
 				});
@@ -73865,12 +73863,12 @@ var CardInfo = {
 				var cards_A = this.player.opponent.signis.filter(function (signi) {
 					return signi.level <= 3;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards_A).callback(this,function (targetA) {
+				return this.player.selectTargetAsyn(cards_A).callback(this,function (targetA) {
 					targets.push(targetA);
 					var cards_B = this.player.opponent.signis.filter(function (signi) {
 						return (signi !== targetA);
 					},this);
-					return this.player.selectTargetOptionalAsyn(cards_B);
+					return this.player.selectTargetAsyn(cards_B);
 				}).callback(this,function (targetB) {
 					targets.push(targetB);
 					return targets;
@@ -73912,7 +73910,7 @@ var CardInfo = {
 						var cards = this.player.trashZone.cards.filter(function (card) {
 							return card.hasClass('悪魔');
 						},this);
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							var cards = card? [card] : [];
 							return this.player.opponent.showCardsAsyn(cards).callback(this,function () {
 								if (!card) return;
@@ -74088,7 +74086,7 @@ var CardInfo = {
 						var cards = this.player.opponent.signis.filter(function (signi) {
 							return signi.power <= 3000;
 						},this);
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							return card.bounceAsyn();
 						});
@@ -75747,7 +75745,7 @@ var CardInfo = {
 			cross: true,
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',-2000);
 				});
@@ -76315,7 +76313,7 @@ var CardInfo = {
 					var cards = this.player.enerZone.cards.filter(function (card) {
 						return card.hasClass('遊具');
 					},this);
-					return this.player.selectOptionalAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
+					return this.player.selectAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
 						if (!card) return;
 						return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 							card.moveTo(card.player.handZone);
@@ -77291,7 +77289,7 @@ var CardInfo = {
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return signi.level <= this.player.lrig.level;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.bounceAsyn();
 				});
@@ -77424,7 +77422,7 @@ var CardInfo = {
 						var cards = this.player.opponent.signis.filter(function (signi) {
 							return !signi.frozen;
 						},this);
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							card.freeze();
 						});
@@ -77503,7 +77501,7 @@ var CardInfo = {
 					description: '1533-attached-0',
 					costExceed: 1,
 					actionAsyn: function () {
-						return this.banishSigniAsyn(12000,0,1,true);
+						return this.banishSigniAsyn(12000,1,1,true);
 					}
 				});
 				this.game.tillTurnEndAdd(this,lrig,'actionEffects',{
@@ -77512,7 +77510,7 @@ var CardInfo = {
 					costExceed: 1,
 					actionAsyn: function () {
 						var cards = this.player.enerZone.cards;
-						return this.player.selectOptionalAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
+						return this.player.selectAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
 							if (!card) return;
 							return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 								card.moveTo(card.player.handZone);
@@ -78168,7 +78166,7 @@ var CardInfo = {
 				var cards = concat(this.player.opponent.signis,this.player.opponent.lrig).filter(function (card) {
 					return card.isUp;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					card.down();
 				});
@@ -78299,14 +78297,14 @@ var CardInfo = {
 				var cards = this.player.signis.filter(function (card) {
 					return card.hasColor('white');
 				},this);
-				return this.player.selectOptionalAsyn('BOUNCE',cards).callback(this,function (card) {
+				return this.player.selectAsyn('BOUNCE',cards).callback(this,function (card) {
 					if (!card) return;
 					card.moveTo(card.player.handZone);
 				}).callback(this,function () {
 					var cards = this.player.signis.filter(function (card) {
 						return !card.isUp;
 					},this);
-					return this.player.selectOptionalAsyn('UP',cards).callback(this,function (card) {
+					return this.player.selectAsyn('UP',cards).callback(this,function (card) {
 						if (!card) return;
 						return card.upAsyn();
 					});
@@ -79319,7 +79317,7 @@ var CardInfo = {
 				var cards = this.player.signis.filter(function (signi) {
 					return signi.hasClass('悪魔');
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn().callback(this,function (succ) {
 						if (!succ) return;
@@ -79406,7 +79404,7 @@ var CardInfo = {
 						var cards = this.player.trashZone.cards.filter(function (card) {
 							return card.hasClass('悪魔') && card.canSummon();
 						});
-						return this.player.selectOptionalAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
+						return this.player.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
 							if (!card) {
 								done = true;
 								return;
@@ -79508,7 +79506,7 @@ var CardInfo = {
 						var cards = this.player.trashZone.cards.filter(function (card) {
 							return (card.type === 'SIGNI') && (card.level < event.card.level) && card.canSummon();
 						});
-						return this.player.selectOptionalAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
+						return this.player.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
 							if (!card) return;
 							return card.summonAsyn();
 						});
@@ -79564,7 +79562,7 @@ var CardInfo = {
 						var cards = this.player.trashZone.cards.filter(function (card) {
 							return card.hasClass('悪魔');
 						},this);
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							var cards = card? [card] : [];
 							return this.player.opponent.showCardsAsyn(cards).callback(this,function () {
 								if (!card) return;
@@ -79839,7 +79837,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return card.hasClass('悪魔');
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					var cards = card? [card] : [];
 					return this.player.opponent.showCardsAsyn(cards).callback(this,function () {
 						if (!card) return;
@@ -79933,7 +79931,7 @@ var CardInfo = {
 				},this);
 				if (!flag) return;
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.bounceAsyn();
 				});
@@ -79955,7 +79953,7 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.bounceAsyn();
 				});
@@ -80042,7 +80040,7 @@ var CardInfo = {
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return signi.power <= power;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn();
 				});
@@ -81665,7 +81663,7 @@ var CardInfo = {
 						var value = Math.floor(spells.length/4) * -3000;
 						if (!value) return;
 						var cards = this.player.opponent.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							this.game.tillTurnEndAdd(this,card,'power',value);
 						});
@@ -81853,7 +81851,7 @@ var CardInfo = {
 					source: this,
 					description: '1636-const-0',
 					actionAsyn: function () {
-						return this.player.selectOptionalAsyn('BANISH',[this]).callback(this,function (card) {
+						return this.player.selectAsyn('BANISH',[this]).callback(this,function (card) {
 							if (!card) return;
 							return this.banishAsyn().callback(this,function (succ) {
 								if (!succ) return;
@@ -82379,7 +82377,7 @@ var CardInfo = {
 				var value = Math.floor(cards.length/4) * -1000;
 				if (!value) return;
 				cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',value);
 				});
@@ -82441,7 +82439,7 @@ var CardInfo = {
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return (signi.level <= 3) && !signi.hasAbility();
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.bounceAsyn();
 				});
@@ -82470,7 +82468,7 @@ var CardInfo = {
 						var cards = this.player.opponent.signis.filter(function (signi) {
 							return (signi.level <= 2);
 						},this);
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							return card.bounceAsyn();
 						});
@@ -82581,7 +82579,7 @@ var CardInfo = {
 					},
 					actionAsyn: function (event) {
 						var cards = this.player.opponent.enerZone.cards;
-						return this.player.selectOptionalAsyn('TRASH',cards).callback(this,function (card) {
+						return this.player.selectAsyn('TRASH',cards).callback(this,function (card) {
 							if (!card) return;
 							card.trash();
 						});
@@ -82790,7 +82788,7 @@ var CardInfo = {
 							var value = cards.length * -6000;
 							this.game.trashCards(cards);
 							cards = this.player.opponent.signis;
-							return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+							return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 								if (!card) return;
 								this.game.tillTurnEndAdd(this,card,'power',value);
 							});
@@ -82958,7 +82956,7 @@ var CardInfo = {
 					},
 					actionAsyn: function () {
 						var cards = this.player.opponent.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							this.game.tillTurnEndAdd(this,card,'power',-7000);
 						});
@@ -82980,7 +82978,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return (card.level <= 4) && card.hasClass('古代兵器') && card.canSummon();
 				});
-				return this.player.selectOptionalAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
+				return this.player.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
 					if (!card) return;
 					return card.summonAsyn();
 				});
@@ -83342,7 +83340,7 @@ var CardInfo = {
 							if (!card) return;
 							this.player.discardCards([card]);
 							var cards = this.player.opponent.signis;
-							return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+							return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 								if (!card) return;
 								card.down();
 								card.freeze();
@@ -83443,7 +83441,7 @@ var CardInfo = {
 		burstEffect: {
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.trashAsyn();
 				});
@@ -83547,7 +83545,7 @@ var CardInfo = {
 		artsEffect: {
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return this.game.bounceCardsToDeckAsyn([card]);
 				}).callback(this,function () {
@@ -83655,14 +83653,14 @@ var CardInfo = {
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return signi.frozen;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn().callback(this,function () {
 						if (!this.player.lrig.hasClass('リメンバ')) return;
 						var cards = this.player.opponent.signis.filter(function (signi) {
 							return signi.frozen;
 						},this);
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							return card.banishAsyn();
 						});
@@ -84000,7 +83998,7 @@ var CardInfo = {
 					once: true,
 					actionAsyn: function () {
 						var cards = this.player.opponent.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							card.down();
 							card.freeze();
@@ -84187,7 +84185,7 @@ var CardInfo = {
 						var cards = this.player.signis.filter(function (signi) {
 							return !signi.isUp;
 						},this);
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							return card.upAsyn();
 						});
@@ -85096,7 +85094,7 @@ var CardInfo = {
 				return Callback.immediately().callback(this,function () {
 					if (!inArr('white',colors)) return;
 					var cards = this.player.opponent.signis;
-					return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+					return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 						if (!card) return;
 						return card.bounceAsyn();
 					});
@@ -85785,7 +85783,7 @@ var CardInfo = {
 								var cards = this.player.opponent.signis.filter(function (signi) {
 									return (signi.level < event.source.level);
 								},this);
-								return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+								return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 									if (!card) return;
 									return card.banishAsyn();
 								});
@@ -88209,7 +88207,7 @@ var CardInfo = {
 						return this.player.showCardsAsyn([this]).callback(this,function () {
 							return this.player.opponent.showCardsAsyn([this]).callback(this,function () {
 								var cards = this.player.opponent.signis;
-								return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+								return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 									if (!card) return;
 									this.game.tillTurnEndAdd(this,card,'power',-2000);
 								});
@@ -88244,7 +88242,7 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',-15000);
 				});
@@ -88305,7 +88303,7 @@ var CardInfo = {
 					description: '1766-const-0',
 					actionAsyn: function () {
 						var cards = this.player.opponent.signis;
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							return this.game.bounceCardsToDeckAsyn([card]);
 						});
@@ -88405,7 +88403,7 @@ var CardInfo = {
 			costExceed: 1,
 			actionAsyn: function () {
 				var cards = this.player.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.bounceAsyn();
 				});
@@ -88872,7 +88870,7 @@ var CardInfo = {
 											var cards = this.player.opponent.signis.filter(function (signi) {
 												return (signi.level <= 3);
 											},this);
-											return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+											return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 												if (!card) return;
 												this.game.tillTurnEndSet(this,card,'canNotAttack',true);
 											});
@@ -89023,7 +89021,7 @@ var CardInfo = {
 						var cards = this.player.trashZone.cards.filter(function (card) {
 							return (card.level <= 3) && card.hasClass('毒牙') && card.canSummon();
 						},this);
-						return this.player.selectOptionalAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
+						return this.player.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
 							if (!card) return;
 							return card.summonAsyn().callback(this,function () {
 								card.trashWhenTurnEnd();
@@ -89047,7 +89045,7 @@ var CardInfo = {
 				var cards = this.player.signis.filter(function (signi) {
 					return signi.hasClass('毒牙') && !signi.isUp;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.upAsyn();
 				});
@@ -89152,7 +89150,7 @@ var CardInfo = {
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return !signi.resona;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn();
 				}).callback(this,function () {
@@ -89210,7 +89208,7 @@ var CardInfo = {
 		artsEffect: {
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn().callback(this,function () {
 						var count = card.level;
@@ -89760,7 +89758,7 @@ var CardInfo = {
 				var cards = this.player.signis.filter(function (signi) {
 					return signi.getCrossPairCids().length;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					var cids = card.getCrossPairCids();
 					var filter = function (card) {
@@ -90072,7 +90070,7 @@ var CardInfo = {
 		artsEffect: {
 			actionAsyn: function () {
 				var cards = concat(this.player.signis,this.player.opponent.signis)
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return false;
 					this.game.tillTurnEndAdd(this,card,'power',4000);
 					return false;
@@ -90496,7 +90494,7 @@ var CardInfo = {
 		artsEffect: {
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',-12000);
 				}).callback(this,function () {
@@ -90504,7 +90502,7 @@ var CardInfo = {
 					var cards = this.player.trashZone.cards.filter(function (card) {
 						return card.hasClass('毒牙') && (card.level <= 3) && card.canSummon();
 					},this);
-					return this.player.selectOptionalAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
+					return this.player.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
 						if (!card) return;
 						return card.summonAsyn();
 					});
@@ -90558,7 +90556,7 @@ var CardInfo = {
 		artsEffect: {
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',-12000);
 				}).callback(this,function () {
@@ -90781,7 +90779,7 @@ var CardInfo = {
 		burstEffect: {
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.trashAsyn();
 				});
@@ -92969,7 +92967,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return !card.hasColor('colorless');
 				},this);
-				return this.player.selectOptionalAsyn('TARGET',cards).callback(this,function (card) {
+				return this.player.selectAsyn('TARGET',cards).callback(this,function (card) {
 					if (!card) return;
 					card.moveTo(this.player.mainDeck);
 					this.player.shuffle();
@@ -93136,7 +93134,7 @@ var CardInfo = {
 						var cards = this.player.signis.filter(function (signi) {
 							return signi.level === 1;
 						},this);
-						return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+						return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 							if (!card) return;
 							this.game.tillTurnEndSet(this,card,'assassin',true);
 						});
@@ -94464,7 +94462,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return card.hasClass('毒牙') && (card.level === 1) && card.canSummon();
 				},this);
-				return this.player.selectOptionalAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
+				return this.player.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
 					if (!card) return;
 					return card.summonAsyn();
 				});
@@ -95219,7 +95217,7 @@ var CardInfo = {
 				var cards = this.player.opponent.signis.filter(function (signi) {
 					return signi.level === 3;
 				},this);
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.banishAsyn();
 				});
@@ -95631,7 +95629,7 @@ var CardInfo = {
 			},
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					return card.bounceAsyn();
 				});
@@ -96568,7 +96566,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return card.hasClass('天使') && card.canSummon();
 				},this);
-				return this.player.selectOptionalAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
+				return this.player.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
 					if (!card) return;
 					return card.summonAsyn();
 				});
@@ -96683,7 +96681,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return (card.type === 'SIGNI') && card.hasColor('green') && card.canSummon();
 				},this);
-				return this.player.selectOptionalAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
+				return this.player.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
 					if (!card) return;
 					return card.summonAsyn();
 				});
@@ -97456,7 +97454,7 @@ var CardInfo = {
 							var cards = this.player.trashZone.cards.filter(function (card) {
 								return (card.level <= 3) && card.hasClass('毒牙') && card.canSummon();
 							},this);
-							return this.player.selectOptionalAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
+							return this.player.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
 								if (!card) return;
 								return card.summonAsyn();
 							});
@@ -97661,7 +97659,7 @@ var CardInfo = {
 					return signi.power <= 7000;
 				},this);
 				// if (!pSignis.length || !oSignis.length) return targets;
-				return this.player.selectTargetOptionalAsyn(pSignis).callback(this,function (targetA) {
+				return this.player.selectTargetAsyn(pSignis).callback(this,function (targetA) {
 					if (!targetA) return;
 					targets.push(targetA);
 					return this.player.selectTargetAsyn(oSignis).callback(this,function (targetB) {
@@ -99221,7 +99219,7 @@ var CardInfo = {
 						var cards = this.player.opponent.trashZone.cards.filter(function (card) {
 							return (card.type === 'SIGNI');
 						},this);
-						return this.player.selectOptionalAsyn('TARGET',cards).callback(this,function (card) {
+						return this.player.selectAsyn('TARGET',cards).callback(this,function (card) {
 							if (!card) return;
 							return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 								card.exclude();
@@ -99230,7 +99228,7 @@ var CardInfo = {
 							var cards = this.player.opponent.trashZone.cards.filter(function (card) {
 								return (card.type === 'SPELL');
 							},this);
-							return this.player.selectOptionalAsyn('TARGET',cards).callback(this,function (card) {
+							return this.player.selectAsyn('TARGET',cards).callback(this,function (card) {
 								if (!card) return;
 								return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
 									card.exclude();
@@ -99305,7 +99303,7 @@ var CardInfo = {
 								var cards = this.player.enerZone.cards.filter(function (card) {
 									return card.canSummon();
 								});
-								return this.player.selectOptionalAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
+								return this.player.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
 									if (!card) return;
 									return card.summonAsyn(false,false,true);
 								});
@@ -99807,7 +99805,7 @@ var CardInfo = {
 					var cards = this.player.hands.filter(function (card) {
 						return card.canSummon();
 					},this);
-					return this.player.selectOptionalAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
+					return this.player.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
 						if (!card) return;
 						return card.summonAsyn();
 					});
@@ -99904,7 +99902,7 @@ var CardInfo = {
 								var cards = this.player.trashZone.cards.filter(function (card) {
 									return (card.level <= 4) && card.hasClass('電機') && card.canSummon();
 								},this);
-								return this.player.selectOptionalAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
+								return this.player.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
 									if (!card) return;
 									return card.summonAsyn().callback(this,function () {
 										return false;
@@ -102222,7 +102220,7 @@ var CardInfo = {
 						var cards = this.player.trashZone.cards.filter(function (card) {
 							return filter(card) && card.canSummon();
 						},this);
-						return this.player.selectOptionalAsyn('TARGET',cards).callback(this,function (card) {
+						return this.player.selectAsyn('TARGET',cards).callback(this,function (card) {
 							if (!card) return;
 							return card.summonAsyn();
 						});
@@ -102342,7 +102340,7 @@ var CardInfo = {
 						var cards = this.player.signis.filter(function (signi) {
 							return !signi.isUp && signi.hasClass('アーム');
 						},this);
-						return this.player.selectOptionalAsyn('UP',cards).callback(this,function (card) {
+						return this.player.selectAsyn('UP',cards).callback(this,function (card) {
 							if (!card) return;
 							return card.upAsyn();
 						});
@@ -102636,7 +102634,7 @@ var CardInfo = {
 					return !signi.charm;
 				},this);
 				if (!signis) return;
-				return this.player.selectTargetOptionalAsyn(signis).callback(this,function (signi) {
+				return this.player.selectTargetAsyn(signis).callback(this,function (signi) {
 					if (!signi) return;
 					return this.player.selectAsyn('TARGET',cards).callback(this,function (card) {
 						if (!card) return;
@@ -103713,7 +103711,7 @@ var CardInfo = {
 				var oSignis = this.player.opponent.signis.filter(function (signi) {
 					return signi.power <= 12000;
 				},this);
-				return this.player.selectTargetOptionalAsyn(pSignis).callback(this,function (targetA) {
+				return this.player.selectTargetAsyn(pSignis).callback(this,function (targetA) {
 					if (!targetA) return;
 					targets.push(targetA);
 					return this.player.selectTargetAsyn(oSignis).callback(this,function (targetB) {
@@ -104026,7 +104024,7 @@ var CardInfo = {
 							var cards = this.player.opponent.signis.filter(function (signi) {
 								return (signi.power < this.power);
 							},this);
-							return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+							return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 								if (!card) return;
 								return card.banishAsyn();
 							});
@@ -104208,7 +104206,7 @@ var CardInfo = {
 				var cards = this.player.trashZone.cards.filter(function (card) {
 					return card.acce;
 				});
-				return this.player.selectOptionalAsyn('TARGET',cards).callback(this,function (card) {
+				return this.player.selectAsyn('TARGET',cards).callback(this,function (card) {
 					if (!card) return;
 					card.moveTo(this.player.enerZone);
 				});
@@ -104394,7 +104392,7 @@ var CardInfo = {
 				var signis = this.player.signis.filter(function (signi) {
 					return signi.canBeAcced();
 				},this);
-				return this.player.selectTargetOptionalAsyn(signis).callback(this,function (signi) {
+				return this.player.selectTargetAsyn(signis).callback(this,function (signi) {
 					if (!signi) return;
 					this.acceTo(signi);
 				});
@@ -104506,7 +104504,7 @@ var CardInfo = {
 				var signis = this.player.signis.filter(function (signi) {
 					return signi.canBeAcced();
 				},this);
-				return this.player.selectTargetOptionalAsyn(signis).callback(this,function (signi) {
+				return this.player.selectTargetAsyn(signis).callback(this,function (signi) {
 					if (!signi) return;
 					this.acceTo(signi);
 				});
@@ -104661,7 +104659,7 @@ var CardInfo = {
 				var oSignis = this.player.opponent.signis.filter(function (signi) {
 					return signi.power >= 15000;
 				},this);
-				return this.player.selectTargetOptionalAsyn(pSignis).callback(this,function (targetA) {
+				return this.player.selectTargetAsyn(pSignis).callback(this,function (targetA) {
 					if (!targetA) return;
 					targets.push(targetA);
 					return this.player.selectTargetAsyn(oSignis).callback(this,function (targetB) {
@@ -107250,7 +107248,7 @@ var CardInfo = {
 							var cards = this.player.trashZone.cards.filter(function (card) {
 								return card.canSummon();
 							},this);
-							return this.player.selectOptionalAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
+							return this.player.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
 								if (!card) return;
 								return card.summonAsyn(false,false,true);
 							});
@@ -107377,7 +107375,7 @@ var CardInfo = {
 			costDown: true,
 			actionAsyn: function () {
 				var cards = this.player.opponent.getInfectedCards();
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					card.zone.virus = false;
 					this.game.tillTurnEndAdd(this,card,'power',-7000);
@@ -108515,7 +108513,7 @@ var CardInfo = {
 				var zones = this.player.opponent.signiZones.filter(function (zone) {
 					return zone.virus;
 				},this);
-				return this.player.selectOptionalAsyn('TARGET',zones).callback(this,function (zone) {
+				return this.player.selectAsyn('TARGET',zones).callback(this,function (zone) {
 					if (!zone) return;
 					zone.virus = false;
 					this.player.draw(1);
@@ -112414,7 +112412,7 @@ var CardInfo = {
 			costDown: true,
 			actionAsyn: function () {
 				var cards = this.player.opponent.getInfectedCards();
-				return this.player.selectTargetOptionalAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					card.zone.virus = false;
 					this.game.tillTurnEndAdd(this,card,'power',-5000);
