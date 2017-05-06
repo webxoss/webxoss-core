@@ -1920,7 +1920,15 @@ Player.prototype.selectSomeTargetsAsyn = function (cards,min,max,careOrder) {
 };
 
 Player.prototype.selectSomeAsyn = function (label,items,min,max,careOrder,extraCards) {
-	items = items.slice();
+	// 过滤 shadow 目标
+	items = items.filter(item => {
+		if (item.shadow) {
+			if ((item.player !== this) || (this.game.getEffectSource().player !== this)) {
+				return false;
+			}
+		}
+		return true;
+	});
 	if (!(min >= 0)) min = 0;
 	if (max === undefined || max < 0) {
 		max = items.length;

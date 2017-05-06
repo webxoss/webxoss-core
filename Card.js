@@ -104,6 +104,7 @@ function Card (game,player,zone,pid,side) {
 	this.acce = !!info.acce;
 	this.acceingCard = null;
 	this.trap = info.trap || null;
+	this.shadow = false;
 
 	// 杂项
 	this.effectFilters     = [];

@@ -109462,7 +109462,6 @@ var CardInfo = {
 					destroyTimming: this.game.phase.onTurnEnd,
 					action: function (set,add) {
 						this.player.signis.forEach(function (signi) {
-							// TODO...
 							set(signi,'shadow',true);
 						});
 					}
