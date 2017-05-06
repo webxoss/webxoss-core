@@ -176,8 +176,8 @@ ConstEffectManager.prototype.compute = function () {
 			};
 			signi.onPowerChange.trigger(event,true);
 		}
-		// <花音>和<七草>的处理
-		if ((signi.cid === 305) || (signi.cid === 1183)) {
+		// <七草>的处理
+		if (signi.cid === 1183) {
 			signi.onPowerUpdate.trigger(null,true);
 		}
 	},this);

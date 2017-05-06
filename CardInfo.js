@@ -14537,8 +14537,8 @@ var CardInfo = {
 		//        常时效果       
 		// ======================
 		constEffectTexts: [
-			"【常時能力】：あなたのターンの間、あなたのエナゾーンにカードが置かれるたび、ターン終了時まで、このシグニのパワーを＋3000する。",
-			"【常時能力】：このシグニのパワーが15000以上であるとき、このシグニと対戦相手のシグニ1体をバニッシュする。"
+			"【自】：あなたのターンの間、あなたのエナゾーンにカードが置かれるたび、ターン終了時まで、このシグニのパワーを+3000する。",
+			"【自】：このシグニのパワーが15000以上になったとき、このシグニと対戦相手のシグニ1体をバニッシュする。"
 		],
 		constEffects: [{
 			condition: function () {
@@ -14570,27 +14570,19 @@ var CardInfo = {
 					triggerCondition: function (event) {
 						if (!inArr(this,this.player.signis)) return false;
 						if (this.power < 15000) return false;
-						if (this.canNotBeBanished) {
-							return this.player.opponent.signis.some(function (signi) {
-								return (!signi.canNotBeBanished) && (!signi.isEffectFiltered(this));
-							});
-						}
 						return true;
 					},
 					condition: function () {
 						return inArr(this,this.player.signis);
 					},
 					actionAsyn: function () {
-						if (this.canNotBeBanished) {
-							return this.game.banishCardsAsyn(this.player.opponent.signis,true);
-						}
 						return this.player.selectTargetAsyn(this.player.opponent.signis).callback(this,function (card) {
 							var cards = card? [this,card] : [this];
 							return this.game.banishCardsAsyn(cards);
 						});
 					}
 				});
-				add(this,'onPowerUpdate',effect);
+				add(this,'onPowerChange',effect);
 			}
 		}],
 		// ======================
