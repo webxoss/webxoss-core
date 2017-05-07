@@ -105116,13 +105116,8 @@ var CardInfo = {
 			action: function (set,add) {
 				var effect = this.game.newEffect({
 					source: this,
-					description: '2043-const-0',
-					triggerCondition: function (event) {
-						if (!event.card.isAcced()) return false;
-						var source = this.game.getEffectSource();
-						if (source && source.player === this.player) return false;
-						return true;
-					},
+					description: '2043-const-1',
+					optional: true,
 					actionAsyn: function () {
 						return this.player.revealAsyn(3).callback(this,function (cards) {
 							var targets = cards.filter(function (card) {
@@ -105142,7 +105137,7 @@ var CardInfo = {
 						});
 					}
 				});
-				add(this.player,'onSigniBanished',effect);
+				add(this.player,'onMainPhaseStart',effect);
 			}
 		}],
 		// ======================
