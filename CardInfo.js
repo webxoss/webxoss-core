@@ -106263,7 +106263,7 @@ var CardInfo = {
 					source: this,
 					description: '2062-burst-1',
 					actionAsyn: function () {
-						this.banishSigniAsyn(12000,0,1,true);
+						return this.banishSigniAsyn(12000,0,1,true);
 					}
 				},{
 					source: this,
@@ -109333,7 +109333,6 @@ var CardInfo = {
 								var card = this.player.mainDeck.cards[0];
 								if (!card) return;
 								var texts = ['YES', 'NO'];
-								// TODO...
 								return this.player.opponent.selectTextAsyn('GUESS_TRAP',texts).callback(this,function (text) {
 									if ((!!card.trap) !== (text === 'YES')) {
 										event.wontBeDamaged = true;
