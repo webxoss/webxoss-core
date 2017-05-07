@@ -107112,7 +107112,6 @@ var CardInfo = {
 			"【出】手札から＜調理＞のシグニを１枚捨てる：あなたのデッキの上からカードを２枚エナゾーンに置く。"
 		],
 		startUpEffects: [{
-			costWhite: 1,
 			costCondition: function () {
 				return this.player.hands.some(function (card) {
 					return card.hasClass('調理');
