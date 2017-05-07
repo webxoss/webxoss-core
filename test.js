@@ -157,8 +157,7 @@ io.on('connect',function (socket) {
 	var query = require('url').parse(req.url,true).query;
 	// console.log('connect: %s, count: %s',req.connection.remoteAddress,getSocketCount());
 	// console.log(query.clientId);
-	roomManager.createClient(socket,+query.clientId);
-
+	roomManager.createClient(socket,query.clientId,+query.reconnect);
 	// test
 	// socket.on('force disconnect',function () {
 	// 	socket.disconnect();

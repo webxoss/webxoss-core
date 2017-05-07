@@ -1124,4 +1124,14 @@ Game.prototype.getLiveMessagePacks = function () {
 	return this.hostPlayer.messagePacks;
 };
 
+Game.prototype.getMessagePacks = function(target) {
+	if (target === 'host') {
+		return this.hostPlayer.messagePacks;
+	} else if (target === 'guest') {
+		return this.guestPlayer.messagePacks;
+	} else {
+		return null;
+	}
+};
+
 global.Game = Game;

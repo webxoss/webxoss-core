@@ -1,12 +1,26 @@
 ﻿'use strict';
 
+// return hex string of 256bit number
+function getRandomString() {
+	if (global.window) {
+		var array = new Uint32Array(8);
+		window.crypto.getRandomValues(array);
+		return array.reduce(function(str, num){
+			return str+num.toString(16)
+		}, '')
+	} else {
+		var crypto = require('crypto');
+		return crypto.randomBytes(32).toString('hex');
+	}
+}
+
 function Client (manager,socket) {
 	this.manager = manager;
 	this.socket = socket;
 	this.room = null;
 	this.cfg = null;
 	this.nickname = '';
-	this.id = Math.random();
+	this.id = getRandomString(); // 长度在128左右
 	// this.ip = '';
 	this.onSocketUpdate = null;
 

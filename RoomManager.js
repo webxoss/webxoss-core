@@ -22,14 +22,14 @@ function RoomManager (cfg) {
 	setInterval(this.cleanUp.bind(this),60*1000);
 }
 
-RoomManager.prototype.createClient = function (socket,id) {
+RoomManager.prototype.createClient = function (socket,id,reconnect) {
 	if (this.clients.length >= this.MAX_CLIENTS) {
 		socket.disconnect();
 		return;
 	}
 
 	var client;
-	if (id) {
+	if (id && reconnect) {
 		var room;
 		for (var i = 0; i < this.rooms.length; i++) {
 			room = this.rooms[i];
@@ -54,6 +54,14 @@ RoomManager.prototype.createClient = function (socket,id) {
 			socket.emit('game reconnect failed');
 		}
 	}
+	if (id && !reconnect) {
+		// 掉线并刷新了浏览器的用户，
+		// 服务器发送重建对战需要的数据，
+		this.sendReconnectContent(socket,id);
+		// 客户端重建现场后再进行updateSocket
+		socket.on('updateSocket',this.updateSocket.bind(this,socket,id))
+		return;
+	}
 	if (!client) {
 		client = new Client(this,socket);
 	}
@@ -63,7 +71,14 @@ RoomManager.prototype.createClient = function (socket,id) {
 	// 	this.maxClientsCount = this.clients.length;
 	// 	console.log(new Date().toISOString().replace('T',' ').substr(0,19)+' Max clients count: %s',this.clients.length);
 	// }
+	
+	this.bindSocketEvent(socket, client);
+	// socket.on('reloadCardInfo',this.reloadCardInfo.bind(this));
 
+	socket.emit('version',this.VERSION);
+	this.updateRoomList();
+};
+RoomManager.prototype.bindSocketEvent = function (socket, client) {
 	socket.on('error',this.handleError.bind(this,client));
 	socket.on('disconnect',this.disconnect.bind(this,client));
 	socket.on('createRoom',this.createRoom.bind(this,client));
@@ -83,12 +98,73 @@ RoomManager.prototype.createClient = function (socket,id) {
 	socket.on('surrender',client.surrender.bind(client));
 	socket.on('drop',client.drop.bind(client));
 	socket.on('tick',client.tick.bind(client));
+}
 
-	// socket.on('reloadCardInfo',this.reloadCardInfo.bind(this));
+RoomManager.prototype.checkInRoom = function (id) {
+	var room;
+	for (var i = 0; i < this.rooms.length; i++) {
+		room = this.rooms[i];
+		if (room.host.id === id) {
+			return true;
+		} else if (room.guest && room.guest.id === id) {
+			return true;
+		}
+	}
+	return false;
+}
 
-	socket.emit('version',this.VERSION);
-	this.updateRoomList();
-};
+RoomManager.prototype.getRoomByClientId = function (id) {
+	var room;
+	for (var i = 0; i < this.rooms.length; i++) {
+		room = this.rooms[i];
+		if (room.host.id === id) {
+			return room;
+		} else if (room.guest && room.guest.id === id) {
+			return room;
+		}
+	}
+	return null;
+}
+
+RoomManager.prototype.sendReconnectContent = function (socket, id) {
+	// 发送游戏录像，等待客户端恢复对战
+	var room;
+	var position;
+	if (this.checkInRoom(id)) {
+		room = this.getRoomByClientId(id);
+		if (room.guest.id === id) {
+			position = 'guest';
+		} else {
+			position = 'host';
+		}
+		socket.emit('reconnectContent', room.game.getMessagePacks(position));
+	} else {
+		// TODO: 要求客户端重新建立socket连接（重新发送空的ClinetId）
+		socket.emit('game reconnect failed');
+	}
+}
+
+RoomManager.prototype.updateSocket = function (socket, id) {
+	// 获知客户端恢复对战后，尝试updateSocket和聊天socket
+	var room;
+	var oldClient;
+	if (this.checkInRoom(id)) {
+		room = this.getRoomByClientId(id);
+		if (room.guest.id === id) {
+			room.guest.updateSocket(socket);
+			this.bindSocketEvent(socket, room.guest);
+		} else {
+			room.host.updateSocket(socket);
+			this.bindSocketEvent(socket, room.host);
+		}
+		room.reconnecting = false;
+		room.emit('opponent reconnect');
+		
+	} else {
+		// TODO: 要求客户端重新建立socket连接（重新发送空的ClinetId）
+		client.emit('game reconnect failed');
+	}
+}
 
 RoomManager.prototype.handleError = function (client,err) {
 	console.error(err);
