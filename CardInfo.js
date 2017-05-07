@@ -105097,20 +105097,23 @@ var CardInfo = {
 		],
 		constEffects: [{
 			action: function (set,add) {
-				var effect = this.game.newEffect({
-					source: this,
-					description: '2043-const-0',
-					triggerCondition: function (event) {
-						if (!event.card.isAcced()) return false;
-						var source = this.game.getEffectSource();
-						if (source && source.player === this.player) return false;
-						return true;
-					},
-					actionAsyn: function () {
-						return this.player.draw(1);
-					}
-				});
-				add(this.player,'onSigniBanished',effect);
+				this.player.signis.forEach(function (signi) {
+					if (!signi.isAcced()) return;
+					var effect = this.game.newEffect({
+						source: this,
+						description: '2043-const-0',
+						optional: true,
+						triggerCondition: function (event) {
+							var source = this.game.getEffectSource();
+							if (source && source.player === this.player) return false;
+							return true;
+						},
+						actionAsyn: function () {
+							return this.player.draw(1);
+						}
+					});
+					add(signi,'onBanish',effect);
+				},this);
 			}
 		},{
 			action: function (set,add) {

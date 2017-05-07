@@ -498,6 +498,9 @@ Game.prototype.banishCardsAsyn = function (cards,force,arg) {
 		var opposingSignis = cards.map(function (card) {
 			return card.getOpposingSigni();
 		},this);
+		var accedCards = cards.map(function (card) {
+			return card.getAccedCards();
+		},this);
 		return this.moveCardsAdvancedAsyn(cards,zones,[],force).callback(this,function (arg) {
 			arg.protectedFlags.forEach(function (isProtected,i) {
 				if (isProtected) return;
@@ -517,6 +520,7 @@ Game.prototype.banishCardsAsyn = function (cards,force,arg) {
 				var event = {
 					card: signi,
 					opposingSigni: opposingSignis[i],
+					accedCards: accedCards[i],
 					attackingSigni: attackingSigni,
 					source: banishSource
 				};
