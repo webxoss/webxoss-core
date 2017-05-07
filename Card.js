@@ -1579,7 +1579,7 @@ Card.prototype.acceTo = function (signi) {
 		faceup: true,
 		up: signi.isUp,
 	});
-	this.onAcced.trigger();
+	signi.onAcced.trigger();
 	this.game.frameEnd();
 };
 
