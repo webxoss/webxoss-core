@@ -106637,7 +106637,7 @@ var CardInfo = {
 		actionEffects: [{
 			costDown: true,
 			useCondition: function () {
-				return this.player.signis.some(function (signi) {
+				return this.player.opponent.signis.some(function (signi) {
 					return signi.level >= 3;
 				},this);
 			},
@@ -111109,13 +111109,6 @@ var CardInfo = {
 		"limiting": "リル",
 		"imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX15/WX15-070.jpg",
 		"illust": "甲冑",
-		faqs: [
-			{
-				// TODO... test
-				"q": "【トリプルクラッシュ】を持った《矜持の豪魔　オダノブ》に、《聖身の円卓　ボールス》の能力で【ダブルクラッシュ】を与えた場合はどうなりますか？",
-				"a": "その場合、【トリプルクラッシュ】により3枚同時にクラッシュとなります。2枚や5枚クラッシュするわけではありません。"
-			}
-		],
 		"classes": [
 			"精像",
 			"武勇"
