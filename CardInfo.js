@@ -109503,7 +109503,7 @@ var CardInfo = {
 					destroyTimming: this.game.phase.onTurnEnd,
 					action: function (set,add) {
 						var effect = this.game.newEffect({
-							source: signi,
+							source: this,
 							description: '2127-arts-0',
 							triggerCondition: function (event) {
 								var source = this.game.getEffectSource();
