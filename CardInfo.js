@@ -104399,7 +104399,7 @@ var CardInfo = {
 		constEffects: [{
 			duringGame: true,
 			condition: function () {
-				return this.acceingCard;
+				return this.acceingCard && this.acceingCard.hasClass('調理');
 			},
 			action: function (set,add) {
 				if (this.acceingCard.hasClass('調理')) {
@@ -104511,7 +104511,7 @@ var CardInfo = {
 		constEffects: [{
 			duringGame: true,
 			condition: function () {
-				return this.acceingCard;
+				return this.acceingCard && this.acceingCard.hasClass('調理');
 			},
 			action: function (set,add) {
 				if (this.acceingCard.hasClass('調理')) {
@@ -107163,7 +107163,7 @@ var CardInfo = {
 		constEffects: [{
 			duringGame: true,
 			condition: function () {
-				return this.acceingCard;
+				return this.acceingCard && this.acceingCard.hasClass('調理');
 			},
 			action: function (set,add) {
 				var card = this.acceingCard;
@@ -108132,7 +108132,7 @@ var CardInfo = {
 		constEffects: [{
 			duringGame: true,
 			condition: function () {
-				return this.acceingCard;
+				return this.acceingCard && this.acceingCard.hasClass('調理');
 			},
 			action: function (set,add) {
 				add(this.acceingCard,'effectFilters',function (card) {
@@ -108254,7 +108254,7 @@ var CardInfo = {
 		constEffects: [{
 			duringGame: true,
 			condition: function () {
-				return this.acceingCard;
+				return this.acceingCard && this.acceingCard.hasClass('調理');
 			},
 			action: function (set,add) {
 				add(this.acceingCard,'effectFilters',function (card) {
