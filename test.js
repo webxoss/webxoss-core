@@ -1,5 +1,21 @@
 'use strict';
 
+// return hex string of a random 256bit number
+global.getRandomString = function () {
+	if (global.window) {
+		var array = new Uint32Array(8);
+		window.crypto.getRandomValues(array);
+		return array.reduce(function(str, num){
+			console.log(num.toString(16).length)
+			return str+('0000000' + num.toString(16)).slice(-8);
+		}, '')
+	} else {
+		var crypto = require('crypto');
+		var numString = crypto.randomBytes(32).toString('hex');
+		return ('0'.repeat(63) + numString).slice(-64);
+	}
+}
+
 if (!global.window) {
 	global.Random = require("random-js");
 	require("./util.js");
@@ -157,7 +173,7 @@ io.on('connect',function (socket) {
 	var query = require('url').parse(req.url,true).query;
 	// console.log('connect: %s, count: %s',req.connection.remoteAddress,getSocketCount());
 	// console.log(query.clientId);
-	roomManager.createClient(socket,query.clientId,+query.reconnect);
+	roomManager.createClient(socket,query.clientId,query.reconnect);
 	// test
 	// socket.on('force disconnect',function () {
 	// 	socket.disconnect();
