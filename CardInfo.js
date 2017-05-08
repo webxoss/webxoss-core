@@ -106162,7 +106162,7 @@ var CardInfo = {
 			action: function (set,add) {
 				var value = 3000 * this.player.signis.filter(function (signi) {
 					return (signi !== this) && signi.hasClass('英知');
-				},this);
+				},this).length;
 				if (!value) return;
 				add(this,'power',value);
 			}
