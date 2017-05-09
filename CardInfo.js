@@ -105914,9 +105914,8 @@ var CardInfo = {
 						texts.push('ENER_ZONE');
 					}
 					if (!texts.length) return 'CANCEL';
-					if (texts.length === 1) return texts[0];
 					texts.push('CANCEL');
-					return this.player.selectTextAsyn('CHOOSE_ZONE',texts);
+					return this.player.opponent.selectTextAsyn('CHOOSE_ZONE',texts);
 				}).callback(this,function (text) {
 					if (text === 'HAND') {
 						return this.player.opponent.discardAsyn(2);
