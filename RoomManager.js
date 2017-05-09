@@ -22,31 +22,25 @@ function RoomManager (cfg) {
 	setInterval(this.cleanUp.bind(this),60*1000);
 }
 
-RoomManager.prototype.createClient = function (socket,id) {
+RoomManager.prototype.createClient = function (socket,id,reconnect) {
 	if (this.clients.length >= this.MAX_CLIENTS) {
 		socket.disconnect();
 		return;
 	}
 
 	var client;
-	if (id) {
-		var room;
-		for (var i = 0; i < this.rooms.length; i++) {
-			room = this.rooms[i];
-			// if (!room.reconnecting) continue; // 服务器可能还不知道掉线,所以注释掉.
-			// console.log('host:%s\nguest:%s\nyou:%s',room.host.id,room.guest.id,id);
+	var room;
+	if (id && reconnect) {
+		// 在游戏中掉线的用户，updateSocket后即可恢复连接
+		if (this.checkInRoom(id)) {
+			room = this.getRoomByClientId(id);
 			if (room.host.id === id) {
 				client = room.host;
 				client.updateSocket(socket);
-				break;
-			}
-			if (room.guest && room.guest.id === id) {
+			} else {
 				client = room.guest;
 				client.updateSocket(socket);
-				break;
 			}
-		}
-		if (client) {
 			room.reconnecting = false;
 			socket.emit('game reconnect');
 			room.emit('opponent reconnect');
@@ -54,6 +48,16 @@ RoomManager.prototype.createClient = function (socket,id) {
 			socket.emit('game reconnect failed');
 		}
 	}
+
+	if (id && !reconnect) {
+		// 掉线并刷新了浏览器的用户，不建立Client对象
+		// 首先，服务器发送重建对战需要的数据
+		this.sendReconnectContent(socket,id);
+		// 等待客户端重建现场，进行updateSocket
+		socket.on('updateSocket',this.updateSocket.bind(this,socket,id));
+		return;
+	}
+
 	if (!client) {
 		client = new Client(this,socket);
 	}
@@ -63,7 +67,15 @@ RoomManager.prototype.createClient = function (socket,id) {
 	// 	this.maxClientsCount = this.clients.length;
 	// 	console.log(new Date().toISOString().replace('T',' ').substr(0,19)+' Max clients count: %s',this.clients.length);
 	// }
+	
+	this.bindSocketEvent(socket, client);
+	// socket.on('reloadCardInfo',this.reloadCardInfo.bind(this));
 
+	socket.emit('version',this.VERSION);
+	this.updateRoomList();
+};
+
+RoomManager.prototype.bindSocketEvent = function (socket, client) {
 	socket.on('error',this.handleError.bind(this,client));
 	socket.on('disconnect',this.disconnect.bind(this,client));
 	socket.on('createRoom',this.createRoom.bind(this,client));
@@ -83,12 +95,74 @@ RoomManager.prototype.createClient = function (socket,id) {
 	socket.on('surrender',client.surrender.bind(client));
 	socket.on('drop',client.drop.bind(client));
 	socket.on('tick',client.tick.bind(client));
+}
 
-	// socket.on('reloadCardInfo',this.reloadCardInfo.bind(this));
+RoomManager.prototype.checkInRoom = function (id) {
+	var room;
+	for (var i = 0; i < this.rooms.length; i++) {
+		room = this.rooms[i];
+		if ((room.host.id === id) || (room.guest && room.guest.id === id)) {
+			return true;
+		}
+	}
+	return false;
+}
 
-	socket.emit('version',this.VERSION);
-	this.updateRoomList();
-};
+RoomManager.prototype.getRoomByClientId = function (id) {
+	var room;
+	for (var i = 0; i < this.rooms.length; i++) {
+		room = this.rooms[i];
+		if ((room.host.id === id) || (room.guest.id === id)) {
+			return room;
+		}
+	}
+	return null;
+}
+
+RoomManager.prototype.sendReconnectContent = function (socket, id) {
+	// 发送该玩家的游戏录像，等待客户端恢复对战
+	var room;
+	var position;
+	if (this.checkInRoom(id)) {
+		room = this.getRoomByClientId(id);
+		if (room.host.id === id) {
+			position = 'host';
+		} else {
+			position = 'guest';
+		}
+		socket.emit('reconnectContent', {
+			'position': position,
+			'messagePacks': room.game.getMessagePacks(position)
+		});
+	} else {
+		socket.emit('game reconnect failed');
+	}
+}
+
+RoomManager.prototype.updateSocket = function (socket, id) {
+	// 获知客户端恢复对战现场后，updateSocket
+	var room;
+	var client;
+	if (this.checkInRoom(id)) {
+		room = this.getRoomByClientId(id);
+		if (room.host.id === id) {
+			client = room.host;
+		} else {
+			client = room.guest;
+		}
+		client.updateSocket(socket);
+		this.bindSocketEvent(socket,client);
+		this.clients.push(client);
+
+		client.emit('tock');
+		client.emit('version',this.VERSION);
+		
+		room.reconnecting = false;
+		room.emit('opponent reconnect');
+	} else {
+		client.emit('game reconnect failed');
+	}
+}
 
 RoomManager.prototype.handleError = function (client,err) {
 	console.error(err);

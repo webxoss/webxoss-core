@@ -6,7 +6,7 @@ function Client (manager,socket) {
 	this.room = null;
 	this.cfg = null;
 	this.nickname = '';
-	this.id = Math.random();
+	this.id = getRandomString(); // length: 64
 	// this.ip = '';
 	this.onSocketUpdate = null;
 
