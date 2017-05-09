@@ -100723,8 +100723,8 @@ var CardInfo = {
 					description: '1956-const-0',
 					actionAsyn: function () {
 						var filter = function (card) {
-							return card.hasClass('red');
-						};
+							return (card !== this) && card.hasColor('red');
+						}.bind(this);
 						return this.player.selectSelfSigniAsyn(filter).callback(this,function (card) {
 							if (!card) return;
 							this.game.tillTurnEndSet(this,card,'canNotBeBanished',true);
