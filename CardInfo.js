@@ -110925,6 +110925,7 @@ var CardInfo = {
 				if (obj.costBlack < 0) obj.costBlack = 0;
 			}
 			var zones = this.player.opponent.getInfectedZones();
+			if (!zones.length) return Callback.immediately(obj);
 			return this.player.selectSomeAsyn('TARGET',zones,min).callback(this,function (zones) {
 				this._data = zones.length;
 				zones.forEach(function (zone) {
