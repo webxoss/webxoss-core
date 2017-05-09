@@ -6,7 +6,7 @@ function Client (manager,socket) {
 	this.room = null;
 	this.cfg = null;
 	this.nickname = '';
-	this.id = getRandomString(); // 长度为64
+	this.id = getRandomString(); // length: 64
 	// this.ip = '';
 	this.onSocketUpdate = null;
 
