@@ -106920,7 +106920,7 @@ var CardInfo = {
 					source: this,
 					description: '2071-burst-2',
 					actionAsyn: function () {
-						var cards = this.player.mainDeck.getTopCards(count);
+						var cards = this.player.mainDeck.getTopCards(2);
 						this.player.informCards(cards);
 						var done = false;
 						return Callback.loop(this,2,function () {
