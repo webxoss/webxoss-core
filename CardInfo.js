@@ -106425,7 +106425,7 @@ var CardInfo = {
 		startUpEffects: [{
 			actionAsyn: function () {
 				var cards = this.player.opponent.signis;
-				return this.player.selectTextAsyn(cards).callback(this,function (card) {
+				return this.player.selectTargetAsyn(cards).callback(this,function (card) {
 					if (!card) return;
 					this.game.tillTurnEndAdd(this,card,'power',-10000);
 				});
