@@ -109562,7 +109562,7 @@ var CardInfo = {
 					var count = this.game.getData(signi,'banishProtectCount') || 0;
 					count++;
 					this.game.setData(signi,'banishProtectCount',count);
-				});
+				},this);
 			}
 		}
 	},
