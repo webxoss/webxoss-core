@@ -1923,7 +1923,7 @@ Player.prototype.selectSomeAsyn = function (label,items,min,max,careOrder,extraC
 	// 过滤 shadow 目标
 	items = items.filter(item => {
 		if (item.shadow) {
-			if ((item.player !== this) || (this.game.getEffectSource().player !== this)) {
+			if ((item.player !== this) || ((this.game.getEffectSource() || {}).player !== this)) {
 				return false;
 			}
 		}
