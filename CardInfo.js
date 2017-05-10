@@ -22142,7 +22142,7 @@ var CardInfo = {
 				},this);
 				var zones = this.player.opponent.signiZones.filter(function (zone) {
 					if (zone.disabled) return false;
-					var signi = zone.getSigni();
+					var card = zone.getSigni();
 					return !card || !card.isEffectFiltered();
 				},this);
 				return Callback.loop(this,2,function () {
