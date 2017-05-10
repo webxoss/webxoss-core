@@ -2085,7 +2085,7 @@ Player.prototype.rebornAsyn = function (filter,count,arg) {
 			if (filter && !filter(card)) return false;
 			return card.canSummon();
 		},this);
-		return this.selectAsyn('SUMMON_SIGNI',cards).callback(function (card) {
+		return this.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
 			if (!card) return done = true;
 			return card.summonAsyn(false,arg.dontTriggerStartUp,arg.down);
 		});
