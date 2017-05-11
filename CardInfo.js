@@ -110672,9 +110672,9 @@ var CardInfo = {
 							var cards = this.player.hands.filter(function (card) {
 								return card.hasClass('調理');
 							},this);
-							return this.player.selectOptionalAsyn('DISCARD',cards).callback(this,function (card) {
+							return this.player.selectOptionalAsyn('TARGET',cards).callback(this,function (card) {
 								if (!card) return;
-								card.trash();
+								card.moveTo(this.player.enerZone);
 								this.player.draw(1);
 							});
 						}
