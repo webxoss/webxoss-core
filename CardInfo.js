@@ -102748,6 +102748,7 @@ var CardInfo = {
 					if (cards_deck.length < 2) return;
 					var len = cards_deck.length;
 					return this.player.selectSomeAsyn('SET_ORDER',cards_deck,len,len,true).callback(this,function (cards) {
+						this.game.moveCards(cards,this.player.mainDeck);
 						this.player.mainDeck.moveCardsToBottom(cards);
 						return this.player.selectOpponentSigniAsyn().callback(this,function (card) {
 							if (!card) return;
