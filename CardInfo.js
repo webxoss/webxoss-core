@@ -105052,7 +105052,10 @@ var CardInfo = {
 			actionAsyn: function () {
 				var cards = this.player.opponent.hands;
 				return this.player.showCardsAsyn(cards).callback(this,function () {
-					cards = this.player.opponent.lrigDeck.cards;
+					cards = this.player.opponent.lrigDeck.cards.filter(function (card) {
+						// 排除双面的第二面
+						return !card.sideB;
+					},this);
 					if (cards.length <= 3) return cards;
 					return this.player.opponent.selectSomeAsyn('REVEAL',cards,3,3);
 				}).callback(this,function (cards) {
