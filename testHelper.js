@@ -256,7 +256,7 @@ function selectPlayer() {
 function getDeckPids(player) {
   var name = {
     'host': $('host-decks').value || '',
-    'guest': $('host-decks').value || '',
+    'guest': $('guest-decks').value || '',
   }[player];
   if (!name) {
     log('error in deck select');

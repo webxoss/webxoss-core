@@ -83299,6 +83299,26 @@ var CardInfo = {
 				return signi.canTrashAsCost() && !signi.resona && (signi.color === 'black') && signi.hasClass('電機');
 			},this);
 			if (!cards_A.length || !cards_B.length) return null;
+
+			// 界限判断
+			var canSummonWithout = function (signis) {
+				var cards = this.player.signis.filter(function (signi) {
+					return !inArr(signi,signis);
+				},this);
+				return this.canSummonWith(cards);
+			}.bind(this);
+			// 保证 A 只有 1 个，B 有 1 或 2 个。
+			if (cards_A.length > cards_B.length) {
+				var tmp = cards_A;
+				cards_A = cards_B;
+				cards_B = tmp;
+			}
+			// 排除不满足界限的组合
+			cards_B = cards_B.filter(function (card) {
+				return canSummonWithout([cards_A[0], card]);
+			},this);
+			if (!cards_B.length) return null;
+
 			return function () {
 				var cards = [];
 				return this.player.selectAsyn('TRASH',cards_A).callback(this,function (card) {
@@ -102855,7 +102875,7 @@ var CardInfo = {
 		//        附加效果       
 		// ======================
 		attachedEffectTexts: [
-			"【起】《緑×0》：対戦相手のパワー12000以上のシグニ１体をバニッシュする。 この能力は使用タイミング【アタックフェイズ】を持ち、１ターンに一度しか使用できない。"
+			"【起】《黒×0》：ターン終了時まで、対戦相手のシグニ１体のパワーを－7000する。この能力は使用タイミング【アタックフェイズ】を持ち、１ターンに一度しか使用できない。"
 		],
 	},
 	"1999": {
@@ -104732,7 +104752,13 @@ var CardInfo = {
 		},{
 			auto: 'onAttack',
 			actionAsyn: function () {
-				return this.banishSigniAsyn(this.power);
+				var filter = function (card) {
+					return card.power < this.power;
+				}.bind(this);
+				return this.player.selectOpponentSigniAsyn(filter).callback(this,function (card) {
+					if (!card) return;
+					return card.banishAsyn();
+				});
 			},
 		}],
 		// ======================
@@ -105052,7 +105078,10 @@ var CardInfo = {
 			actionAsyn: function () {
 				var cards = this.player.opponent.hands;
 				return this.player.showCardsAsyn(cards).callback(this,function () {
-					cards = this.player.opponent.lrigDeck.cards;
+					cards = this.player.opponent.lrigDeck.cards.filter(function (card) {
+						// 排除双面的第二面
+						return !card.sideA;
+					},this);
 					if (cards.length <= 3) return cards;
 					return this.player.opponent.selectSomeAsyn('REVEAL',cards,3,3);
 				}).callback(this,function (cards) {
@@ -105811,7 +105840,7 @@ var CardInfo = {
 					source: this,
 					description: '2057-burst-1',
 					actionAsyn: function () {
-						this.banishSigniAsyn(10000);
+						return this.banishSigniAsyn(10000);
 					}
 				},{
 					source: this,
@@ -105930,7 +105959,7 @@ var CardInfo = {
 					var cards = this.player.opponent.signis;
 					return this.player.opponent.selectTargetAsyn(cards).callback(this,function (card) {
 						if (!card) return;
-						return card.banishAsyn();
+						return card.trashAsyn();
 					});
 				});
 			}
