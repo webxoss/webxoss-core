@@ -104752,7 +104752,13 @@ var CardInfo = {
 		},{
 			auto: 'onAttack',
 			actionAsyn: function () {
-				return this.banishSigniAsyn(this.power);
+				var filter = function (card) {
+					return card.power < this.power;
+				}.bind(this);
+				return this.player.selectOpponentSigniAsyn(filter).callback(this,function (card) {
+					if (!card) return;
+					return card.banishAsyn();
+				});
 			},
 		}],
 		// ======================
