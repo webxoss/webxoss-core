@@ -83299,6 +83299,26 @@ var CardInfo = {
 				return signi.canTrashAsCost() && !signi.resona && (signi.color === 'black') && signi.hasClass('電機');
 			},this);
 			if (!cards_A.length || !cards_B.length) return null;
+
+			// 界限判断
+			var canSummonWithout = function (signis) {
+				var cards = this.player.signis.filter(function (signi) {
+					return !inArr(signi,signis);
+				},this);
+				return this.canSummonWith(cards);
+			}.bind(this);
+			// 保证 A 只有 1 个，B 有 1 或 2 个。
+			if (cards_A.length > cards_B.length) {
+				var tmp = cards_A;
+				cards_A = cards_B;
+				cards_B = tmp;
+			}
+			// 排除不满足界限的组合
+			cards_B = cards_B.filter(function (card) {
+				return canSummonWithout([cards_A[0], card]);
+			},this);
+			if (!cards_B.length) return null;
+
 			return function () {
 				var cards = [];
 				return this.player.selectAsyn('TRASH',cards_A).callback(this,function (card) {
