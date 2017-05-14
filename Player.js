@@ -1922,10 +1922,9 @@ Player.prototype.selectSomeTargetsAsyn = function (cards,min,max,careOrder) {
 Player.prototype.selectSomeAsyn = function (label,items,min,max,careOrder,extraCards) {
 	// 过滤 shadow 目标
 	items = items.filter(item => {
-		if (item.shadow) {
-			if ((item.player !== this) || ((this.game.getEffectSource() || {}).player !== this)) {
-				return false;
-			}
+		var source = this.game.getEffectSource();
+		if (item.shadow && source && source.player !== item.player) {
+			return false;
 		}
 		return true;
 	});
