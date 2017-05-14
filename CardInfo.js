@@ -105814,7 +105814,7 @@ var CardInfo = {
 					source: this,
 					description: '2057-burst-1',
 					actionAsyn: function () {
-						this.banishSigniAsyn(10000);
+						return this.banishSigniAsyn(10000);
 					}
 				},{
 					source: this,
