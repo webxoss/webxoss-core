@@ -105953,7 +105953,7 @@ var CardInfo = {
 					var cards = this.player.opponent.signis;
 					return this.player.opponent.selectTargetAsyn(cards).callback(this,function (card) {
 						if (!card) return;
-						return card.banishAsyn();
+						return card.trashAsyn();
 					});
 				});
 			}
