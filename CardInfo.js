@@ -106346,7 +106346,7 @@ var CardInfo = {
 			auto: 'onAttack',
 			actionAsyn: function () {
 				return this.decreasePowerAsyn(4000).callback(this,function (card) {
-					if (card.power > 0) return;
+					if (!card || card.power > 0) return;
 					return this.player.selectOptionalAsyn('BANISH',[this]).callback(this,function (card) {
 						if (!card) return;
 						return this.banishAsyn().callback(this,function (succ) {
