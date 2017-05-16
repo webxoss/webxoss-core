@@ -1208,6 +1208,10 @@ Card.prototype.attackAsyn = function () {
 							return card.handleTrapAsyn();
 						});
 					}).callback(this,function () {
+						// 强制结束回合
+						if (this.game.phase.checkForcedEndTurn()) return;
+						// 攻击的卡不在场上，结束处理.
+						if (!inArr(card,player.signis)) return;
 						// 攻击被无效，结束处理
 						if (event.prevented) return;
 						// 若攻击的目标存在，进行战斗;
