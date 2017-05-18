@@ -1676,7 +1676,9 @@ Card.prototype.handleTrapAsyn = function() {
 		}
 	}).callback(this,function () {
 		if (!this.trap) return;
-		return this.trap.actionAsyn.call(this);
+		return this.game.blockAsyn(this,function () {
+			return this.trap.actionAsyn.call(this);
+		})
 	}).callback(this,function () {
 		this.trash();
 	});
