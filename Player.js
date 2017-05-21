@@ -77,6 +77,7 @@ function Player (game,io,mainDeck,lrigDeck) {
 	this.onDiscard          = new Timming(game);
 	this.onDoubleCrashed    = new Timming(game);
 	this.onDraw             = new Timming(game);
+	this.onRemoveVirus      = new Timming(game);
 
 	// 附加属性
 	this.skipGrowPhase = false;
@@ -2294,12 +2295,11 @@ Player.prototype.getInfectedCards = function() {
 };
 
 Player.prototype.infectZoneAsyn = function() {
-	var zones = this.opponent.signiZones.filter(function (zone) {
-		return !zone.virus;
-	},this);
+	var zones = this.opponent.signiZones;
 	return this.selectAsyn('TARGET',zones).callback(this,function (zone) {
-		if (!zone) return;
-		zone.virus = true;
+		if (!zone) return null;
+		zone.putVirus();
+		return zone;
 	});
 };
 

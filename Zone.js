@@ -85,6 +85,19 @@ Zone.prototype.moveCardsToBottom = function (cards) {
 	this.cards.push.apply(this.cards,cards);
 };
 
+Zone.prototype.putVirus = function () {
+	if (this.virus) return false;
+	this.virus = true;
+	return true;
+};
+
+Zone.prototype.removeVirus = function () {
+	if (!this.virus) return false;
+	this.virus = false;
+	this.player.onRemoveVirus.trigger();
+	return true;
+};
+
 Zone.prototype.getStates = function () {
 	var states = [];
 	if (this.powerDown) states.push('powerDown');
