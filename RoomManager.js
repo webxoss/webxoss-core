@@ -75,6 +75,7 @@ RoomManager.prototype.createClient = function (socket,id) {
 	socket.on('getReplayList',this.getReplayList.bind(this,client));
 	socket.on('getReplayContent',this.getReplayContent.bind(this,client));
 	socket.on('watchLive',this.watchLive.bind(this,client));
+	socket.on('renameRoom',this.renameRoom.bind(this,client));
 
 	socket.on('ready',client.ready.bind(client));
 	socket.on('unready',client.unready.bind(client));
@@ -83,7 +84,6 @@ RoomManager.prototype.createClient = function (socket,id) {
 	socket.on('surrender',client.surrender.bind(client));
 	socket.on('drop',client.drop.bind(client));
 	socket.on('tick',client.tick.bind(client));
-
 	// socket.on('reloadCardInfo',this.reloadCardInfo.bind(this));
 
 	socket.emit('version',this.VERSION);
@@ -209,6 +209,36 @@ RoomManager.prototype.checkLiveIP = function (client,room) {
 	var address = client.socket.handshake.address;
 	var guestAddress = room.guest.socket.handshake.address;
 	if (address === guestAddress) return 'IP_BANNED';
+};
+
+RoomManager.prototype.renameRoom = function (client,cfg) {
+	var errMsg;
+	if (!isObj(cfg) || !isStr(cfg.roomName)) {
+		errMsg = 'INVALID_CONFIG';
+	}
+	var oldRoomName = client.room.name;
+	var newRoomName = cfg.roomName;
+	if (!errMsg) {
+		errMsg = this.checkRoomName(newRoomName);
+	}
+	var room;
+	if (!errMsg) {
+		room = this.roomMap[oldRoomName];
+		if (!room) {
+			errMsg = 'ROOM_DOES_NOT_EXIST';
+		} else if (client.getPosition() !== 'host') {
+			errMsg = 'YOU_ARE_NOT_ROOM_HOST';
+		}
+	}
+	if (errMsg) {
+		client.socket.emit('error message',errMsg);
+		return;
+	}
+
+	room.name = newRoomName;
+	renameProperty(this.roomMap, oldRoomName, newRoomName);
+	room.update();
+	this.updateRoomList();
 };
 
 RoomManager.prototype.createRoom = function (client,cfg) {

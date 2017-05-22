@@ -34,3 +34,13 @@ global.isFunc = function (v) {
 // function nextTick (callback) {
 // 	setTimeout(callback,0);
 // }
+
+global.renameProperty = function (obj, oldName, newName) {
+	if (!obj.hasOwnProperty(oldName) || obj.hasOwnProperty(newName)) {
+		return false;
+	} else if (oldName === newName) {
+		return true;
+	}
+	obj[newName] = obj[oldName];
+	delete obj[oldName];
+};
