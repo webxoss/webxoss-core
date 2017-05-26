@@ -636,6 +636,8 @@ Player.prototype.handleArtsAsyn = function (card,ignoreCost) {
 	var encored = false;
 	var costObj = card.getChainedCostObj();
 	if (ignoreCost) costObj = {};
+	var count = this.game.getData(this,'artsCount') || 0;
+	this.game.setData(this,'artsCount',count+1);
 	this.game.setData(this,'flagArtsUsed',true);
 	// 五色电影卡
 	if (card.cid !== 1167) {

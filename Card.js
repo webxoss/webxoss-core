@@ -184,6 +184,7 @@ Card.abilityProps = [
 	'canNotBeBanishedByEffect',
 	'canAttackAnySigniZone',
 	'canAttackNearbySigniZone',
+	'trap',
 ];
 
 Card.prototype.cookEffect = function (rawEffect,type,offset) {
@@ -796,6 +797,7 @@ Card.prototype.moveTo = function (zone,arg) {
 	var moveEvent = {
 		card: card,
 		isSigni: inArr(card,card.player.signis),
+		power: card.power, // 移动前的力量
 		isCharm: arg.isCharm || false,
 		isCrossed: !!card.crossed,
 		riseTarget: null,
@@ -1205,7 +1207,7 @@ Card.prototype.attackAsyn = function () {
 						if (opposingSigni || !trap) return;
 						return this.player.opponent.selectOptionalAsyn('LAUNCH',[trap]).callback(this,function (card) {
 							if (!card) return;
-							return card.handleTrapAsyn();
+							return card.handleTrapAsyn(event);
 						});
 					}).callback(this,function () {
 						// 强制结束回合
@@ -1667,7 +1669,8 @@ Card.prototype.isInfected = function() {
 	return this.zone.virus;
 };
 
-Card.prototype.handleTrapAsyn = function() {
+Card.prototype.handleTrapAsyn = function(event) {
+	// 注意 event 是可选的!
 	return Callback.immediately().callback(this,function () {
 		if (this.zone.cards.indexOf(this) === 0) {
 			this.faceup();
@@ -1677,7 +1680,7 @@ Card.prototype.handleTrapAsyn = function() {
 	}).callback(this,function () {
 		if (!this.trap) return;
 		return this.game.blockAsyn(this,function () {
-			return this.trap.actionAsyn.call(this);
+			return this.trap.actionAsyn.call(this,event);
 		})
 	}).callback(this,function () {
 		this.trash();
