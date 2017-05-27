@@ -546,10 +546,12 @@ Game.prototype.protectBanishAsyn = function (cards,player,control) {
 	// 获得玩家受保护的卡及其保护措施
 	var cardList = [];
 	var protectionTable = {};
+	var optional = true;
 	cards.forEach(function (card) {
 		if (card.player !== player) return;
 		card.banishProtections.forEach(function (protection) {
 			if (!protection.condition.call(protection.source,card)) return;
+			if (!protection.optional) optional = false;
 			if (protectionTable[card.gid]) {
 				protectionTable[card.gid].push(protection);
 			} else {
@@ -559,7 +561,7 @@ Game.prototype.protectBanishAsyn = function (cards,player,control) {
 		},this);
 	},this);
 	// 选择要保护的卡以及保护措施
-	return player.selectOptionalAsyn('PROTECT',cardList).callback(this,function (card) {
+	return player.selectAsyn('PROTECT',cardList,optional).callback(this,function (card) {
 		if (!card) {
 			// 回合玩家处理完毕,处理非回合玩家.
 			if (player === this.turnPlayer) {
@@ -942,9 +944,6 @@ Game.prototype.handleBlockEndAsyn = function () {
 		return this.banishNonPositiveAsyn();
 	}).callback(this,function () {
 		// 废弃【魅饰】和SIGNI下方的卡
-		this.trashingCards.forEach(function (card) {
-			card.acceingCard = null;
-		},this);
 		this.trashCards(this.trashingCharms,{ isCharm: true });
 		this.trashCards(this.trashingCards);
 		this.trashingCharms.length = 0;

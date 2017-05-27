@@ -22700,6 +22700,7 @@ var CardInfo = {
 				var protection = {
 					source: this,
 					description: '462-const-0',
+					optional: true,
 					condition: function (card) {
 						return card.charm;
 					},
@@ -67994,6 +67995,7 @@ var CardInfo = {
 				var protection = {
 					source: this,
 					description: '1373-const-0',
+					optional: true,
 					condition: function (card) {
 						var spells = card.player.hands.filter(function (card) {
 							return card.type === 'SPELL';
@@ -72127,6 +72129,7 @@ var CardInfo = {
 				var protection = {
 					source: this,
 					description: '1436-const-0',
+					optional: true,
 					condition: function (card) {
 						if (!inArr(this,card.player.signis)) return false;
 						var spells = this.zone.cards.slice(1).filter(function (card) {
@@ -83032,6 +83035,7 @@ var CardInfo = {
 				var protection = {
 					source: this,
 					description: '1653-const-0',
+					optional: true,
 					condition: function (card) {
 						if (this.game.getData(this,'_CMM_protecting')) return false;
 						var cards = this.player.signis.filter(function (signi) {
@@ -95343,6 +95347,7 @@ var CardInfo = {
 				var protection = {
 					source: this,
 					description: '1879-const-0',
+					optional: true,
 					condition: function (card) {
 						return this.player.lifeClothZone.cards.length && !this.player.wontBeCrashed;
 					},
@@ -109250,11 +109255,25 @@ var CardInfo = {
 								return (event.card === this.player.opponent.lrig);
 							},
 							actionAsyn: function (event) {
-								var card = this.player.mainDeck.cards[0];
-								if (!card) return;
 								var texts = ['YES', 'NO'];
+								var answer = '';
 								return this.player.opponent.selectTextAsyn('GUESS_TRAP',texts).callback(this,function (text) {
-									if ((!!card.trap) !== (text === 'YES')) {
+									answer = text;
+									// <ブレイクスルー・ブルー>
+									if (!this.game.getData(this.player,'_2285')) return;
+									// TODO: client...
+									return this.player.showTextAsyn('GUESS_TRAP','',text).callback(this,function () {
+										var cards = this.player.mainDeck.getTopCards(3);
+										var len = cards.length;
+										this.player.informCards(cards);
+										return this.selectSomeAsyn('SET_ORDER',cards,len,len,true).callback(this,function (cards) {
+											return this.player.mainDeck.moveCardsToTop(cards);
+										});
+									});
+								}).callback(this,function () {
+									var card = this.player.mainDeck.cards[0];
+									if (!card) return;
+									if ((!!card.trap) !== (answer === 'YES')) {
 										event.wontBeDamaged = true;
 									}
 									return this.player.opponent.showCardsAsyn([card]).callback(this,function () {
@@ -116370,16 +116389,6 @@ var CardInfo = {
 		"coin": 0,
 		"imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WD20/WD20-001.jpg",
 		"illust": "bomi",
-		faqs: [
-			{
-				"q": "出現時能力を発動しでライフクロスが加えられたら、自動能力も発動しますか？",
-				"a": "はい、発動します。"
-			},
-			{
-				"q": "自分のターンにライフクロスが1枚加えられました。《緑》×２を支払って、対戦相手のシグニ2体をバニッシュできますか？",
-				"a": "いいえ、できません。この自動能力はライフクロスが1枚加えられるたびに1回発動し、1回の発動で支払えるのは《緑》×１を1回のみとなります。"
-			}
-		],
 		"classes": [
 			"ママ"
 		],
@@ -116390,12 +116399,45 @@ var CardInfo = {
 		"costGreen": 3,
 		"costColorless": 0,
 		"guardFlag": false,
-		cardSkills: [
-			"【出】《コインアイコン》《コインアイコン》《コインアイコン》：あなたのデッキの一番上のカードをライフクロスに加える。",
+		"multiEner": false,
+		cardText: "あなたには、私が止められますか？～ママ～",
+		// ======================
+		//        出场效果       
+		// ======================
+		startUpEffectTexts: [
+			"【出】《コイン》《コイン》《コイン》：あなたのデッキの一番上のカードをライフクロスに加える。",
+		],
+		startUpEffects: [{
+			costCoin: 3,
+			actionAsyn: function () {
+				var card = this.player.mainDeck.cards[0];
+				if (!card) return;
+				card.moveTo(this.player.lifeClothZone);
+			},
+		}],
+		// ======================
+		//        常时效果       
+		// ======================
+		constEffectTexts: [
 			"【自】：あなたのターンの間、あなたのライフクロスにカード１枚が加えられるたび、あなたは《緑》を支払ってもよい。そうした場合、対戦相手のシグニ１体をバニッシュする。"
 		],
-		"multiEner": false,
-		cardText: "あなたには、私が止められますか？～ママ～"
+		constEffects: [{
+			action: function (set,add) {
+				var effect = this.game.newEffect({
+					source: this,
+					description: '2273-const-0',
+					triggerCondition: function (event) {
+						return (event.newZone === this.player.lifeClothZone) &&
+						       (event.oldZone !== this.player.lifeClothZone);
+					},
+					costGreen: 1,
+					actionAsyn: function () {
+						return this.banishSigniAsyn();
+					},
+				});
+				add(this.player,'onCardMove',effect);
+			}
+		}],
 	},
 	"2274": {
 		"pid": 2274,
@@ -116414,16 +116456,6 @@ var CardInfo = {
 		"coin": 4,
 		"imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WD20/WD20-005.jpg",
 		"illust": "bomi",
-		faqs: [
-			{
-				"q": "右下のコインアイコンはどういう意味ですか？",
-				"a": "右下にコインアイコンがある場合、そのルリグが場に出たときに出現時能力として、そこに書かれている枚数のコインを得ます。"
-			},
-			{
-				"q": "《コイン》を得る、とはどのようにすればよいですか？",
-				"a": "《コイン》を得た場合、それをゲームエリアの近くで、対戦相手に合計枚数が見えるように置いておきます。《コイン》は構築済みデッキなどに付属しているコイントークンを使用してもいいですし、代わりに何か別のものをコインの目印として使用することもできます。"
-			}
-		],
 		"classes": [
 			"ママ"
 		],
@@ -116453,24 +116485,6 @@ var CardInfo = {
 		"limiting": "ママ",
 		"imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WD20/WD20-006.jpg",
 		"illust": "オーミー",
-		faqs: [
-			{
-				"q": "「ベット」とは何ですか？",
-				"a": "このアーツを使用する際に、「ベット」に記載のコインを支払うことができます。《全知全能》の場合、《コイン》を支払わずに対戦相手のターンに使用した場合は、あなたの次のターンがスキップされます。"
-			},
-			{
-				"q": "自分のターンに、《全知全能》をベットせずに使用した場合、ターンはスキップされますか？",
-				"a": "いいえ、《全知全能》は対戦相手のターンに使用し、なおかつベットしていなかった場合のみ、あなたの次のターンがスキップされます。あなたのターンに使用した場合は、ベットしていてもベットしていなくとも効果に違いは無く、ターンはスキップされません。"
-			},
-			{
-				"q": "対戦相手の場にシグニが1体のみあるときに、《全知全能》を使用しました。そのシグニを選んでトラッシュに置けますか？",
-				"a": "いいえ、できません。対戦相手のシグニを2体選ぶ効果ですので、2体選べない場合は1体も選ぶことができません。エナゾーンにあるカードについても同様となります。手札を2枚捨てる効果では、対戦相手の手札が1枚のみの場合はその1枚を捨てます。"
-			},
-			{
-				"q": "対戦相手の場にシャドウを持つシグニと能力のないシグニの2体だけの状況で《全知全能》を使用できますか？また、使用できたとしてその2体のシグニをトラッシュに置くことはできますか？",
-				"a": "使用することはできます。\nしかし、テキストにある「対戦相手のシグニ２体」を使用時に選択することができませんので、どちらのシグニもトラッシュに置くことはできず、エナゾーンのカードをトラッシュに置き、それ以降のテキストを順番通りに処理します。"
-			}
-		],
 		"classes": [],
 		"costWhite": 0,
 		"costBlack": 0,
@@ -116479,13 +116493,44 @@ var CardInfo = {
 		"costGreen": 4,
 		"costColorless": 4,
 		"guardFlag": false,
-		cardSkills: [
-			"ベット－《コインアイコン》《コインアイコン》",
-			"対戦相手のシグニ２体と、エナゾーンにあるカード２枚をトラッシュに置く。その後、対戦相手は手札を２枚捨てる。あなたのデッキの一番上のカードをライフクロスに加える。このターンが対戦相手のターンで、あなたがベットしていなかった場合、あなたの次のターンをスキップする。"
-		],
 		"multiEner": false,
 		cardText: "さあ、還るわ！あなたもそれを望んでいるでしょう？～ママ～",
-		timing: '',
+		// ======================
+		//        技艺效果       
+		// ======================
+		timmings: ['mainPhase','attackPhase'],
+		artsEffectTexts: [
+			"ベット－《コイン》《コイン》\n" +
+			"対戦相手のシグニ２体と、エナゾーンにあるカード２枚をトラッシュに置く。その後、対戦相手は手札を２枚捨てる。あなたのデッキの一番上のカードをライフクロスに加える。このターンが対戦相手のターンで、あなたがベットしていなかった場合、あなたの次のターンをスキップする。"
+		],
+		bet: 2,
+		artsEffect: {
+			actionAsyn: function (costArg) {
+				return Callback.immediately().callback(this,function () {
+					var cards = this.player.opponent.signis.filter(function (card) {
+						return !card.shadow;
+					},this);
+					if (cards.length < 2) return;
+					return this.player.selectSomeTargetsAsyn(cards,2,2).callback(this,function (cards) {
+						return this.game.trashCardsAsyn(cards);
+					});
+				}).callback(this,function () {
+					var cards = this.player.opponent.enerZone.cards;
+					if (cards.length < 2) return;
+					return this.player.selectSomeAsyn('TRASH',cards,2,2).callback(this,function (cards) {
+						return this.game.trashCards(cards);
+					});
+				}).callback(this,function () {
+					var card = this.player.mainDeck.cards[0];
+					if (!card) return;
+					card.moveTo(this.player.lifeClothZone);
+				}).callback(this,function () {
+					if (this.game.turnPlayer === this.player) return;
+					if (costArg.bet) return;
+					this.player.skipNextTurn = true;
+				});
+			},
+		},
 	},
 	"2276": {
 		"pid": 2276,
@@ -116509,6 +116554,7 @@ var CardInfo = {
 				"a": "このアーツを使用する際に、「ベット」に記載のコインを支払うことができます。《生生流転》の場合、《コイン》《コイン》を支払えばエナは《緑×２》《無×２》ではなく、《緑×０》で使用できます。"
 			},
 			{
+				// TODO: test...
 				"q": "対戦相手のルリグがピルルクで《ロック・ユー》を使用されました。このアーツをベットして使用した場合に支払うコストはいくつですか？",
 				"a": "《無×３》となります。\n使用するためのコストが《緑×0》となり、そのあとで増えるコストが適用されます。"
 			}
@@ -116521,14 +116567,26 @@ var CardInfo = {
 		"costGreen": 2,
 		"costColorless": 2,
 		"guardFlag": false,
-		cardSkills: [
-			"ベット－《コインアイコン》《コインアイコン》",
-			"あなたがベットする場合、このアーツを使用するためのコストは《緑×0》になる。",
-			"あなたのデッキの一番上のカードをライフクロスに加える。"
-		],
 		"multiEner": false,
 		cardText: "落ち着いて、莉緒ちゃん。～ママ～",
-		timing: '',
+		// ======================
+		//        技艺效果       
+		// ======================
+		timmings: ['mainPhase','attackPhase','spellCutIn'],
+		artsEffectTexts: [
+			"ベット－《コイン》《コイン》\n" +
+			"あなたがベットする場合、このアーツを使用するためのコストは《緑×0》になる。\n" +
+			"あなたのデッキの一番上のカードをライフクロスに加える。"
+		],
+		bet: 2,
+		bettedCost: {},
+		artsEffect: {
+			actionAsyn: function () {
+				var card = this.player.mainDeck.cards[0];
+				if (!card) return;
+				card.moveTo(this.player.lifeClothZone);
+			}
+		}
 	},
 	"2277": {
 		"pid": 2277,
@@ -116546,16 +116604,6 @@ var CardInfo = {
 		"limiting": "",
 		"imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WD20/WD20-008.jpg",
 		"illust": "イチゼン",
-		faqs: [
-			{
-				"q": "カードを何枚エナゾーンに置くかは、どちらのプレイヤーが決めますか？",
-				"a": "それぞれのプレイヤーが決め、同時にエナゾーンに起きます。片方が1枚しか置かなくても、もう片方のプレイヤーは3枚置いても構いません。"
-			},
-			{
-				"q": "《母性本能》を使用したあとにアーツは使用できますか？",
-				"a": "はい、使用できます。このアーツはその後で使用するカードの使用を制限する効果はありません。ただし《母性本能》を使用したあとに、もう1枚の《母性本能》を使用することは、後者の効果によって制限されていますのでご注意ください。"
-			}
-		],
 		"classes": [],
 		"costWhite": 0,
 		"costBlack": 0,
@@ -116564,13 +116612,30 @@ var CardInfo = {
 		"costGreen": 1,
 		"costColorless": 0,
 		"guardFlag": false,
-		cardSkills: [
-			"このカードはあなたがこのターンにアーツを使用していた場合、使用できない。",
-			"すべてのプレイヤーは自分のデッキの上からカードを３枚までエナゾーンに置く。"
-		],
 		"multiEner": false,
 		cardText: "前を向いて、きっといいことがあります。きっと。～ママ～",
-		timing: '',
+		// ======================
+		//        技艺效果       
+		// ======================
+		timmings: ['mainPhase','attackPhase'],
+		artsEffectTexts: [
+			"このカードはあなたがこのターンにアーツを使用していた場合、使用できない。\n" +
+			"すべてのプレイヤーは自分のデッキの上からカードを３枚までエナゾーンに置く。"
+		],
+		useCondition: function () {
+			return !this.game.getData(this.player,'flagArtsUsed');
+		},
+		artsEffect: {
+			actionAsyn: function () {
+				return Callback.forEach([this.player,this.player.opponent],function (player) {
+					// TODO: default label...
+					return player.selectNumberAsyn('',0,3,3).callback(this,function (count) {
+						if (!count) return;
+						player.enerCharge(count);
+					});
+				},this);
+			}
+		}
 	},
 	"2278": {
 		"pid": 2278,
@@ -116588,20 +116653,6 @@ var CardInfo = {
 		"limiting": "ママ",
 		"imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WD20/WD20-009.jpg",
 		"illust": "pepo",
-		faqs: [
-			{
-				"q": "「英知」アイコンはどういう意味ですか？",
-				"a": "「英知」アイコンの能力は、そこに記載されている式が成立している場合のみ有効となります。例えば《具英の鋭針　＃コンパス＃》の「英知=７」の能力は、あなたの場の＜英知＞のシグニのレベルの合計がちょうど７のときに《具英の鋭針　＃コンパス＃》がアタックしたときのみ、発動します。"
-			},
-			{
-				"q": "正面に加えてその隣のシグニゾーンにアタックする場合、アタックの処理はどのように行われますか？",
-				"a": "《具英の鋭針　＃コンパス＃》の「英知=１０」能力が有効なときに正面にアタックした場合、まず隣のシグニゾーン１つにもアタックするかどうかを決め、そのゾーンを指定します。\nこの場合のいくつかのパターンを例にしてお答えします。\n\nパターンA　両方のシグニゾーンにシグニがある場合\n対戦相手のシグニ２体と同時にバトルが行われます。もし《具英の鋭針　＃コンパス＃》がランサーを持っており2体をバニッシュするとライフクロスは2枚クラッシュします。\n\nパターンB　正面のシグニゾーンにのみシグニがある場合\n正面のシグニとバトルをします。対戦相手にダメージは与えません。\n\nパターンC　隣のシグニゾーンにのみシグニがある場合\nそのシグニゾーンにあるシグニとバトルをします。対戦相手にダメージを与えます。\n\nパターンD　両方のシグニゾーンにシグニがない場合\nバトルは行いません。対戦相手にダメージを与えます。"
-			},
-			{
-				"q": "《具英の鋭針　＃コンパス＃》が【ランサー】を得て、自身の能力によって2つのシグニゾーンにアタックして2体のシグニをバニッシュしました。クラッシュできるライフクロスは何枚ですか？",
-				"a": "2枚です。\nバトルによってシグニをバニッシュする、を2回行っていますので、【ランサー】によってライフクロスは2枚クラッシュされます。"
-			}
-		],
 		"classes": [
 			"精像",
 			"英知"
@@ -116613,14 +116664,53 @@ var CardInfo = {
 		"costGreen": 0,
 		"costColorless": 0,
 		"guardFlag": false,
-		cardSkills: [
-			"【自】英知=７：このシグニがアタックしたとき、あなたのデッキの上からカードを２枚エナゾーンに置く。",
-			"【常】英知=１０：このシグニが正面にアタックする場合、このシグニは正面に加えてその隣のシグニゾーン１つにアタックしてもよい。",
-			"【起】《緑》《緑》《無》：対戦相手のパワー12000以上のシグニ１体をバニッシュする。"
-		],
 		"multiEner": false,
 		cardText: "問４：定規とコンパスのみ用い、正六角形を書きなさい。",
-		"lifeBurst": "【エナチャージ２】"
+		// ======================
+		//        常时效果       
+		// ======================
+		constEffectTexts: [
+			"【自】英知=７：このシグニがアタックしたとき、あなたのデッキの上からカードを２枚エナゾーンに置く。",
+			"【常】英知=１０：このシグニが正面にアタックする場合、このシグニは正面に加えてその隣のシグニゾーン１つにアタックしてもよい。",
+		],
+		constEffects: [{
+			// TODO: ...
+			wisdom: 7,
+			auto: 'onAttack',
+			actionAsyn: function () {
+				this.player.enerCharge(2);
+			},
+		},{
+			wisdom: 10,
+			action: function (set,add) {
+				// TODO: ...
+				set(this,'_2278',true);
+			},
+		}],
+		// ======================
+		//        起动效果       
+		// ======================
+		actionEffectTexts: [
+			"【起】《緑》《緑》《無》：対戦相手のパワー12000以上のシグニ１体をバニッシュする。"
+		],
+		actionEffects: [{
+			costGreen: 2,
+			costColorless: 1,
+			actionAsyn: function () {
+				return this.banishSigniAsyn(12000,1,1,true);
+			},
+		}],
+		// ======================
+		//        迸发效果       
+		// ======================
+		burstEffectTexts: [
+			"【※】：【エナチャージ２】"
+		],
+		burstEffect: {
+			actionAsyn: function () {
+				this.player.enerCharge(2);
+			}
+		}
 	},
 	"2279": {
 		"pid": 2279,
@@ -116652,6 +116742,7 @@ var CardInfo = {
 				"a": "その場合、バニッシュする効果を受ける時点で英知＝７を満たしている《具英の角度　＃サンジョウ＃》はバニッシュされず、他の＜英知＞のシグニはバニッシュされます。《孤立無炎》の処理後、《具英の角度　＃サンジョウ＃》は英知＝７を満たさなくなりますが、そのまま場に残ります。"
 			},
 			{
+				// TODO: test...
 				"q": "英知＝７の状態で、《フェイタル・パニッシュ》によってこちらのすべてのシグニが-7000されました。どうなりますか？",
 				"a": "バニッシュされないシグニでも、パワーをマイナスする効果は受けますが、－7000されても《具英の角度　＃サンジョウ＃》はルール処理でもバニッシュされず、パワー０の状態で場に残ります。\nしかし、その-7000によって横にある＜英知＞がパワー０以下になってバニッシュされた場合、《具英の角度　＃サンジョウ＃》は英知＝７を満たさなくなり、パワーは０ですのでその時点でバニッシュされます。"
 			}
@@ -116667,11 +116758,26 @@ var CardInfo = {
 		"costGreen": 0,
 		"costColorless": 0,
 		"guardFlag": false,
-		cardSkills: [
-			"【常】英知=７：このシグニはバニッシュされない。",
-			"【常】英知=１０：このシグニのパワーは＋2000され、このシグニは【ランサー】を得る。（【ランサー】を持つシグニがバトルで対戦相手のシグニをバニッシュした場合、対戦相手のライフクロス1枚をクラッシュする）"
-		],
 		"multiEner": false,
+		// ======================
+		//        常时效果       
+		// ======================
+		constEffectTexts: [
+			"【常】英知=７：このシグニはバニッシュされない。",
+			"【常】英知=１０：このシグニのパワーは＋2000され、このシグニは【ランサー】を得る。"
+		],
+		constEffects: [{
+			wisdom: 7,
+			action: function (set,add) {
+				set(this,'canNotBeBanished',true);
+			},
+		},{
+			wisdom: 10,
+			action: function (set,add) {
+				add(this,'power',2000);
+				set(this,'lancer',true);
+			},
+		}],
 		cardText: "問３：三角定規のみを用い、７５°の角度を書きなさい。"
 	},
 	"2280": {
@@ -116690,12 +116796,6 @@ var CardInfo = {
 		"limiting": "",
 		"imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WD20/WD20-013.jpg",
 		"illust": "水玉子",
-		faqs: [
-			{
-				"q": "「英知」アイコンはどういう意味ですか？",
-				"a": "「英知」アイコンの能力は、そこに記載されている式が成立している場合のみ有効となります。例えば《具英の角測　＃ブンドキ＃》の「英知=４」の能力は、あなたの場の＜英知＞のシグニのレベルの合計がちょうど４のときに《具英の角測　＃ブンドキ＃》がアタックしたときのみ、発動します。"
-			}
-		],
 		"classes": [
 			"精像",
 			"英知"
@@ -116707,13 +116807,39 @@ var CardInfo = {
 		"costGreen": 0,
 		"costColorless": 0,
 		"guardFlag": false,
-		cardSkills: [
+		"multiEner": false,
+		cardText: "問２：このシグニの右肘の角度は何度でしょう。",
+		// ======================
+		//        常时效果       
+		// ======================
+		constEffectTexts: [
 			"【自】英知=４：このシグニがアタックしたとき、カードを１枚引く。（あなたの場にある＜英知＞のシグニのレベルの合計がちょうど４であるかぎり有効になる）",
 			"【自】英知=６：このシグニがアタックしたとき、あなたのデッキの一番上のカードをエナゾーンに置く。（あなたの場にある＜英知＞のシグニのレベルの合計がちょうど６であるかぎり有効になる）"
 		],
-		"multiEner": false,
-		cardText: "問２：このシグニの右肘の角度は何度でしょう。",
-		"lifeBurst": "カードを１枚引く。"
+		constEffects: [{
+			wisdom: 4,
+			auto: 'onAttack',
+			actionAsyn: function () {
+				this.player.draw(1);
+			},
+		},{
+			wisdom: 6,
+			auto: 'onAttack',
+			actionAsyn: function () {
+				this.player.enerCharge(1);
+			},
+		}],
+		// ======================
+		//        迸发效果       
+		// ======================
+		burstEffectTexts: [
+			"【※】：カードを1枚引く。"
+		],
+		burstEffect: {
+			actionAsyn: function () {
+				this.player.draw(1);
+			}
+		}
 	},
 	"2281": {
 		"pid": 2281,
@@ -116731,28 +116857,6 @@ var CardInfo = {
 		"limiting": "",
 		"imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/PR/PR-366.jpg",
 		"illust": "猫鍋蒼",
-		faqs: [
-			{
-				"q": "「英知」アイコンはどういう意味ですか？",
-				"a": "「英知」アイコンの能力は、そこに記載されている式が成立している場合のみ有効となります。《験英の応援　＃ゴウカク＃》には３つの「英知」アイコンの能力があり、それぞれ場にある＜英知＞のシグニのレベルがちょうどその数字のときにのみ有効となります。３つ全部の能力が同時に有効になることはありません。"
-			},
-			{
-				"q": "「英知＝８」の能力はバニッシュとは違うのですか？",
-				"a": "はい、バニッシュではありません。シグニ1体をトラッシュに置く能力のようにシグニ1体をエナゾーンに置きます。バニッシュではないので「バニッシュされない」シグニでもエナゾーンに置くことができ、「バニッシュされたとき」にトリガーする能力なども発動しません。"
-			},
-			{
-				"q": "「英知＝８」の能力で正面のシグニをエナゾーンに置いた場合、ダメージは入りますか？",
-				"a": "はい、「アタックしたとき」に発動する能力や、それによってさらに発動する能力などがすべて処理されてからバトルやダメージなどのアタック自体の処理となります。アタックしたときの能力によって正面にシグニがなくなりましたので、このアタックで対戦相手にダメージを与えられます。"
-			},
-			{
-				"q": "《英知アイコン》能力１つを発動させる、というのは具体的にどういう意味ですか？",
-				"a": "自動能力（トリガー能力）は必ず「～したとき、」「～するたび、」「時（に）、」といったテキストで条件が始まります。《験英の応援　＃ゴウカク＃》の「英知＝１０」能力では、その条件を満たしたものとして《英知アイコン》能力を発動できます。\nですので、「～したとき、◯◯する。そうした場合～」と書かれている場合には「◯◯する」を実行しなければ「そうした場合～」まで効果が発揮されませんのでご注意ください。"
-			},
-			{
-				"q": "「英知＝１０」の能力は、その《英知アイコン》能力の式が満たされていなくても発動できますか？",
-				"a": "はい、例えば《具英の鋭針　＃コンパス＃》の「英知＝７」の自動能力なども発動できます。"
-			}
-		],
 		"classes": [
 			"精像",
 			"英知"
@@ -116764,18 +116868,78 @@ var CardInfo = {
 		"costGreen": 0,
 		"costColorless": 0,
 		"guardFlag": false,
-		cardSkills: [
+		"multiEner": false,
+		cardText: "あなたなら合格できるわ。頑張れ♪～＃ゴウカク＆ウカロー＃",
+		// ======================
+		//        出场效果       
+		// ======================
+		startUpEffectTexts: [
 			"【出】英知=５：あなたのデッキの一番上のカードをエナゾーンに置く。",
+		],
+		startUpEffects: [{
+			wisdom: 5,
+			actionAsyn: function () {
+				this.player.enerCharge(1);
+			}
+		}],
+		// ======================
+		//        常时效果       
+		// ======================
+		constEffectTexts: [
 			"【自】英知=８：このシグニがアタックしたとき、対戦相手のレベル３以下のシグニ１体をエナゾーンに置く。",
 			"【自】英知=１０：このシグニがアタックしたとき、あなたの他のシグニ１体の【自】の【英知】能力１つを発動させる。"
 		],
-		"multiEner": false,
-		cardText: "あなたなら合格できるわ。頑張れ♪～＃ゴウカク＆ウカロー＃",
-		"lifeBurst": "【エナチャージ１】"
+		constEffects: [{
+			wisdom: 8,
+			auto: 'onAttack',
+			actionAsyn: function () {
+				var filter = function (card) {
+					return (card.level <= 3);
+				};
+				return this.player.selectOpponentSigniAsyn(filter).callback(this,function (card) {
+					if (!card) return;
+					return this.game.moveCardsAdvancedAsyn([card],[this.player.opponent.enerZone],[{}]);
+				});
+			}
+		},{
+			wisdom: 10,
+			auto: 'onAttack',
+			actionAsyn: function () {
+				var effects = [];
+				this.player.signis.forEach(function (signi) {
+					if (signi === this) return;
+					signi.constEffects.forEach(function (constEffect,idx) {
+						if (!constEffect.wisdom) return;
+						if (!constEffect.actionAsyn) return;
+						effects.push({
+							source: signi,
+							description: signi.cid + '-' + idx,
+							actionAsyn: constEffect.actionAsyn,
+						});
+					});
+				},this);
+				if (!effects.length) return;
+				return this.player.selectAsyn('LAUNCH',effects).callback(this,function (effect) {
+					if (!effect) return;
+					return this.player.handleWisdomAuto(effect);
+				});
+			}
+		}],
+		// ======================
+		//        迸发效果       
+		// ======================
+		burstEffectTexts: [
+			"【※】：【エナチャージ１】"
+		],
+		burstEffect: {
+			actionAsyn: function () {
+				this.player.enerCharge(1);
+			}
+		}
 	},
 	"2282": {
 		"pid": 2282,
-		cid: 2282,
+		cid: 1491,
 		"timestamp": 1495262735975,
 		"wxid": "PR-367",
 		name: "因果応報（ウィクロスマガジンvol6 付録）",
@@ -116789,16 +116953,6 @@ var CardInfo = {
 		"limiting": "",
 		"imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/PR/PR-367.jpg",
 		"illust": "武藤此史",
-		faqs: [
-			{
-				"q": "自分のルリグのレベルが５のとき、《因果応報》を使用するためのコストはどうなりますか？",
-				"a": "ルリグのレベルが５ですので、《無》コストが１０減ります。《無》×２、《緑》×６で使用できます。"
-			},
-			{
-				"q": "こちらのエナゾーンに《不可解な誇超　コンテンポラ》があります。対戦相手のルリグは＜緑子＞で、《因果応報》を使用されました。《因果応報》でエナゾーンから《不可解な誇超　コンテンポラ》がトラッシュに置かれた後、エナゾーンのすべてのカードがトラッシュに置かれる前にマルチエナのカードで《緑》を支払い、《不可解な誇超　コンテンポラ》を手札に戻せますか？",
-				"a": "いいえ、できません。対戦相手の効果によって《不可解な誇超　コンテンポラ》がエナゾーンからトラッシュに置かれたとき、常時能力がトリガーしますが、発動するのは《因果応報》の効果をすべて処理した後となります。《因果応報》の効果を処理後、エナゾーンのすべてのカードがトラッシュに置かれていますので、《緑》を支払うことができません。"
-			}
-		],
 		"classes": [],
 		"costWhite": 0,
 		"costBlack": 0,
@@ -116807,14 +116961,8 @@ var CardInfo = {
 		"costGreen": 6,
 		"costColorless": 1,
 		"guardFlag": false,
-		cardSkills: [
-			"使用タイミング",
-			"【メインフェイズ】",
-			"このアーツを使用するためのコストはあなたのルリグのレベル１につき、《無》コストが２減る。",
-			"対戦相手のエナゾーンにあるすべての、白、赤、青、緑、黒のカードと対戦相手の場にあるすべてのシグニをトラッシュに置く。あなたのルリグが＜緑子＞の場合、追加で対戦相手のエナゾーンにあるすべてのカードをトラッシュに置く。"
-		],
 		"multiEner": false,
-		cardText: "あふれた力、お借りしますわ。えいっ！～ママ～"
+		cardText: "あふれた力、お借りしますわ。えいっ！～ママ～",
 	},
 	"2283": {
 		"pid": 2283,
@@ -116859,6 +117007,7 @@ var CardInfo = {
 				"a": "いいえ、1回目のバニッシュによって《ドーナ　ＦＯＵＲＴＨ》がこの常時能力を失いますので、2回目のバニッシュを防ぐ（置き換える）ことはできません。"
 			},
 			{
+				// TODO: test...
 				"q": "＜怪異＞のシグニがバニッシュされました。「バニッシュ」を「能力を失う」に置き換える効果は必ず発動しますか？",
 				"a": "はい、必ず置き換えられます。\n「～してもよい」と書かれているわけではありませんので、自身の＜怪異＞のシグニがバニッシュされる場合には、必ずこの常時能力を失うことに置き換えられます。"
 			}
@@ -116873,13 +117022,62 @@ var CardInfo = {
 		"costGreen": 0,
 		"costColorless": 0,
 		"guardFlag": false,
-		cardSkills: [
-			"【常】：対戦相手のターンの間、あなたの＜怪異＞のシグニ１体がバニッシュされる場合、代わりにバニッシュされず、ターン終了時まで、この能力を失う。",
-			"【出】：あなたのデッキから＜怪異＞のシグニを２枚まで探して公開し手札に加える。その後、デッキをシャッフルする。",
-			"【起】エスケープ[アタックフェイズアイコン]《コインアイコン》《コインアイコン》《コインアイコン》：このターン、シグニアタックステップをスキップする。"
-		],
 		"multiEner": false,
-		cardText: "前を向いて、さあ、行くよ！～ドーナ～"
+		cardText: "前を向いて、さあ、行くよ！～ドーナ～",
+		// ======================
+		//        常时效果       
+		// ======================
+		constEffectTexts: [
+			"【常】：対戦相手のターンの間、あなたの＜怪異＞のシグニ１体がバニッシュされる場合、代わりにバニッシュされず、ターン終了時まで、この能力を失う。",
+		],
+		constEffects: [{
+			condition: function () {
+				return (this.game.turnPlayer !== this.player);
+			},
+			action: function (set,add) {
+				var protection = {
+					source: this,
+					description: '2283-const-0',
+					condition: function (card) {
+						return !this.game.getData(this,'_2283');
+					},
+					actionAsyn: function (card) {
+						this.game.setData(this,'_2283',true);
+						return Callback.immediately();
+					},
+				};
+				this.player.signis.forEach(function (signi) {
+					if (!signi.hasClass('怪異')) return;
+					add(signi,'banishProtections',protection);
+				},this);
+			}
+		}],
+		// ======================
+		//        出场效果       
+		// ======================
+		startUpEffectTexts: [
+			"【出】：あなたのデッキから＜怪異＞のシグニを２枚まで探して公開し手札に加える。その後、デッキをシャッフルする。",
+		],
+		startUpEffects: [{
+			actionAsyn: function () {
+				var filter = function (card) {
+					return card.hasClass('怪異');
+				};
+				return this.player.seekAsyn(filter,2);
+			}
+		}],
+		// ======================
+		//        起动效果       
+		// ======================
+		actionEffectTexts: [
+			"【起】エスケープ[アタックフェイズ]《コイン》《コイン》《コイン》：このターン、シグニアタックステップをスキップする。"
+		],
+		actionEffects: [{
+			costCoin: 3,
+			actionAsyn: function () {
+				this.game.tillTurnEndSet(this,this.game.turnPlayer,'skipSigniAttackStep',true);
+			}
+		}],
 	},
 	"2284": {
 		"pid": 2284,
@@ -116912,6 +117110,7 @@ var CardInfo = {
 				"a": "「オーネスト」や「ベルセルク」のように、コインを支払うことで発動できる名前のついた能力です。\n《決死の記憶　リル》などのように、単にコインを支払うのみの能力は該当しませんのでご注意下さい。"
 			},
 			{
+				// TODO: ...
 				"q": "「コイン技を無効にする」という効果では何が起こりますか？",
 				"a": "前のターンに発動したコイン技を無効にしますが、既に起こったことは変えられません。\n下記に、それぞれのコイン技と無効にできるかどうかを記載します。\n\n《真実の記憶　リル》の「オーネスト」：情報を公開した後ですので、何も起こりません。\n《みらくるあーや！Ⅳ》の「ホログラフ」：このターンのみ、ルリグがアタックしても「ホログラフ」による効果は発動しません。\n《メル＝マティーニ》の「ベルセルク」：起動能力としてはこの「オーネスト」は使用できませんが、出現時能力で発動した場合、アーツやスペルや起動能力が使用できるようになり、「可能ならばアタックしなければならない」効果もなくなります。\n《ナナシ　其ノ四ノ別》の「ブラインド」：このターン、すべてのシグニが【シャドウ】を得る効果が無効となりますので、それらのシグニの【シャドウ】は失われます。\n《ドーナ　ＦＯＵＲＴＨ》の「エスケープ」：シグニアタックステップがスキップされた後ですので、何も起こりません。\n《ママ　４　ＭＯＤＥ２》の「カンニング」：「カンニング」により既に付けられたカードは付いたままですが、この能力を発動したターン中ではそのシグニが場を離れるとそのカードはトラッシュに置かれ何も起こりません。"
 			},
@@ -116934,14 +117133,94 @@ var CardInfo = {
 		"costGreen": 0,
 		"costColorless": 0,
 		"guardFlag": false,
-		cardSkills: [
-			"【常】：対戦相手のターンの間、あなたの《ライズアイコン》を持つシグニ１体がバニッシュされる場合、代わりにその下からカード２枚をトラッシュに置いてもよい。",
-			"【自】：あなたのターン開始時、あなたは《コインアイコン》を得る。（上限は５枚）",
-			"【自】《ターン１回》：あなたの《ライズアイコン》を持つシグニ１体が場に出たとき、カードを１枚引く。",
-			"【出】／【起】オーネスト《コインアイコン》《コインアイコン》：ターン終了時まで、このターンの前のターンに発動したコイン技を無効にする。"
-		],
 		"multiEner": false,
-		cardText: "正しき心を。～リル～"
+		cardText: "正しき心を。～リル～",
+		// ======================
+		//        常时效果       
+		// ======================
+		constEffectTexts: [
+			"【常】：対戦相手のターンの間、あなたの《ライズ》を持つシグニ１体がバニッシュされる場合、代わりにその下からカード２枚をトラッシュに置いてもよい。",
+			"【自】：あなたのターン開始時、あなたは《コイン》を得る。（上限は５枚）",
+			"【自】《ターン１回》：あなたの《ライズ》を持つシグニ１体が場に出たとき、カードを１枚引く。",
+		],
+		constEffects: [{
+			condition: function () {
+				return (this.game.turnPlayer !== this.player);
+			},
+			action: function (set,add) {
+				var protection = {
+					source: this,
+					description: '2284-const-0',
+					optional: true,
+					condition: function (card) {
+						return (card.getBottomCards().length >= 2);
+					},
+					actionAsyn: function (card) {
+						var cards = card.getBottomCards();
+						if (cards.length < 2) return;
+						return this.player.selectSomeAsyn('TRASH',cards,2,2).callback(this,function (cards) {
+							this.game.trashCards(cards);
+						});
+					},
+				};
+				this.player.signis.forEach(function (signi) {
+					if (!signi.rise) return;
+					add(signi,'banishProtections',protection);
+				},this);
+			}
+		},{
+			action: function (set,add) {
+				var effect = this.game.newEffect({
+					source: this,
+					description: '2284-const-1',
+					actionAsyn: function () {
+						return this.player.gainCoins(1);
+					}
+				});
+				add(this.player,'onTurnStart',effect);
+			}
+		},{
+			fixed: true,
+			action: function (set,add) {
+				var effect = this.game.newEffect({
+					source: this,
+					description: '2284-const-2',
+					once: true,
+					triggerCondition: function (event) {
+						return event.card.rise;
+					},
+					actionAsyn: function () {
+						return this.player.draw(1);
+					},
+				});
+				add(this.player,'onSummonSigni',effect);
+			}
+		}],
+		// ======================
+		//        出场效果       
+		// ======================
+		startUpEffectTexts: [
+			"【出】オーネスト《コイン》《コイン》：ターン終了時まで、このターンの前のターンに発動したコイン技を無効にする。"
+		],
+		startUpEffects: [{
+			costCoin: 2,
+			actionAsyn: function () {
+				// TODO: ...
+				this.game.tillTurnEndSet(this,this.game,'disableCoinSkillsOfPreviousTurn',true);
+			},
+		}],
+		// ======================
+		//        起动效果       
+		// ======================
+		actionEffectTexts: [
+			"【起】オーネスト《コイン》《コイン》：ターン終了時まで、このターンの前のターンに発動したコイン技を無効にする。"
+		],
+		actionEffects: [{
+			costCoin: 2,
+			actionAsyn: function () {
+				this.game.tillTurnEndSet(this,this.game,'disableCoinSkillsOfPreviousTurn',true);
+			},
+		}],
 	},
 	"2285": {
 		"pid": 2285,
@@ -116957,19 +117236,8 @@ var CardInfo = {
 		"limit": 0,
 		"power": 0,
 		"limiting": "あや",
-		"timing": "【アタックフェイズ】",
 		"imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX16/WX16-004.jpg",
 		"illust": "藤真拓哉",
-		faqs: [
-			{
-				"q": "ベット－《コイン》or《コイン》《コイン》　とは、どのように使用することができますか？",
-				"a": "《ブレイクスルー・ブルー》は、使用する際に《コイン》もしくは《コイン》《コイン》をベットすることができます。（《コイン》《コイン》《コイン》をベットすることはできません）\nベットせずに使用した場合は、対戦相手のシグニ1体をダウンするのみです。\n《コイン》をベットして使用した場合は、追加でもう1体対戦相手のシグニをダウンできます。\n《コイン》《コイン》をベットして使用した場合は、上記２つの効果に加えてさらに「《コイン》《コイン》をベットしていた場合」以降の効果が発揮できます。"
-			},
-			{
-				"q": "《コイン》《コイン》をベットした場合、ホログラフによってデッキの一番上を公開するのは対戦相手が［トラップアイコン]の有無を宣言をしたあとですか？",
-				"a": "はい、対戦相手が[トラップアイコン]の有無を宣言したあと、デッキの一番上を公開する行為が「デッキの上からカードを３枚見て、それらを好きな順番でデッキの上に戻してからデッキの一番上を公開する」に置き換わります。"
-			}
-		],
 		"classes": [],
 		"costWhite": 0,
 		"costBlack": 0,
@@ -116978,14 +117246,40 @@ var CardInfo = {
 		"costGreen": 0,
 		"costColorless": 0,
 		"guardFlag": false,
-		cardSkills: [
-			"ベット－《コインアイコン》or《コインアイコン》《コインアイコン》",
-			"対戦相手のシグニ１体をダウンする。",
-			"あなたがベットしていた場合、追加で対戦相手のシグニ１体をダウンする。",
-			"あなたが《コインアイコン》《コインアイコン》をベットしていた場合、追加でターン終了時まで、あなたのルリグは「ホログラフの効果によってあなたのデッキの一番上を公開する場合、代わりにあなたはデッキの上からカードを３枚見て、それらを好きな順番でデッキの上に戻してからデッキの一番上を公開する。」を得る。"
-		],
 		"multiEner": false,
-		cardText: "えいやあ！っつと！～あや～"
+		cardText: "えいやあ！っつと！～あや～",
+		// ======================
+		//        技艺效果       
+		// ======================
+		timmings: ['attackPhase'],
+		artsEffectTexts: [
+			"ベット－《コイン》or《コイン》《コイン》\n" +
+			"対戦相手のシグニ１体をダウンする。\n" +
+			"あなたがベットしていた場合、追加で対戦相手のシグニ１体をダウンする。\n" +
+			"あなたが《コイン》《コイン》をベットしていた場合、追加でターン終了時まで、あなたのルリグは「ホログラフの効果によってあなたのデッキの一番上を公開する場合、代わりにあなたはデッキの上からカードを３枚見て、それらを好きな順番でデッキの上に戻してからデッキの一番上を公開する。」を得る。"
+		],
+		// TODO: ...
+		bet: [1,2],
+		artsEffect: {
+			actionAsyn: function (costAsyn) {
+				var filter = function (card) {
+					return !card.isUp;
+				};
+				return this.player.selectOpponentSigniAsyn(filter).callback(this,function (card) {
+					if (!card) return;
+					card.down();
+					if (costArg.bet) {
+						return this.player.selectOpponentSigniAsyn(filter).callback(this,function (card) {
+							if (!card) return;
+							card.down();
+						});
+					}
+				}).callback(this,function () {
+					if (!(costArg.bet >= 2)) return;
+					this.game.setData(this.player,'_2285',true);
+				});
+			}
+		}
 	},
 	"2286": {
 		"pid": 2286,
@@ -117001,7 +117295,6 @@ var CardInfo = {
 		"limit": 0,
 		"power": 0,
 		"limiting": "",
-		"timing": "【メインフェイズ】\n【アタックフェイズ】",
 		"imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX16/WX16-006.jpg",
 		"illust": "ふーみ",
 		faqs: [
@@ -117034,16 +117327,63 @@ var CardInfo = {
 		"costGreen": 0,
 		"costColorless": 4,
 		"guardFlag": false,
-		cardSkills: [
-			"このアーツを使用するための《無》コストは、あなたのルリグの持つ色でしか支払えない。",
-			"以下の４つから２つまで選ぶ。",
-			"①ターン終了時まで、対戦相手のルリグ１体は「アタックできない。」を得る。",
-			"②対戦相手のシグニ１体をダウンし、それを凍結する。",
-			"③ターン終了時まで、あなたのシグニ１体は「バニッシュされない。」を得る。",
-			"④あなたのトラッシュからあなたのルリグと同じ色を持つシグニを２枚まで手札に加える。"
-		],
 		"multiEner": false,
-		cardText: "指一本、触れさせないわ！～ドーナ～"
+		cardText: "指一本、触れさせないわ！～ドーナ～",
+		// ======================
+		//        技艺效果       
+		// ======================
+		timmings: ['mainPhase','attackPhase'],
+		artsEffectTexts: [
+			"このアーツを使用するための《無》コストは、あなたのルリグの持つ色でしか支払えない。\n" +
+			"以下の４つから２つまで選ぶ。\n" +
+			"①ターン終了時まで、対戦相手のルリグ１体は「アタックできない。」を得る。\n" +
+			"②対戦相手のシグニ１体をダウンし、それを凍結する。\n" +
+			"③ターン終了時まで、あなたのシグニ１体は「バニッシュされない。」を得る。\n" +
+			"④あなたのトラッシュからあなたのルリグと同じ色を持つシグニを２枚まで手札に加える。",
+			"ターン終了時まで、対戦相手のルリグ１体は「アタックできない。」を得る。",
+			"対戦相手のシグニ１体をダウンし、それを凍結する。",
+			"ターン終了時まで、あなたのシグニ１体は「バニッシュされない。」を得る。",
+			"あなたのトラッシュからあなたのルリグと同じ色を持つシグニを２枚まで手札に加える。",
+		],
+		costChange: function () {
+			// TODO...
+		},
+		useCondition: function () {
+			return !this.player.lrig.hasColor('colorless');
+		},
+		getMinEffectCount: function () {
+			return 1,
+		},
+		getMaxEffectCount: function () {
+			return 2,
+		},
+		artsEffect: [{
+			actionAsyn: function () {
+				this.game.tillTurnEndSet(this,this.player.opponent.lrig,'canNotAttack',true);
+			},
+		},{
+			actionAsyn: function () {
+				return this.player.selectOpponentSigniAsyn().callback(this,function (card) {
+					if (!card) return;
+					card.down();
+					card.freeze();
+				});
+			},
+		},{
+			actionAsyn: function () {
+				return this.player.selectSelfSigniAsyn().callback(this,function (card) {
+					if (!card) return;
+					this.game.tillTurnEndSet(this,card,'canNotBeBanished',true);
+				});
+			},
+		},{
+			actionAsyn: function () {
+				var filter = function (card) {
+					return card.hasSameColorWith(this.player.lrig);
+				};
+				return this.player.pickCardAsyn(filter,0,2);
+			},
+		}]
 	},
 	"2287": {
 		"pid": 2287,
@@ -117059,7 +117399,6 @@ var CardInfo = {
 		"limit": 0,
 		"power": 0,
 		"limiting": "ドーナ",
-		"timing": "【アタックフェイズ】",
 		"imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX16/WX16-010.jpg",
 		"illust": "イシバシヨウスケ",
 		"classes": [],
@@ -117070,12 +117409,26 @@ var CardInfo = {
 		"costGreen": 0,
 		"costColorless": 0,
 		"guardFlag": false,
-		cardSkills: [
-			"ベット－《コインアイコン》《コインアイコン》",
+		"multiEner": false,
+		cardText: "ええと、よくわからないけど、こう？～ドーナ～",
+		// ======================
+		//        技艺效果       
+		// ======================
+		timmings: ['attackPhase'],
+		artsEffectTexts: [
+			"ベット－《コイン》《コイン》\n" +
 			"あなたのデッキから＜怪異＞のシグニ１枚を探して場に出す。その後、デッキをシャッフルする。あなたがベットしていた場合、代わりに＜怪異＞のシグニを２枚まで探して場に出す。その後、デッキをシャッフルする。"
 		],
-		"multiEner": false,
-		cardText: "ええと、よくわからないけど、こう？～ドーナ～"
+		bet: 2,
+		artsEffect: {
+			actionAsyn: function (costArg) {
+				var filter = function (card) {
+					return card.hasClass('怪異');
+				};
+				var count = costArg.bet ? 2 : 1;
+				return this.player.seekAndSummonAsyn(filter,count);
+			}
+		}
 	},
 	"2288": {
 		"pid": 2288,
@@ -117091,15 +117444,8 @@ var CardInfo = {
 		"limit": 0,
 		"power": 0,
 		"limiting": "",
-		"timing": "【メインフェイズ】\n【アタックフェイズ】",
 		"imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX16/WX16-011.jpg",
 		"illust": "モレシャン",
-		faqs: [
-			{
-				"q": "ベットしていた場合、手札に戻すことのできるシグニは１体だけですか？それともレベル３以下のシグニ１体ともう１体の合計２体ですか？",
-				"a": "１体だけです。ベットをしなければレベル３以下のシグニ１体を、ベットをしているとレベルに関係なくシグニ１体を手札に戻すことができます。"
-			}
-		],
 		"classes": [],
 		"costWhite": 1,
 		"costBlack": 0,
@@ -117108,12 +117454,28 @@ var CardInfo = {
 		"costGreen": 0,
 		"costColorless": 1,
 		"guardFlag": false,
-		cardSkills: [
-			"ベット－《コインアイコン》",
+		"multiEner": false,
+		cardText: "いざゆきません。これもまた一つの答え。～ゆきめ～",
+		// ======================
+		//        技艺效果       
+		// ======================
+		timmings: ['mainPhase','attackPhase'],
+		artsEffectTexts: [
+			"ベット－《コイン》\n" +
 			"対戦相手のレベル３以下のシグニ１体を手札に戻す。あなたがベットしていた場合、代わりに対戦相手のシグニ１体を手札に戻す。"
 		],
-		"multiEner": false,
-		cardText: "いざゆきません。これもまた一つの答え。～ゆきめ～"
+		bet: 1,
+		artsEffect: {
+			actionAsyn: function (costArg) {
+				var filter = function (card) {
+					return costArg.bet || (card.level <= 3);
+				};
+				return this.player.selectOpponentSigniAsyn(filter).callback(this,function (card) {
+					if (!card) return;
+					return card.bounceAsyn();
+				});
+			},
+		}
 	},
 	"2289": {
 		"pid": 2289,
@@ -117129,7 +117491,6 @@ var CardInfo = {
 		"limit": 0,
 		"power": 0,
 		"limiting": "",
-		"timing": "【メインフェイズ】\n【アタックフェイズ】",
 		"imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX16/WX16-012.jpg",
 		"illust": "希",
 		"classes": [],
@@ -117140,11 +117501,23 @@ var CardInfo = {
 		"costGreen": 0,
 		"costColorless": 0,
 		"guardFlag": false,
-		cardSkills: [
+		"multiEner": false,
+		cardText: "練習の、成果ね。～リル～",
+		// ======================
+		//        技艺效果       
+		// ======================
+		timmings: ['mainPhase','attackPhase'],
+		artsEffectTexts: [
 			"対戦相手のシグニ１体をバニッシュする。その後、対戦相手のターンの場合、対戦相手のライフクロス１枚をクラッシュする。"
 		],
-		"multiEner": false,
-		cardText: "練習の、成果ね。～リル～"
+		artsEffect: {
+			actionAsyn: function () {
+				return this.banishSigniAsyn().callback(this,function () {
+					if (this.game.turnPlayer === this.player) return;
+					return this.player.opponent.crashAsyn(1);
+				});
+			},
+		},
 	},
 	"2290": {
 		"pid": 2290,
@@ -117173,11 +117546,19 @@ var CardInfo = {
 		"costGreen": 0,
 		"costColorless": 0,
 		"guardFlag": false,
-		cardSkills: [
+		"multiEner": false,
+		cardText: "うんうん、いい感じだね！お兄ちゃん！～あや～",
+		// ======================
+		//        出场效果       
+		// ======================
+		startUpEffectTexts: [
 			"【出】：《コインアイコン》を得る。"
 		],
-		"multiEner": false,
-		cardText: "うんうん、いい感じだね！お兄ちゃん！～あや～"
+		startUpEffects: [{
+			actionAsyn: function () {
+				this.player.gainCoins(1);
+			}
+		}],
 	},
 	"2291": {
 		"pid": 2291,
@@ -117206,11 +117587,20 @@ var CardInfo = {
 		"costGreen": 0,
 		"costColorless": 0,
 		"guardFlag": false,
-		cardSkills: [
-			"【出】《コインアイコン》：あなたのデッキの一番上を見る。あなたはそのカードを【トラップ】としてあなたのシグニゾーンに設置してもよい。"
-		],
 		"multiEner": false,
-		cardText: "あぁ！いけないんだ！～あや～"
+		cardText: "あぁ！いけないんだ！～あや～",
+		// ======================
+		//        出场效果       
+		// ======================
+		startUpEffectTexts: [
+			"【出】《コイン》：あなたのデッキの一番上を見る。あなたはそのカードを【トラップ】としてあなたのシグニゾーンに設置してもよい。"
+		],
+		startUpEffects: [{
+			costCoin: 1,
+			actionAsyn: function () {
+				return this.player.setTrapFromDeckTopAsyn(1);
+			}
+		}],
 	},
 	"2292": {
 		"pid": 2292,
@@ -117226,27 +117616,8 @@ var CardInfo = {
 		"limit": 0,
 		"power": 0,
 		"limiting": "あや",
-		"timing": "【アタックフェイズ】",
 		"imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX16/WX16-017.jpg",
 		"illust": "繭咲悠",
-		faqs: [
-			{
-				"q": "【トラップ】を手札に加えるときに、表面を対戦相手に見せなければいけませんか？",
-				"a": "いいえ、見せる必要はありません。"
-			},
-			{
-				"q": "【トラップ】として設置されている＜トリック＞のシグニは、【トラップ】ではなく＜トリック＞のシグニを手札に加えたものとしてカウントできますか？",
-				"a": "いいえ、【トラップ】として設置されている裏向きのカードはあくまで【トラップ】であり、その表向きが＜トリック＞のシグニであったとしても【トラップ】を手札に加えたものとして扱われます。"
-			},
-			{
-				"q": "【トラップ】だけ、もしくは＜トリック＞のシグニだけを手札に加えることはできますか？",
-				"a": "はい、可能です。それぞれについて好きな数を手札に加えることができますので、どちらか一方を０枚として手札に加えないこともできます。"
-			},
-			{
-				"q": "手札に加えた【トラップ】と同じ数の【トラップ】を設置するのは強制ですか？",
-				"a": "はい、手札から【トラップ】として設置するカードには特に条件がありませんので、その数を手札から設置するのは強制となります。"
-			}
-		],
 		"classes": [],
 		"costWhite": 0,
 		"costBlack": 0,
@@ -117255,11 +117626,37 @@ var CardInfo = {
 		"costGreen": 0,
 		"costColorless": 0,
 		"guardFlag": false,
-		cardSkills: [
+		"multiEner": false,
+		cardText: "ほらほら、すっごくきれいだね？～あや～",
+		// ======================
+		//        技艺效果       
+		// ======================
+		timmings: ['attackPhase'],
+		artsEffectTexts: [
 			"あなたの場にある好きな数の【トラップ】と＜トリック＞のシグニを手札に加える。その後、この方法で手札に加えた【トラップ】１つにつき、手札からカード１枚を【トラップ】としてあなたのシグニゾーンに設置する。"
 		],
-		"multiEner": false,
-		cardText: "ほらほら、すっごくきれいだね？～あや～"
+		artsEffect: {
+			actionAsyn: function () {
+				var cards = this.player.getTraps().concat(this.player.signis.filter(function (signi) {
+					return signi.hasClass('トリック');
+				},this));
+				if (!cards.length) return;
+				return this.player.selectSomeAsyn('ADD_TO_HAND',cards).callback(this,function (cards) {
+					this.game.moveCards(cards,this.player.handZone);
+					var done = false;
+					return Callback.loop(this,cards.length,function () {
+						if (done) return;
+						return this.player.selectAsyn('TARGET',this.player.hands).callback(this,function (card) {
+							if (!card) return done = true;
+							return this.player.selectAsyn('TARGET',this.player.signiZones).callback(this,function (zone) {
+								if (!zone) return done = true;
+								card.trapTo(zone);
+							});
+						});
+					});
+				});
+			},
+		},
 	},
 	"2293": {
 		"pid": 2293,
@@ -117348,11 +117745,25 @@ var CardInfo = {
 		"costGreen": 0,
 		"costColorless": 0,
 		"guardFlag": false,
-		cardSkills: [
-			"【出】手札を１枚捨てる：《コインアイコン》を得る。"
-		],
 		"multiEner": false,
-		cardText: "（にこにこ）"
+		cardText: "（にこにこ）",
+		// ======================
+		//        出场效果       
+		// ======================
+		startUpEffectTexts: [
+			"【出】手札を１枚捨てる：《コイン》を得る。"
+		],
+		startUpEffects: [{
+			costCondition: function () {
+				return this.player.hands.length;
+			},
+			costAsyn: function () {
+				return this.player.discardAsyn(1);
+			},
+			actionAsyn: function () {
+				this.player.gainCoins(1);
+			}
+		}],
 	},
 	"2296": {
 		"pid": 2296,
@@ -117368,7 +117779,6 @@ var CardInfo = {
 		"limit": 0,
 		"power": 0,
 		"limiting": "",
-		"timing": "【メインフェイズ】",
 		"imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX16/WX16-021.jpg",
 		"illust": "ヒロヲノリ",
 		faqs: [
@@ -117401,11 +117811,21 @@ var CardInfo = {
 		"costGreen": 0,
 		"costColorless": 0,
 		"guardFlag": false,
-		cardSkills: [
+		"multiEner": false,
+		cardText: "いっきま～す！　～ママ～",
+		// ======================
+		//        技艺效果       
+		// ======================
+		timmings: ['mainPhase'],
+		artsEffectTexts: [
 			"このターン、あなたの＜英知＞のシグニがシグニのない対戦相手のシグニゾーンにアタックする場合、代わりにそのアタックではそのシグニゾーンの正面にあるかのように対戦相手にダメージを与える。"
 		],
-		"multiEner": false,
-		cardText: "いっきま～す！　～ママ～"
+		artsEffect: {
+			actionAsyn: function () {
+				// TODO: ...
+				this.game.setData(this.player,'damageWhenAttackSigniZone',true);
+			}
+		}
 	},
 	"2297": {
 		"pid": 2297,
@@ -117421,19 +117841,8 @@ var CardInfo = {
 		"limit": 0,
 		"power": 0,
 		"limiting": "ナナシ",
-		"timing": "【メインフェイズ】\n【アタックフェイズ】\n【スペルカットイン】",
 		"imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX16/WX16-023.jpg",
 		"illust": "繭咲悠",
-		faqs: [
-			{
-				"q": "同じ選択肢を2回以上選べますか？",
-				"a": "いいえ、同じ選択肢を複数回選ぶことはできません。"
-			},
-			{
-				"q": "【ウィルス】を取り除かなかった場合、効果は使用できますか？",
-				"a": "はい、【ウィルス】を取り除いた数は０個ですので、０＋１でいずれか１つを選んで効果を使用することができます。"
-			}
-		],
 		"classes": [],
 		"costWhite": 0,
 		"costBlack": 1,
@@ -117442,14 +117851,54 @@ var CardInfo = {
 		"costGreen": 0,
 		"costColorless": 0,
 		"guardFlag": false,
-		cardSkills: [
-			"このアーツを使用する際、対戦相手の場にある【ウィルス】を２つまで取り除いてもよい。以下の３つから、この方法で取り除いた【ウィルス】の数に１を加えた数だけ選ぶ。",
-			"①あなたのトラッシュから黒のシグニ１枚を手札に加える。",
-			"②対戦相手のトラッシュにあるカードを２枚までゲームから除外する。",
+		"multiEner": false,
+		cardText: "苦しいでしょう？私は嬉しいですわ！～ナナシ～",
+		// ======================
+		//        技艺效果       
+		// ======================
+		timmings: ['mainPhase','attackPhase','spellCutIn'],
+		artsEffectTexts: [
+			"このアーツを使用する際、対戦相手の場にある【ウィルス】を２つまで取り除いてもよい。以下の３つから、この方法で取り除いた【ウィルス】の数に１を加えた数だけ選ぶ。\n" +
+			"①あなたのトラッシュから黒のシグニ１枚を手札に加える。\n" +
+			"②対戦相手のトラッシュにあるカードを２枚までゲームから除外する。\n" +
 			"③ターン終了時まで、対戦相手のシグニ１体のパワーを－7000する。"
 		],
-		"multiEner": false,
-		cardText: "苦しいでしょう？私は嬉しいですわ！～ナナシ～"
+		beforeUseAsyn: function () {
+			var zones = this.player.opponent.getInfectedZones();
+			if (!zones.length) return;
+			return this.player.selectSomeAsyn('TARGET',zones,0,2).callback(this,function (zones) {
+				zones.forEach(function (zone) {
+					zone.removeVirus();
+				});
+				this._data = zones.length;
+			});
+		},
+		getMinEffectCount: function () {
+			return 1;
+		},
+		getMaxEffectCount: function () {
+			return (this._data || 0) + 1;
+		},
+		artsEffect: [{
+			actionAsyn: function () {
+				var filter = function (card) {
+					return (card.type === 'SIGNI') && card.hasColor('black');
+				};
+				return this.player.pickCardAsyn(filter);
+			},
+		},{
+			actionAsyn: function () {
+				var cards = this.player.opponent.trashZone.cards;
+				if (!cards.length) return;
+				return this.player.selectSomeAsyn('TARGET',cards,0,2).callback(this,function (cards) {
+					game.excludeCards(cards);
+				});
+			},
+		},{
+			actionAsyn: function () {
+				return this.decreasePowerAsyn(7000);
+			},
+		}]
 	},
 	"2298": {
 		"pid": 2298,
@@ -117469,6 +117918,7 @@ var CardInfo = {
 		"illust": "クロサワテツ",
 		faqs: [
 			{
+				// TODO: test...
 				"q": "《竜将の独眼　ダテマサ》の上に《ライズアイコン》を持つシグニを出した場合、自動能力は発動しますか？",
 				"a": "いいえ、《一途の帰蝶　ノヒメ》などのように、「場にあるこのシグニの上に《ライズアイコン》を持つシグニが置かれたとき」というような自動能力であれば発動しますが、《竜将の独眼　ダテマサ》の場合は発動しません。"
 			},
@@ -117488,13 +117938,102 @@ var CardInfo = {
 		"costGreen": 0,
 		"costColorless": 0,
 		"guardFlag": false,
-		cardSkills: [
-			"【自】：あなたの《ライズアイコン》を持つシグニ１体が場に出たとき、以下の３つから１つを選ぶ。①ターン終了時まで、このシグニは「バニッシュされない。」を得る。②対戦相手のパワー7000以下のシグニ１体をバニッシュする。③ターン終了時まで、あなたのシグニ１体のパワーを＋5000する。",
-			"【起】[アタックフェイズアイコン]《赤×0》：あなたの手札から《ライズアイコン》を持つシグニ１枚を場に出す。"
-		],
 		"multiEner": false,
 		cardText: "いかにも！私が独眼竜なり！～ダテマサ～",
-		"lifeBurst": "あなたのトラッシュから《ライズアイコン》を持つシグニ１枚までと《武勇》のシグニ１枚までを手札に加える。"
+		// ======================
+		//        常时效果       
+		// ======================
+		constEffectTexts: [
+			"【自】：あなたの《ライズ》を持つシグニ１体が場に出たとき、以下の３つから１つを選ぶ。\n" +
+			"①ターン終了時まで、このシグニは「バニッシュされない。」を得る。\n" +
+			"②対戦相手のパワー7000以下のシグニ１体をバニッシュする。\n" +
+			"③ターン終了時まで、あなたのシグニ１体のパワーを＋5000する。",
+		],
+		constEffects: [{
+			action: function (set,add) {
+				var effect = this.game.newEffect({
+					source: this,
+					description: '2298-const-0',
+					triggerCondition: function (event) {
+						return event.card.rise;
+					},
+					actionAsyn: function () {
+						var effects = [{
+							source: this,
+							description: '2298-attached-0',
+							actionAsyn: function () {
+								this.game.tillTurnEndSet(this,this,'canNotBeBanished',true);
+							}
+						},{
+							source: this,
+							description: '2298-attached-1',
+							actionAsyn: function () {
+								return this.banishSigniAsyn(7000);
+							}
+						},{
+							source: this,
+							description: '2298-attached-2',
+							actionAsyn: function () {
+								return this.player.selectSelfSigniAsyn().callback(this,function (card) {
+									if (!card) return;
+									this.gaem.tillTurnEndAdd(this,card,'power',5000);
+								});
+							}
+						}];
+						return this.player.selectAsyn('LAUNCH',effects).callback(this,function (effect) {
+							if (!effect) return;
+							return effect.actionAsyn.call(this);
+						});
+					}
+				});
+				add(this.player,'onSummonSigni',effect);
+			}
+		}],
+		// ======================
+		//        起动效果       
+		// ======================
+		actionEffectTexts: [
+			"【起】[アタックフェイズ]《赤×0》：あなたの手札から《ライズ》を持つシグニ１枚を場に出す。"
+		],
+		actionEffects: [{
+			attackPhase: true,
+			actionAsyn: function () {
+				var cards = this.player.hands.filter(function (card) {
+					return card.rise && card.canSummon();
+				},this);
+				return this.player.selectAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
+					if (!card) return;
+					return card.summonAsyn();
+				});
+			}
+		}],
+		// ======================
+		//        迸发效果       
+		// ======================
+		burstEffectTexts: [
+			"【※】：あなたのトラッシュから《ライズ》を持つシグニ１枚までと《武勇》のシグニ１枚までを手札に加える。"
+		],
+		burstEffect: {
+			actionAsyn: function () {
+				var filter = function (card) {
+					return card.rise;
+				};
+				return this.player.pickCardAsyn(filter,0,1).callback(this,function () {
+					var filter = function (card) {
+						return card.hasClass('武勇');
+					};
+					return this.player.pickCardAsyn(filter,0,1);
+				});
+			},
+		}
+		// ======================
+		//        附加效果       
+		// ======================
+		attachedEffectTexts: [
+			"ターン終了時まで、このシグニは「バニッシュされない。」を得る。",
+			"対戦相手のパワー7000以下のシグニ１体をバニッシュする。",
+			"ターン終了時まで、あなたのシグニ１体のパワーを＋5000する。",
+		],
 	},
 	"2299": {
 		"pid": 2299,
@@ -117512,12 +118051,6 @@ var CardInfo = {
 		"limiting": "リル",
 		"imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX16/WX16-027.jpg",
 		"illust": "しおぼい",
-		faqs: [
-			{
-				"q": "《十字の炎槍　サナユキ》の[ライズ]はどのようにしたらいいですか？",
-				"a": "《十字の炎槍　サナユキ》はあなたの場に＜武勇＞のシグニが2体あるときに出すことができます。どちらかのシグニゾーンに2体を重ね、その上に《十字の炎槍　サナユキ》を重ねて出します。"
-			}
-		],
 		"classes": [
 			"精像",
 			"武勇"
@@ -117529,14 +118062,75 @@ var CardInfo = {
 		"costGreen": 0,
 		"costColorless": 0,
 		"guardFlag": false,
-		cardSkills: [
-			"［ライズ］あなたの＜武勇＞のシグニ２体の上におく(どちらかのシグニがあるシグニゾーンに出す)",
-			"【出】：あなたのデッキの上からカードを２枚見る。その中から１枚を手札に加え、残りをデッキの一番下に置く。",
-			"【起】《ターン１回》[アタックフェイズアイコン]《赤×0》：このシグニの下からカード１枚をトラッシュに置く。そうした場合、対戦相手のシグニ１体をバニッシュする。"
-		],
 		"multiEner": false,
 		cardText: "我が十勇士よ、いざ行かん！～サナユキ～",
-		"lifeBurst": "対戦相手のパワー12000以下のシグニ１体をバニッシュする。"
+		// ======================
+		//        Rise
+		// ======================
+		extraTexts: [
+			"［ライズ］あなたの＜武勇＞のシグニ２体の上におく(どちらかのシグニがあるシグニゾーンに出す)",
+		],
+		rise: function (card) {
+			var cards = card.player.signis.filter(function (signi) {
+				return signi.hasClass('武勇');
+			},this);
+			if (cards.length < 2) return false;
+			return card.hasClass('武勇');
+		},
+		// ======================
+		//        出场效果       
+		// ======================
+		startUpEffectTexts: [
+			"【出】：あなたのデッキの上からカードを２枚見る。その中から１枚を手札に加え、残りをデッキの一番下に置く。",
+		],
+		startUpEffects: [{
+			actionAsyn: function () {
+				var cards = this.player.mainDeck.getTopCards(2);
+				if (cards.length) return;
+				this.player.informCards(cards);
+				return this.player.selectAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
+					if (!card) return;
+					card.moveTo(this.player.handZone);
+					removeFromArr(card,cards);
+					this.player.mainDeck.moveCardsToBottom(cards);
+				});
+			},
+		}],
+		// ======================
+		//        起动效果       
+		// ======================
+		actionEffectTexts: [
+			"【起】《ターン１回》[アタックフェイズ]《赤×0》：このシグニの下からカード１枚をトラッシュに置く。そうした場合、対戦相手のシグニ１体をバニッシュする。"
+		],
+		actionEffects: [{
+			once: true,
+			attackPhase: true,
+			actionAsyn: function () {
+				var cards = this.getBottomCards();
+				if (!cards.length) return;
+				return Callback.immediately().callback(this,function () {
+					if (cards.length === 1) return cards[0].trash();
+					return this.player.selectAsyn('TARGET',cards).callback(this,function (card) {
+						if (!card) return false;
+						return card.trash();
+					});
+				}).callback(this,function (succ) {
+					if (!succ) return;
+					return this.banishSigniAsyn();
+				});
+			},
+		}],
+		// ======================
+		//        迸发效果       
+		// ======================
+		burstEffectTexts: [
+			"【※】：対戦相手のパワー12000以下のシグニ１体をバニッシュする。"
+		],
+		burstEffect: {
+			actionAsyn: function () {
+				return this.banishSigniAsyn(12000);
+			},
+		},
 	},
 	"2300": {
 		"pid": 2300,

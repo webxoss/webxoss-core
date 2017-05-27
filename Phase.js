@@ -353,10 +353,16 @@ Phase.prototype.wixoss = function () {
 		});
 		this.game.frameEnd();
 	}).callback(this,function () {
+		// 我方追加回合，跳过交换
 		if (!this.additionalTurn) {
-			var tmp = this.player;
-			this.player = this.opponent;
-			this.opponent = tmp;
+			// 对方回合被跳过，跳过交换
+			if (this.opponent.skipNextTurn) {
+				this.opponent.skipNextTurn = false;
+			} else {
+				var tmp = this.player;
+				this.player = this.opponent;
+				this.opponent = tmp;
+			}
 		}
 
 		this.game.turnPlayer = this.player;

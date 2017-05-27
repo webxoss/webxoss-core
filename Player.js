@@ -140,6 +140,7 @@ function Player (game,io,mainDeck,lrigDeck) {
 	this.canNotBeDownedByOpponentEffect = false;
 	this.canNotUseColorlessSigni = false; // <绿罗植 世界树>
 	this.canNotUseColorlessSpell = false; // <绿罗植 世界树>
+	this.skipNextTurn = false;
 
 	this.usedActionEffects = [];
 	this.chain = null;
@@ -651,6 +652,8 @@ Player.prototype.handleArtsAsyn = function (card,ignoreCost) {
 		this.game.blockStart();
 		// 1. 放到检查区
 		card.moveTo(this.checkZone);
+		if (card.beforeUseAsyn) return card.beforeUseAsyn();
+	}).callback(this,function () {
 		// bet
 		if (!card.bet) return;
 		if (this.coin < card.bet) return;
@@ -714,6 +717,7 @@ Player.prototype.handleArtsAsyn = function (card,ignoreCost) {
 			encored = true;
 		});
 	}).callback(this,function () {
+		// 2. 支付费用
 		return this.payCostAsyn(costObj);
 	}).callback(this,function (_costArg) {
 		costArg = _costArg;
@@ -2333,6 +2337,16 @@ Player.prototype.getTraps = function() {
 		return zone.trap;
 	}).map(function (zone) {
 		return zone.trap;
+	});
+};
+
+Player.prototype.handleWisdomAuto = function(effect) {
+	var card = effect.source;
+	card.beSelectedAsTarget();
+	return card.player.opponent.showEffectsAsyn([effect]).callback(this,function () {
+		return this.game.blockAsyn(card,function () {
+			return effect.actionAsyn.call(effect.source);
+		});
 	});
 };
 

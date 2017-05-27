@@ -60,6 +60,7 @@ function Card (game,player,zone,pid,side) {
 	this.artsEffects    = this.cookEffect(info.artsEffect,'arts',1);
 	this.encore         = info.encore || null;
 	this.chain          = info.chain || null;
+	this.beforeUseAsyn  = info.beforeUseAsyn || null;
 	// 生命迸发效果
 	this.burstEffects   = this.cookEffect(info.burstEffect,'burst');
 	// 常时效果
@@ -841,6 +842,8 @@ Card.prototype.moveTo = function (zone,arg) {
 			if (card === card.zone.trap) {
 				card.zone.trap = null;
 			}
+			// 处理 acce
+			card.acceingCard = null;
 		}
 	}
 
@@ -1685,6 +1688,16 @@ Card.prototype.handleTrapAsyn = function(event) {
 	}).callback(this,function () {
 		this.trash();
 	});
+};
+
+Card.prototype.getBottomCards = function() {
+	if (!inArr(this,this.player.signis)) return;
+	return this.zone.cards.filter(function (card) {
+		return (card !== this) &&
+		       (card !== this.charm) &&
+		       (card !== this.zone.trap) &&
+		       !card.acceingCard;
+	},this);
 };
 
 global.Card = Card;
