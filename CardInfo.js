@@ -108341,6 +108341,7 @@ var CardInfo = {
 				});
 			},
 			actionAsyn: function () {
+				this.player.draw(1);
 				return this.player.infectZoneAsyn();
 			}
 		}],
