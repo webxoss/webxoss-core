@@ -3,3 +3,4 @@ trash
 .DS_Store
 *.sublime-*
 yarn.lock
+.vscode/

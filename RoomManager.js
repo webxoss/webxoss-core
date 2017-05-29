@@ -218,16 +218,26 @@ RoomManager.prototype.renameRoom = function (client,cfg) {
 	}
 	var oldRoomName = client.room.name;
 	var newRoomName = cfg.roomName;
+	if (newRoomName === oldRoomName) {
+		return;
+	}
 	if (!errMsg) {
 		errMsg = this.checkRoomName(newRoomName);
 	}
 	var room;
+	if (!errMsg) {
+		if (newRoomName in this.roomMap) {
+			errMsg = 'ROOM_ALREADY_EXISTS';
+			client.room.update();
+		}
+	}
 	if (!errMsg) {
 		room = this.roomMap[oldRoomName];
 		if (!room) {
 			errMsg = 'ROOM_DOES_NOT_EXIST';
 		} else if (client.getPosition() !== 'host') {
 			errMsg = 'YOU_ARE_NOT_ROOM_HOST';
+			client.room.update();
 		}
 	}
 	if (errMsg) {
@@ -235,7 +245,7 @@ RoomManager.prototype.renameRoom = function (client,cfg) {
 		return;
 	}
 
-	room.name = newRoomName;
+	room.name = newRoomName; // update client.room.name
 	renameProperty(this.roomMap, oldRoomName, newRoomName);
 	room.update();
 	this.updateRoomList();
