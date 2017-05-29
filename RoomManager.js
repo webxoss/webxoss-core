@@ -245,7 +245,7 @@ RoomManager.prototype.renameRoom = function (client,cfg) {
 		return;
 	}
 
-	room.name = newRoomName;
+	room.name = newRoomName; // update client.room.name
 	renameProperty(this.roomMap, oldRoomName, newRoomName);
 	room.update();
 	this.updateRoomList();
