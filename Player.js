@@ -78,6 +78,7 @@ function Player (game,io,mainDeck,lrigDeck) {
 	this.onDoubleCrashed    = new Timming(game);
 	this.onDraw             = new Timming(game);
 	this.onRemoveVirus      = new Timming(game);
+	this.onTrapTriggered    = new Timming(game);
 
 	// 附加属性
 	this.skipGrowPhase = false;
@@ -2309,14 +2310,14 @@ Player.prototype.infectZoneAsyn = function() {
 	});
 };
 
-Player.prototype.setTrapFromDeckTopAsyn = function(count,max) {
+Player.prototype.setTrapFromDeckTopAsyn = function(count,max,forced) {
 	if (!isNum(max)) max = 1;
 	var cards = this.mainDeck.getTopCards(count);
 	this.informCards(cards);
 	var done = false;
 	return Callback.loop(this,max,function () {
 		if (done) return;
-		return this.selectOptionalAsyn('TARGET',cards).callback(this,function (card) {
+		return this.selectAsyn('TARGET',cards,!forced).callback(this,function (card) {
 			if (!card) return done = true;
 			removeFromArr(card,cards);
 			return this.selectAsyn('TARGET',this.signiZones).callback(this,function (zone) {
@@ -2340,12 +2341,43 @@ Player.prototype.getTraps = function() {
 	});
 };
 
-Player.prototype.handleWisdomAuto = function(effect) {
+Player.prototype.handleEffectAsyn = function(effect) {
+	if (!effect.checkCondition()) return Callback.immediately();
 	var card = effect.source;
 	card.beSelectedAsTarget();
 	return card.player.opponent.showEffectsAsyn([effect]).callback(this,function () {
 		return this.game.blockAsyn(card,function () {
-			return effect.actionAsyn.call(effect.source);
+			return effect.handleAsyn(false);
+		});
+	});
+};
+
+Player.prototype.addLifeCloth = function(count) {
+	if (!isNum(count)) count = 1;
+	var cards = this.mainDeck.getTopCards(count);
+	return this.game.moveCards(cards,this.lifeClothZone);
+};
+
+Player.prototype.pickCardsFromDeckTopAsyn = function(count,filter,max) {
+	if (!isNum(max)) max = 1;
+	var cards = this.mainDeck.getTopCards(count);
+	if (!cards.length) return;
+	var targets = cards.filter(filter);
+	return Callback.immediately().callback(this,function () {
+		if (!targets.length) return;
+		return this.selectSomeAsyn('ADD_TO_HAND',targets,0,max,false,cards).callback(this,function (targets) {
+			return this.opponent.showCardsAsyn(targets).callback(this,function () {
+				this.game.moveCards(targets,this.handZone);
+				cards = cards.filter(function (card) {
+					return !inArr(card,targets);
+				},this);
+			});
+		});
+	}).callback(this,function () {
+		var len = cards.length;
+		if (!len) return;
+		return this.selectSomeAsyn('SET_ORDER',cards,len,len,true).callback(this,function (cards) {
+			this.mainDeck.moveCardsToBottom(cards);
 		});
 	});
 };

@@ -63,8 +63,8 @@ function Card (game,player,zone,pid,side) {
 	this.beforeUseAsyn  = info.beforeUseAsyn || null;
 	// 生命迸发效果
 	this.burstEffects   = this.cookEffect(info.burstEffect,'burst');
-	// 常时效果
-	this.constEffects   = info.constEffects || [];
+	// 常时效果(因为内容会被修改，这里用 slice 创建不同的引用)
+	this.constEffects   = info.constEffects.slice() || [];
 	// 出场效果
 	this.startUpEffects = this.cookEffect(info.startUpEffects,'startup');
 	// 起动效果
@@ -188,18 +188,43 @@ Card.abilityProps = [
 	'trap',
 ];
 
+var mixins = {
+	acce: {
+		activatedInEnerZone: true,
+		useCondition: function () {
+			return this.player.signis.some(function (signi) {
+				return signi.canBeAcced();
+			},this);
+		},
+		actionAsyn: function () {
+			var signis = this.player.signis.filter(function (signi) {
+				return signi.canBeAcced();
+			},this);
+			return this.player.selectTargetOptionalAsyn(signis).callback(this,function (signi) {
+				if (!signi) return;
+				this.acceTo(signi);
+			});
+		},
+	},
+};
 Card.prototype.cookEffect = function (rawEffect,type,offset) {
 	if (!offset) offset = 0;
 	return concat(rawEffect || []).map(function (eff,idx) {
 		var effect = Object.create(eff);
 		effect.source = this;
 		effect.description = [this.cid,type,idx+offset].join('-');
+		if (eff.mixin) {
+			var mixin = mixins[eff.mixin];
+			for(var porp in mixin) {
+				effect[prop] = mixin[prop];
+			}
+		}
 		return effect;
 	},this);
 };
 
 Card.prototype.setupConstEffects = function () {
-	this.constEffects.forEach(function (eff,idx) {
+	this.constEffects.forEach(function (eff,idx,constEffects) {
 		var createTimming,destroyTimming,once;
 		if (eff.duringGame) {
 			createTimming = null;
@@ -216,14 +241,22 @@ Card.prototype.setupConstEffects = function () {
 		}
 		var action = eff.action
 		if (eff.auto) {
-			action = function (set,add) {
-				var effect = this.game.newEffect({
-					source: this,
-					description: this.cid+'-'+'const-'+idx,
-					actionAsyn: eff.actionAsyn,
-				});
-				add(this,eff.auto,effect);
-			};
+			// 对于【自】效果，自动添加效果源和效果描述。
+			// 暴露在 card.constEffects[i].effect 上，供<験英の応援　＃ゴウカク＃>之类的效果获取。
+			var options = Object.create(eff.effect);
+			if (!options.source) options.source = this;
+			if (!options.description) options.description = this.cid+'-'+'const-'+idx;
+			var effect = this.game.newEffect(options);
+			constEffects[idx].effect = effect;
+			if (isStr(eff.auto)) {
+				action = function (set,add) {
+					add(this,eff.auto,effect);
+				};
+			} else {
+				action = function (set,add) {
+					eff.auto.call(this,add,effect);
+				};
+			}
 		}
 		this.game.addConstEffect({
 			source: this,
@@ -1683,6 +1716,7 @@ Card.prototype.handleTrapAsyn = function(event) {
 	}).callback(this,function () {
 		if (!this.trap) return;
 		return this.game.blockAsyn(this,function () {
+			this.player.onTrapTriggered.trigger();
 			return this.trap.actionAsyn.call(this,event);
 		})
 	}).callback(this,function () {
