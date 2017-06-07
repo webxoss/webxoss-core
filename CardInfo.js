@@ -119875,7 +119875,6 @@ var CardInfo = {
 		constEffects: [{
 			wisdom: 8,
 			action: function (set,add) {
-				// TODO: ...
 				set(this,'disableBurst',true);
 			},
 		},{

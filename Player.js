@@ -1120,7 +1120,7 @@ Player.prototype.crashAsyn = function (n,arg) {
 					lancer: lancer
 				};
 				this.onCrash.trigger(event);
-				if (card.onBurst.effects.length && (tag !== 'dontTriggerBurst')) {
+				if (card.onBurst.effects.length && (tag !== 'dontTriggerBurst') && !source.disableBurst) {
 					// 迸发
 					card.onBurst.trigger({crossLifeCloth: crossLifeCloth}); // 注意<DYNAMITE>
 				} else {
