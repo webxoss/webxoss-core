@@ -656,6 +656,11 @@ Player.prototype.handleArtsAsyn = function (card,ignoreCost) {
 		if (card.beforeUseAsyn) return card.beforeUseAsyn();
 	}).callback(this,function () {
 		// bet
+		if (card.betAdvancedAsyn) {
+			return card.betAdvancedAsyn(costObj).callback(this,function (c) {
+				costObj = c;
+			});
+		}
 		if (!card.bet) return;
 		if (this.coin < card.bet) return;
 		var bettedCost = Object.create(costObj);

@@ -117179,8 +117179,15 @@ var CardInfo = {
 			"あなたがベットしていた場合、追加で対戦相手のシグニ１体をダウンする。\n" +
 			"あなたが《コイン》《コイン》をベットしていた場合、追加でターン終了時まで、あなたのルリグは「ホログラフの効果によってあなたのデッキの一番上を公開する場合、代わりにあなたはデッキの上からカードを３枚見て、それらを好きな順番でデッキの上に戻してからデッキの一番上を公開する。」を得る。"
 		],
-		// TODO: ...
-		bet: [1,2],
+		betAdvancedAsyn: function (costObj) {
+			if (!this.player.coin) return Callback.immediately(costObj);
+			var max = Math.min(this.player.coin,2)
+			return this.player.selectNumberAsyn('CONFIRM_BET',0,max,0).callback(this,function (num) {
+				costObj = Object.create(costObj);
+				costObj.costCoin = num;
+				return costObj;
+			});
+		},
 		artsEffect: {
 			actionAsyn: function (costAsyn) {
 				var filter = function (card) {

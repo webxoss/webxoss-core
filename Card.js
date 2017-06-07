@@ -100,6 +100,7 @@ function Card (game,player,zone,pid,side) {
 	// Lostorage
 	this.coin = info.coin || 0;
 	this.bet = info.bet || 0;
+	this.betAdvancedAsyn = info.betAdvancedAsyn || null;
 	this.bettedCost = info.bettedCost || null;
 	this.rise = info.rise;
 	this.acce = !!info.acce;
