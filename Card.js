@@ -149,6 +149,7 @@ function Card (game,player,zone,pid,side) {
 	this.canNotBeBanished            = false;
 	this.abilityLost                 = false;
 	this.canNotBeBanishedByEffect    = false;
+	this.canNotBeBouncedByEffect     = false;
 	this.protectingShironakujis      = [];    // <幻水 蓝鲸>
 	this.protectingMpps              = [];    // <コードハート　Ｍ・Ｐ・Ｐ>
 	this.useBikouAsWhiteCost         = false; // <启示的天惠 安=FORTH>
@@ -166,6 +167,7 @@ function Card (game,player,zone,pid,side) {
 	this._SnoropNaturalPlantPrincess = false; // <罗植姬 雪花莲>
 	this._CodeLabyrinthLouvre        = null;  // <卢浮宫>
 	this.powerAddProtected           = false; // <幻兽 苍龙>
+	this.powerDecreaseProtected      = false; // PR-360
 	this._GustaftCenterBallista      = false; // <弩中砲　グスタフト>
 	this.colorLost                   = false; // <侍从 ∞>
 	this.banishProtections           = [];
@@ -791,6 +793,12 @@ Card.prototype.moveTo = function (zone,arg) {
 	}
 	// "不能从场上返回手牌。"
 	if (card.player.canNotBeBounced) {
+		if (inArr(card,card.player.signis) && (zone.name === 'HandZone')) {
+			return false;
+		}
+	}
+	// "不能因对战对手的效果从场上返回手牌。"
+	if (card.player.canNotBeBouncedByEffect && source && (source.player !== card.player)) {
 		if (inArr(card,card.player.signis) && (zone.name === 'HandZone')) {
 			return false;
 		}

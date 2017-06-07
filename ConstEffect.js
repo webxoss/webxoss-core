@@ -111,6 +111,12 @@ ConstEffect.prototype.add = function (target,prop,value,arg) {
 	if (flag) {
 		value = -value;
 	}
+	// PR-360
+	if ((prop === 'power') && target.powerDecreaseProtected) {
+		if ((this.source.player !== target.player) && (value < 0)) {
+			return;
+		}
+	}
 	// <暴力飞溅>
 	var count = this.source.player._ViolenceSplashCount;
 	flag = (count > 0) &&

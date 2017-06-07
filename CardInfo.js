@@ -114437,7 +114437,6 @@ var CardInfo = {
 		],
 		startUpEffects: [{
 			actionAsyn: function () {
-				// TODO...
 				var effects = [{
 					source: this,
 					description: '2243-attached-0',
