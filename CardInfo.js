@@ -116594,7 +116594,6 @@ var CardInfo = {
 			"【常】英知=１０：このシグニが正面にアタックする場合、このシグニは正面に加えてその隣のシグニゾーン１つにアタックしてもよい。",
 		],
 		constEffects: [{
-			// TODO: ...
 			wisdom: 7,
 			auto: 'onAttack',
 			effect: {

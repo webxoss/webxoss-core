@@ -266,6 +266,7 @@ Card.prototype.setupConstEffects = function () {
 			once: once,
 			destroyTimming: destroyTimming,
 			cross: !!eff.cross,
+			wisdom: eff.wisdom,
 			fixed: !!eff.fixed,
 			condition: eff.condition,
 			action: action,

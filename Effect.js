@@ -31,6 +31,7 @@ function Effect (effectManager,cfg) {
 	this.costChange       = cfg.costChange;
 	this.condition        = cfg.condition;
 	this.actionAsyn       = cfg.actionAsyn;
+	this.wisdom           = cfg.wisdom || 0;
 
 	this.disabled = false; // 失去能力时设置为 true .
 }
@@ -66,10 +67,14 @@ Effect.prototype.triggerAndHandleAsyn = function (event) {
 Effect.prototype.checkCondition = function () {
 	// "结束这个回合",如<终结之洞>
 	var game = this.effectManager.game;
-	if (game.getData(game,'endThisTurn')) return;
+	if (game.getData(game,'endThisTurn')) return false;
 	// "1回合1次"
 	if (this.once && inArr(this.proto,this.effectManager.triggeredEffects)) {
-		return;
+		return false;
+	}
+	// wisdom
+	if (this.wisdom && !(this.source.player.getWisdom() > this.wisdom)) {
+		return false;
 	}
 	// 隐藏规则之"发动和解决的场所必须一致"
 	if (!this.isBurst && this.triggerZone) { // 排除迸发

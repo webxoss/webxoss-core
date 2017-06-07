@@ -62,6 +62,7 @@ ConstEffect.prototype.compute = function () {
 	if (this.fixed && this.computed) return;
 	this.clear();
 	if (this.cross && !this.source.crossed) return;
+	if (this.wisdom && !(this.source.player.getWisdom() >= this.wisdom)) return;
 	if (!this.condition || this.condition.call(this.source)) {
 		var control = {
 			reregister: false

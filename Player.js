@@ -848,6 +848,8 @@ Player.prototype.canUseActionEffect = function (effect,arg) {
 	if (!arg.onAttack && effect.onAttack) return false;
 	// cross
 	if (effect.cross && !effect.source.crossed) return false;
+	// wisdom
+	if (effect.wisdom && !(effect.source.player.getWisdom() >= effect.wisdom)) return false;
 	// once
 	if (effect.once && inArr(effect,this.usedActionEffects)) return false;
 	// condition
@@ -2380,6 +2382,15 @@ Player.prototype.pickCardsFromDeckTopAsyn = function(count,filter,max) {
 			this.mainDeck.moveCardsToBottom(cards);
 		});
 	});
+};
+
+Player.prototype.getWisdom = function() {
+	let wisdom = 0;
+	this.signis.forEach(function (signi) {
+		if (!signi.hasClass('英知')) return;
+		wisdom += signi.level;
+	},this);
+	return wisdom;
 };
 
 global.Player = Player;
