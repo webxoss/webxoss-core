@@ -105712,7 +105712,8 @@ var CardInfo = {
 				var count = costArg.bet ? 2 : 1;
 				var player = this.player;
 				var filter = function (card) {
-					return card.hasSameColorWith(player.lrig);
+					return (card.type === 'SIGNI') &&
+						(card.hasSameColorWith(player.lrig));
 				};
 				return this.player.pickCardAsyn(filter,0,count);
 			}
