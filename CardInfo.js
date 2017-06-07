@@ -115454,7 +115454,20 @@ var CardInfo = {
 				});
 			},
 		},
-		"lifeBurst": "あなたのデッキから＜トリック＞のシグニ１枚を探して公開し手札に加える。その後、デッキをシャッフルする。"
+		// ======================
+		//        迸发效果       
+		// ======================
+		burstEffectTexts: [
+			"【※】：あなたのデッキから＜トリック＞のシグニ１枚を探して公開し手札に加える。その後、デッキをシャッフルする。"
+		],
+		burstEffect: {
+			actionAsyn: function () {
+				var filter = function (card) {
+					return card.hasClass('トリック')
+				};
+				return this.player.seekAsyn(filter,1);
+			},
+		},
 	},
 	"2260": {
 		"pid": 2260,
@@ -118305,6 +118318,25 @@ var CardInfo = {
 				},
 			},
 		}],
+		// ======================
+		//        迸发效果       
+		// ======================
+		burstEffectTexts: [
+			"【※】：あなたのトラッシュから＜調理＞のシグニ１枚までと《アクセ》を持つシグニ１枚までを手札に加える。"
+		],
+		burstEffect: {
+			actionAsyn: function () {
+				var filter = function (card) {
+					return card.hasClass('調理');
+				};
+				return this.player.pickCardAsyn(filter,0,1).callback(this,function () {
+					var filter = function (card) {
+						return card.acce;
+					};
+					return this.player.pickCardAsyn(filter,0,1);
+				});
+			},
+		},
 	},
 	"2303": {
 		"pid": 2303,
@@ -118372,6 +118404,23 @@ var CardInfo = {
 				return this.player.infectZoneAsyn();
 			},
 		}],
+		// ======================
+		//        迸发效果       
+		// ======================
+		burstEffectTexts: [
+			"【※】：対戦相手の感染状態のシグニ１体をトラッシュに置く。"
+		],
+		burstEffect: {
+			actionAsyn: function () {
+				var filter = function (card) {
+					return card.isInfected();
+				};
+				return this.player.selectOpponentSigniAsyn(filter).callback(this,function (card) {
+					if (!card) return;
+					return card.trashAsyn();
+				});
+			},
+		},
 	},
 	"2304": {
 		"pid": 2304,
@@ -118427,6 +118476,26 @@ var CardInfo = {
 						zone.removeVirus();
 					},this);
 					this.game.trashCards(cards);
+				});
+			},
+		},
+		// ======================
+		//        迸发效果       
+		// ======================
+		burstEffectTexts: [
+			"【※】：あなたのシグニ１体をバニッシュする。そうした場合、対戦相手のシグニ１体をトラッシュに置く。"
+		],
+		burstEffect: {
+			actionAsyn: function () {
+				return this.player.selectSelfSigniAsyn().callback(this,function (card) {
+					if (!card) return;
+					return card.banishAsyn().callback(this,function (succ) {
+						if (!succ) return;
+						return this.player.selectOpponentSigniAsyn().callback(this,function (card) {
+							if (!card) return;
+							return card.trashAsyn();
+						});
+					});
 				});
 			},
 		},
