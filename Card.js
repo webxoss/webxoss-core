@@ -140,6 +140,7 @@ function Card (game,player,zone,pid,side) {
 
 	// 附加的属性
 	this.canNotAttack                = false;
+	this.mustAttack                  = false;
 	this.lancer                      = false;
 	this.doubleCrash                 = false;
 	this.tripleCrash                 = false;

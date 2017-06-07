@@ -119117,7 +119117,6 @@ var CardInfo = {
 				actionAsyn: function () {
 					this.game.frame(this,function () {
 						this.player.opponent.getInfectedCards().forEach(function (card) {
-							// TODO: ...
 							this.game.tillTurnEndSet(this,card,'mustAttack',true);
 						},this);
 					});

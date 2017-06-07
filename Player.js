@@ -1044,12 +1044,11 @@ Player.prototype.signiAttackAsyn = function () {
 
 // 玩家结束SIGNI攻击步骤
 Player.prototype.endSigniAttackStepAsyn = function () {
-	if (this.forceSigniAttack) {
-		var cards = this.signis.filter(function (card) {
-			return card.canAttack() && !card.attackCostColorless;
-		});
-		if (cards.length) return Callback.never();
-	}
+	// 必须进行攻击的卡
+	var cards = this.signis.filter(function (card) {
+		return (this.forceSigniAttack || card.mustAttack) && card.canAttack() && !card.attackCostColorless;
+	});
+	if (cards.length) return Callback.never();
 	return this.selectAsyn('END_SIGNI_ATTACK_STEP');
 };
 
