@@ -105,6 +105,7 @@ function Card (game,player,zone,pid,side) {
 	this.rise = info.rise;
 	this.acce = !!info.acce;
 	this.acceingCard = null;
+	this.maxAcceCount = 1;
 	this.trap = info.trap || null;
 	this.shadow = false;
 
@@ -1620,7 +1621,7 @@ Card.prototype.isAcced = function () {
 };
 
 Card.prototype.canBeAcced = function () {
-	return !this.isAcced();
+	return this.getAccedCards().length < this.maxAcceCount;
 };
 
 Card.prototype.acceTo = function (signi) {

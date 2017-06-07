@@ -387,6 +387,20 @@ Player.prototype.resetSignisAsyn = function () {
 	}).callback(this,this.resetSignisAsyn);
 };
 
+Player.prototype.resetAccesAsyn = function() {
+	var signis = this.signis.filter(function (signi) {
+		return (signi.getAccedCards().length > signi.maxAcceCount);
+	},this);
+	return Callback.forEach(signis,function (signi) {
+		signi.beSelectedAsTarget();
+		var cards = signi.getAccedCards();
+		var count = cards.length - signi.maxAcceCount;
+		return this.player.selectSomeAsyn('TRASH',cards,count,count).callback(this,function (cards) {
+			this.game.trashCards(cards);
+		});
+	});
+};
+
 Player.prototype.getSigniAmountLimit = function () {
 	if (this._ionaUltimaMaiden) return 1;
 	if (this.twoSignisLimit) return 2;
