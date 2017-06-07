@@ -45,6 +45,7 @@ function Game (cfg) {
 	// 附加属性
 	this.trashWhenPowerBelowZero = false;
 	this.spellToCutIn = null; // <ブルー・パニッシュ>
+	this.lastTurnCoinSkillsDisabled = false;
 };
 
 Game.checkDeck = function (cfg,mayusRoom) {

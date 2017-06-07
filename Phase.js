@@ -10,6 +10,7 @@ function Phase (game) {
 
 	// 基本属性
 	this.firstTurn = true;
+	this.turnCount = 0;
 	this.status = '';
 	this.additionalTurn = false; // 是否是由于效果追加的回合
 
@@ -344,6 +345,7 @@ Phase.prototype.wixoss = function () {
 	this.player.attackCount = 0;
 	this.player.opponent.attackCount = 0;
 	this.firstTurn = false;
+	this.turnCount++;
 
 	this.game.blockAsyn(this,function () {
 		this.game.frameStart();

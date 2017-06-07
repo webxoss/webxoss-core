@@ -105168,12 +105168,16 @@ var CardInfo = {
 		actionEffects: [{
 			costCoin: 3,
 			actionAsyn: function () {
+				var turn = this.game.phase.turnCount;
 				this.game.addConstEffect({
 					source: this,
 					createTimming: this.game.phase.onTurnStart,
 					once: true,
 					destroyTimming: this.game.phase.onTurnEnd,
 					action: function (set,add) {
+						if (this.game.lastTurnCoinSkillsDisabled && (turn === this.game.phase.turnCount - 1)) {
+							return;
+						}
 						set(this.player.opponent,'artsBanned',true);
 						set(this.player.opponent,'spellBanned',true);
 						set(this.player.opponent,'actionEffectBanned',true);
@@ -109194,15 +109198,19 @@ var CardInfo = {
 		startUpEffects: [{
 			costCoin: 2,
 			actionAsyn: function () {
+				var turn = this.game.phase.turnCount;
 				this.game.addConstEffect({
 					source: this,
-					destroyTimming: this.onLeaveField2,
+					// destroyTimming: this.onLeaveField2,
 					once: true,
 					action: function (set,add) {
 						var effect = this.game.newEffect({
 							source: this,
 							description: '2125-attached-0',
 							triggerCondition: function (event) {
+								if (this.game.lastTurnCoinSkillsDisabled && (turn === this.game.phase.turnCount - 1)) {
+									return false;
+								}
 								return (event.card === this.player.opponent.lrig);
 							},
 							actionAsyn: function (event) {
@@ -109306,11 +109314,18 @@ var CardInfo = {
 		actionEffects: [{
 			costCoin: 2,
 			actionAsyn: function () {
+				var turn = this.game.phase.turnCount;
 				this.game.addConstEffect({
 					source: this,
 					createTimming: this.player.opponent.onTurnStart,
 					once: true,
 					destroyTimming: this.game.phase.onTurnEnd,
+					condition: function () {
+						if (this.game.lastTurnCoinSkillsDisabled && (turn === this.game.phase.turnCount - 1)) {
+							return false;
+						}
+						return true;
+					},
 					action: function (set,add) {
 						this.player.signis.forEach(function (signi) {
 							set(signi,'shadow',true);
@@ -114780,6 +114795,7 @@ var CardInfo = {
 			attackPhase: true,
 			costCoin: 1,
 			actionAsyn: function () {
+				var turn = this.game.phase.turnCount;
 				return this.player.selectSelfSigniAsyn().callback(this,function (signi) {
 					if (!signi) return;
 					return this.player.selectAsyn('TARGET',this.player.hands).callback(this,function (card) {
@@ -114795,6 +114811,12 @@ var CardInfo = {
 								var effect = this.game.newEffect({
 									source: this,
 									description: '2249-action-0',
+									triggerCondition: function () {
+										if (this.game.lastTurnCoinSkillsDisabled && (turn === this.game.phase.turnCount - 1)) {
+											return false;
+										}
+										return true;
+									},
 									condition: function () {
 										return inArr(card.zone,card.player.signiZones);
 									},
@@ -114812,7 +114834,7 @@ var CardInfo = {
 										});
 									},
 								});
-								add(signi,'onBanish',effect);
+								add(signi,'onLeaveField',effect);
 							},
 						});
 					});
@@ -117023,33 +117045,6 @@ var CardInfo = {
 		"coin": 0,
 		"imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WX16/WX16-002.jpg",
 		"illust": "マツモトミツアキ",
-		faqs: [
-			{
-				"q": "対戦相手の【ランサー】を持つシグニのアタックによって、《ライズアイコン》を持つシグニがバトルでバニッシュされるのを常時能力で置き換えました。ライフクロスはクラッシュされますか？",
-				"a": "はい、この常時能力はバニッシュを別のことに置き換えていますが、バトルのバニッシュを置き換えた場合であっても【ランサー】でライフクロスはクラッシュされます。\n何かに置き換えるでもなく、単に「バニッシュされない」シグニにアタックした場合は【ランサー】でクラッシュはできません。"
-			},
-			{
-				"q": "「オーネスト」とは何ですか？",
-				"a": "この能力の名前です。コインを支払うことでこの能力を発動し、テキストに書かれている効果を発揮することができます。"
-			},
-			{
-				"q": "「コイン技」とは何ですか？",
-				"a": "「オーネスト」や「ベルセルク」のように、コインを支払うことで発動できる名前のついた能力です。\n《決死の記憶　リル》などのように、単にコインを支払うのみの能力は該当しませんのでご注意下さい。"
-			},
-			{
-				// TODO: ...
-				"q": "「コイン技を無効にする」という効果では何が起こりますか？",
-				"a": "前のターンに発動したコイン技を無効にしますが、既に起こったことは変えられません。\n下記に、それぞれのコイン技と無効にできるかどうかを記載します。\n\n《真実の記憶　リル》の「オーネスト」：情報を公開した後ですので、何も起こりません。\n《みらくるあーや！Ⅳ》の「ホログラフ」：このターンのみ、ルリグがアタックしても「ホログラフ」による効果は発動しません。\n《メル＝マティーニ》の「ベルセルク」：起動能力としてはこの「オーネスト」は使用できませんが、出現時能力で発動した場合、アーツやスペルや起動能力が使用できるようになり、「可能ならばアタックしなければならない」効果もなくなります。\n《ナナシ　其ノ四ノ別》の「ブラインド」：このターン、すべてのシグニが【シャドウ】を得る効果が無効となりますので、それらのシグニの【シャドウ】は失われます。\n《ドーナ　ＦＯＵＲＴＨ》の「エスケープ」：シグニアタックステップがスキップされた後ですので、何も起こりません。\n《ママ　４　ＭＯＤＥ２》の「カンニング」：「カンニング」により既に付けられたカードは付いたままですが、この能力を発動したターン中ではそのシグニが場を離れるとそのカードはトラッシュに置かれ何も起こりません。"
-			},
-			{
-				"q": "【出】／【起】とは何ですか？",
-				"a": "《救念の記憶　リル》の「オーネスト」は、出現時能力としても起動能力としても使用できます。《救念の記憶　リル》にグロウしたときに出現時能力として発動することができ、あなたのメインフェイズに起動能力として使用することもできます。"
-			},
-			{
-				"q": "常時能力について、《ライズアイコン》を持つシグニに付いている【チャーム】や下にある置いてある【トラップ】をトラッシュに置くことでバニッシュから守れますか？",
-				"a": "ルール上、シグニの下にあるカードとは効果によってシグニの下に置かれたカードや《ライズアイコン》を持つシグニが場に出る条件としてその下になったカードのことを指します。\nゲーム盤面において実際にシグニの下に置かれていたとしても【チャーム】や【トラップ】、【アクセ】などはこの常時能力によってトラッシュに置くことはできません。"
-			}
-		],
 		"classes": [
 			"リル"
 		],
@@ -117132,8 +117127,7 @@ var CardInfo = {
 		startUpEffects: [{
 			costCoin: 2,
 			actionAsyn: function () {
-				// TODO: ...
-				this.game.tillTurnEndSet(this,this.game,'disableCoinSkillsOfPreviousTurn',true);
+				this.game.tillTurnEndSet(this,this.game,'lastTurnCoinSkillsDisabled',true);
 			},
 		}],
 		// ======================
@@ -117145,7 +117139,7 @@ var CardInfo = {
 		actionEffects: [{
 			costCoin: 2,
 			actionAsyn: function () {
-				this.game.tillTurnEndSet(this,this.game,'disableCoinSkillsOfPreviousTurn',true);
+				this.game.tillTurnEndSet(this,this.game,'lastTurnCoinSkillsDisabled',true);
 			},
 		}],
 	},
