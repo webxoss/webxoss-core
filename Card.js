@@ -202,14 +202,41 @@ var mixins = {
 				return signi.canBeAcced();
 			},this);
 		},
-		actionAsyn: function () {
-			var signis = this.player.signis.filter(function (signi) {
+		costChange: function () {
+			var obj = Object.create(this);
+			obj.costChange = null;
+			var flag = this.player.signis.some(function (signi) {
+				return signi.canBeAcced() && signi._2313;
+			},this);
+			if (flag) {
+				obj.costGreen -= 1;
+				if (obj.costGreen < 0) obj.costGreen = 0;
+			}
+			return obj;
+		},
+		costChangeAsyn: function () {
+			var cost = Object.create(this);
+			cost.costChange = null;
+			var reducedCost = Object.create(this);
+			reducedCost.costGreen -= 1;
+			if (reducedCost.costGreen < 0) reducedCost.costGreen = 0;
+
+			var cards = this.player.signis.filter(function (signi) {
 				return signi.canBeAcced();
 			},this);
-			return this.player.selectTargetOptionalAsyn(signis).callback(this,function (signi) {
-				if (!signi) return;
-				this.acceTo(signi);
+			if (!this.player.enoughCost(cost)) {
+				cards = cards.filter(function (signi) {
+					return signi._2313;
+				},this);
+			}
+			return this.player.selectTargetAsyn(cards).callback(this,function (card) {
+				this._data = card;
+				return (card && card._2313) ? reducedCost : cost;
 			});
+		},
+		actionAsyn: function () {
+			if (!this._data) return;
+			this.acceTo(this._data);
 		},
 	},
 };

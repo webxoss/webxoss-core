@@ -119040,7 +119040,6 @@ var CardInfo = {
 		],
 		constEffects: [{
 			action: function (set,add) {
-				// TODO: ...
 				set(this,'_2313',true);
 			},
 		},{
