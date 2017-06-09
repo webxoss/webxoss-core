@@ -109220,8 +109220,7 @@ var CardInfo = {
 									answer = text;
 									// <ブレイクスルー・ブルー>
 									if (!this.game.getData(this.player,'_2285')) return;
-									// TODO: client...
-									return this.player.showTextAsyn('GUESS_TRAP','',text).callback(this,function () {
+									return this.player.showTextAsyn('GUESS_TRAP','text',text).callback(this,function () {
 										var cards = this.player.mainDeck.getTopCards(3);
 										var len = cards.length;
 										this.player.informCards(cards);
