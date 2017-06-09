@@ -116237,10 +116237,10 @@ var CardInfo = {
 			auto: 'onAttack',
 			effect: {
 				actionAsyn: function () {
-					// TODO: localize...
 					return this.player.selectNumberAsyn('LEVEL',1,2).callback(this,function (level) {
-						// TODO: show level...
 						this.game.tillTurnEndAdd(this,'level',level);
+						// FIX ME: Keep showing current level for all signis.
+						this.player.opponent.showTextAsyn('LEVEL','number',level);
 					});
 				},
 			},
@@ -116568,8 +116568,7 @@ var CardInfo = {
 		artsEffect: {
 			actionAsyn: function () {
 				return Callback.forEach([this.player,this.player.opponent],function (player) {
-					// TODO: default label...
-					return player.selectNumberAsyn('',0,3,3).callback(this,function (count) {
+					return player.selectNumberAsyn('PUT_TO_ENER_ZONE',0,3,3).callback(this,function (count) {
 						if (!count) return;
 						player.enerCharge(count);
 					});
@@ -119882,8 +119881,7 @@ var CardInfo = {
 					};
 					return this.player.selectSelfSigniAsyn(filter).callback(this,function (card) {
 						if (!card) return;
-						// TODO: client...
-						return this.player.selectTextAsyn('',['+1','-1']).callback(this,function (text) {
+						return this.player.selectTextAsyn('LEVEL',['+1','-1'],'raw').callback(this,function (text) {
 							var value = (text === '+1') ? 1 : -1;
 							this.game.tillTurnEndAdd(this,card,'level',value);
 						});
