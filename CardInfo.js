@@ -117749,7 +117749,6 @@ var CardInfo = {
 		],
 		artsEffect: {
 			actionAsyn: function () {
-				// TODO: ...
 				this.game.setData(this.player,'damageWhenAttackSigniZone',true);
 			}
 		}

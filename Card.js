@@ -1375,7 +1375,12 @@ Card.prototype.attackAsyn = function () {
 							});
 						} else {
 							// 伤害
-							if (target !== opposingSigni) return;
+							if (target !== opposingSigni) {
+								// 攻击非正面的区域
+								if (!this.game.getData(card.player,'damageWhenAttackSigniZone')) {
+									return;
+								}
+							}
 							if (event.wontBeDamaged || opponent.wontBeDamaged) return;
 							crashArg.damage = true;
 							if (opponent.lifeClothZone.cards.length) {
