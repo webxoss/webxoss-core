@@ -115248,7 +115248,6 @@ var CardInfo = {
 		],
 		constEffects: [{
 			layer: true,
-			// TODO: layer...
 			action: function (set,add) {
 				add(this,'effectFilters',function (card) {
 					return !((card.player === this.player.opponent) && (card.power >= 15000));

@@ -108,6 +108,8 @@ function Card (game,player,zone,pid,side) {
 	this.maxAcceCount = 1;
 	this.trap = info.trap || null;
 	this.shadow = false;
+	this.layer = !!info.layer;
+	this.layerMarks = [];
 
 	// 杂项
 	this.effectFilters     = [];
@@ -192,6 +194,7 @@ Card.abilityProps = [
 	'canAttackAnySigniZone',
 	'canAttackNearbySigniZone',
 	'trap',
+	'layer',
 ];
 
 var mixins = {
@@ -257,6 +260,22 @@ Card.prototype.cookEffect = function (rawEffect,type,offset) {
 };
 
 Card.prototype.setupConstEffects = function () {
+	var layerMark = this.gid;
+	if (this.layer) {
+		this.addConstEffect({
+			source: this,
+			createTimming: this.onEnterField,
+			once: once,
+			destroyTimming: this.onLeaveField2,
+			action: function (add,set) {
+				this.player.signis.forEach(function (signi) {
+					if (signi.hasClass('怪異')) {
+						add(signi,'layerMarks',layerMark);
+					}
+				});
+			},
+		},true);
+	}
 	this.constEffects.forEach(function (eff,idx,constEffects) {
 		var createTimming,destroyTimming,once;
 		if (eff.duringGame) {
@@ -302,6 +321,23 @@ Card.prototype.setupConstEffects = function () {
 			condition: eff.condition,
 			action: action,
 		},true);
+		if (eff.layer) {
+			this.player.mainDeck.cards.forEach(function (signi) {
+				if (!signi.hasClass('怪異')) return;
+				this.game.addConstEffect({
+					source: signi,
+					createTimming: signi.onEnterField,
+					once: true,
+					destroyTimming: signi.onLeaveField2,
+					cross: false,
+					wisdom: false,
+					fixed: false,
+					condition: function () {
+						return inArr(layerMark,this.layerMarks) && eff.condition.call(this);
+					},
+				});
+			});
+		}
 	},this);
 };
 
