@@ -64,7 +64,7 @@ function Card (game,player,zone,pid,side) {
 	// 生命迸发效果
 	this.burstEffects   = this.cookEffect(info.burstEffect,'burst');
 	// 常时效果(因为内容会被修改，这里用 slice 创建不同的引用)
-	this.constEffects   = info.constEffects.slice() || [];
+	this.constEffects   = (info.constEffects || []).slice();
 	// 出场效果
 	this.startUpEffects = this.cookEffect(info.startUpEffects,'startup');
 	// 起动效果

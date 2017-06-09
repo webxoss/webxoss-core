@@ -1047,7 +1047,7 @@ Player.prototype.endSigniAttackStepAsyn = function () {
 	// 必须进行攻击的卡
 	var cards = this.signis.filter(function (card) {
 		return (this.forceSigniAttack || card.mustAttack) && card.canAttack() && !card.attackCostColorless;
-	});
+	},this);
 	if (cards.length) return Callback.never();
 	return this.selectAsyn('END_SIGNI_ATTACK_STEP');
 };

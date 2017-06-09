@@ -941,7 +941,7 @@ Game.prototype.handleBlockEndAsyn = function () {
 	return this.turnPlayer.resetSignisAsyn().callback(this,function () {
 		return this.turnPlayer.opponent.resetSignisAsyn();
 	}).callback(this,function () {
-		return this.player.resetAccesAsyn().callback(this,function () {
+		return this.turnPlayer.resetAccesAsyn().callback(this,function () {
 			return this.turnPlayer.opponent.resetAccesAsyn();
 		});
 	}).callback(this,function () {
