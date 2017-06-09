@@ -116625,7 +116625,6 @@ var CardInfo = {
 		},{
 			wisdom: 10,
 			action: function (set,add) {
-				// TODO: ...
 				set(this,'_2278',true);
 			},
 		}],

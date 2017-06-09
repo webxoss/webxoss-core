@@ -1218,7 +1218,9 @@ Card.prototype.attackAsyn = function () {
 		attack: true,
 	};
 	var cost = null;
-	var attackedZone = null;
+	var attackedZones = [];
+	var index = this.player.signiZones.indexOf(this.zone);
+	var opposingZone = this.getOpposingZone();
 	if (this.attackCostColorless) {
 		cost = {
 			costColorless: this.attackCostColorless
@@ -1244,13 +1246,11 @@ Card.prototype.attackAsyn = function () {
 	}).callback(this,function () {
 		// 选择攻击的区域
 		var zones = [];
-		var index = this.player.signiZones.indexOf(this.zone);
-		var opposingZone = this.player.opponent.signiZones[2-index];
 		if (this.canAttackAnySigniZone) {
 			zones = this.player.opponent.signiZones;
 		} else if (this.canAttackNearbySigniZone) {
 			if (index === 1) {
-				zones = this.player.opponent.signiZones
+				zones = this.player.opponent.signiZones;
 			} else {
 				zones = [
 					opposingZone,
@@ -1258,9 +1258,27 @@ Card.prototype.attackAsyn = function () {
 				];
 			}
 		}
-		if (!zones.length) return attackedZone = opposingZone;
+		if (!zones.length) return attackedZones.push(opposingZone);
 		return this.player.selectAsyn('TARGET',zones).callback(this,function (zone) {
-			attackedZone = zone
+			attackedZones.push(zone);
+			// FIX ME: show selected zone.
+			var card = zone.getSigni();
+			if (card) card.beSelectedAsTarget();
+		});
+	})
+	.callback(this,function () {
+		// <具英の鋭針　＃コンパス＃>
+		if (!card._2278) return;
+		if (attackedZones[0] !== opposingZone) return;
+		var zones = [];
+		if (index === 1) {
+			zones = [this.player.opponent.signiZones[0],this.player.opponent.signiZones[2]];
+		} else {
+			zones = [this.player.opponent.signiZones[1]];
+		}
+		return this.player.selectOptionalAsyn('TARGET',zones).callback(this,function (zone) {
+			if (zone) attackedZones.push(zone);
+			// FIX ME: show selected zone.
 			var card = zone.getSigni();
 			if (card) card.beSelectedAsTarget();
 		});
@@ -1312,8 +1330,7 @@ Card.prototype.attackAsyn = function () {
 					if (!inArr(card,player.signis)) return;
 					// 处理陷阱
 					var opposingSigni = card.getOpposingSigni();
-					var index = this.player.signiZones.indexOf(this.zone);
-					var opposingZone = this.player.opponent.signiZones[2-index];
+					opposingZone = card.getOpposingZone();
 					var trap = opposingZone.trap
 					return Callback.immediately().callback(this,function () {
 						if (opposingSigni || !trap) return;
@@ -1322,78 +1339,79 @@ Card.prototype.attackAsyn = function () {
 							return card.handleTrapAsyn(event);
 						});
 					}).callback(this,function () {
-						// 强制结束回合
-						if (this.game.phase.checkForcedEndTurn()) return;
-						// 攻击的卡不在场上，结束处理.
-						if (!inArr(card,player.signis)) return;
 						// 攻击被无效，结束处理
 						if (event.prevented) return;
-						// 若攻击的目标存在，进行战斗;
-						// (暗杀的情况下，目标为正对面的 SIGNI 时，不战斗)
-						var target = attackedZone.getSigni() || null;
-						var battle = true;
-						if (!target) battle = false;
-						if (card.assassin && (target === opposingSigni)) battle = false;
-						if (battle) {
-							// 战斗
-							// 触发"进行战斗"时点
-							var onBattleEvent = {
-								card: card,
-								target: target,
-							};
-							return this.game.blockAsyn(this,function () {
-								this.game.frameStart();
-								card.onBattle.trigger(onBattleEvent);
-								target.onBattle.trigger(onBattleEvent);
-								this.game.frameEnd();
-							}).callback(this,function () {
-								// 此时,攻击的卡可能已不在场上
-								if (!inArr(card,player.signis)) return;
-								// 受攻击的卡也可能已不在场上
-								// 注意: 根据事务所QA,此时不击溃对方的生命护甲(即使有 lancer ). (<大剣　レヴァテイン>)
-								if (!inArr(target,target.player.signis)) return;
-								// 结算战斗伤害
-								if (card.power >= target.power) {
-									// 保存此时的 lancer 属性作为参考,
-									// 因为驱逐被攻击的 SIGNI 后,攻击侧的 lancer 可能改变.
-									var lancer = card.lancer;
-									return this.game.blockAsyn(this,function () {
-										return target.banishAsyn({attackingSigni: card}).callback(this,function (succ) {
-											if (succ && lancer) {
-												crashArg.lancer = lancer;
-												return opponent.crashAsyn(1,crashArg);
-											}
+						// 处理战斗或伤害
+						return Callback.forEach(attackedZones,function (attackedZone) {
+							// 强制结束回合
+							if (this.game.phase.checkForcedEndTurn()) return;
+							// 攻击的卡不在场上，结束处理.
+							if (!inArr(card,player.signis)) return;
+							var target = attackedZone.getSigni() || null;
+							var battle = true;
+							if (!target) battle = false;
+							if (card.assassin && (attackedZone === opposingZone)) battle = false;
+							if (battle) {
+								// 战斗
+								// 触发"进行战斗"时点
+								var onBattleEvent = {
+									card: card,
+									target: target,
+								};
+								return this.game.blockAsyn(this,function () {
+									this.game.frameStart();
+									card.onBattle.trigger(onBattleEvent);
+									target.onBattle.trigger(onBattleEvent);
+									this.game.frameEnd();
+								}).callback(this,function () {
+									// 此时,攻击的卡可能已不在场上
+									if (!inArr(card,player.signis)) return;
+									// 受攻击的卡也可能已不在场上
+									// 注意: 根据事务所QA,此时不击溃对方的生命护甲(即使有 lancer ). (<大剣　レヴァテイン>)
+									if (!inArr(target,target.player.signis)) return;
+									// 结算战斗伤害
+									if (card.power >= target.power) {
+										// 保存此时的 lancer 属性作为参考,
+										// 因为驱逐被攻击的 SIGNI 后,攻击侧的 lancer 可能改变.
+										var lancer = card.lancer;
+										return this.game.blockAsyn(this,function () {
+											return target.banishAsyn({attackingSigni: card}).callback(this,function (succ) {
+												if (succ && lancer) {
+													crashArg.lancer = lancer;
+													return opponent.crashAsyn(1,crashArg);
+												}
+											});
 										});
-									});
+									}
+								}).callback(this,function () {
+									if (onBattleEvent._1877 && inArr(target,target.player.signis)) {
+										return this.game.blockAsyn(onBattleEvent._1877,this,function () {
+											target.moveTo(target.player.mainDeck,{bottom: true});
+										});
+									}
+								});
+							} else {
+								// 伤害
+								if (attackedZone !== opposingZone) {
+									// 攻击非正面的区域
+									if (!this.game.getData(card.player,'damageWhenAttackSigniZone')) {
+										return;
+									}
 								}
-							}).callback(this,function () {
-								if (onBattleEvent._1877 && inArr(target,target.player.signis)) {
-									return this.game.blockAsyn(onBattleEvent._1877,this,function () {
-										target.moveTo(target.player.mainDeck,{bottom: true});
-									});
-								}
-							});
-						} else {
-							// 伤害
-							if (target !== opposingSigni) {
-								// 攻击非正面的区域
-								if (!this.game.getData(card.player,'damageWhenAttackSigniZone')) {
+								if (event.wontBeDamaged || opponent.wontBeDamaged) return;
+								crashArg.damage = true;
+								if (opponent.lifeClothZone.cards.length) {
+									var count = 1;
+									if (this.doubleCrash) count = 2;
+									if (this.tripleCrash) count = 3;
+									crashArg.doubleCrash = this.doubleCrash;
+									return opponent.crashAsyn(count,crashArg);
+								} else {
+									if (card.game.win(player)) return Callback.never();
 									return;
 								}
 							}
-							if (event.wontBeDamaged || opponent.wontBeDamaged) return;
-							crashArg.damage = true;
-							if (opponent.lifeClothZone.cards.length) {
-								var count = 1;
-								if (this.doubleCrash) count = 2;
-								if (this.tripleCrash) count = 3;
-								crashArg.doubleCrash = this.doubleCrash;
-								return opponent.crashAsyn(count,crashArg);
-							} else {
-								if (card.game.win(player)) return Callback.never();
-								return;
-							}
-						}
+						},this);
 					});
 				});
 			}).callback(this,function () {
@@ -1654,9 +1672,15 @@ Card.prototype.getTotalEnerCost = function (original) {
 };
 
 Card.prototype.getOpposingSigni = function () {
+	var zone = this.getOpposingZone();
+	if (!zone) return null;
+	return zone.getSigni() || null;
+};
+
+Card.prototype.getOpposingZone = function () {
 	if (!inArr(this,this.player.signis)) return null;
 	var idx = 2 - this.player.signiZones.indexOf(this.zone);
-	return this.player.opponent.signiZones[idx].getSigni() || null;
+	return this.player.opponent.signiZones[idx];
 };
 
 Card.prototype.charmTo = function (signi) {
