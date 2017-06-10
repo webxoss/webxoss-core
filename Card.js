@@ -1141,8 +1141,8 @@ Card.prototype.changeSigniZone = function (zone) {
 
 	// 交换 zone.cards
 	var oldZone = this.zone;
-	var tmp = oldZone.cards;
-	oldZone.cards = zone.cards;
+	var tmp = oldZone.getNonTrapCards().concat(zone.trap || []);
+	oldZone.cards = zone.getNonTrapCards().concat(oldZone.trap || []);
 	zone.cards = tmp;
 	// 设置 card.zone
 	oldZone.cards.forEach(function (card) {

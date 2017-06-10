@@ -59,6 +59,12 @@ Zone.prototype.getActualCards = function () {
 	},this);
 };
 
+Zone.prototype.getNonTrapCards = function() {
+	return this.cards.filter(function (card) {
+		return (card !== this.trap);
+	},this);
+};
+
 Zone.prototype.getSigni = function() {
 	return this.player.signis.filter(function (signi) {
 		return signi.zone === this;
