@@ -50604,13 +50604,8 @@ var CardInfo = {
 		],
 		artsEffect: {
 			actionAsyn: function () {
-				var cids = [];
-				var cards = [];
-				this.player.hands.forEach(function (card) {
-					if (!card.hasClass('凶蟲')) return;
-					if (inArr(card.cid,cids)) return;
-					cards.push(card);
-					cids.push(card.cid);
+				var cards = this.player.hands.filter(function (card) {
+					return card.hasClass('凶蟲');
 				},this);
 				if (!cards.length) return;
 				return this.player.selectSomeAsyn('DISCARD',cards).callback(this,function (cards) {
