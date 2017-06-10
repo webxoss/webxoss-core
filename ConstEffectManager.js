@@ -160,6 +160,11 @@ ConstEffectManager.prototype.compute = function () {
 	cardsAbilityLost.forEach(function (card) {
 		if (!oldAbilityLostMap[card.gid]) {
 			// 从"不失去能力"变为"失去能力"
+			this.game.triggeringEffects.forEach(function (effect) {
+				if (effect.source === card) {
+					effect.disabled = true;
+				}
+			});
 			this.game.effectManager.removeTriggeredEffectBySource(card);
 		}
 	},this);

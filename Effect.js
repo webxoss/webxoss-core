@@ -65,6 +65,7 @@ Effect.prototype.triggerAndHandleAsyn = function (event) {
 };
 
 Effect.prototype.checkCondition = function () {
+	if (this.disabled) return false;
 	// "结束这个回合",如<终结之洞>
 	var game = this.effectManager.game;
 	if (game.getData(game,'endThisTurn')) return false;
