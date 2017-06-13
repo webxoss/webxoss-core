@@ -115610,6 +115610,7 @@ var CardInfo = {
 					},this);
 					return this.player.selectOptionalAsyn('DISCARD',cards).callback(this,function (card) {
 						if (!card) return done = true;
+						card.trash();
 						var filter = function (signi) {
 							return (signi.level === card.level);
 						};
