@@ -118807,7 +118807,7 @@ var CardInfo = {
 		constEffectTexts: [
 			"【自】：あなたの《トラップアイコン》が発動したとき、あなたは《青》を支払ってもよい。そうした場合、このシグニをトラッシュから場に出す。ターン終了時に、またはこのシグニが場から離れる場合に、このシグニをゲームから除外する。"
 		],
-		constEffects: {
+		constEffects: [{
 			duringGame: true,
 			fixed: true,
 			auto: function (add,effect) {
@@ -118828,7 +118828,7 @@ var CardInfo = {
 					});
 				},
 			},
-		},
+		}],
 		// ======================
 		//        迸发效果       
 		// ======================
@@ -119098,7 +119098,7 @@ var CardInfo = {
 			"【自】：対戦相手のアタックフェイズ開始時、ターン終了時まで、対戦相手の感染状態のすべてのシグニは「可能ならばアタックしなければならない。」を得る。\n" +
 			"（この能力はアタックフェイズにアーツや能力を使用する前に発動する）"
 		],
-		constEffects: {
+		constEffects: [{
 			auto: function (add,effect) {
 				add(this.player.opponent,'onAttackPhaseStart',effect);
 			},
@@ -119111,7 +119111,7 @@ var CardInfo = {
 					});
 				},
 			},
-		},
+		}],
 	},
 	"2315": {
 		"pid": 2315,
