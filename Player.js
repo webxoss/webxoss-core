@@ -868,7 +868,7 @@ Player.prototype.canUseActionEffect = function (effect,arg) {
 	// cross
 	if (effect.cross && !effect.source.crossed) return false;
 	// wisdom
-	if (effect.wisdom && !(effect.source.player.getWisdom() >= effect.wisdom)) return false;
+	if (effect.wisdom && (effect.source.player.getWisdom() !== effect.wisdom)) return false;
 	// once
 	if (effect.once && inArr(effect,this.usedActionEffects)) return false;
 	// condition

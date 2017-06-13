@@ -74,7 +74,7 @@ Effect.prototype.checkCondition = function () {
 		return false;
 	}
 	// wisdom
-	if (this.wisdom && !(this.source.player.getWisdom() > this.wisdom)) {
+	if (this.wisdom && (this.source.player.getWisdom() !== this.wisdom)) {
 		return false;
 	}
 	// 隐藏规则之"发动和解决的场所必须一致"
