@@ -115440,7 +115440,7 @@ var CardInfo = {
 					},
 					optional: true,
 					actionAsyn: function () {
-						return this.player.selectAsyn('TARGET',this.player.opponent.signiZones).callback(this,function (zone) {
+						return this.player.selectAsyn('TARGET',this.player.signiZones).callback(this,function (zone) {
 							if (!zone) return;
 							this.trapTo(zone);
 						});
