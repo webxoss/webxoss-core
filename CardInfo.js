@@ -121846,8 +121846,8 @@ var CardInfo = {
 			auto: 'onMove',
 			effect: {
 				triggerCondition: function (event) {
-					return (card.oldZone === this.player.handZone) &&
-					       (card.newZone === this.player.trashZone);
+					return (event.card.oldZone === this.player.handZone) &&
+					       (event.card.newZone === this.player.trashZone);
 				},
 				costCondition: function () {
 					return this.player.enoughCost({costBlue: 1}) || this.player.enoughCost({costBlack: 1});
