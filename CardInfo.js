@@ -117181,7 +117181,7 @@ var CardInfo = {
 			});
 		},
 		artsEffect: {
-			actionAsyn: function (costAsyn) {
+			actionAsyn: function (costArg) {
 				var filter = function (card) {
 					return !card.isUp;
 				};
