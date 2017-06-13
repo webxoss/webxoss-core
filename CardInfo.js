@@ -117562,9 +117562,12 @@ var CardInfo = {
 				},this));
 				if (!cards.length) return;
 				return this.player.selectSomeAsyn('ADD_TO_HAND',cards).callback(this,function (cards) {
+					var count = cards.filter(function (card) {
+						return inArr(card,this.player.getTraps());
+					}).length;
 					this.game.moveCards(cards,this.player.handZone);
 					var done = false;
-					return Callback.loop(this,cards.length,function () {
+					return Callback.loop(this,count,function () {
 						if (done) return;
 						return this.player.selectAsyn('TARGET',this.player.hands).callback(this,function (card) {
 							if (!card) return done = true;
