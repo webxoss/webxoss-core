@@ -119656,7 +119656,7 @@ var CardInfo = {
 				return this.player.selectAsyn('TRASH',cards).callback(this,function (card) {
 					if (!card) return;
 					card.trash();
-					return this.setTrapFromDeckTopAsyn(3,1,true);
+					return this.player.setTrapFromDeckTopAsyn(3,1,true);
 				});
 			},
 		}],
