@@ -119186,15 +119186,16 @@ var CardInfo = {
 						},
 					},{
 						source: this,
-						description: '2315-attached-2',
+						description: '2315-attached-3',
 						actionAsyn: function () {
 							var cards = concat(this.player.mainDeck.getTopCards(5),this.player.opponent.mainDeck.getTopCards(5));
 							this.game.trashCards(cards);
 						},
 					}];
-					return this.player.selectSomeAsyn('LAUNCH',effects,1,count).callback(this,function (effect) {
-						if (!effect) return;
-						return effect.actionAsyn.call(this);
+					return this.player.selectSomeAsyn('LAUNCH',effects,1,count).callback(this,function (effects) {
+						return Callback.forEach(effects,function (effect) {
+							return effect.actionAsyn.call(this);
+						},this);
 					});
 				});
 			},
