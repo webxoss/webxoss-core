@@ -117264,9 +117264,9 @@ var CardInfo = {
 			"ターン終了時まで、あなたのシグニ１体は「バニッシュされない。」を得る。",
 			"あなたのトラッシュからあなたのルリグと同じ色を持つシグニを２枚まで手札に加える。",
 		],
-		costChange: function () {
+		// costChange: function () {
 			// TODO...
-		},
+		// },
 		useCondition: function () {
 			return !this.player.lrig.hasColor('colorless');
 		},
