@@ -120389,11 +120389,14 @@ var CardInfo = {
 		],
 		constEffects: [{
 			auto: function (add,effect) {
-				add(this.player.opponent,'onSigniBanished',effect);
+				this.player.opponent.signis.forEach(function (signi) {
+					if (!signi.isInfected()) return;
+					add(signi,'onBanish',effect);
+				},this);
 			},
 			effect: {
 				triggerCondition: function (event) {
-					return event.card.isInfected() && (event.source === this);
+					return (event.source === this);
 				},
 				actionAsyn: function () {
 					this.player.draw(1);
