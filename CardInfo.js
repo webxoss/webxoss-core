@@ -118109,7 +118109,7 @@ var CardInfo = {
 				var effect = this.game.newEffect({
 					source: this,
 					description: '2300-const-1',
-					costGreen: 1,
+					costBlue: 1,
 					triggerCondition: function () {
 						return (this.zone === this.player.trashZone);
 					},
