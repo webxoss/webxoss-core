@@ -113773,7 +113773,7 @@ var CardInfo = {
 		],
 		startUpEffects: [{
 			actionAsyn: function () {
-				if (!this.player.getInfectedCards().length) {
+				if (!this.player.opponent.getInfectedCards().length) {
 					return this.player.infectZoneAsyn();
 				}
 			}
