@@ -118093,9 +118093,10 @@ var CardInfo = {
 				actionAsyn: function () {
 					return this.player.selectOptionalAsyn('LAUNCH',[this]).callback(this,function (card) {
 						if (!card) return;
-						var cards = this.player.enerCharge(1);
-						card = cards[0];
-						if (!card || !card.trap) return;
+						card = this.player.mainDeck.cards(0);
+						if (!card) return;
+						card.trash();
+						if (!card.trap) return;
 						var signi = this.getOpposingSigni();
 						if (!signi) return;
 						return signi.bounceAsyn();
