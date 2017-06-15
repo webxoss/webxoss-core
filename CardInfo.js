@@ -118096,7 +118096,7 @@ var CardInfo = {
 				actionAsyn: function () {
 					return this.player.selectOptionalAsyn('LAUNCH',[this]).callback(this,function (card) {
 						if (!card) return;
-						card = this.player.mainDeck.cards(0);
+						card = this.player.mainDeck.cards[0];
 						if (!card) return;
 						card.trash();
 						if (!card.trap) return;
