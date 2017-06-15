@@ -118930,7 +118930,7 @@ var CardInfo = {
 		burstEffect: {
 			actionAsyn: function () {
 				var filter = function (card) {
-					return card.hasClass('トリック');
+					return card.trap;
 				};
 				return this.player.seekAsyn(filter,1);
 			},
