@@ -106004,13 +106004,7 @@ var CardInfo = {
 		],
 		startUpEffects: [{
 			actionAsyn: function () {
-				var cards = this.player.mainDeck.getTopCards(2);
-				if (!cards.length) return;
-				this.player.informCards(cards);
-				return this.player.selectOptionalAsyn('TARGET',cards).callback(this,function (card) {
-					if (!card) return;
-					return this.player.setTrapFromDeckTopAsyn(2);
-				});
+				return this.player.setTrapFromDeckTopAsyn(2);
 			}
 		}],
 		// ======================
