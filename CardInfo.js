@@ -115597,7 +115597,7 @@ var CardInfo = {
 		spellEffect: {
 			actionAsyn: function () {
 				var done = false;
-				return Callback.loop(3,this,function () {
+				return Callback.loop(this,3,function () {
 					if (done) return;
 					var cards = this.player.hands.filter(function (card) {
 						return (card.type === 'SIGNI');
