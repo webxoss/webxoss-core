@@ -117177,7 +117177,7 @@ var CardInfo = {
 		artsEffect: {
 			actionAsyn: function (costArg) {
 				var filter = function (card) {
-					return !card.isUp;
+					return card.isUp;
 				};
 				return this.player.selectOpponentSigniAsyn(filter).callback(this,function (card) {
 					if (!card) return;
