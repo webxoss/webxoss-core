@@ -63,8 +63,10 @@ function Card (game,player,zone,pid,side) {
 	this.beforeUseAsyn  = info.beforeUseAsyn || null;
 	// 生命迸发效果
 	this.burstEffects   = this.cookEffect(info.burstEffect,'burst');
-	// 常时效果(因为内容会被修改，这里用 slice 创建不同的引用)
-	this.constEffects   = (info.constEffects || []).slice();
+	// 常时效果(因为内容会被修改，这里用 Object.create 创建不同的引用)
+	this.constEffects   = (info.constEffects || []).map(function (constEffect) {
+		return Object.create(constEffect)
+	},this);
 	// 出场效果
 	this.startUpEffects = this.cookEffect(info.startUpEffects,'startup');
 	// 起动效果
@@ -276,7 +278,7 @@ Card.prototype.setupConstEffects = function () {
 			},
 		},true);
 	}
-	this.constEffects.forEach(function (eff,idx,constEffects) {
+	this.constEffects.forEach(function (eff,idx) {
 		var createTimming,destroyTimming,once;
 		if (eff.duringGame) {
 			createTimming = null;
@@ -294,12 +296,13 @@ Card.prototype.setupConstEffects = function () {
 		var action = eff.action
 		if (eff.auto) {
 			// 对于【自】效果，自动添加效果源和效果描述。
-			// 暴露在 card.constEffects[i].effect 上，供<験英の応援　＃ゴウカク＃>之类的效果获取。
 			var options = Object.create(eff.effect);
 			if (!options.source) options.source = this;
 			if (!options.description) options.description = this.cid+'-'+'const-'+idx;
+			// CardInfo 中提供的是效果描述，而这里创建为效果实例，
+			// 并暴露在 card.constEffects[i].effect 上，供<験英の応援　＃ゴウカク＃>之类的效果获取。
 			var effect = this.game.newEffect(options);
-			constEffects[idx].effect = effect;
+			eff.effect = effect;
 			if (isStr(eff.auto)) {
 				action = function (set,add) {
 					add(this,eff.auto,effect);
