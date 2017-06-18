@@ -117564,7 +117564,7 @@ var CardInfo = {
 				return this.player.selectSomeAsyn('ADD_TO_HAND',cards).callback(this,function (cards) {
 					var count = cards.filter(function (card) {
 						return inArr(card,this.player.getTraps());
-					}).length;
+					},this).length;
 					this.game.moveCards(cards,this.player.handZone);
 					var done = false;
 					return Callback.loop(this,count,function () {
