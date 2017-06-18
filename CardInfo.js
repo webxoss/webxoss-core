@@ -120192,7 +120192,7 @@ var CardInfo = {
 		],
 		spellEffect: {
 			actionAsyn: function () {
-				return this.addLifeCloth();
+				return this.player.addLifeCloth();
 			}
 		},
 		// ======================
