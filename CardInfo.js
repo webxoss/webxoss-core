@@ -109213,7 +109213,7 @@ var CardInfo = {
 										var cards = this.player.mainDeck.getTopCards(3);
 										var len = cards.length;
 										this.player.informCards(cards);
-										return this.selectSomeAsyn('SET_ORDER',cards,len,len,true).callback(this,function (cards) {
+										return this.player.selectSomeAsyn('SET_ORDER',cards,len,len,true).callback(this,function (cards) {
 											return this.player.mainDeck.moveCardsToTop(cards);
 										});
 									});
