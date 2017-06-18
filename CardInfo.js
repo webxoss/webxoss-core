@@ -116234,7 +116234,7 @@ var CardInfo = {
 			effect: {
 				actionAsyn: function () {
 					return this.player.selectNumberAsyn('LEVEL',1,2).callback(this,function (level) {
-						this.game.tillTurnEndAdd(this,'level',level);
+						this.game.tillTurnEndAdd(this,this,'level',level);
 						// FIX ME: Keep showing current level for all signis.
 						this.player.opponent.showTextAsyn('LEVEL','number',level);
 					});
