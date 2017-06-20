@@ -2385,6 +2385,7 @@ Player.prototype.pickCardsFromDeckTopAsyn = function(count,filter,max) {
 	var targets = cards.filter(filter);
 	return Callback.immediately().callback(this,function () {
 		if (!targets.length) return;
+		this.informCards(cards);
 		return this.selectSomeAsyn('ADD_TO_HAND',targets,0,max,false,cards).callback(this,function (targets) {
 			return this.opponent.showCardsAsyn(targets).callback(this,function () {
 				this.game.moveCards(targets,this.handZone);
