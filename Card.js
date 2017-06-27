@@ -264,10 +264,10 @@ Card.prototype.cookEffect = function (rawEffect,type,offset) {
 Card.prototype.setupConstEffects = function () {
 	var layerMark = this.gid;
 	if (this.layer) {
-		this.addConstEffect({
+		this.game.addConstEffect({
 			source: this,
 			createTimming: this.onEnterField,
-			once: once,
+			once: false,
 			destroyTimming: this.onLeaveField2,
 			action: function (add,set) {
 				this.player.signis.forEach(function (signi) {
@@ -338,8 +338,8 @@ Card.prototype.setupConstEffects = function () {
 					condition: function () {
 						return inArr(layerMark,this.layerMarks) && eff.condition.call(this);
 					},
-				});
-			});
+				},true);
+			},this);
 		}
 	},this);
 };
