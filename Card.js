@@ -269,7 +269,7 @@ Card.prototype.setupConstEffects = function () {
 			createTimming: this.onEnterField,
 			once: false,
 			destroyTimming: this.onLeaveField2,
-			action: function (add,set) {
+			action: function (set,add) {
 				this.player.signis.forEach(function (signi) {
 					if (signi.hasClass('怪異')) {
 						add(signi,'layerMarks',layerMark);
