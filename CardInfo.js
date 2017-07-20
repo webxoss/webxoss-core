@@ -119926,7 +119926,7 @@ var CardInfo = {
 			},
 			effect: {
 				triggerCondition: function (event) {
-					return (event.opposingSigni === this) && (attackingSigni !== this);
+					return (event.opposingSigni === this) && (event.attackingSigni !== this);
 				},
 				actionAsyn: function () {
 					return this.upAsyn();
