@@ -114760,7 +114760,7 @@ var CardInfo = {
 							source: this,
 							description: '2249-attached-1',
 							actionAsyn: function () {
-								this.player.enerCharge();
+								this.player.enerCharge(1);
 							}
 						}];
 						return this.player.selectAsyn('LAUNCH',effects).callback(this,function (effect) {
