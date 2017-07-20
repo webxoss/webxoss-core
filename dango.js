@@ -1,3 +1,5 @@
+'use strict'
+
 // function require (file) {
 //  return window[file.replace(/^\.[\/\\]/,'').replace(/.js$/,'')];
 // }
