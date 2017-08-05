@@ -1462,20 +1462,6 @@ Player.prototype.getTotalEnerCost = function (obj,original) {
 	return total;
 };
 
-// Player.prototype.needSigniCost = function (obj) {
-// 	var costs = [
-// 		obj.costSigniWhite,
-// 		obj.costSigniBlack,
-// 		obj.costSigniRed,
-// 		obj.costSigniBlue,
-// 		obj.costSigniGreen,
-// 		obj.costSigniColorless,
-// 	];
-// 	return costs.some(function (cost) {
-// 		return cost > 0;
-// 	});
-// };
-
 Player.prototype.needCost = function (obj) {
 	if (obj.costChange) {
 		obj = obj.costChange();
@@ -1488,49 +1474,100 @@ Player.prototype.needCost = function (obj) {
 	return false;
 };
 
-// For test.
-// Player.prototype.testCheckEner = function (colorObj,costObj) {
-// 	var cards = [];
-// 	var obj = {};
-// 	var colorMap = {
-// 		'm': 'xxx',
-// 		'l': 'colorless',
-// 		'w': 'white',
-// 		'b': 'black',
-// 		'r': 'red',
-// 		'u': 'blue',
-// 		'g': 'green',
-// 		'k': 'green'
-// 	};
-// 	var costMap = {
-// 		'm': 'xxx',
-// 		'l': 'costColorless',
-// 		'w': 'costWhite',
-// 		'b': 'costBlack',
-// 		'r': 'costRed',
-// 		'u': 'costBlue',
-// 		'g': 'costGreen',
-// 		'k': 'xxx'
-// 	};
-// 	for (var x in colorMap) {
-// 		var color = colorMap[x];
-// 		var count = colorObj[x] || 0;
-// 		for (var i = 0; i < count; i++) {
-// 			var card = {
-// 				color: color,
-// 				multiEner: x === 'm',
-// 				hasClass: function () {
-// 					return this.k;
-// 				},
-// 				k: x === 'k'
-// 			};
-// 			cards.push(card);
-// 		}
-// 		obj[costMap[x]] = costObj[x];
-// 	}
-// 	obj.useBikouAsWhiteCost = true;
-// 	return this.checkEner(cards,obj);
-// };
+Player.prototype.checkRequirements = function (items, requirements) {
+	var n = requirements.length
+	var len = 1 << n
+	var arr = (typeof Uint8Array === 'undefined') ? new Array(len) : new Uint8Array(len)
+	// 第 i 条不等式。
+	// 假设 n == 4，即有 4 种元需求：
+	// i 为从 0000 到 1111，从右到左分别称为第 1,2,3,4 位
+	// 当 i == 0110 时，代表不等式左边为第 2、3 个集合的并集
+	for (var i = 0; i < len; i++) {
+		var filters = []
+		for (var j = 0; j < n; j++) {
+			if (i & (1 << j)) {
+				filters.push(requirements[j].filter)
+				// 不等式的右边（先把需求数加上去，满足的时候减 1，减至 0 则满足该不等式）
+				arr[i] += requirements[j].count
+			}
+		}
+		// 遍历能量区，满足条件的减 1
+		for (var j = 0; j < items.length; j++) {
+			var item = items[j]
+			if (filters.some(function (filter) {
+				return filter(item)
+			})) {
+				// 减至 0，该不等式成立
+				if (!--arr[i]) break
+			}
+		}
+		if (arr[i]) return false
+	}
+	return true
+}
+
+Player.prototype.cardToInteger = function (card) {
+	var int = 0
+	if (card.hasColor('white')) int |= 1  // 0b00001
+	if (card.hasColor('black')) int |= 2  // 0b00010
+	if (card.hasColor('green')) int |= 4  // 0b00100
+	if (card.hasColor('blue'))  int |= 8  // 0b01000
+	if (card.hasColor('red'))   int |= 16 // 0b10000
+	return int
+}
+Player.prototype.canUseBikou = function (obj) {
+	return obj.useBikouAsWhiteCost || this.useBikouAsWhiteCost
+}
+Player.prototype.encodeCard = function (card, costObj) {
+	// card => 01011 (红蓝绿黑白)
+	var int = 0
+	if (card.multiEner) {
+		int = 31 // 0b11111
+	} else {
+		int = this.cardToInteger(card)
+	}
+	// 美巧
+	if (this.canUseBikou(costObj) && card.hasClass('美巧')) {
+		int |= 1
+	}
+	if (card.trashAsWhiteCost) {
+		int |= 1
+	}
+	// <小剑 三日月>
+	if (card._MikamuneSmallSword) {
+		int |= this.cardToInteger(this.lrig)
+	}
+	return int
+}
+Player.prototype.encodeCost = function (cost, withoutFilter) {
+	// cost => [{ count: 3, mask: 0b00001, filter: () => ... }, ...]
+	var requirements = []
+	if (cost.costColorless) requirements.push({ count: cost.costRed, mask: 31 })
+	if (cost.costWhite) requirements.push({ count: cost.costWhite, mask: 1 })
+	if (cost.costBlack) requirements.push({ count: cost.costBlack, mask: 3 })
+	if (cost.costGreen) requirements.push({ count: cost.costGreen, mask: 4 })
+	if (cost.costBlue)  requirements.push({ count: cost.costBlue,  mask: 8 })
+	if (cost.costRed)   requirements.push({ count: cost.costRed,   mask: 16 })
+	if (!withoutFilter) {
+		requirements.forEach(function (item) {
+			item.filter = function (int) {
+				return int & item.mask
+			}
+		})
+	}
+	return requirements
+}
+Player.prototype._checkEner = function (cards,cost) {
+	var items = cards.map(this.encodeCard.bind(this))
+	var requirements = this.encodeCost(cost)
+	var enough = this.checkRequirements(items,requirements)
+	var total = requirements.reduce(function (total,requirement) {
+		return total + requirement.count
+	}, 0)
+	return {
+		left: enough? items.length - total : -1,
+	}
+}
 
 // 御先狐...
 Player.prototype.checkEner = function (cards,obj,ignoreReplacement) {
@@ -1546,7 +1583,7 @@ Player.prototype.checkEner = function (cards,obj,ignoreReplacement) {
 	var minOsaki = 0;
 	var maxOsaki = Math.min(osakiCards.length,Math.floor(obj.costGreen/2));
 	for (var i = 0; i <= maxOsaki; i++) {
-		var result = this._checkEner(cards,obj,ignoreReplacement);
+		var result = this._checkEner(cards,obj);
 		if (ignoreReplacement || (result.left >= 0)) break;
 		minOsaki++;
 		removeFromArr(osakiCards[i],cards);
@@ -1565,112 +1602,108 @@ Player.prototype.checkEner = function (cards,obj,ignoreReplacement) {
 // maxBikou: 表示至多可以支付的美巧数量.
 // bikouCards: 可以用于代替白色费用的美巧卡.
 // 注: 由于后来出现了<美しき弦奏　コントラ>,这里的美巧也指这张卡.
-Player.prototype._checkEner = function (cards,obj,ignoreReplacement) {
-	var minBikou = 0;
-	var maxBikou = 0;
-	var bikouCards = [];
-	// 以下变量表示对应颜色的卡的盈余量. (盈余=存在-需求,负数则表示不足)
-	// 减掉需求
-	var colorless = -obj.costColorless || 0;
-	var white     = -obj.costWhite     || 0;
-	var black     = -obj.costBlack     || 0;
-	var red       = -obj.costRed       || 0;
-	var blue      = -obj.costBlue      || 0;
-	var green     = -obj.costGreen     || 0;
-	var multi     = 0;
-	// 美巧
-	var useBikou = !ignoreReplacement && this.canUseBikou(obj);
-	var bikou = 0;
-	var costWhite = obj.costWhite || 0;
-	// <小剑 三日月>
-	var mikamune = 0;
-	var lrig = this.lrig;
+// Player.prototype._checkEner = function (cards,obj,ignoreReplacement) {
+// 	var minBikou = 0;
+// 	var maxBikou = 0;
+// 	var bikouCards = [];
+// 	// 以下变量表示对应颜色的卡的盈余量. (盈余=存在-需求,负数则表示不足)
+// 	// 减掉需求
+// 	var colorless = -obj.costColorless || 0;
+// 	var white     = -obj.costWhite     || 0;
+// 	var black     = -obj.costBlack     || 0;
+// 	var red       = -obj.costRed       || 0;
+// 	var blue      = -obj.costBlue      || 0;
+// 	var green     = -obj.costGreen     || 0;
+// 	var multi     = 0;
+// 	// 美巧
+// 	var useBikou = !ignoreReplacement && this.canUseBikou(obj);
+// 	var bikou = 0;
+// 	var costWhite = obj.costWhite || 0;
+// 	// <小剑 三日月>
+// 	var mikamune = 0;
+// 	var lrig = this.lrig;
 
-	// 加上存在
-	cards.forEach(function (card) {
-		if (card.multiEner) multi++;
-		else if (card.color === 'colorless') colorless++;
-		else if (card.color === 'white'    ) white++;
-		else if (card.color === 'black'    ) black++;
-		else if (card.color === 'red'      ) red++;
-		else if (card.color === 'blue'     ) blue++;
-		else if (card.color === 'green'    ) green++;
-		// <小剑 三日月>
-		if (card._MikamuneSmallSword && !card.multiEner && (card.color !== lrig.color)) {
-			mikamune++;
-		}
-	},this);
-	// <小剑 三日月>
-	// 借与LRIG颜色相同的卡
-	if (lrig.color === 'white') white += mikamune;
-	else if (lrig.color === 'black') black += mikamune;
-	else if (lrig.color === 'red') red += mikamune;
-	else if (lrig.color === 'blue') blue += mikamune;
-	else if (lrig.color === 'green') green += mikamune;
-	else mikamune = 0;
-	// 美巧
-	if (useBikou) {
-		bikouCards = cards.filter(function (card) {
-			return card.hasClass('美巧');
-		},this);
-	} else {
-		bikouCards = cards.filter(function (card) {
-			return card.trashAsWhiteCost; // <美しき弦奏　コントラ>
-		},this);
-	}
-	bikou = bikouCards.length;
+// 	// 加上存在
+// 	cards.forEach(function (card) {
+// 		if (card.multiEner) multi++;
+// 		else if (card.color === 'colorless') colorless++;
+// 		else if (card.color === 'white'    ) white++;
+// 		else if (card.color === 'black'    ) black++;
+// 		else if (card.color === 'red'      ) red++;
+// 		else if (card.color === 'blue'     ) blue++;
+// 		else if (card.color === 'green'    ) green++;
+// 		// <小剑 三日月>
+// 		if (card._MikamuneSmallSword && !card.multiEner && (card.color !== lrig.color)) {
+// 			mikamune++;
+// 		}
+// 	},this);
+// 	// <小剑 三日月>
+// 	// 借与LRIG颜色相同的卡
+// 	if (lrig.color === 'white') white += mikamune;
+// 	else if (lrig.color === 'black') black += mikamune;
+// 	else if (lrig.color === 'red') red += mikamune;
+// 	else if (lrig.color === 'blue') blue += mikamune;
+// 	else if (lrig.color === 'green') green += mikamune;
+// 	else mikamune = 0;
+// 	// 美巧
+// 	if (useBikou) {
+// 		bikouCards = cards.filter(function (card) {
+// 			return card.hasClass('美巧');
+// 		},this);
+// 	} else {
+// 		bikouCards = cards.filter(function (card) {
+// 			return card.trashAsWhiteCost; // <美しき弦奏　コントラ>
+// 		},this);
+// 	}
+// 	bikou = bikouCards.length;
 
-	// 于是此时变量的值即为盈余值. (负数表示不足)
+// 	// 于是此时变量的值即为盈余值. (负数表示不足)
 
-	// 先考虑白色
-	if (white >= 0) {
-		maxBikou = Math.min(bikou,costWhite);
-		colorless += white; // 盈余的数量加到无色上.
-	} else {
-		minBikou = Math.min(-white,bikou);
-		bikou += white; // 不足的数量用美巧代替.
-		green += white; // 注意绿色也同时减少了.
-		if (bikou < 0) {
-			// 若用美巧代替之后还是不足,则用万花色代替.
-			multi += bikou; // 不足的数量用万花色代替.
-			green -= bikou; // 注意因为用万花色代替了,所以绿色的盈余增加.
-			if (multi < 0) {
-				// 万花色不足,无法完成支付.
-				return {left: -1,minBikou: 0,maxBikou: 0,bikouCards: []};
-			}
-		} else {
-			maxBikou = Math.min(bikou,costWhite - minBikou);
-		}
-	}
+// 	// 先考虑白色
+// 	if (white >= 0) {
+// 		maxBikou = Math.min(bikou,costWhite);
+// 		colorless += white; // 盈余的数量加到无色上.
+// 	} else {
+// 		minBikou = Math.min(-white,bikou);
+// 		bikou += white; // 不足的数量用美巧代替.
+// 		green += white; // 注意绿色也同时减少了.
+// 		if (bikou < 0) {
+// 			// 若用美巧代替之后还是不足,则用万花色代替.
+// 			multi += bikou; // 不足的数量用万花色代替.
+// 			green -= bikou; // 注意因为用万花色代替了,所以绿色的盈余增加.
+// 			if (multi < 0) {
+// 				// 万花色不足,无法完成支付.
+// 				return {left: -1,minBikou: 0,maxBikou: 0,bikouCards: []};
+// 			}
+// 		} else {
+// 			maxBikou = Math.min(bikou,costWhite - minBikou);
+// 		}
+// 	}
 
-	// 然后考虑剩下的颜色,除了无色
-	if (![black,red,blue,green].every(function (count) {
-		if (count >= 0) {
-			colorless += count; // 盈余的数量加到无色上.
-			return true;
-		}
-		multi += count; // 不足的数量用万花色代替.
-		return multi >= 0; // 万花色不足,无法完成支付.
-	})) return {left: -1,minBikou: 0,maxBikou: 0,bikouCards: []};
+// 	// 然后考虑剩下的颜色,除了无色
+// 	if (![black,red,blue,green].every(function (count) {
+// 		if (count >= 0) {
+// 			colorless += count; // 盈余的数量加到无色上.
+// 			return true;
+// 		}
+// 		multi += count; // 不足的数量用万花色代替.
+// 		return multi >= 0; // 万花色不足,无法完成支付.
+// 	})) return {left: -1,minBikou: 0,maxBikou: 0,bikouCards: []};
 
-	maxBikou = minBikou + Math.min(maxBikou,Math.max(0,green) + multi);
-	minBikou = Math.max(0,minBikou - multi);
+// 	maxBikou = minBikou + Math.min(maxBikou,Math.max(0,green) + multi);
+// 	minBikou = Math.max(0,minBikou - multi);
 
-	// 最后考虑无色.
-	colorless += multi; // 盈余的数量加到无色上.
-	colorless -= mikamune; // 还回从<小剑 三日月>借来的卡.
+// 	// 最后考虑无色.
+// 	colorless += multi; // 盈余的数量加到无色上.
+// 	colorless -= mikamune; // 还回从<小剑 三日月>借来的卡.
 
-	return  {
-		left: colorless, // 此时无色的盈余量即为支付能力后剩下的卡片数.
-		bikouCards: bikouCards,
-		minBikou: minBikou,
-		maxBikou: maxBikou
-	};
-};
-
-Player.prototype.canUseBikou = function (obj) {
-	return obj.useBikouAsWhiteCost || this.useBikouAsWhiteCost;
-};
+// 	return  {
+// 		left: colorless, // 此时无色的盈余量即为支付能力后剩下的卡片数.
+// 		bikouCards: bikouCards,
+// 		minBikou: minBikou,
+// 		maxBikou: maxBikou
+// 	};
+// };
 
 // 注意 costSigniColorless 是指任意颜色的signi作为cost
 // Player.prototype.enoughSigniCost = function (obj) {
@@ -1747,20 +1780,9 @@ Player.prototype.selectEnerAsyn = function (obj,cancelable) {
 			source: obj.source || 0,
 			cancelable: !!cancelable,
 			cards: this.enerZone.cards,
-			colors: this.enerZone.cards.map(function (card) {
-				if (card.multiEner) return 'multi';
-				if (card._MikamuneSmallSword && (card.color !== this.lrig.color))
-					return [card.color,this.lrig.color];
-				return card.color;
-			},this),
-			colorless: obj.costColorless,
-			white:     obj.costWhite,
-			black:     obj.costBlack,
-			red:       obj.costRed,
-			blue:      obj.costBlue,
-			green:     obj.costGreen,
-			multi:     obj.costMulti
-		}
+			integers: this.enerZone.cards.map(this.encodeCard.bind(this)),
+			requirements: this.encodeCost(obj, true),
+		},
 	});
 	// player.opponent.output({
 	// 	type: 'WAIT_FOR_OPPONENT',
@@ -1829,23 +1851,6 @@ Player.prototype.payCostAsyn = function (obj,cancelable) {
 				obj = Object.create(obj);
 				obj.costGreen -= cards.length * 3;
 				if (obj.costGreen < 0) obj.costGreen = 0;
-			});
-		}
-	}).callback(this,function () {
-		// 用美巧代替白色费用
-		var o = this.checkEner(this.enerZone.cards,obj);
-		if (o.left < 0) {
-			throw new Error('No enough ener to pay!');
-		}
-		if (o.maxBikou) {
-			var min = o.minBikou;
-			var max = o.maxBikou;
-			return this.selectSomeAsyn('PAY_WHITE_INSTEAD',o.bikouCards,min,max).callback(this,function (cards) {
-				if (!cards.length) return;
-				cancelable = false;
-				this.game.trashCards(cards);
-				obj = Object.create(obj);
-				obj.costWhite -= cards.length;
 			});
 		}
 	}).callback(this,function () {
