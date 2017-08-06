@@ -253,7 +253,7 @@ Card.prototype.cookEffect = function (rawEffect,type,offset) {
 		effect.description = [this.cid,type,idx+offset].join('-');
 		if (eff.mixin) {
 			var mixin = mixins[eff.mixin];
-			for(var porp in mixin) {
+			for(var prop in mixin) {
 				effect[prop] = mixin[prop];
 			}
 		}
