@@ -479,7 +479,6 @@ Player.prototype.summonResonaAsyn = function (card) {
 Player.prototype.selectSummonZoneAsyn = function (optional,rise) {
 	var zones = this.getSummonZones(null,rise);
 	if (!zones.length) {
-		debugger;
 		return Callback.immediately(null);
 	}
 	if (optional) return this.selectOptionalAsyn('SUMMON_SIGNI_ZONE',zones);
@@ -1542,7 +1541,13 @@ Player.prototype.encodeCard = function (card, costObj) {
 Player.prototype.encodeCost = function (cost, withoutFilter) {
 	// cost => [{ count: 3, mask: 0b00001, filter: () => ... }, ...]
 	var requirements = []
-	if (cost.costColorless) requirements.push({ count: cost.costRed, mask: 31 })
+	if (cost.costColorless) {
+		if (cost._2286) {
+			requirements.push({ count: cost.costColorless, mask: this.cardToInteger(this.lrig) })
+		} else {
+			requirements.push({ count: cost.costColorless, mask: 31 })
+		}
+	}
 	if (cost.costWhite) requirements.push({ count: cost.costWhite, mask: 1 })
 	if (cost.costBlack) requirements.push({ count: cost.costBlack, mask: 3 })
 	if (cost.costGreen) requirements.push({ count: cost.costGreen, mask: 4 })

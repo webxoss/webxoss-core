@@ -117259,9 +117259,12 @@ var CardInfo = {
 			"ターン終了時まで、あなたのシグニ１体は「バニッシュされない。」を得る。",
 			"あなたのトラッシュからあなたのルリグと同じ色を持つシグニを２枚まで手札に加える。",
 		],
-		// costChange: function () {
-			// TODO...
-		// },
+		costChange: function () {
+			var obj = Object.create(this);
+			obj.costChange = null;
+			obj._2286 = true;
+			return obj;
+		},
 		useCondition: function () {
 			return !this.player.lrig.hasColor('colorless');
 		},
@@ -117293,7 +117296,7 @@ var CardInfo = {
 		},{
 			actionAsyn: function () {
 				var filter = function (card) {
-					return card.hasSameColorWith(this.player.lrig);
+					return card.hasSameColorWith(card.player.lrig);
 				};
 				return this.player.pickCardAsyn(filter,0,2);
 			},
