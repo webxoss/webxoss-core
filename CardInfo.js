@@ -113973,7 +113973,7 @@ var CardInfo = {
 							description: '2232-attached-1',
 							actionAsyn: function () {
 								var filter = function (card) {
-									return (card.level <=2) && card.rise;
+									return (card.level <=2) && !card.rise && card.hasClass('武勇');
 								};
 								return this.player.rebornAsyn(filter);
 							},
