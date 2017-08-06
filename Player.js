@@ -2392,10 +2392,10 @@ Player.prototype.pickCardsFromDeckTopAsyn = function(count,filter,max) {
 	if (!isNum(max)) max = 1;
 	var cards = this.mainDeck.getTopCards(count);
 	if (!cards.length) return;
+	this.informCards(cards);
 	var targets = cards.filter(filter);
 	return Callback.immediately().callback(this,function () {
 		if (!targets.length) return;
-		this.informCards(cards);
 		return this.selectSomeAsyn('ADD_TO_HAND',targets,0,max,false,cards).callback(this,function (targets) {
 			return this.opponent.showCardsAsyn(targets).callback(this,function () {
 				this.game.moveCards(targets,this.handZone);
