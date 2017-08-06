@@ -208,9 +208,10 @@ var mixins = {
 			},this);
 		},
 		costChange: function () {
+			var player = this.source.player;
 			var obj = Object.create(this);
 			obj.costChange = null;
-			var flag = this.player.signis.some(function (signi) {
+			var flag = player.signis.some(function (signi) {
 				return signi.canBeAcced() && signi._2313;
 			},this);
 			if (flag) {
@@ -220,21 +221,22 @@ var mixins = {
 			return obj;
 		},
 		costChangeAsyn: function () {
+			var player = this.source.player;
 			var cost = Object.create(this);
 			cost.costChange = null;
 			var reducedCost = Object.create(this);
 			reducedCost.costGreen -= 1;
 			if (reducedCost.costGreen < 0) reducedCost.costGreen = 0;
 
-			var cards = this.player.signis.filter(function (signi) {
+			var cards = player.signis.filter(function (signi) {
 				return signi.canBeAcced();
 			},this);
-			if (!this.player.enoughCost(cost)) {
+			if (!player.enoughCost(cost)) {
 				cards = cards.filter(function (signi) {
 					return signi._2313;
 				},this);
 			}
-			return this.player.selectTargetAsyn(cards).callback(this,function (card) {
+			return player.selectTargetAsyn(cards).callback(this,function (card) {
 				this._data = card;
 				return (card && card._2313) ? reducedCost : cost;
 			});
