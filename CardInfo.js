@@ -116232,7 +116232,7 @@ var CardInfo = {
 					return this.player.selectNumberAsyn('LEVEL',1,2).callback(this,function (level) {
 						this.game.tillTurnEndAdd(this,this,'level',level);
 						// FIX ME: Keep showing current level for all signis.
-						this.player.opponent.showTextAsyn('LEVEL','number',level);
+						return this.player.opponent.showTextAsyn('LEVEL','number',level);
 					});
 				},
 			},
