@@ -1097,6 +1097,7 @@ Card.prototype.moveTo = function (zone,arg) {
 		// http://www.takaratomy.co.jp/products/wixoss/rule/rule_rulechange/151211/index.html
 		leaveFieldEvent.oldZone.cards.forEach(function (card) {
 			if (card === leaveFieldEvent.oldZone.trap) return;
+			if (card._2249) return;
 			if (card === charm) {
 				card.game.trashingCharms.push(card);
 			} else {

@@ -114792,6 +114792,7 @@ var CardInfo = {
 							bottom: true,
 							faceup: false,
 						});
+						card._2249 = true;
 						this.game.addConstEffect({
 							source: this,
 							destroyTimming: signi.onLeaveField2,
@@ -114800,6 +114801,7 @@ var CardInfo = {
 									source: this,
 									description: '2249-action-0',
 									triggerCondition: function () {
+										card._2249 = false;
 										if (this.game.lastTurnCoinSkillsDisabled && (turn === this.game.phase.turnCount - 1)) {
 											return false;
 										}
@@ -114817,7 +114819,7 @@ var CardInfo = {
 											};
 											return this.player.selectOpponentSigniAsyn(filter).callback(this,function (signi) {
 												if (!signi) return;
-												return signis.banishAsyn();
+												return signi.banishAsyn();
 											});
 										});
 									},
