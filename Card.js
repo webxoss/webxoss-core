@@ -49,6 +49,7 @@ function Card (game,player,zone,pid,side) {
 	this.useCondition   = info.useCondition;
 	this.growCondition  = info.growCondition;
 	this.growActionAsyn = info.growActionAsyn;
+	this.beforeSummonAsyn = info.beforeSummonAsyn;
 
 	// 效果相关的数据
 	this.getMinEffectCount = info.getMinEffectCount;
@@ -1568,13 +1569,26 @@ Card.prototype.summonAsyn = function (optional,dontTriggerStartUp,down) {
 	}).callback(this,function (card) {
 		if (!card) return;
 		return this.player.selectSummonZoneAsyn(false,this.rise).callback(this,function (zone) {
-			card.moveTo(zone,{
-				isSummon: true,
-				dontTriggerStartUp: dontTriggerStartUp,
-				up: !down
-			});
-			this.game.handleFrameEnd(); // 增加一个空帧,以进行两次常计算
+			return this.handleSummonAsyn(zone,{
+				dontTriggerStartUp: !!dontTriggerStartUp,
+				down: !!down,
+			})
 		});
+	});
+};
+
+Card.prototype.handleSummonAsyn = function(zone,arg) {
+	if (!arg) arg = {};
+	return Callback.immediately().callback(this,function () {
+		if (!this.beforeSummonAsyn) return;
+		return this.game.blockAsyn(this,function () {
+			return this.beforeSummonAsyn(zone);
+		});
+	}).callback(this,function () {
+		arg = Object.create(arg);
+		arg.isSummon = true;
+		this.moveTo(zone,arg);
+		this.game.handleFrameEnd(); // 增加一个空帧,以进行两次常计算
 	});
 };
 

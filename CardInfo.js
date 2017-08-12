@@ -117996,6 +117996,20 @@ var CardInfo = {
 			if (cards.length < 2) return false;
 			return card.hasClass('武勇');
 		},
+		beforeSummonAsyn: function (zone) {
+			var card = zone.getSigni();
+			var cards = card.player.signis.filter(function (signi) {
+				return (signi !== card) && signi.hasClass('武勇');
+			},this);
+			return this.player.selectTargetAsyn(cards).callback(this,function (target) {
+				if (!target) return;
+				var cards = target.zone.getNonTrapCards().filter(function (c) {
+					return (c !== target) && !c.charm && !c.acceingCard;
+				},this);
+				cards.push(target);
+				this.game.moveCards(cards,card.zone);
+			});
+		},
 		// ======================
 		//        出场效果       
 		// ======================

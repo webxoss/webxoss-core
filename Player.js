@@ -424,8 +424,7 @@ Player.prototype.summonSigniAsyn = function () {
 		return this.selectSummonZoneAsyn(true,card.rise).callback(this,function (zone) {
 			if (!zone) return;
 			return this.game.blockAsyn(this,function () {
-				card.moveTo(zone,{isSummon: true});
-				this.game.handleFrameEnd(); // 增加一个空帧,以进行两次常计算
+				return card.handleSummonAsyn(zone);
 			});
 		});
 	});
@@ -469,8 +468,7 @@ Player.prototype.summonResonaAsyn = function (card) {
 		return this.selectSummonZoneAsyn(false).callback(this,function (zone) {
 			if (!zone) return;
 			return this.game.blockAsyn(this,function () {
-				card.moveTo(zone,{isSummon: true, resonaArg: resonaArg});
-				this.game.handleFrameEnd(); // 增加一个空帧,以进行两次常计算
+				return card.handleSummonAsyn(zone)
 			});
 		});
 	});
