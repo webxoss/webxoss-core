@@ -118669,7 +118669,7 @@ var CardInfo = {
 				var filter = function (card) {
 					return (card.type === 'SIGNI') && card.hasColor('colorless');
 				};
-				this.player.pickCardAsyn(filter);
+				return this.player.pickCardAsyn(filter);
 			},
 		}],
 	},
