@@ -118741,7 +118741,7 @@ var CardInfo = {
 				actionAsyn: function () {
 					var card = this.player.mainDeck.cards[0];
 					if (!card) return;
-					if (card.rise && card.hasClass('武勇') && card.canSummon()) {
+					if (!card.rise && card.hasClass('武勇') && card.canSummon()) {
 						this.player.informCards([card]);
 						return card.summonOptionalAsyn();
 					}
