@@ -1132,7 +1132,7 @@ Card.prototype.moveTo = function (zone,arg) {
 	}
 	card.game.frameEnd();
 
-	return true;
+	return moveEvent;
 };
 
 Card.prototype.changeSigniZone = function (zone) {
@@ -1585,10 +1585,15 @@ Card.prototype.handleSummonAsyn = function(zone,arg) {
 		return this.game.blockAsyn(this,function () {
 			return this.beforeSummonAsyn(zone);
 		});
-	}).callback(this,function () {
+	}).callback(this,function (afterSummonAsyn) {
 		arg = Object.create(arg);
 		arg.isSummon = true;
-		this.moveTo(zone,arg);
+		var event = this.moveTo(zone,arg);
+		if (isFunc(afterSummonAsyn)) {
+			return afterSummonAsyn.call(this,event).callback(this,function () {
+				this.game.handleFrameEnd(); // 增加一个空帧,以进行两次常计算
+			});
+		}
 		this.game.handleFrameEnd(); // 增加一个空帧,以进行两次常计算
 	});
 };

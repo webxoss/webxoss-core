@@ -118010,6 +118010,11 @@ var CardInfo = {
 				},this);
 				cards.push(target);
 				this.game.moveCards(cards,card.zone);
+				return function afterSummonAsyn (event) {
+					return this.game.blockAsyn(this,function () {
+						target.onRised.trigger(event);
+					});
+				};
 			});
 		},
 		// ======================
