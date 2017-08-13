@@ -329,6 +329,7 @@ Card.prototype.setupConstEffects = function () {
 		},true);
 		if (eff.layer) {
 			this.player.mainDeck.cards.forEach(function (signi) {
+				if (signi === this) return;
 				if (!signi.hasClass('怪異')) return;
 				this.game.addConstEffect({
 					source: signi,
