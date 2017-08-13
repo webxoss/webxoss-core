@@ -339,8 +339,9 @@ Card.prototype.setupConstEffects = function () {
 					wisdom: false,
 					fixed: false,
 					condition: function () {
-						return inArr(layerMark,this.layerMarks) && eff.condition.call(this);
+						return inArr(layerMark,this.layerMarks) && (!eff.condition || eff.condition.call(this));
 					},
+					action: eff.action,
 				},true);
 			},this);
 		}
