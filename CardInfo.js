@@ -117010,6 +117010,7 @@ var CardInfo = {
 			"【起】エスケープ[アタックフェイズ]《コイン》《コイン》《コイン》：このターン、シグニアタックステップをスキップする。"
 		],
 		actionEffects: [{
+			attackPhase: true,
 			costCoin: 3,
 			actionAsyn: function () {
 				this.game.tillTurnEndSet(this,this.game.turnPlayer,'skipSigniAttackStep',true);
