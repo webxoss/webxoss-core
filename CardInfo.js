@@ -115324,7 +115324,7 @@ var CardInfo = {
 						var cards = this.player.hands.filter(function (card) {
 							return (card.power < event.power) && card.canSummon();
 						},this);
-						return this.player.selectOptionalAsyn('SUMMON_SIGNI',function (card) {
+						return this.player.selectOptionalAsyn('SUMMON_SIGNI',cards).callback(this,function (card) {
 							if (!card) return;
 							return card.summonAsyn();
 						});
@@ -115344,7 +115344,7 @@ var CardInfo = {
 				var cards = this.player.hands.filter(function (card) {
 					return card.hasClass('怪異');
 				},this);
-				return cards.level >= 2;
+				return cards.length >= 2;
 			},
 			costAsyn: function () {
 				var cards = this.player.hands.filter(function (card) {
