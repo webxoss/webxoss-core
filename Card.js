@@ -1174,7 +1174,8 @@ Card.prototype.changeSigniZone = function (zone) {
 				zone: card.zone,
 				up: card.isUp,
 				faceup: card.isFaceup,
-				bottom: true
+				bottom: true,
+				isTrap: (card === card.zone.trap),
 			}
 		}
 	}
