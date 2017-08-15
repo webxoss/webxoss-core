@@ -7,8 +7,10 @@
 2. Init / Update submodule
 
   ```
-  git submodule init
-  git submodule update
+  git submodule update --init
+  cd webxoss-client
+  git submodule update --init
+  cd -
   ```
 
 3. Download copyrighted images
@@ -16,6 +18,7 @@
   ```
   cd webxoss-client
   curl http://webxoss.com/images.tar | tar xv
+  cd -
   ```
 
   Note:
