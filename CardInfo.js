@@ -116847,9 +116847,9 @@ var CardInfo = {
 					this.player.signis.forEach(function (signi) {
 						if (signi === this) return;
 						signi.constEffects.forEach(function (constEffect,idx) {
-							if (!constEffect.wisdom) return;
 							if (!constEffect.auto) return;
 							if (!constEffect.effect) return;
+							if (!constEffect.effect.wisdom) return;
 							if (!constEffect.effect.checkCondition()) return;
 							effects.push(constEffect.effect);
 						});
