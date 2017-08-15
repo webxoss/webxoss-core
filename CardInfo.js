@@ -116605,9 +116605,9 @@ var CardInfo = {
 			"【常】英知=１０：このシグニが正面にアタックする場合、このシグニは正面に加えてその隣のシグニゾーン１つにアタックしてもよい。",
 		],
 		constEffects: [{
-			wisdom: 7,
 			auto: 'onAttack',
 			effect: {
+				wisdom: 7,
 				actionAsyn: function () {
 					this.player.enerCharge(2);
 				},
@@ -116748,17 +116748,17 @@ var CardInfo = {
 			"【自】英知=６：このシグニがアタックしたとき、あなたのデッキの一番上のカードをエナゾーンに置く。（あなたの場にある＜英知＞のシグニのレベルの合計がちょうど６であるかぎり有効になる）"
 		],
 		constEffects: [{
-			wisdom: 4,
 			auto: 'onAttack',
 			effect: {
+				wisdom: 4,
 				actionAsyn: function () {
 					this.player.draw(1);
 				},
 			},
 		},{
-			wisdom: 6,
 			auto: 'onAttack',
 			effect: {
+				wisdom: 6,
 				actionAsyn: function () {
 					this.player.enerCharge(1);
 				},
@@ -116825,9 +116825,9 @@ var CardInfo = {
 			"【自】英知=１０：このシグニがアタックしたとき、あなたの他のシグニ１体の【自】の【英知】能力１つを発動させる。"
 		],
 		constEffects: [{
-			wisdom: 8,
 			auto: 'onAttack',
 			effect: {
+				wisdom: 8,
 				actionAsyn: function () {
 					var filter = function (card) {
 						return (card.level <= 3);
@@ -116839,9 +116839,9 @@ var CardInfo = {
 				},
 			},
 		},{
-			wisdom: 10,
 			auto: 'onAttack',
 			effect: {
+				wisdom: 10,
 				actionAsyn: function () {
 					var effects = [];
 					this.player.signis.forEach(function (signi) {
@@ -118225,11 +118225,11 @@ var CardInfo = {
 				add(this,'onAttack',effect);
 			},
 		},{
-			wisdom: 11,
 			auto: function (add,effect) {
 				add(this.player.opponent,'onCrash',effect);
 			},
 			effect: {
+				wisdom: 11,
 				costGreen: 2,
 				triggerCondition: function (event) {
 					return (event.source === this);
@@ -119892,9 +119892,9 @@ var CardInfo = {
 				set(this,'disableBurst',true);
 			},
 		},{
-			wisdom: 10,
 			auto: 'onAttack',
 			effect: {
+				wisdom: 10,
 				actionAsyn: function () {
 					var filter = function (card) {
 						return card.hasClass('英知');
