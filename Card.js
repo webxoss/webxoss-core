@@ -1170,12 +1170,11 @@ Card.prototype.changeSigniZone = function (zone) {
 			type: 'MOVE_CARD',
 			content: {
 				card: card,
-				pid: card.isFaceup? card.pid : 0,
+				pid: (card.isFaceup || card === card.zone.trap)? card.pid : 0,
 				zone: card.zone,
 				up: card.isUp,
 				faceup: card.isFaceup,
 				bottom: true,
-				isTrap: (card === card.zone.trap),
 			}
 		}
 	}
