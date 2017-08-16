@@ -114916,7 +114916,7 @@ var CardInfo = {
 				},this);
 				var card = this.player.mainDeck.cards[0];
 				if (!card) return;
-				card.moveTo(this,player.lifeClothZone);
+				card.moveTo(this.player.lifeClothZone);
 			},
 		}]
 	},
