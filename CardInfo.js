@@ -114272,11 +114272,11 @@ var CardInfo = {
 		costChangeAsyn: function () {
 			var obj = Object.create(this);
 			obj.costBlack++;
-			this._data = false;
-			if (!this.player.enoughCost(obj)) return this;
+			this.game.setData(this,'_2241',false);
+			if (!this.player.enoughCost(obj)) return Callback.immediately(this);
 			return this.player.selectOptionalAsyn('EXTRA_COST',[this]).callback(this,function (card) {
 				if (!card) return this;
-				this._data = true;
+				this.game.setData(this,'_2241',true);
 				return obj;
 			});
 		},
@@ -114287,9 +114287,9 @@ var CardInfo = {
 				}.bind(this);
 				return this.player.selectOpponentSigniAsyn(filter).callback(this,function (card) {
 					if (!card) return;
-					return card.banishAsyn();
+					return card.trashAsyn();
 				}).callback(this,function () {
-					if (!this._data) return;
+					if (!this.game.getData(this,'_2241')) return;
 					var filter = function (card) {
 						return (card.level === this.player.lrig.level - 1);
 					}.bind(this);
