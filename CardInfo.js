@@ -119185,7 +119185,7 @@ var CardInfo = {
 						source: this,
 						description: '2315-attached-0',
 						actionAsyn: function () {
-							this.decreasePowerAsyn(7000);
+							return this.decreasePowerAsyn(7000);
 						},
 					},{
 						source: this,
@@ -119214,7 +119214,7 @@ var CardInfo = {
 							this.game.trashCards(cards);
 						},
 					}];
-					return this.player.selectSomeAsyn('LAUNCH',effects,1,count).callback(this,function (effects) {
+					return this.player.selectSomeAsyn('LAUNCH',effects,count,count).callback(this,function (effects) {
 						return Callback.forEach(effects,function (effect) {
 							return effect.actionAsyn.call(this);
 						},this);
