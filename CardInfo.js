@@ -117783,7 +117783,10 @@ var CardInfo = {
 			"このアーツを使用する際、対戦相手の場にある【ウィルス】を２つまで取り除いてもよい。以下の３つから、この方法で取り除いた【ウィルス】の数に１を加えた数だけ選ぶ。\n" +
 			"①あなたのトラッシュから黒のシグニ１枚を手札に加える。\n" +
 			"②対戦相手のトラッシュにあるカードを２枚までゲームから除外する。\n" +
-			"③ターン終了時まで、対戦相手のシグニ１体のパワーを－7000する。"
+			"③ターン終了時まで、対戦相手のシグニ１体のパワーを－7000する。",
+			"あなたのトラッシュから黒のシグニ１枚を手札に加える。",
+			"対戦相手のトラッシュにあるカードを２枚までゲームから除外する。",
+			"ターン終了時まで、対戦相手のシグニ１体のパワーを－7000する。",
 		],
 		beforeUseAsyn: function () {
 			var zones = this.player.opponent.getInfectedZones();
@@ -117796,7 +117799,7 @@ var CardInfo = {
 			});
 		},
 		getMinEffectCount: function () {
-			return 1;
+			return (this._data || 0) + 1;
 		},
 		getMaxEffectCount: function () {
 			return (this._data || 0) + 1;
@@ -117806,7 +117809,9 @@ var CardInfo = {
 				var filter = function (card) {
 					return (card.type === 'SIGNI') && card.hasColor('black');
 				};
-				return this.player.pickCardAsyn(filter);
+				return this.player.pickCardAsyn(filter).callback(this,function () {
+					return false;
+				});
 			},
 		},{
 			actionAsyn: function () {
