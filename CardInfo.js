@@ -118459,7 +118459,7 @@ var CardInfo = {
 			var cards = this.player.signis.filter(function (signi) {
 				return signi.hasClass('微菌');
 			},this);
-			var count = cards.length + this.player.getInfectedZones().length;
+			var count = cards.length + this.player.opponent.getInfectedZones().length;
 			obj.costBlack -= count;
 			if (obj.costBlack < 0) obj.costBlack = 0;
 			return obj;
