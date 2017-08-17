@@ -121722,7 +121722,7 @@ var CardInfo = {
 		artsEffect: [{
 			actionAsyn: function () {
 				var cards = this.player.mainDeck.getTopCards(2);
-				if (cards.length) return;
+				if (!cards.length) return;
 				this.player.informCards(cards);
 				return this.player.selectAsyn('ADD_TO_HAND',cards).callback(this,function (card) {
 					if (!card) return;
