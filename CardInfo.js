@@ -117299,7 +117299,7 @@ var CardInfo = {
 		},{
 			actionAsyn: function () {
 				var filter = function (card) {
-					return card.hasSameColorWith(card.player.lrig);
+					return (card.type === 'SIGNI') && card.hasSameColorWith(card.player.lrig);
 				};
 				return this.player.pickCardAsyn(filter,0,2);
 			},
