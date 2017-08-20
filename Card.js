@@ -238,7 +238,7 @@ var mixins = {
 				},this);
 			}
 			return player.selectTargetAsyn(cards).callback(this,function (card) {
-				this._data = card;
+				this.source._data = card;
 				return (card && card._2313) ? reducedCost : cost;
 			});
 		},
