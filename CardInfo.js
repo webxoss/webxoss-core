@@ -120597,7 +120597,10 @@ var CardInfo = {
       costCoin: 2,
       actionAsyn: function () {
         this.player.draw(1);
-        return this.player.discardAsyn(1);
+        return this.player.selectAsyn('TARGET',this.player.hands).callback(this,function (card) {
+          if (!card) return;
+          card.moveTo(this.player.enerZone);
+        });
       },
     }],
   },
