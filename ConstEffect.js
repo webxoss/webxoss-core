@@ -8,6 +8,7 @@ function ConstEffect (constEffectManager,cfg) {
 	this.destroyTimmings = concat(cfg.destroyTimming || []);
 	// this.triggerTimmings = concat(cfg.triggerTimming || []);
 	this.cross           = cfg.cross;
+	this.wisdom          = cfg.wisdom;
 	this.condition       = cfg.condition;
 	this.action          = cfg.action;
 	this.fixed           = !!cfg.fixed; // 表示只进行一次计算,此后不发生变化
