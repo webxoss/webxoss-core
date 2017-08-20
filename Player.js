@@ -2412,7 +2412,7 @@ Player.prototype.pickCardsFromDeckTopAsyn = function(count,filter,max) {
 };
 
 Player.prototype.getWisdom = function() {
-	let wisdom = 0;
+	var wisdom = 0;
 	this.signis.forEach(function (signi) {
 		if (!signi.hasClass('英知')) return;
 		wisdom += signi.level;
