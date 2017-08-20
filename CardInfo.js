@@ -117818,7 +117818,7 @@ var CardInfo = {
         var cards = this.player.opponent.trashZone.cards;
         if (!cards.length) return;
         return this.player.selectSomeAsyn('TARGET',cards,0,2).callback(this,function (cards) {
-          game.excludeCards(cards);
+          this.game.excludeCards(cards);
         });
       },
     },{
