@@ -114274,7 +114274,7 @@ var CardInfo = {
 			obj.costBlack++;
 			this.game.setData(this,'_2241',false);
 			if (!this.player.enoughCost(obj)) return Callback.immediately(this);
-			return this.player.selectOptionalAsyn('EXTRA_COST',[this]).callback(this,function (card) {
+			return this.player.selectOptionalAsyn('PAY_ENER',[this]).callback(this,function (card) {
 				if (!card) return this;
 				this.game.setData(this,'_2241',true);
 				return obj;
