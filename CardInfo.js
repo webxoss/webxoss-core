@@ -118315,8 +118315,13 @@ var CardInfo = {
           return (this.power >= 15000);
         },
         actionAsyn: function () {
-          this.player.draw(2);
-          this.player.enerCharge(2);
+          return this.player.selectTextAsyn('CHOOSE_EFFECT',['ADD_TO_HAND','PUT_TO_ENER_ZONE']).callback(this,function (text) {
+            if (text === 'ADD_TO_HAND') {
+              this.player.draw(2);
+            } else {
+              this.player.enerCharge(2);
+            }
+          });
         },
       },
     }],
