@@ -115706,7 +115706,7 @@ var CardInfo = {
             return this.banishSigniAsyn(this.power);
           },
         });
-        add(this.acceingCard,'onBanish',effect);
+        add(this.acceingCard,'onAttack',effect);
       }
     }],
     // ======================
