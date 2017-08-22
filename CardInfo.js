@@ -121749,6 +121749,7 @@ var CardInfo = {
           return (card.level <= 3);
         };
         return this.player.selectOpponentSigniAsyn(filter).callback(this,function (card) {
+          if (!card) return;
           card.down();
         });
       },
@@ -121758,6 +121759,7 @@ var CardInfo = {
           return (card.level === 5);
         };
         return this.player.selectOpponentSigniAsyn(filter).callback(this,function (card) {
+          if (!card) return;
           return card.banishAsyn();
         });
       },
