@@ -119906,7 +119906,6 @@ var CardInfo = {
     },{
       auto: 'onAttack',
       effect: {
-        wisdom: 10,
         actionAsyn: function () {
           var filter = function (card) {
             return card.hasClass('英知');
