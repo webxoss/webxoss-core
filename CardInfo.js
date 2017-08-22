@@ -116359,6 +116359,9 @@ var CardInfo = {
       "【自】：あなたのターンの間、あなたのライフクロスにカード１枚が加えられるたび、あなたは《緑》を支払ってもよい。そうした場合、対戦相手のシグニ１体をバニッシュする。"
     ],
     constEffects: [{
+      condition: function () {
+        return (this.game.turnPlayer === this.player);
+      },
       action: function (set,add) {
         var effect = this.game.newEffect({
           source: this,
