@@ -116458,6 +116458,8 @@ var CardInfo = {
             return this.game.trashCards(cards);
           });
         }).callback(this,function () {
+          return this.player.opponent.discardAsyn(2);
+        }).callback(this,function () {
           this.player.addLifeCloth();
           if (this.game.turnPlayer === this.player) return;
           if (costArg.bet) return;
