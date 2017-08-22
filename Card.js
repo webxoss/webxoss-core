@@ -183,7 +183,6 @@ function Card (game,player,zone,pid,side) {
 	this.canAttackAnySigniZone       = false;
 	this.canAttackNearbySigniZone    = false;
 	this.disableBurst                = false;
-	this._2313                       = false;
 	// 注意hasAbility
 }
 

@@ -15,7 +15,7 @@ function Mask (source,target,prop,value,forced) {
 Mask.prototype.set = function (reset) {
 	var target = this.target;
 	var item = target[this.prop];
-	if (item === undefined) {
+	if ((item === undefined) && (this.prop.indexOf('_') !== 0)) {
 		debugger;
 		console.warn('Mask.set(): target.pid:%s,this.prop:%s,this.value:%s',target.pid,this.prop,this.value);
 	} else if (isObj(item) && (item.constructor === Timming)) {
