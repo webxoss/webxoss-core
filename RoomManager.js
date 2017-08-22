@@ -216,7 +216,7 @@ RoomManager.prototype.renameRoom = function (client,cfg) {
 	if (!isObj(cfg) || !isStr(cfg.roomName)) {
 		errMsg = 'INVALID_CONFIG';
 	}
-	var oldRoomName = client.room.name;
+	var oldRoomName = (client.room || {}).name || '';
 	var newRoomName = cfg.roomName;
 	if (newRoomName === oldRoomName) {
 		return;
