@@ -1590,6 +1590,7 @@ Card.prototype.handleSummonAsyn = function(zone,arg) {
 	}).callback(this,function (afterSummonAsyn) {
 		arg = Object.create(arg);
 		arg.isSummon = true;
+		arg.up = !!arg.down;
 		var event = this.moveTo(zone,arg);
 		if (isFunc(afterSummonAsyn)) {
 			return afterSummonAsyn.call(this,event).callback(this,function () {
