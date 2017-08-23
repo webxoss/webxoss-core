@@ -1,7 +1,7 @@
 'use strict';
 
 function RoomManager (cfg) {
-	this.VERSION              = 70;
+	this.VERSION              = 71;
 
 	this.MAX_ROOMS            = cfg.MAX_ROOMS;
 	this.MAX_CLIENTS          = cfg.MAX_CLIENTS;

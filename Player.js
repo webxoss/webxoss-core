@@ -1554,7 +1554,7 @@ Player.prototype.encodeCost = function (cost, withoutFilter) {
 	if (!withoutFilter) {
 		requirements.forEach(function (item) {
 			item.filter = function (int) {
-				return !int || (int & item.mask)
+				return !item.mask || (int & item.mask)
 			}
 		})
 	}
