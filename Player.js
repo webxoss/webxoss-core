@@ -1543,7 +1543,7 @@ Player.prototype.encodeCost = function (cost, withoutFilter) {
 		if (cost._2286) {
 			requirements.push({ count: cost.costColorless, mask: this.cardToInteger(this.lrig) })
 		} else {
-			requirements.push({ count: cost.costColorless, mask: 31 })
+			requirements.push({ count: cost.costColorless, mask: 0 })
 		}
 	}
 	if (cost.costWhite) requirements.push({ count: cost.costWhite, mask: 1 })
@@ -1554,7 +1554,7 @@ Player.prototype.encodeCost = function (cost, withoutFilter) {
 	if (!withoutFilter) {
 		requirements.forEach(function (item) {
 			item.filter = function (int) {
-				return int & item.mask
+				return !int || (int & item.mask)
 			}
 		})
 	}
