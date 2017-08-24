@@ -120139,10 +120139,25 @@ var CardInfo = {
     ],
     startUpEffects: [{
       actionAsyn: function () {
-        var filter = function (card) {
-          return card.acce;
-        };
-        return this.player.pickCardsFromDeckTopAsyn(3,filter);
+        var cards = this.player.mainDeck.getTopCards(3);
+        if (!cards.length) return;
+        return this.player.showCardsAsyn(cards).callback(this,function () {
+          var targets = cards.filter(function (card) {
+            return card.acce;
+          },this);
+          if (!targets.length) return;
+          return this.player.selectAsyn('PUT_TO_ENER_ZONE',targets).callback(this,function (card) {
+            if (!card) return;
+            card.moveTo(this.player.enerZone);
+            removeFromArr(card,cards);
+          });
+        }).callback(this,function () {
+          var len = cards.length;
+          if (!len) return;
+          return this.player.selectSomeAsyn('SET_ORDER',cards,len,len,true).callback(this,function (cards) {
+            this.player.mainDeck.moveCardsToBottom(cards);
+          });
+        });
       },
     }],
   },
