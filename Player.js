@@ -1547,7 +1547,7 @@ Player.prototype.encodeCost = function (cost, withoutFilter) {
 		}
 	}
 	if (cost.costWhite) requirements.push({ count: cost.costWhite, mask: 1 })
-	if (cost.costBlack) requirements.push({ count: cost.costBlack, mask: 3 })
+	if (cost.costBlack) requirements.push({ count: cost.costBlack, mask: 2 })
 	if (cost.costGreen) requirements.push({ count: cost.costGreen, mask: 4 })
 	if (cost.costBlue)  requirements.push({ count: cost.costBlue,  mask: 8 })
 	if (cost.costRed)   requirements.push({ count: cost.costRed,   mask: 16 })
