@@ -110085,7 +110085,7 @@ var CardInfo = {
     ],
     startUpEffects: [{
       actionAsyn: function () {
-        if (this.player.hands.length <= 2) {
+        if (this.player.opponent.hands.length <= 2) {
           this.player.draw(1);
         }
       },
