@@ -118391,7 +118391,7 @@ var CardInfo = {
       action: function (set,add) {
         var value = this.player.opponent.getInfectedZones().length * 1000;
         if (!value) return;
-        add(this,'power',1000);
+        add(this,'power',value);
       }
     },{
       auto: 'onAttack',
