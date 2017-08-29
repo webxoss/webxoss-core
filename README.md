@@ -4,13 +4,15 @@
 
 1. Clone this project
 
+  ```
+  git clone https://github.com/webxoss/webxoss-core.git --recurse-submodules
+  ```
+
 2. Init / Update submodule
 
   ```
-  git submodule update --init
-  cd webxoss-client
-  git submodule update --init
-  cd -
+  cd webxoss-core
+  git submodule update --init --recursive
   ```
 
 3. Download copyrighted images
@@ -35,7 +37,7 @@
 
 ## Run
 
-WEBXOSS can be runned in 2 modes: node or browser.
+WEBXOSS can be runned in 2 modes: **node** or **browser**.
 
 ### Node mode
 
@@ -44,12 +46,14 @@ Use nodejs to create a WEBXOSS server over network.
 ```
 # listen to 127.0.0.1:80
 node test.js
+```
 
+Then open `127.0.0.1`. That's it.
+
+```
 # or specify a port
 node test.js port=8080
 ```
-
-Then open `localhost`. That's it.
 
 ### Browser mode
 
@@ -62,4 +66,4 @@ Then, open `127.0.0.1` (map to `webxoss-core` folder). The browser tab you just 
 Note: 
 
 * The "server" and "client" tabs use `postMessage` to simulate network communications. So you can only play with yourself in a browser.
-* See this [test guide](https://github.com/webxoss/webxoss-core/wiki/howToTest) for more test tricks.
+* See this [test guide](https://github.com/webxoss/webxoss-core/wiki/Test-guide) for more test tricks.
