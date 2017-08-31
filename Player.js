@@ -395,7 +395,7 @@ Player.prototype.resetAccesAsyn = function() {
 		signi.beSelectedAsTarget();
 		var cards = signi.getAccedCards();
 		var count = cards.length - signi.maxAcceCount;
-		return this.player.selectSomeAsyn('TRASH',cards,count,count).callback(this,function (cards) {
+		return this.selectSomeAsyn('TRASH',cards,count,count).callback(this,function (cards) {
 			this.game.trashCards(cards);
 		});
 	});
