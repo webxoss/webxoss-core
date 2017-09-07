@@ -2100,6 +2100,57 @@ Player.prototype.seekAndSummonAsyn = function (filter,n,dontTriggerStartUp) {
 	});
 };
 
+// 选择可行的组合，返回 items (选择的组合) 或 null (无可行组合)
+Player.prototype.selectGroupAsyn = function (options) {
+	// 总的候选项
+	var items = options.items;
+
+	// 满足的组合，如 [1001, 0101, 0110]
+	var bitmaps = options.bitmaps;
+
+	// 如何处理选择，参数: targets,optional
+	var selectAsyn = options.selectAsyn;
+
+	// 0 或 1 个组合，直接返回
+	if (!bitmaps.length) return Callback.immediately(null);
+	if (bitmaps.length === 1) {
+		return Callback.immediately(items.filter(function (item,idx) {
+			return bitmaps[0] & (1 << idx);
+		}));
+	}
+
+	// 本次选择的候选项
+	var mask = bitmaps.reduce(function (mask,bitmap) {
+		return mask | bitmap;
+	},0);
+	var targets = items.filter(function (item,idx) {
+		return mask & (1 << idx);
+	});
+	var optional = bitmaps.some(function (bitmap) {
+		return !bitmap;
+	});
+	// 选择 1 次
+	return selectAsyn(targets,optional).callback(this,function (item) {
+		if (item === null) return [];
+		// 筛选出下次选择的组合
+		var idx = items.indexOf(item);
+		bitmaps = bitmaps.filter(function (bitmap) {
+			return bitmap & (idx << 1);
+		}).map(function (bitmap) {
+			return bitmap & ~(idx << 1);
+		});
+		// 递归
+		return this.selectGroupAsyn({
+			items: items,
+			bitmaps: bitmaps,
+			selectAsyn: selectAsyn,
+		}).callback(this,function (items) {
+			if (items === null) return [item]
+			return [item].concat(items);
+		});
+	});
+};
+
 Player.prototype.pickCardAsyn = function (filter,min,max,zone) {
 	if (!isNum(min)) min = 1;
 	if (!isNum(max)) max = 1;
