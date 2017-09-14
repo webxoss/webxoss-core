@@ -1848,10 +1848,10 @@ Card.prototype.handleTrapAsyn = function(event) {
 		}
 	}).callback(this,function () {
 		if (!this.trap) return;
-		return this.game.blockAsyn(this,function () {
+		return this.game.blockAsyn(this,this,function () {
 			this.player.onTrapTriggered.trigger();
 			return this.trap.actionAsyn.call(this,event);
-		})
+		});
 	}).callback(this,function () {
 		this.trash();
 	});
