@@ -398,7 +398,7 @@ Player.prototype.resetAccesAsyn = function() {
 		return this.selectSomeAsyn('TRASH',cards,count,count).callback(this,function (cards) {
 			this.game.trashCards(cards);
 		});
-	});
+	},this);
 };
 
 Player.prototype.getSigniAmountLimit = function () {
