@@ -293,13 +293,12 @@ function changeLanguage() {
 function handleDeckEditor() {
   var iFrame = $('deck-editor');
 
-  //resizeIFrameToFitContent
-  iFrame.width = iFrame.contentWindow.document.body.scrollWidth;
-  iFrame.height = iFrame.contentWindow.document.body.scrollHeight;
+  // resize iframe to fit content
+  iFrame.width = iFrame.contentWindow.document.body.scrollWidth || iFrame.contentDocument.documentElement.scrollWidth;
+  iFrame.height = iFrame.contentWindow.document.body.scrollHeight || iFrame.contentDocument.documentElement.scrollHeight;
 
   // disable deck-editor return
-  iFrame.contentDocument
-    .getElementById('link-back-to-webxoss').href = "#"
+  iFrame.contentDocument.getElementById('link-back-to-webxoss').href = "#"
 
   // auto update deck names when change in deckEditor
   window.addEventListener('storage', function(e) {
