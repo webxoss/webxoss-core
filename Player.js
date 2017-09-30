@@ -1116,6 +1116,8 @@ Player.prototype.crashAsyn = function (n,arg) {
 					source: source,
 					lancer: lancer
 				};
+				var crashCount = this.game.getData(this,'crashCount') || 0
+				this.game.setData(this,'crashCount',++crashCount)
 				this.onCrash.trigger(event);
 				var shouldBurst = card.onBurst.effects.length &&
 					(tag !== 'dontTriggerBurst') &&
