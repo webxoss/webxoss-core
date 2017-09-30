@@ -740,6 +740,7 @@ Player.prototype.handleArtsAsyn = function (card,ignoreCost) {
 		costArg = _costArg;
 		card.activate();
 		control = {
+			excludeAfterUse: false,
 			backToDeck: false,
 			rtn: null // 当有多个效果时,这个作为返回值. <ブルー・パニッシュ>
 		};
@@ -755,7 +756,9 @@ Player.prototype.handleArtsAsyn = function (card,ignoreCost) {
 	}).callback(this,function (rtn) {
 		// 4. 放到LRIG废弃区
 		this.chain = card.chain; // 连锁
-		if (encored || control.backToDeck) {
+		if (control.excludeAfterUse) {
+			card.moveTo(card.player.excludedZone);
+		} else if (encored || control.backToDeck) {
 			card.moveTo(card.player.lrigDeck);
 		} else {
 			card.moveTo(card.player.lrigTrashZone);
