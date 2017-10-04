@@ -504,7 +504,12 @@ Game.prototype.banishCardsAsyn = function (cards,force,arg) {
 		var accedCards = cards.map(function (card) {
 			return card.getAccedCards();
 		},this);
-		return this.moveCardsAdvancedAsyn(cards,zones,[],force).callback(this,function (arg) {
+		var args = cards.map(function () {
+			return {
+				isBanish: true,
+			};
+		})
+		return this.moveCardsAdvancedAsyn(cards,zones,args,force).callback(this,function (arg) {
 			arg.protectedFlags.forEach(function (isProtected,i) {
 				if (isProtected) return;
 				if (!arg.succs[i]) return;

@@ -916,6 +916,7 @@ Card.prototype.moveTo = function (zone,arg) {
 	var moveEvent = {
 		card: card,
 		isSigni: inArr(card,card.player.signis),
+		isBanish: !!arg.isBanish,
 		power: card.power, // 移动前的力量
 		isCharm: arg.isCharm || false,
 		isCrossed: !!card.crossed,
