@@ -1355,7 +1355,7 @@ Card.prototype.attackAsyn = function () {
 						if (opposingSigni || !trap) return;
 						return this.player.opponent.selectOptionalAsyn('LAUNCH',[trap]).callback(this,function (card) {
 							if (!card) return;
-							return card.handleTrapAsyn(event);
+							return card.handleTrapAsyn({event: event});
 						});
 					}).callback(this,function () {
 						// 攻击被无效，结束处理
@@ -1853,8 +1853,10 @@ Card.prototype.isInfected = function() {
 	return this.zone.virus;
 };
 
-Card.prototype.handleTrapAsyn = function(event) {
-	// 注意 event 是可选的!
+Card.prototype.handleTrapAsyn = function(arg) {
+	if (!arg) arg = {};
+	var event = arg.event; // 注意 event 是可选的!
+	var source = arg.source || this;
 	return Callback.immediately().callback(this,function () {
 		if (this.zone.cards.indexOf(this) === 0) {
 			this.faceup();
@@ -1863,7 +1865,7 @@ Card.prototype.handleTrapAsyn = function(event) {
 		}
 	}).callback(this,function () {
 		if (!this.trap) return;
-		return this.game.blockAsyn(this,function () {
+		return this.game.blockAsyn(source,this,function () {
 			this.player.onTrapTriggered.trigger();
 			return this.trap.actionAsyn.call(this,event);
 		})
