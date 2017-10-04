@@ -1303,6 +1303,14 @@ Card.prototype.attackAsyn = function () {
 		if (player._stormWarning && (player.attackCount <= 2)) {
 			prevented = true;
 		}
+		// <避難勧告>
+		if ((this.game.getData(this.player,'signiAttackCount') || 0) <= 2) {
+			if ((this.game.getData(this.player,'_2436') === 1) && (this.type === 'SIGNI')) {
+				prevented = true;
+			} else if (this.player.getData(this.player,'_2436') === 2) {
+				prevented = true
+			}
+		}
 		// onAttack 的事件对象
 		var event = {
 			prevented: prevented,
