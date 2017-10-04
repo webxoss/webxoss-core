@@ -1139,6 +1139,11 @@ Card.prototype.moveTo = function (zone,arg) {
 	return moveEvent;
 };
 
+Card.prototype.moveToAsyn = function(zone,arg) {
+	if (!arg) arg = {};
+	return this.game.moveCardsAdvancedAsyn([this],[zone],[arg]);
+};
+
 Card.prototype.changeSigniZone = function (zone) {
 	if (!inArr(this,this.player.signis)) {
 		console.warn('card.changeSigniZone: card is not a SIGNI!');
