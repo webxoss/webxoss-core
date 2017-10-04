@@ -1925,6 +1925,11 @@ Player.prototype.payCostAsyn = function (obj,cancelable) {
 	});
 };
 
+Player.prototype.payCostOptionalAsyn = function(cost) {
+  if (!this.enoughCost(cost)) return Callback.immediately(null);
+  return this.payCostAsyn(cost,true);
+};
+
 // player.selectAsyn(label,cards,optional,needConfirm)
 // 玩家从cards中选一张卡,
 // 若cards为null或空数组:
