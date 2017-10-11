@@ -100,6 +100,9 @@ function Card (game,player,zone,pid,side) {
 		this.sideB = info.sideB? new Card(game,player,zone,info.sideB,this) : null;
 	}
 
+	// 特殊钩子
+	this.beforeMove = info.beforeMove;
+
 	// Lostorage
 	this.coin = info.coin || 0;
 	this.bet = info.bet || 0;
@@ -1009,6 +1012,9 @@ Card.prototype.moveTo = function (zone,arg) {
 	}
 
 	// 移动卡片
+	if (card.beforeMove) {
+		card.beforeMove()
+	}
 	removeFromArr(card,card.zone.cards);
 	card.isUp = arg.up;
 	card.isFaceup = arg.faceup;
