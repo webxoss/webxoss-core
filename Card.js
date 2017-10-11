@@ -1886,7 +1886,7 @@ Card.prototype.handleTrapAsyn = function(arg) {
 };
 
 Card.prototype.getBottomCards = function() {
-	if (!inArr(this,this.player.signis)) return;
+	if (!inArr(this,this.player.signis)) return [];
 	return this.zone.cards.filter(function (card) {
 		return (card !== this) &&
 		       (card !== this.charm) &&
