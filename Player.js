@@ -2416,14 +2416,15 @@ Player.prototype.infectZoneAsyn = function() {
 	});
 };
 
-Player.prototype.setTrapFromDeckTopAsyn = function(count,max,forced) {
+Player.prototype.setTrapFromDeckTopAsyn = function(count,max,arg) {
 	if (!isNum(max)) max = 1;
+	if (!arg) arg = {};
 	var cards = this.mainDeck.getTopCards(count);
 	this.informCards(cards);
 	var done = false;
 	return Callback.loop(this,max,function () {
 		if (done) return;
-		return this.selectAsyn('TARGET',cards,!forced).callback(this,function (card) {
+		return this.selectAsyn('TARGET',cards,!arg.forced).callback(this,function (card) {
 			if (!card) return done = true;
 			removeFromArr(card,cards);
 			return this.selectAsyn('TARGET',this.signiZones).callback(this,function (zone) {
@@ -2431,11 +2432,14 @@ Player.prototype.setTrapFromDeckTopAsyn = function(count,max,forced) {
 			});
 		});
 	}).callback(this,function () {
+		if (arg.callback) return;
 		var len = cards.length;
 		if (!len) return;
 		return this.selectSomeAsyn('SET_ORDER',cards,len,len,true).callback(this,function (cards) {
 			this.mainDeck.moveCardsToBottom(cards);
 		});
+	}).callback(this,function () {
+		return cards;
 	});
 };
 
