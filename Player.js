@@ -142,6 +142,7 @@ function Player (game,io,mainDeck,lrigDeck) {
 	this.canNotUseColorlessSigni = false; // <绿罗植 世界树>
 	this.canNotUseColorlessSpell = false; // <绿罗植 世界树>
 	this.skipNextTurn = false;
+	this.nonBustSigniEffectBanned = false; // <アンチ・アビリティ>
 
 	this.usedActionEffects = [];
 	this.chain = null;

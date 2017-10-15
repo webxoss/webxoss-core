@@ -36,8 +36,18 @@ function Effect (effectManager,cfg) {
 	this.disabled = false; // 失去能力时设置为 true .
 }
 
+Effect.prototype.checkTiggerable = function() {
+	if (this.disabled) {
+		return false;
+	}
+	if (this.source.player.nonBustSigniEffectBanned && !this.isBurst && this.source.type === 'SIGNI') {
+		return false;
+	}
+	return true;
+};
+
 Effect.prototype.trigger = function (event) {
-	if (this.disabled) return;
+	if (!this.checkTiggerable()) return;
 	if (this.once && inArr(this,this.effectManager.triggeredEffects)) {
 		return;
 	}
@@ -52,7 +62,7 @@ Effect.prototype.trigger = function (event) {
 };
 
 Effect.prototype.triggerAndHandleAsyn = function (event) {
-	if (this.disabled) return Callback.immediately();
+	if (!this.checkTiggerable()) return Callback.immediately();
 	if (!this.triggerCondition || this.triggerCondition.call(this.source,event)) {
 		// this.source.activate();
 		var effect = Object.create(this);
@@ -65,7 +75,7 @@ Effect.prototype.triggerAndHandleAsyn = function (event) {
 };
 
 Effect.prototype.checkCondition = function () {
-	if (this.disabled) return false;
+	if (!this.checkTiggerable()) return false;
 	// "结束这个回合",如<终结之洞>
 	var game = this.effectManager.game;
 	if (game.getData(game,'endThisTurn')) return false;

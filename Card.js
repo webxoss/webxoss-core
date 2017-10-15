@@ -1876,6 +1876,7 @@ Card.prototype.handleTrapAsyn = function(arg) {
 		}
 	}).callback(this,function () {
 		if (!this.trap) return;
+		if (this.player.nonBustSigniEffectBanned && (this.type === 'SIGNI')) return;
 		return this.game.blockAsyn(source,this,function () {
 			this.player.onTrapTriggered.trigger();
 			return this.trap.actionAsyn.call(this,event);
