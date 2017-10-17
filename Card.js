@@ -1013,7 +1013,7 @@ Card.prototype.moveTo = function (zone,arg) {
 
 	// 移动卡片
 	if (card.beforeMove) {
-		card.beforeMove()
+		card.beforeMove(moveEvent)
 	}
 	removeFromArr(card,card.zone.cards);
 	card.isUp = arg.up;
