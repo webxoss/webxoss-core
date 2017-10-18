@@ -77,6 +77,7 @@ function Player (game,io,mainDeck,lrigDeck) {
 	this.onDiscard          = new Timming(game);
 	this.onDoubleCrashed    = new Timming(game);
 	this.onDraw             = new Timming(game);
+	this.onPutVirus         = new Timming(game);
 	this.onRemoveVirus      = new Timming(game);
 	this.onTrapTriggered    = new Timming(game);
 
@@ -142,6 +143,7 @@ function Player (game,io,mainDeck,lrigDeck) {
 	this.canNotUseColorlessSigni = false; // <绿罗植 世界树>
 	this.canNotUseColorlessSpell = false; // <绿罗植 世界树>
 	this.skipNextTurn = false;
+	this.nonBustSigniEffectBanned = false; // <アンチ・アビリティ>
 
 	this.usedActionEffects = [];
 	this.chain = null;
@@ -533,7 +535,7 @@ Player.prototype.useSpellAsyn = function () {
 Player.prototype.handleSpellAsyn = function (card,ignoreCost,costObj,arg) {
 	if (!costObj) costObj = card;
 	if (!arg) arg = {};
-	var effect,target,costArg;
+	var effects,targets,costArg;
 	this.game.setData(this,'flagSpellUsed',true);
 	var count = this.game.getData(this,'CodeHeartAMS') || 0;
 	this.game.setData(this,'CodeHeartAMS',count + 1);
@@ -558,37 +560,50 @@ Player.prototype.handleSpellAsyn = function (card,ignoreCost,costObj,arg) {
 		return this.payCostAsyn(costObj);
 	}).callback(this,function (_costArg) {
 		costArg = _costArg;
-		// 如果魔法卡的效果不止一个,选择其中一个发动
+		// 如果魔法卡的效果不止一个,选择其中n个发动
 		if (card.spellEffects.length === 1) {
-			effect = card.spellEffects[0];
+			effects = card.spellEffects.slice();
 		} else {
-			return this.selectAsyn('SPELL_EFFECT',card.spellEffects).callback(this,function (eff) {
-				effect = eff;
-				return this.opponent.showEffectsAsyn([eff]);
+			var min,max;
+			if (!card.getMinEffectCount || !card.getMaxEffectCount) {
+				min = max = 1;
+			} else {
+				min = card.getMinEffectCount(costObj);
+				max = card.getMaxEffectCount(costObj);
+			}
+			return this.selectSomeAsyn('SPELL_EFFECT',card.artsEffects,min,max,false).callback(this,function (effs) {
+				effects = effs;
+				if (card.costChangeAfterChoose) {
+					card.costChangeAfterChoose.call(card,costObj,effs);
+				}
+				return this.opponent.showEffectsAsyn(effs);
 			});
 		}
 	}).callback(this,function () {
 		// 3. 娶(划掉)取对象.
 		card.activate();
-		if (effect.getTargets) {
-			// 简单的取对象,即从目标卡片中选一张. (也可以不选,空发)
-			if (effect.targetCovered) {
-				// 从废弃区等[卡片可能被覆盖的区域]取对象
-				return this.selectAsyn('TARGET',effect.getTargets.call(card)).callback(this,function (card) {
-					if (!card) return card;
-					return this.opponent.showCardsAsyn([card]).callback(this,function () {
-						return card;
+		return Callback.forEach(effects,function (effect,idx) {
+			return Callback.immediately().callback(this,function () {
+				if (effect.getTargets) {
+					// 简单的取对象,即从目标卡片中选一张.
+					if (!effect.targetCovered) return this.selectTargetAsyn(effect.getTargets.call(card));
+					// 从废弃区等[卡片可能被覆盖的区域]取对象
+					return this.selectAsyn('TARGET',effect.getTargets.call(card)).callback(this,function (card) {
+						if (!card) return card;
+						return this.opponent.showCardsAsyn([card]).callback(this,function () {
+							return card;
+						});
 					});
-				});
-			}
-			return this.selectTargetAsyn(effect.getTargets.call(card));
-		}
-		if (effect.getTargetAdvancedAsyn) {
-			// 复杂(高级)的取对象.
-			return effect.getTargetAdvancedAsyn.call(card,costArg);
-		}
+				}
+				if (effect.getTargetAdvancedAsyn) {
+					// 复杂(高级)的取对象.
+					return effect.getTargetAdvancedAsyn.call(card,costArg);
+				}
+			}).callback(this,function (target) {
+				targets[idx] = target;
+			});
+		},this);
 	}).callback(this,function (t) {
-		target = t;
 		return this.game.blockEndAsyn();
 		// ------ 块结束 ------
 	}).callback(this,function () {
@@ -597,8 +612,9 @@ Player.prototype.handleSpellAsyn = function (card,ignoreCost,costObj,arg) {
 	}).callback(this,function (canceled) {
 		// 5. 处理.
 		// "处理+放置到废弃区"放在1个block里.
-		return this.game.blockAsyn(effect.source,this,function () {
-			return Callback.immediately().callback(this,function () {
+		return this.game.blockAsyn(card,this,function () {
+			return Callback.forEach(effects,function (effect,idx) {
+				var target = targets[idx];
 				// "结束这个回合",处理直接结束.
 				if (this.game.phase.checkForcedEndTurn()) return;
 				// "不会被取消"
@@ -619,7 +635,7 @@ Player.prototype.handleSpellAsyn = function (card,ignoreCost,costObj,arg) {
 					}
 				}
 				return effect.actionAsyn.call(card,target,costArg);
-			}).callback(this,function () {
+			},this).callback(this,function () {
 				// 6. 放到废弃区
 				// 恢复控制权
 				card.player = card.owner;
@@ -740,6 +756,7 @@ Player.prototype.handleArtsAsyn = function (card,ignoreCost) {
 		costArg = _costArg;
 		card.activate();
 		control = {
+			excludeAfterUse: false,
 			backToDeck: false,
 			rtn: null // 当有多个效果时,这个作为返回值. <ブルー・パニッシュ>
 		};
@@ -755,7 +772,9 @@ Player.prototype.handleArtsAsyn = function (card,ignoreCost) {
 	}).callback(this,function (rtn) {
 		// 4. 放到LRIG废弃区
 		this.chain = card.chain; // 连锁
-		if (encored || control.backToDeck) {
+		if (control.excludeAfterUse) {
+			card.moveTo(card.player.excludedZone);
+		} else if (encored || control.backToDeck) {
 			card.moveTo(card.player.lrigDeck);
 		} else {
 			card.moveTo(card.player.lrigTrashZone);
@@ -1116,6 +1135,8 @@ Player.prototype.crashAsyn = function (n,arg) {
 					source: source,
 					lancer: lancer
 				};
+				var crashCount = this.game.getData(this,'crashCount') || 0
+				this.game.setData(this,'crashCount',++crashCount)
 				this.onCrash.trigger(event);
 				var shouldBurst = card.onBurst.effects.length &&
 					(tag !== 'dontTriggerBurst') &&
@@ -1906,6 +1927,11 @@ Player.prototype.payCostAsyn = function (obj,cancelable) {
 	});
 };
 
+Player.prototype.payCostOptionalAsyn = function(cost) {
+  if (!this.enoughCost(cost)) return Callback.immediately(null);
+  return this.payCostAsyn(cost,true);
+};
+
 // player.selectAsyn(label,cards,optional,needConfirm)
 // 玩家从cards中选一张卡,
 // 若cards为null或空数组:
@@ -2392,14 +2418,15 @@ Player.prototype.infectZoneAsyn = function() {
 	});
 };
 
-Player.prototype.setTrapFromDeckTopAsyn = function(count,max,forced) {
+Player.prototype.setTrapFromDeckTopAsyn = function(count,max,arg) {
 	if (!isNum(max)) max = 1;
+	if (!arg) arg = {};
 	var cards = this.mainDeck.getTopCards(count);
 	this.informCards(cards);
 	var done = false;
 	return Callback.loop(this,max,function () {
 		if (done) return;
-		return this.selectAsyn('TARGET',cards,!forced).callback(this,function (card) {
+		return this.selectAsyn('TARGET',cards,!arg.forced).callback(this,function (card) {
 			if (!card) return done = true;
 			removeFromArr(card,cards);
 			return this.selectAsyn('TARGET',this.signiZones).callback(this,function (zone) {
@@ -2407,11 +2434,14 @@ Player.prototype.setTrapFromDeckTopAsyn = function(count,max,forced) {
 			});
 		});
 	}).callback(this,function () {
+		if (arg.callback) return;
 		var len = cards.length;
 		if (!len) return;
 		return this.selectSomeAsyn('SET_ORDER',cards,len,len,true).callback(this,function (cards) {
 			this.mainDeck.moveCardsToBottom(cards);
 		});
+	}).callback(this,function () {
+		return cards;
 	});
 };
 

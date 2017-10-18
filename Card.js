@@ -100,6 +100,9 @@ function Card (game,player,zone,pid,side) {
 		this.sideB = info.sideB? new Card(game,player,zone,info.sideB,this) : null;
 	}
 
+	// 特殊钩子
+	this.beforeMove = info.beforeMove;
+
 	// Lostorage
 	this.coin = info.coin || 0;
 	this.bet = info.bet || 0;
@@ -121,6 +124,7 @@ function Card (game,player,zone,pid,side) {
 	this._data             = null; // 私有的数据储存,约定: 只能在 CardInfo.js 自身的代码里访问
 	this.fieldData         = {};   // 离场即清空的数据
 	this.fieldTurnData     = {};   // 离场或回合结束即清空的数据
+	this.tokenData         = {};   // 衍生物，离场清空
 
 	// 时点
 	this.onMove            = new Timming(game);
@@ -916,6 +920,7 @@ Card.prototype.moveTo = function (zone,arg) {
 	var moveEvent = {
 		card: card,
 		isSigni: inArr(card,card.player.signis),
+		isBanish: !!arg.isBanish,
 		power: card.power, // 移动前的力量
 		isCharm: arg.isCharm || false,
 		isCrossed: !!card.crossed,
@@ -1008,6 +1013,9 @@ Card.prototype.moveTo = function (zone,arg) {
 	}
 
 	// 移动卡片
+	if (card.beforeMove) {
+		card.beforeMove(moveEvent)
+	}
 	removeFromArr(card,card.zone.cards);
 	card.isUp = arg.up;
 	card.isFaceup = arg.faceup;
@@ -1095,6 +1103,7 @@ Card.prototype.moveTo = function (zone,arg) {
 		card.onLeaveField.trigger(leaveFieldEvent);
 		card.onLeaveField2.trigger(leaveFieldEvent);
 		card.player.onSigniLeaveField.trigger(leaveFieldEvent);
+		card.resetTokens();
 		// SIGNI 离场时,下面的卡送入废弃区，
 		// 此处理在块结束时执行。
 		// http://www.takaratomy.co.jp/products/wixoss/rule/rule_rulechange/151211/index.html
@@ -1136,6 +1145,11 @@ Card.prototype.moveTo = function (zone,arg) {
 	card.game.frameEnd();
 
 	return moveEvent;
+};
+
+Card.prototype.moveToAsyn = function(zone,arg) {
+	if (!arg) arg = {};
+	return this.game.moveCardsAdvancedAsyn([this],[zone],[arg]);
 };
 
 Card.prototype.changeSigniZone = function (zone) {
@@ -1303,6 +1317,14 @@ Card.prototype.attackAsyn = function () {
 		if (player._stormWarning && (player.attackCount <= 2)) {
 			prevented = true;
 		}
+		// <避難勧告>
+		if ((this.game.getData(this.player,'signiAttackCount') || 0) <= 2) {
+			if ((this.game.getData(this.player,'_2436') === 1) && (this.type === 'SIGNI')) {
+				prevented = true;
+			} else if (this.player.getData(this.player,'_2436') === 2) {
+				prevented = true
+			}
+		}
 		// onAttack 的事件对象
 		var event = {
 			prevented: prevented,
@@ -1346,7 +1368,7 @@ Card.prototype.attackAsyn = function () {
 						if (opposingSigni || !trap) return;
 						return this.player.opponent.selectOptionalAsyn('LAUNCH',[trap]).callback(this,function (card) {
 							if (!card) return;
-							return card.handleTrapAsyn(event);
+							return card.handleTrapAsyn({event: event});
 						});
 					}).callback(this,function () {
 						// 攻击被无效，结束处理
@@ -1844,8 +1866,10 @@ Card.prototype.isInfected = function() {
 	return this.zone.virus;
 };
 
-Card.prototype.handleTrapAsyn = function(event) {
-	// 注意 event 是可选的!
+Card.prototype.handleTrapAsyn = function(arg) {
+	if (!arg) arg = {};
+	var event = arg.event; // 注意 event 是可选的!
+	var source = arg.source || this;
 	return Callback.immediately().callback(this,function () {
 		if (this.zone.cards.indexOf(this) === 0) {
 			this.faceup();
@@ -1854,7 +1878,8 @@ Card.prototype.handleTrapAsyn = function(event) {
 		}
 	}).callback(this,function () {
 		if (!this.trap) return;
-		return this.game.blockAsyn(this,function () {
+		if (this.player.nonBustSigniEffectBanned && (this.type === 'SIGNI')) return;
+		return this.game.blockAsyn(source,this,function () {
 			this.player.onTrapTriggered.trigger();
 			return this.trap.actionAsyn.call(this,event);
 		})
@@ -1864,13 +1889,29 @@ Card.prototype.handleTrapAsyn = function(event) {
 };
 
 Card.prototype.getBottomCards = function() {
-	if (!inArr(this,this.player.signis)) return;
+	if (!inArr(this,this.player.signis)) return [];
 	return this.zone.cards.filter(function (card) {
 		return (card !== this) &&
 		       (card !== this.charm) &&
 		       (card !== this.zone.trap) &&
 		       !card.acceingCard;
 	},this);
+};
+
+Card.prototype.getToken = function(name) {
+	return this.tokenData[name] || 0;
+};
+
+Card.prototype.setToken = function(name,value) {
+	return this.tokenData[name] = value;
+};
+
+Card.prototype.addToken = function(name,value) {
+	return this.setToken(name,this.getToken(name) + value);
+};
+
+Card.prototype.resetTokens = function() {
+	this.tokenData = {};
 };
 
 global.Card = Card;

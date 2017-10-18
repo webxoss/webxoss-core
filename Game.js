@@ -504,7 +504,12 @@ Game.prototype.banishCardsAsyn = function (cards,force,arg) {
 		var accedCards = cards.map(function (card) {
 			return card.getAccedCards();
 		},this);
-		return this.moveCardsAdvancedAsyn(cards,zones,[],force).callback(this,function (arg) {
+		var args = cards.map(function () {
+			return {
+				isBanish: true,
+			};
+		})
+		return this.moveCardsAdvancedAsyn(cards,zones,args,force).callback(this,function (arg) {
 			arg.protectedFlags.forEach(function (isProtected,i) {
 				if (isProtected) return;
 				if (!arg.succs[i]) return;
@@ -804,14 +809,16 @@ Game.prototype.outputCardStates = function () {
 		return {
 			card: card,
 			power: card.power,
-			states: card.getStates()
+			states: card.getStates(),
+			tokenData: card.tokenData,
 		}
 	},this);
 	cards = [this.turnPlayer.lrig,this.turnPlayer.opponent.lrig];
 	var lrigInfos = cards.map(function (card) {
 		return {
 			card: card,
-			states: card.getStates()
+			states: card.getStates(),
+			tokenData: card.tokenData,
 		}
 	},this);
 	var zones = concat(this.turnPlayer.signiZones,this.turnPlayer.opponent.signiZones);
