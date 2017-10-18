@@ -124,6 +124,7 @@ function Card (game,player,zone,pid,side) {
 	this._data             = null; // 私有的数据储存,约定: 只能在 CardInfo.js 自身的代码里访问
 	this.fieldData         = {};   // 离场即清空的数据
 	this.fieldTurnData     = {};   // 离场或回合结束即清空的数据
+	this.tokenData         = {};   // 衍生物，离场清空
 
 	// 时点
 	this.onMove            = new Timming(game);
@@ -1102,6 +1103,7 @@ Card.prototype.moveTo = function (zone,arg) {
 		card.onLeaveField.trigger(leaveFieldEvent);
 		card.onLeaveField2.trigger(leaveFieldEvent);
 		card.player.onSigniLeaveField.trigger(leaveFieldEvent);
+		card.resetTokens();
 		// SIGNI 离场时,下面的卡送入废弃区，
 		// 此处理在块结束时执行。
 		// http://www.takaratomy.co.jp/products/wixoss/rule/rule_rulechange/151211/index.html
@@ -1894,6 +1896,22 @@ Card.prototype.getBottomCards = function() {
 		       (card !== this.zone.trap) &&
 		       !card.acceingCard;
 	},this);
+};
+
+Card.prototype.getToken = function(name) {
+	return this.tokenData[name] || 0;
+};
+
+Card.prototype.setToken = function(name,value) {
+	return this.tokenData[name] = value;
+};
+
+Card.prototype.addToken = function(name,value) {
+	return this.setToken(name,this.getToken(name) + value);
+};
+
+Card.prototype.resetTokens = function() {
+	this.tokenData = {};
 };
 
 global.Card = Card;

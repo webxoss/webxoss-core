@@ -809,14 +809,16 @@ Game.prototype.outputCardStates = function () {
 		return {
 			card: card,
 			power: card.power,
-			states: card.getStates()
+			states: card.getStates(),
+			tokenData: card.tokenData,
 		}
 	},this);
 	cards = [this.turnPlayer.lrig,this.turnPlayer.opponent.lrig];
 	var lrigInfos = cards.map(function (card) {
 		return {
 			card: card,
-			states: card.getStates()
+			states: card.getStates(),
+			tokenData: card.tokenData,
 		}
 	},this);
 	var zones = concat(this.turnPlayer.signiZones,this.turnPlayer.opponent.signiZones);
