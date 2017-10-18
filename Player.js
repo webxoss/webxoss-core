@@ -77,6 +77,7 @@ function Player (game,io,mainDeck,lrigDeck) {
 	this.onDiscard          = new Timming(game);
 	this.onDoubleCrashed    = new Timming(game);
 	this.onDraw             = new Timming(game);
+	this.onPutVirus         = new Timming(game);
 	this.onRemoveVirus      = new Timming(game);
 	this.onTrapTriggered    = new Timming(game);
 

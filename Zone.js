@@ -94,6 +94,7 @@ Zone.prototype.moveCardsToBottom = function (cards) {
 Zone.prototype.putVirus = function () {
 	if (this.virus) return false;
 	this.virus = true;
+	this.player.onPutVirus.trigger();
 	return true;
 };
 
