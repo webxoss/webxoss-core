@@ -19,7 +19,7 @@
 
   ```
   cd webxoss-client
-  curl http://webxoss.com/images.tar | tar xv
+  curl https://webxoss.com/images.tar | tar xv
   cd -
   ```
 
