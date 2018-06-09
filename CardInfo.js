@@ -122488,6 +122488,951 @@ var CardInfo = {
     "multiEner": false,
     cardText: "ね、私ってすずと似てる？～メル～"
   },
+  "WDK02001": {
+    "pid": "WDK02001",
+    cid: "WDK02001",
+    "timestamp": 1528213303987,
+    "wxid": "WDK02-001",
+    name: "アロス・ピルルク　ＴＥＴ",
+    "kana": "アロスピルルクテト",
+    "rarity": "ST",
+    "cardType": "LRIG",
+    "color": "blue",
+    "level": 4,
+    "limit": 11,
+    "power": 0,
+    "limiting": "",
+    "coin": 3,
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WDK02/WDK02-001.jpg",
+    "illust": "よん",
+    "classes": [
+      "ピルルク"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    "multiEner": false,
+    cardText: "私はあなたのルリグ。あなたの記憶と共に、戦う！～ピルルク～",
+    "format": "KEYSET",
+    // ======================
+    //        常时效果       
+    // ======================
+    constEffectTexts: [
+      "【自】：このルリグがアタックしたとき、《青》を支払ってもよい。そうした場合、カードを１枚引く。"
+    ],
+    constEffects: [{
+      action: function (set, add) {
+        var effect = this.game.newEffect({
+          source: this,
+          description: 'WDK02001-const-0',
+          optional: true,
+          costBlue: 1,
+          actionAsyn: function () {
+            this.player.draw(1);
+          },
+        });
+        add(this,'onAttack',effect);
+      }
+    }],
+    // ======================
+    //        出场效果       
+    // ======================
+    startUpEffectTexts: [
+      "【出】：対戦相手の手札を１枚見ないで選び、捨てさせる。"
+    ],
+    startUpEffects: [{
+      actionAsyn: function () {
+        var cards = this.player.opponent.hands;
+        this.player.informCards(cards);
+        return this.player.selectAsyn('TRASH',cards).callback(this,function (card) {
+          if (!card) return;
+          this.player.opponent.discardCards([card]);
+        });
+      }
+    }],
+  },
+  "WDK02002": {
+    "pid": "WDK02002",
+    cid: "WDK02002",
+    "timestamp": 1528213303992,
+    "wxid": "WDK02-002",
+    name: "アロス・ピルルク　ＴＲＩ",
+    "kana": "アロスピルルクトリ",
+    "rarity": "ST",
+    "cardType": "LRIG",
+    "color": "blue",
+    "level": 3,
+    "limit": 7,
+    "power": 0,
+    "limiting": "",
+    "coin": 0,
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WDK02/WDK02-002.jpg",
+    "illust": "よん",
+    "classes": [
+      "ピルルク"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 2,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    "multiEner": false,
+    cardText: "心を教えて、あなたは本当に戦いたいの？～ピルルク～",
+    "format": "KEYSET",
+    // ======================
+    //        出场效果       
+    // ======================
+    startUpEffectTexts: [
+      "【出】《青》：《コインアイコン》を得る。"
+    ],
+    startUpEffects: [{
+      costBlue: 1,
+      actionAsyn: function () {
+        this.player.gainCoins(1);
+      }
+    }],
+  },
+  "WDK02003": {
+    "pid": "WDK02003",
+    cid: "WDK02003",
+    "timestamp": 1528213304003,
+    "wxid": "WDK02-003",
+    name: "アロス・ピルルク　ＤＩ",
+    "kana": "アロスピルルクジ",
+    "rarity": "ST",
+    "cardType": "LRIG",
+    "color": "blue",
+    "level": 2,
+    "limit": 4,
+    "power": 0,
+    "limiting": "",
+    "coin": 0,
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WDK02/WDK02-003.jpg",
+    "illust": "よん",
+    "classes": [
+      "ピルルク"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 1,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    "multiEner": false,
+    cardText: "絶対に、負けない……！～ピルルク～",
+    "format": "KEYSET",
+    // ======================
+    //        出场效果       
+    // ======================
+    startUpEffectTexts: [
+      "【出】《コインアイコン》：カードを１枚引く。"
+    ],
+    startUpEffects: [{
+      costCoin: 1,
+      actionAsyn: function () {
+        this.player.draw(1);
+      }
+    }],
+  },
+  "WDK02004": {
+    "pid": "WDK02004",
+    cid: "WDK02004",
+    "timestamp": 1528213304010,
+    "wxid": "WDK02-004",
+    name: "アロス・ピルルク　ＭＯＮＯ",
+    "kana": "アロスピルルクモノ",
+    "rarity": "ST",
+    "cardType": "LRIG",
+    "color": "blue",
+    "level": 1,
+    "limit": 2,
+    "power": 0,
+    "limiting": "",
+    "coin": 0,
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WDK02/WDK02-004.jpg",
+    "illust": "よん",
+    "classes": [
+      "ピルルク"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    "multiEner": false,
+    cardText: "いくよ！～ピルルク～",
+    "format": "KEYSET",
+    // ======================
+    //        出场效果       
+    // ======================
+    startUpEffectTexts: [
+      "【出】手札を１枚捨てる：《コインアイコン》を得る。"
+    ],
+    startUpEffects: [{
+      costCondition: function () {
+        return this.player.hands.length;
+      },
+      costAsyn: function () {
+        return this.player.discardAsyn(1);
+      },
+      actionAsyn: function () {
+        this.player.gainCoins(1);
+      }
+    }],
+  },
+  "WDK02005": {
+    "pid": "WDK02005",
+    cid: "WDK02005",
+    "timestamp": 1528213304006,
+    "wxid": "WDK02-005",
+    name: "アロス・ピルルク",
+    "kana": "アロスピルルク",
+    "rarity": "ST",
+    "cardType": "LRIG",
+    "color": "blue",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "",
+    "coin": 0,
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WDK02/WDK02-005.jpg",
+    "illust": "よん",
+    "classes": [
+      "ピルルク"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    "multiEner": false,
+    cardText: "連鎖を断ち切るために！～ピルルク～",
+    "format": "KEYSET"
+  },
+  "WDK02006": {
+    "pid": "WDK02006",
+    cid: "WDK02006",
+    "timestamp": 1528213303998,
+    "wxid": "WDK02-006",
+    name: "ワースト・コンディション",
+    "kana": "ワーストコンディション",
+    "rarity": "ST",
+    "cardType": "ARTS",
+    "color": "blue",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "ピルルク",
+    "timing": "メインフェイズ\nアタックフェイズ",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WDK02/WDK02-006.jpg",
+    "illust": "柚希きひろ",
+    "classes": [],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 2,
+    "costGreen": 0,
+    "costColorless": 1,
+    "guardFlag": false,
+    "multiEner": false,
+    cardText: "残念賞！～ピルルク～",
+    "format": "KEYSET",
+    // ======================
+    //        技艺效果       
+    // ======================
+    timmings: ['mainPhase','attackPhase'],
+    artsEffectTexts: [
+      "このアーツは対戦相手の手札が０枚の場合にしか使用できない。\n" +
+      "対戦相手のシグニを２体までバニッシュする。"
+    ],
+    useCondition: function () {
+      return !this.player.opponent.hands.length;
+    },
+    artsEffect: {
+      actionAsyn: function () {
+        var cards = this.player.opponent.signis;
+        return this.player.selectSomeTargetsAsyn(cards,0,2).callback(this,function (cards) {
+          return this.game.banishCardsAsyn(cards);
+        });
+      }
+    }
+  },
+  "WDK02007": {
+    "pid": "WDK02007",
+    cid: "WDK02007",
+    "timestamp": 1528213304017,
+    "wxid": "WDK02-007",
+    name: "スリー・ダスト",
+    "kana": "スリーダスト",
+    "rarity": "ST",
+    "cardType": "ARTS",
+    "color": "blue",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "",
+    "timing": "メインフェイズ",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WDK02/WDK02-007.jpg",
+    "illust": "はしもとなおや",
+    "classes": [],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 2,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    "multiEner": false,
+    cardText: "いい戦略だね、清衣！～ピルルク～",
+    "format": "KEYSET",
+    // ======================
+    //        技艺效果       
+    // ======================
+    timmings: ['mainPhase'],
+    artsEffectTexts: [
+      "このアーツはあなたのルリグがレベル３以上の場合にしか使用できない。\n" +
+      "対戦相手の手札を３枚見ないで選び、捨てさせる。\n" +
+      "（手札が２枚以下の場合すべて捨てさせる）"
+    ],
+    useCondition: function () {
+      return this.player.lrig.level >= 3;
+    },
+    artsEffect: {
+      actionAsyn: function () {
+        this.player.opponent.discardRandomly(1);
+      }
+    }
+  },
+  "WDK02008": {
+    "pid": "WDK02008",
+    cid: "WDK02008",
+    "timestamp": 1528213304038,
+    "wxid": "WDK02-008",
+    name: "＜ドントリブミー＞",
+    "kana": "ドントリブミー",
+    "rarity": "ST",
+    "cardType": "ARTS",
+    "color": "blue",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "",
+    "timing": "アタックフェイズ",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WDK02/WDK02-008.jpg",
+    "illust": "pepo",
+    "classes": [],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 1,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    "multiEner": false,
+    cardText: "この物語の鍵を、見つけてみせる！～ピルルク～",
+    "format": "KEYSET",
+    // ======================
+    //        技艺效果       
+    // ======================
+    timmings: ['attackPhase'],
+    artsEffectTexts: [
+      "ベット－《コインアイコン》《コインアイコン》\n" +
+      "対戦相手のシグニ１体をダウンする。あなたがベットしていた場合、代わりに対戦相手のシグニ２体をダウンする。"
+    ],
+    bet: 2,
+    artsEffect: {
+      actionAsyn: function (costArg) {
+        return this.player.selectOpponentSigniAsyn(filter).callback(this,function (card) {
+          if (!card) return;
+          card.down();
+          if (costArg.bet) {
+            return this.player.selectOpponentSigniAsyn(filter).callback(this,function (card) {
+              if (!card) return;
+              card.down();
+            });
+          }
+        });
+      }
+    }
+  },
+  "WDK02009": {
+    "pid": "WDK02009",
+    cid: "WDK02009",
+    "timestamp": 1528213304032,
+    "wxid": "WDK02-009",
+    name: "＜コードピルルクキー＞",
+    "kana": "コードピルルクキー",
+    "rarity": "ST",
+    "cardType": "KEY",
+    "color": "blue",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WDK02/WDK02-009.jpg",
+    "illust": "斎創",
+    "classes": [],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "coin": 1,
+    "guardFlag": false,
+    cardSkills: [
+      "【常】：あなたのレベル２以上のルリグは以下の能力を得る。",
+      "エクシード１（このルリグの下からカードを１枚ルリグトラッシュに置く）：あなたはカードを１枚引く。対戦相手は手札を１枚捨てる。",
+      " エクシード２（このルリグの下からカードを２枚ルリグトラッシュに置く）：対戦相手のシグニ１体をダウンし凍結する。",
+      "（凍結されたシグニは次の自分のアップフェイズにアップしない）"
+    ],
+    "multiEner": false,
+    cardText: "この力は、きっと……。～ピルルク～",
+    "format": "KEYSET"
+  },
+  "WDK02010": {
+    "pid": "WDK02010",
+    cid: "WDK02010",
+    "timestamp": 1528213304054,
+    "wxid": "WDK02-010",
+    name: "＜ファントムガーデン＞",
+    "kana": "ファントムガーデン",
+    "rarity": "ST",
+    "cardType": "ARTS",
+    "color": "colorless",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "",
+    "timing": "メインフェイズ",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WDK02/WDK02-010.jpg",
+    "illust": "アリオ",
+    "classes": [],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 1,
+    "guardFlag": false,
+    "multiEner": false,
+    cardText: "裏切りの選択。",
+    "format": "KEYSET",
+    // ======================
+    //        技艺效果       
+    // ======================
+    timmings: ['attackPhase'],
+    artsEffectTexts: [
+      "ベット－《コインアイコン》\n" +
+      "（このアーツを使用する際に《コインアイコン》を支払ってもよい）\n" +
+      "あなたのトラッシュからあなたのルリグと同じ色を持つそれぞれレベルの異なるシグニを３枚まで手札に加える。あなたがベットしていた場合、３枚の代わりに４枚まで手札に加える。"
+    ],
+    bet: 1,
+    artsEffect: {
+      actionAsyn: function (costArg) {
+        var signis = [];
+        var done = false;
+        var searchCardNumber = costArg.bet ? 4 : 3;
+        return Callback.loop(this,searchCardNumber,function () {
+          if (done) return;
+          var cards = this.player.trashZone.cards.filter(function (card) {
+            return (card.type === 'SIGNI') && signis.every(function (signi) {
+              return signi.level !== card.level && this.player.lrig.hasColor(signi.color);
+            });
+          },this);
+          return this.player.selectSomeAsyn('SEEK',cards,0,1,false,this.player.trashZone.cards).callback(this,function (cards) {
+            if (!cards.length) {
+              done = true;
+              return;
+            }
+            signis.push(cards[0]);
+          });
+        }).callback(this,function () {
+          this.game.moveCards(signis,this.player.handZone);
+        });
+      }
+    }
+  },
+  "WDK02011": {
+    "pid": "WDK02011",
+    cid: "WDK02011",
+    "timestamp": 1528213304064,
+    "wxid": "WDK02-011",
+    name: "＜マカイノコウソウスクリューカーミラ＞",
+    "kana": "マカイノコウソウスクリューカーミラ",
+    "rarity": "ST",
+    "cardType": "SIGNI",
+    "color": "blue",
+    "level": 4,
+    "limit": 0,
+    "power": 12000,
+    "limiting": "ピルルク",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WDK02/WDK02-011.jpg",
+    "illust": "モレシャン",
+    "classes": [
+      "精像",
+      "悪魔"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    "multiEner": false,
+    cardText: "イヤねぇ、もう、スクリューッ！～スクリュー・カーミラ～",
+    "format": "KEYSET",
+    // ======================
+    //        常时效果
+    // ======================
+    constEffectTexts: [
+      "【自】：このシグニがアタックしたとき、あなたの手札が１枚以下の場合、対戦相手は手札を１枚捨てる。"
+    ],
+    constEffects: [{
+      auto: 'onAttack',
+      effect: {
+        condition: function () {
+          return this.player.hands.length <= 1;
+        },
+        actionAsyn: function () {
+          return this.player.opponent.discardAsyn(1);
+        },
+      },
+    }],
+    // ======================
+    //        迸发效果       
+    // ======================
+    burstEffectTexts: [
+      "対戦相手の手札が２枚以下の場合、対戦相手のシグニ１体をバニッシュする。"
+    ],
+    burstEffect: {
+      condition: function() {
+        return this.player.opponent.hands.length <= 2;
+      }
+      actionAsyn: function() {
+        return this.this.banishSigniAsyn();
+      }
+    }
+  },
+  "WDK02012": {
+    "pid": "WDK02012",
+    cid: "WDK02012",
+    "timestamp": 1528213304043,
+    "wxid": "WDK02-012",
+    name: "魔界の粘形　スライムクイーン",
+    "kana": "マカイノネンギョウスライムクイーン",
+    "rarity": "ST",
+    "cardType": "SIGNI",
+    "color": "blue",
+    "level": 4,
+    "limit": 0,
+    "power": 10000,
+    "limiting": "ピルルク",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WDK02/WDK02-012.jpg",
+    "illust": "志月",
+    "classes": [
+      "精像",
+      "悪魔"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    "multiEner": false,
+    cardText: "お前たち私のために戦いな。～スライムクイーン～",
+    "format": "KEYSET",
+    // ======================
+    //        出场效果       
+    // ======================
+    startUpEffectTexts: [
+      "【出】手札を２枚捨てる：対戦相手のシグニ１体をバニッシュする。"
+    ],
+    startUpEffects: [{
+      costCondition: function () {
+        return this.player.hands.length >= 2;
+      },
+      costAsyn: function () {
+        return this.player.discardAsyn(2);
+      },
+      actionAsyn: function() {
+        return this.this.banishSigniAsyn();
+      }
+    }],
+  },
+  "WDK02013": {
+    "pid": "WDK02013",
+    cid: "WDK02013",
+    "timestamp": 1528213304059,
+    "wxid": "WDK02-013",
+    name: "魔界の粘形　アーマードスライム",
+    "kana": "マカイノネンギョウアーマードスライム",
+    "rarity": "ST",
+    "cardType": "SIGNI",
+    "color": "blue",
+    "level": 3,
+    "limit": 0,
+    "power": 8000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WDK02/WDK02-013.jpg",
+    "illust": "志月",
+    "classes": [
+      "精像",
+      "悪魔"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    "multiEner": false,
+    cardText: "みんな、さあ進もう。～アーマードスライム～",
+    "format": "KEYSET",
+    // ======================
+    //        常时效果
+    // ======================
+    constEffectTexts: [
+      "【常】：あなたの手札が１枚以下であるかぎり、このシグニのパワーは＋4000される。"
+    ],
+    constEffects: [{
+      effect: {
+        condition: function () {
+          return this.player.hands.length <= 1;
+        },
+        action: function (set, add) {
+          add(this,'power',4000);
+        },
+      },
+    }],
+  },
+  "WDK02014": {
+    "pid": "WDK02014",
+    cid: "WDK02014",
+    "timestamp": 1528213304069,
+    "wxid": "WDK02-014",
+    name: "魔海の黒槍　シャークスピア",
+    "kana": "マカイノコクソウシャークスピア",
+    "rarity": "ST",
+    "cardType": "SIGNI",
+    "color": "blue",
+    "level": 3,
+    "limit": 0,
+    "power": 7000,
+    "limiting": "ピルルク",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WDK02/WDK02-014.jpg",
+    "illust": "コウサク",
+    "classes": [
+      "精像",
+      "悪魔"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    "multiEner": false,
+    cardText: "美しさは罪。～シャークスピア～",
+    "lifeBurst": "カードを１枚引く。",
+    "format": "KEYSET",
+    // ======================
+    //        出场效果       
+    // ======================
+    startUpEffectTexts: [
+      "【出】：あなたの手札が２枚以下の場合、ターン終了時まで、対戦相手のシグニ１体のパワーを－1000する。あなたの手札が０枚の場合、代わりに－5000する。\n" +
+      "（パワーが０以下のシグニはルールによってバニッシュされる）"
+    ],
+    startUpEffects: [{
+      actionAsyn: function() {
+        if (this.player.hands.length == 0) {
+          return this.decreasePowerAsyn(5000);
+        } else if (this.player.hands.length <= 2) {
+          return this.decreasePowerAsyn(5000);
+        }
+      }
+    }],
+  },
+  "WDK02015": {
+    "pid": "WDK02015",
+    cid: "WDK02015",
+    "timestamp": 1528213304077,
+    "wxid": "WDK02-015",
+    name: "魔海の青槍　シャッコー",
+    "kana": "マカイノセイソウシャッコー",
+    "rarity": "ST",
+    "cardType": "SIGNI",
+    "color": "blue",
+    "level": 2,
+    "limit": 0,
+    "power": 5000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WDK02/WDK02-015.jpg",
+    "illust": "pepo",
+    "classes": [
+      "精像",
+      "悪魔"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    "multiEner": false,
+    cardText: "海賊なんかにゃ、やんねーよ。～シャッコー～",
+    "format": "KEYSET",
+    // ======================
+    //        常时效果
+    // ======================
+    constEffectTexts: [
+      "【常】：あなたの手札が１枚以下であるかぎり、このシグニのパワーは＋3000される。"
+    ],
+    constEffects: [{
+      effect: {
+        condition: function () {
+          return this.player.hands.length <= 1;
+        },
+        action: function (set, add) {
+          add(this,'power',3000);
+        },
+      },
+    }],
+  },
+  },
+  "WDK02016": {
+    "pid": "WDK02016",
+    cid: "WDK02016",
+    "timestamp": 1528213304084,
+    "wxid": "WDK02-016",
+    name: "＜マカイノネンギョウスライム＞",
+    "kana": "マカイノネンギョウスライム",
+    "rarity": "ST",
+    "cardType": "SIGNI",
+    "color": "blue",
+    "level": 1,
+    "limit": 0,
+    "power": 3000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WDK02/WDK02-016.jpg",
+    "illust": "志月",
+    "classes": [
+      "精像",
+      "悪魔"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    "multiEner": false,
+    cardText: "何にだってなれー。～スライム～",
+    "format": "KEYSET",
+  },
+  "WDK02017": {
+    "pid": "WDK02017",
+    cid: "WDK02017",
+    "timestamp": 1528213304094,
+    "wxid": "WDK02-017",
+    name: "魔海の不良　マノミン",
+    "kana": "マカイノフリョウマノミン",
+    "rarity": "ST",
+    "cardType": "SIGNI",
+    "color": "blue",
+    "level": 1,
+    "limit": 0,
+    "power": 1000,
+    "limiting": "ピルルク",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WDK02/WDK02-017.jpg",
+    "illust": "おけら",
+    "classes": [
+      "精像",
+      "悪魔"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    "multiEner": false,
+    cardText: "大きくなったらグレちゃった…。～クマノミンの母～",
+    "lifeBurst": "カードを１枚引く。",
+    "format": "KEYSET",
+    // ======================
+    //        出场效果       
+    // ======================
+    startUpEffectTexts: [
+      "【出】：すべてのプレイヤーは手札を１枚捨てる。"
+    ],
+    startUpEffects: [{
+      actionAsyn: function() {
+        return this.player.discardAsyn(1).callback(this, function() {
+          return this.player.opponent.discardAsyn(1);
+        });
+      }
+    }],
+  },
+  "WDK02018": {
+    "pid": "WDK02018",
+    cid: 101,
+    "timestamp": 1528213304105,
+    "wxid": "WDK02-018",
+    name: "＜サーバントデュオ＞",
+    "kana": "サーバントデュオ",
+    "rarity": "ST",
+    "cardType": "SIGNI",
+    "color": "colorless",
+    "level": 2,
+    "limit": 0,
+    "power": 5000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WDK02/WDK02-018.jpg",
+    "illust": "Hitoto*",
+    "classes": [
+      "精元"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": true,
+    "multiEner": true,
+    cardText: "たまにはこっちを向いてね！",
+    "format": "KEYSET",
+  },
+  "WDK02019": {
+    "pid": "WDK02019",
+    cid: "WDK02019",
+    "timestamp": 1528213304097,
+    "wxid": "WDK02-019",
+    name: "サーバント　Ｏ４",
+    "kana": "サーバントオーフォー",
+    "rarity": "ST",
+    "cardType": "SIGNI",
+    "color": "colorless",
+    "level": 1,
+    "limit": 0,
+    "power": 2000,
+    "limiting": "",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WDK02/WDK02-019.jpg",
+    "illust": "アリオ",
+    "classes": [
+      "精元"
+    ],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": true,
+    cardSkills: [
+      "【ガード】（このカードを手札から捨てることで、ルリグのアタックによるダメージを一度防ぐ）",
+      "【常】：【マルチエナ】（エナコストを支払う際、このカードは好きな色１つとして支払える）"
+    ],
+    "multiEner": true,
+    cardText: "ピッカピカの守りをゲット！",
+    "format": "KEYSET",
+    // ======================
+    //        迸发效果       
+    // ======================
+    burstEffectTexts: [
+      "あなたのトラッシュから＜精元＞のシグニ１枚を手札に加える。"
+    ],
+    burstEffect: {
+      actionAsyn: function () {
+        var filter = function (card) {
+          return card.hasClass('精元');
+        };
+        return this.player.pickCardAsyn(filter,0,1);
+      }
+    }
+  },
+  "WDK02020": {
+    "pid": "WDK02020",
+    cid: "WDK02020",
+    "timestamp": 1528213304110,
+    "wxid": "WDK02-020",
+    name: "ＤＥＶＩＬ　ＳＥＡＬ",
+    "kana": "デビルシール",
+    "rarity": "ST",
+    "cardType": "SPELL",
+    "color": "blue",
+    "level": 0,
+    "limit": 0,
+    "power": 0,
+    "limiting": "ピルルク",
+    "imgUrl": "http://www.takaratomy.co.jp/products/wixoss/wxwp/images/card/WDK02/WDK02-020.jpg",
+    "illust": "DQN",
+    "classes": [],
+    "costWhite": 0,
+    "costBlack": 0,
+    "costRed": 0,
+    "costBlue": 0,
+    "costGreen": 0,
+    "costColorless": 0,
+    "guardFlag": false,
+    cardSkills: [
+      "以下の２つから１つを選ぶ。",
+      "①あなたの＜悪魔＞のシグニ１体を場からトラッシュに置く。そうした場合、対戦相手は手札を１枚捨てる。",
+      "②【エナチャージ１】（あなたのデッキの一番上のカードをエナゾーンに置く）"
+    ],
+    "multiEner": false,
+    cardText: "これも一つの戦略。～ピルルク～",
+    "format": "KEYSET",
+
+    // ======================
+    //        魔法效果       
+    // ======================
+    spellEffectTexts: [
+      "以下の２つから１つを選ぶ。\n" +
+      "①あなたの＜悪魔＞のシグニ１体を場からトラッシュに置く。そうした場合、対戦相手は手札を１枚捨てる。\n" +
+      "②【エナチャージ１】（あなたのデッキの一番上のカードをエナゾーンに置く）",
+      "あなたの＜悪魔＞のシグニ１体を場からトラッシュに置く。そうした場合、対戦相手は手札を１枚捨てる。",
+      "【エナチャージ１】",
+    ],
+    spellEffect: [{
+      getTargets: function () {
+        return this.player.signis.filter(function (signi) {
+          return signi.hasClass('怪異');
+        },this);
+      },
+      actionAsyn: function (target) {
+        return target.trashAsyn().callback(this,function (succ) {
+          if (succ) {
+            this.player.opponent.discardAsyn(1);
+          }
+        });
+      }
+    },{
+      actionAsyn: function() {
+        this.player.enerCharge(1);
+      }
+    }]
+  },
 };
 
 global.CardInfo = CardInfo;
